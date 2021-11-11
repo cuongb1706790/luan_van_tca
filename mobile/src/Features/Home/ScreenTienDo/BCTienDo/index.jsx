@@ -9,30 +9,31 @@ import {
   Image,
   Alert,
   Platform,
+  Picker,
 } from "react-native";
-import { Formik, ErrorMessage } from "formik";
+import { Formik, ErrorMessage, Field } from "formik";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import * as ImagePicker from "expo-image-picker";
 import * as Yup from "yup";
 import apiTiendo from "../../../../api/apiTiendo";
-
-function BCBienDong(props) {
+import { MaterialDialog } from "react-native-material-dialog";
+function BCTienDo(props) {
   const { navigation } = props;
   const idHodan = props.route.params.idHodan;
   // console.log(idHodan);
   const SignupSchema = Yup.object().shape({
-    ten: Yup.string().required("Tên báo cáo chưa hợp lệ "),
-    noidung: Yup.string().required("Nội dung chưa hợp lệ"),
+    soluong: Yup.string().required("Số lượng không được để trống "),
   });
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState("date");
   const [show, setShow] = useState(false);
+  const [visible, setVisible] = useState(false);
   const [idTienDo, setIdTienDo] = useState();
   useEffect(() => {
     (async () => {
       //get id TienDo
-      const getListTienDo = await apiTiendo.dsTiendo(idHodan);
-      setIdTienDo(getListTienDo.dstiendo[0]._id);
+      // const getListTienDo = await apiTiendo.dsTiendo(idHodan);
+      // setIdTienDo(getListTienDo.dstiendo[0]._id);
       //custom file img
       if (Platform.OS !== "web") {
         const { status } =
@@ -77,34 +78,103 @@ function BCBienDong(props) {
       setImage(result.uri);
     }
   };
-  const handleSumitLogin = async (values) => {
+  const listDH = [
+    {
+      id: 1,
+      madh: "DH001",
+      dssp: [
+        {
+          id: 11,
+          mssp: "SP001",
+          tensp: "Vải lụa xanh",
+          soluongsp: 300,
+          donvisp: "mét",
+          dongiasp: "50000000",
+          tongtiensp: "15000000000",
+        },
+        {
+          id: 12,
+          mssp: "SP002",
+          tensp: "Vải lụa đỏ",
+          soluongsp: 250,
+          donvisp: "mét",
+          dongiasp: "50000000",
+          tongtiensp: "15000000000",
+        },
+      ],
+      ngaygiao: "22/12/2022",
+    },
+    {
+      id: 2,
+      madh: "DH002",
+      dssp: [
+        {
+          id: 21,
+          mssp: "SP021",
+          tensp: "Vải lụa tím",
+          soluongsp: 280,
+          donvisp: "mét",
+          dongiasp: "50000000",
+          tongtiensp: "15000000000",
+        },
+        {
+          id: 22,
+          mssp: "SP022",
+          tensp: "Vải lụa hồng",
+          soluongsp: 220,
+          donvisp: "mét",
+          dongiasp: "50000000",
+          tongtiensp: "15000000000",
+        },
+      ],
+      ngaygiao: "22/12/2022",
+    },
+  ];
+  const handleClose = () => {
+    setVisible(false);
+  };
+  const handleOpen = () => {
+    setVisible(true);
+  };
+  const [selectedMaDH, setSelectedMaDH] = useState(listDH[0].madh);
+  const [selectedTenSP, setSelectedTenSP] = useState(
+    listDH.find((item) => item.madh === selectedMaDH).dssp[0].mssp
+  );
+  const handleSumitForm = async (values) => {
     try {
       if (image) {
+        // const dataForm = {
+        //   ten: values.ten,
+        //   tensanpham: values.tensanpham,
+        //   hinhanh: image,
+        //   thoigian: thoigianValue,
+        // };
+        // //call api to add TienDo
+        // const sendData = await apiTiendo.themBaocao(idTienDo, dataForm);
+        // // console.log(dataForm);
+        // navigation.navigate("TabNav");
         const dataForm = {
-          ten: values.ten,
-          noidung: values.noidung,
+          madh: selectedMaDH,
+          tensanpham: selectedTenSP,
+          soluonghoanthanh: values.soluong,
           hinhanh: image,
           thoigian: thoigianValue,
         };
-        //call api to add TienDo
-        const sendData = await apiTiendo.themBaocao(idTienDo,dataForm);
-        // console.log(dataForm);
-        navigation.navigate("TabNav");
-        
+        console.log(dataForm);
+      } else {
+        handleOpen();
       }
-    } catch (error) {
-      
-    }
- 
+    } catch (error) {}
   };
+
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
         <Text style={{ color: "white" }}>Báo cáo biến động</Text>
       </View>
       <Formik
-        initialValues={{ noidung: "", ten: "" }}
-        onSubmit={handleSumitLogin}
+        initialValues={{ soluong: "" }}
+        onSubmit={handleSumitForm}
         validationSchema={SignupSchema}
       >
         {({
@@ -116,74 +186,96 @@ function BCBienDong(props) {
           touched,
         }) => (
           <View style={styles.containerForm}>
-            <Text style={[styles.text]}>Tên báo cáo</Text>
+            <Text style={[styles.text]}>Mã đơn hàng</Text>
+            <View
+              style={{
+                marginBottom: 12,
+                marginTop: 12,
+                borderWidth: 1,
+
+                borderRadius: 10,
+                width: 300,
+                color: "black",
+                borderColor: "#ccccccf2",
+              }}
+            >
+              <Picker
+                selectedValue={selectedMaDH}
+                onValueChange={(itemValue, itemIndex) =>
+                  setSelectedMaDH(itemValue)
+                }
+              >
+                {listDH.map((item) => (
+                  <Picker.Item
+                    label={item.madh}
+                    value={item.madh}
+                    key={item.id}
+                  />
+                ))}
+              </Picker>
+            </View>
+            <Text style={[styles.text]}>Tên sản phẩm</Text>
+            <View
+              style={{
+                marginBottom: 12,
+                marginTop: 12,
+                borderWidth: 1,
+                borderRadius: 10,
+                width: 300,
+                color: "black",
+                borderColor: "#ccccccf2",
+              }}
+            >
+              <Picker
+                selectedValue={selectedTenSP}
+                onValueChange={(itemValue, itemIndex) =>
+                  setSelectedTenSP(itemValue)
+                }
+              >
+                {listDH
+                  .find((item) => item.madh === selectedMaDH)
+                  .dssp.map((item) => (
+                    <Picker.Item
+                      label={`${item.mssp} - ${item.tensp}`}
+                      value={item.mssp}
+                      key={item.id}
+                    />
+                  ))}
+              </Picker>
+            </View>
+
+            <Text style={styles.text}>Số lượng đã hoàn thành</Text>
             <TextInput
               style={[
                 styles.textInput,
                 {
                   borderColor: !touched
                     ? "#ccccccf2"
-                    : errors.ten
+                    : errors.soluong
                     ? "#FF5A5F"
                     : "#ccccccf2",
                 },
               ]}
-              onChangeText={handleChange("ten")}
-              onBlur={handleBlur("ten")}
-              value={values.ten}
-              error={errors.ten}
-              touched={touched.ten}
+              keyboardType="numeric"
+              onChangeText={handleChange("soluong")}
+              onBlur={handleBlur("soluong")}
+              value={values.soluong}
+              error={errors.soluong}
+              touched={touched.soluong}
             />
-            {errors.ten && touched.ten ? (
+            {errors.soluong && touched.soluong ? (
               <>
                 <Text
                   style={{
                     color: !touched
                       ? "#ccccccf2"
-                      : errors.ten
+                      : errors.soluong
                       ? "#FF5A5F"
                       : "#ccccccf2",
                     marginBottom: 5,
                   }}
                 >
-                  {errors.ten}
-                </Text>
-              </>
-            ) : null}
-            <Text style={styles.text}>Nội dung</Text>
-            <TextInput
-              style={[
-                styles.textInputNoiDung,
-                {
-                  borderColor: !touched
-                    ? "#ccccccf2"
-                    : errors.noidung
-                    ? "#FF5A5F"
-                    : "#ccccccf2",
-                },
-              ]}
-              multiline
-              maxLength={1000}
-              numberOfLines={10}
-              onChangeText={handleChange("noidung")}
-              onBlur={handleBlur("noidung")}
-              value={values.noidung}
-              error={errors.noidung}
-              touched={touched.noidung}
-            />
-            {errors.noidung && touched.noidung ? (
-              <>
-                <Text
-                  style={{
-                    color: !touched
-                      ? "#ccccccf2"
-                      : errors.noidung
-                      ? "#FF5A5F"
-                      : "#ccccccf2",
-                    marginBottom: 5,
-                  }}
-                >
-                  {errors.noidung}
+                  {errors.soluong}
                 </Text>
               </>
             ) : null}
@@ -196,9 +288,7 @@ function BCBienDong(props) {
                 <Ionicons name="calendar" size={30} color="#0000b3" />
               </Text>
             </View>
-
             <Text style={styles.text}>Hình ảnh</Text>
-
             <View>
               <Text
                 style={{
@@ -212,7 +302,6 @@ function BCBienDong(props) {
               >
                 Chọn ảnh
               </Text>
-
               {image ? (
                 <Image
                   source={{ uri: image }}
@@ -222,7 +311,7 @@ function BCBienDong(props) {
                 <View
                   style={{
                     borderRadius: 20,
-                    borderColor:(image) ? "#e6e6e6" : "#ff0000",
+                    borderColor: "#e6e6e6",
                     borderWidth: 1,
                     width: 300,
                     height: 200,
@@ -230,6 +319,18 @@ function BCBienDong(props) {
                 ></View>
               )}
             </View>
+            <MaterialDialog
+              title="Thông báo"
+              visible={visible}
+              onOk={() => {
+                setVisible(false);
+              }}
+              onCancel={() => {
+                setVisible(false);
+              }}
+            >
+              <Text>Vui lòng chọn hình ảnh cho sản phẩm!</Text>
+            </MaterialDialog>
             <View>
               {show && (
                 <DateTimePicker
@@ -260,9 +361,6 @@ function BCBienDong(props) {
                   borderWidth: 1,
                   borderRadius: 90,
                   paddingTop: 8,
-                  // paddingBottom: 5,
-                  // paddingLeft: 10,
-                  // paddingRight: 10,
                   width: 50,
                   textAlign: "center",
                   marginLeft: 20,
@@ -328,18 +426,6 @@ const styles = StyleSheet.create({
     width: 300,
     color: "black",
   },
-  textInputNoiDung: {
-    flexDirection: "column-reverse",
-    height: 160,
-    marginBottom: 12,
-    marginTop: 10,
-    marginLeft: 0,
-    borderWidth: 1,
-    padding: 10,
-    borderRadius: 10,
-    width: 300,
-    color: "black",
-  },
   textInputTime: {
     height: 40,
     marginBottom: 12,
@@ -368,4 +454,4 @@ const styles = StyleSheet.create({
     marginLeft: 50,
   },
 });
-export default BCBienDong;
+export default BCTienDo;
