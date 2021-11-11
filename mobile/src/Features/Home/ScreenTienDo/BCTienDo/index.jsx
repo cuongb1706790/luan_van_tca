@@ -16,13 +16,14 @@ import * as ImagePicker from "expo-image-picker";
 import * as Yup from "yup";
 import apiTiendo from "../../../../api/apiTiendo";
 
-function BCBienDong(props) {
+function BCTienDo(props) {
   const { navigation } = props;
   const idHodan = props.route.params.idHodan;
   // console.log(idHodan);
   const SignupSchema = Yup.object().shape({
-    ten: Yup.string().required("Tên báo cáo chưa hợp lệ "),
-    noidung: Yup.string().required("Nội dung chưa hợp lệ"),
+    madonhang: Yup.string().required("Mã đơn hàng không được để trống "),
+    tensanpham: Yup.string().required("Tên sản phẩm không được để trống "),
+    soluong: Yup.string().required("Số lượng không được để trống "),
   });
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState("date");
@@ -82,28 +83,76 @@ function BCBienDong(props) {
       if (image) {
         const dataForm = {
           ten: values.ten,
-          noidung: values.noidung,
+          tensanpham: values.tensanpham,
           hinhanh: image,
           thoigian: thoigianValue,
         };
         //call api to add TienDo
-        const sendData = await apiTiendo.themBaocao(idTienDo,dataForm);
+        const sendData = await apiTiendo.themBaocao(idTienDo, dataForm);
         // console.log(dataForm);
         navigation.navigate("TabNav");
-        
       }
-    } catch (error) {
-      
-    }
- 
+    } catch (error) {}
   };
+  const listDH = [
+    {
+      id: 1,
+      madh: "DH001",
+      dssp: [
+        {
+          id: 11,
+          mssp: "SP001",
+          tensp: "Vải lụa xanh",
+          soluongsp: 300,
+          donvisp: "mét",
+          dongiasp: "50000000",
+          tongtiensp: "15000000000",
+        },
+        {
+          id: 12,
+          mssp: "SP002",
+          tensp: "Vải lụa đỏ",
+          soluongsp: 250,
+          donvisp: "mét",
+          dongiasp: "50000000",
+          tongtiensp: "15000000000",
+        },
+      ],
+      ngaygiao: "22/12/2022",
+    },
+    {
+      id: 2,
+      madh: "DH002",
+      dssp: [
+        {
+          id: 21,
+          mssp: "SP021",
+          tensp: "Vải lụa tím",
+          soluongsp: 280,
+          donvisp: "mét",
+          dongiasp: "50000000",
+          tongtiensp: "15000000000",
+        },
+        {
+          id: 22,
+          mssp: "SP022",
+          tensp: "Vải lụa hồng",
+          soluongsp: 220,
+          donvisp: "mét",
+          dongiasp: "50000000",
+          tongtiensp: "15000000000",
+        },
+      ],
+      ngaygiao: "22/12/2022",
+    },
+  ];
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
         <Text style={{ color: "white" }}>Báo cáo biến động</Text>
       </View>
       <Formik
-        initialValues={{ noidung: "", ten: "" }}
+        initialValues={{ tensanpham: "", madonhang: "", soluong: "" }}
         onSubmit={handleSumitLogin}
         validationSchema={SignupSchema}
       >
@@ -116,74 +165,105 @@ function BCBienDong(props) {
           touched,
         }) => (
           <View style={styles.containerForm}>
-            <Text style={[styles.text]}>Tên báo cáo</Text>
+            <Text style={[styles.text]}>Mã đơn hàng</Text>
             <TextInput
               style={[
                 styles.textInput,
                 {
                   borderColor: !touched
                     ? "#ccccccf2"
-                    : errors.ten
+                    : errors.madonhang
                     ? "#FF5A5F"
                     : "#ccccccf2",
                 },
               ]}
-              onChangeText={handleChange("ten")}
-              onBlur={handleBlur("ten")}
-              value={values.ten}
-              error={errors.ten}
-              touched={touched.ten}
+              onChangeText={handleChange("madonhang")}
+              onBlur={handleBlur("madonhang")}
+              value={values.madonhang}
+              error={errors.madonhang}
+              touched={touched.madonhang}
             />
-            {errors.ten && touched.ten ? (
+            {errors.madonhang && touched.madonhang ? (
               <>
                 <Text
                   style={{
                     color: !touched
                       ? "#ccccccf2"
-                      : errors.ten
+                      : errors.madonhang
                       ? "#FF5A5F"
                       : "#ccccccf2",
                     marginBottom: 5,
                   }}
                 >
-                  {errors.ten}
+                  {errors.madonhang}
                 </Text>
               </>
             ) : null}
-            <Text style={styles.text}>Nội dung</Text>
+            <Text style={styles.text}>Tên sản phẩm</Text>
             <TextInput
               style={[
-                styles.textInputNoiDung,
+                styles.textInput,
                 {
                   borderColor: !touched
                     ? "#ccccccf2"
-                    : errors.noidung
+                    : errors.tensanpham
                     ? "#FF5A5F"
                     : "#ccccccf2",
                 },
               ]}
-              multiline
-              maxLength={1000}
-              numberOfLines={10}
-              onChangeText={handleChange("noidung")}
-              onBlur={handleBlur("noidung")}
-              value={values.noidung}
-              error={errors.noidung}
-              touched={touched.noidung}
+              onChangeText={handleChange("tensanpham")}
+              onBlur={handleBlur("tensanpham")}
+              value={values.tensanpham}
+              error={errors.tensanpham}
+              touched={touched.tensanpham}
             />
-            {errors.noidung && touched.noidung ? (
+            {errors.tensanpham && touched.tensanpham ? (
               <>
                 <Text
                   style={{
                     color: !touched
                       ? "#ccccccf2"
-                      : errors.noidung
+                      : errors.tensanpham
                       ? "#FF5A5F"
                       : "#ccccccf2",
                     marginBottom: 5,
                   }}
                 >
-                  {errors.noidung}
+                  {errors.tensanpham}
+                </Text>
+              </>
+            ) : null}
+            <Text style={styles.text}>Số lượng đã hoàn thành</Text>
+            <TextInput
+              style={[
+                styles.textInput,
+                {
+                  borderColor: !touched
+                    ? "#ccccccf2"
+                    : errors.soluong
+                    ? "#FF5A5F"
+                    : "#ccccccf2",
+                },
+              ]}
+              onChangeText={handleChange("soluong")}
+              onBlur={handleBlur("soluong")}
+              value={values.soluong}
+              error={errors.soluong}
+              touched={touched.soluong}
+            />
+            {errors.soluong && touched.soluong ? (
+              <>
+                <Text
+                  style={{
+                    color: !touched
+                      ? "#ccccccf2"
+                      : errors.soluong
+                      ? "#FF5A5F"
+                      : "#ccccccf2",
+                    marginBottom: 5,
+                  }}
+                >
+                  {errors.soluong}
                 </Text>
               </>
             ) : null}
@@ -222,7 +302,7 @@ function BCBienDong(props) {
                 <View
                   style={{
                     borderRadius: 20,
-                    borderColor:(image) ? "#e6e6e6" : "#ff0000",
+                    borderColor: image ? "#e6e6e6" : "#ff0000",
                     borderWidth: 1,
                     width: 300,
                     height: 200,
@@ -328,18 +408,6 @@ const styles = StyleSheet.create({
     width: 300,
     color: "black",
   },
-  textInputNoiDung: {
-    flexDirection: "column-reverse",
-    height: 160,
-    marginBottom: 12,
-    marginTop: 10,
-    marginLeft: 0,
-    borderWidth: 1,
-    padding: 10,
-    borderRadius: 10,
-    width: 300,
-    color: "black",
-  },
   textInputTime: {
     height: 40,
     marginBottom: 12,
@@ -368,4 +436,4 @@ const styles = StyleSheet.create({
     marginLeft: 50,
   },
 });
-export default BCBienDong;
+export default BCTienDo;

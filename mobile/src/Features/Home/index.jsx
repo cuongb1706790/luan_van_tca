@@ -47,8 +47,8 @@ function Home(props) {
     setCheckDonHang(false);
     setCheckKho(true);
   };
-  const handleRedirectBCBienDong = ()=>{
-    navigation.navigate("FormBCBienDong", {idHodan : `${idHodan}`});
+  const handleRedirectBCTienDo = ()=>{
+    navigation.navigate("FormBCTienDo", {idHodan : `${idHodan}`});
 
   }
   const handleRedirectCongCu = ()=>{
@@ -128,7 +128,7 @@ function Home(props) {
           <>
             <View style={styles.containerRowRedirect}>
               <View>
-                <Text style={styles.containerRedirect} onPress={handleRedirectBCBienDong}>
+                <Text style={styles.containerRedirect} onPress={handleRedirectBCTienDo}>
                   <View>
                     <Ionicons name="reader-outline" size={70} color="#0000b3" />
                   </View>
