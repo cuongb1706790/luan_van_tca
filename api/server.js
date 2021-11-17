@@ -14,6 +14,7 @@ const langngheRouter = require("./routers/langngheRouter");
 const vattuRouter = require("./routers/vattuRouter");
 const nguyenlieuRouter = require("./routers/nguyenlieuRouter");
 const loaiSanphamRouter = require("./routers/loaiSanphamRouter");
+const donhangRouter = require("./routers/donhangRouter");
 const app = express();
 
 app.use(cors());
@@ -39,6 +40,7 @@ app.use("/api/langnghe", langngheRouter);
 app.use("/api/vattu", vattuRouter);
 app.use("/api/nguyenlieu", nguyenlieuRouter);
 app.use("/api/loaisanpham", loaiSanphamRouter);
+app.use("/api/donhang", donhangRouter);
 
 const port = process.env.PORT || 8000;
 

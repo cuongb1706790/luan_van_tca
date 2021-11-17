@@ -121,23 +121,24 @@ const TableCongcu = ({ dsNguyenlieu = [], setRowsRemoved, bophankdId }) => {
                             }}
                           />
                         </TableCell>
+                        <TableCell align="right">{row?.donhang.ma}</TableCell>
+                        <TableCell align="right">{row?.ten}</TableCell>
                         <TableCell>
                           <img
                             src={
-                              row.hinhanh
-                                ? `/uploads/${row.hinhanh}`
+                              row?.hinhanh
+                                ? `/uploads/${row?.hinhanh}`
                                 : img_placeholder
                             }
                             alt="anhcongcu"
                             style={{ width: "30px" }}
-                            className={!row.hinhanh && "noImage"}
+                            className={!row?.hinhanh && "noImage"}
                           />
                         </TableCell>
-                        <TableCell align="right">{row.ten}</TableCell>
-                        <TableCell align="right">{row.sanluong}</TableCell>
-                        <TableCell align="right">{row.donvitinh}</TableCell>
-                        <TableCell align="right">{row.ngaytao}</TableCell>
-                        <TableCell align="right">
+                        <TableCell align="right">{row?.khoiluong}</TableCell>
+                        <TableCell align="right">{row?.congdung}</TableCell>
+                        <TableCell align="right">{row?.ngaytao}</TableCell>
+                        {/* <TableCell align="right">
                           {
                             <TableButton
                               onClick={() =>
@@ -149,7 +150,7 @@ const TableCongcu = ({ dsNguyenlieu = [], setRowsRemoved, bophankdId }) => {
                               Chi tiết
                             </TableButton>
                           }
-                        </TableCell>
+                        </TableCell> */}
                       </TableRow>
                     );
                   })}

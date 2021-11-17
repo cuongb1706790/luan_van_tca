@@ -15,9 +15,13 @@ const Sanpham = (props) => {
 
   const fetchDsSanpham = async () => {
     setLoading(true);
-    const { bophankd } = await apiBophankd.bophankdBasedUserId(userInfo?._id);
-    const { sanpham } = await apiBophankd.bophankdDSSanpham(bophankd?._id);
-    setDsSanpham(sanpham);
+    const { bophankd } = await apiBophankd.bophankdBasedUserId(userInfo._id);
+    let { dssanpham } = await apiBophankd.bophankdDSSanpham(bophankd._id);
+    dssanpham = dssanpham.map((sp) => ({
+      ...sp.sanpham,
+      ...sp,
+    }));
+    setDsSanpham(dssanpham);
     setLoading(false);
   };
 

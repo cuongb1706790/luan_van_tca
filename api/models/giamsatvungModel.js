@@ -35,6 +35,18 @@ const giamsatvungSchema = new mongoose.Schema(
         ref: "Daily2",
       },
     ],
+    donhang: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Donhang",
+      },
+    ],
+    subdonhang: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Donhang",
+      },
+    ],
   },
   {
     timestamps: true,

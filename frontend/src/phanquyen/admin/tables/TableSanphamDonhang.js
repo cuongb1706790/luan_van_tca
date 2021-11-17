@@ -8,21 +8,37 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Checkbox from "@mui/material/Checkbox";
-import { useHistory } from "react-router-dom";
 import img_placeholder from "../../../assets/images/img_placeholder.png";
 import EnhancedTableHead from "../../../components/table/EnhancedTableHead";
 import { getComparator } from "../../../utils";
 import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
-import { headCellsCongcu } from "./headCells";
-import TableButton from "../../../components/TableButton";
+import { headCellsSanphamDonhang } from "./headCells";
+import styled from "styled-components";
 
-const TableCongcu = ({ dsCongcu = [] }) => {
+const TableSanphamDonhang = ({ dsSanpham = [], setDsSP }) => {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const history = useHistory();
+
+  const handleChangeSoluong = (e, id) => {
+    let val = e.target.value;
+    if (isNaN(val)) {
+      e.target.value = 1;
+    } else {
+      setDsSP(
+        dsSanpham.map((item) =>
+          item._id === id
+            ? {
+                ...item,
+                soluong: val,
+              }
+            : item
+        )
+      );
+    }
+  };
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -32,14 +48,14 @@ const TableCongcu = ({ dsCongcu = [] }) => {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = dsCongcu?.map((item) => item._id);
+      const newSelecteds = dsSanpham.map((item) => item._id);
       setSelected(newSelecteds);
       return;
     }
     setSelected([]);
   };
 
-  const handleClick = (event, _id, row) => {
+  const handleClick = (event, _id) => {
     const selectedIndex = selected.indexOf(_id);
     let newSelected = [];
 
@@ -55,6 +71,7 @@ const TableCongcu = ({ dsCongcu = [] }) => {
         selected.slice(selectedIndex + 1)
       );
     }
+
     setSelected(newSelected);
   };
 
@@ -71,7 +88,7 @@ const TableCongcu = ({ dsCongcu = [] }) => {
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - dsCongcu?.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - dsSanpham.length) : 0;
 
   return (
     <>
@@ -90,12 +107,12 @@ const TableCongcu = ({ dsCongcu = [] }) => {
                 orderBy={orderBy}
                 onSelectAllClick={handleSelectAllClick}
                 onRequestSort={handleRequestSort}
-                rowCount={dsCongcu?.length}
-                headCells={headCellsCongcu}
+                rowCount={dsSanpham.length}
+                headCells={headCellsSanphamDonhang}
               />
               <TableBody>
-                {dsCongcu
-                  ?.slice()
+                {dsSanpham
+                  .slice()
                   .sort(getComparator(order, orderBy))
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row, index) => {
@@ -105,7 +122,7 @@ const TableCongcu = ({ dsCongcu = [] }) => {
                     return (
                       <TableRow
                         hover
-                        onClick={(event) => handleClick(event, row._id, row)}
+                        onClick={(event) => handleClick(event, row._id)}
                         role="checkbox"
                         aria-checked={isItemSelected}
                         tabIndex={-1}
@@ -121,36 +138,38 @@ const TableCongcu = ({ dsCongcu = [] }) => {
                             }}
                           />
                         </TableCell>
-                        <TableCell align="right">{row?.donhang.ma}</TableCell>
-                        <TableCell align="right">{row?.ten}</TableCell>
-                        <TableCell>
+                        <TableCell align="right">{row.ma}</TableCell>
+                        <TableCell
+                          component="th"
+                          id={labelId}
+                          scope="row"
+                          padding="none"
+                        >
                           <img
                             src={
-                              row?.hinhanh
-                                ? `/uploads/${row?.hinhanh}`
+                              row.hinhanh
+                                ? `/uploads/${row.hinhanh}`
                                 : img_placeholder
                             }
                             alt="anhcongcu"
                             style={{ width: "30px" }}
-                            className={!row?.hinhanh && "noImage"}
+                            className={!row.hinhanh && "noImage"}
                           />
                         </TableCell>
-                        <TableCell align="right">{row?.soluong}</TableCell>
-                        <TableCell align="right">{row?.congdung}</TableCell>
-                        <TableCell align="right">{row?.ngaytao}</TableCell>
-                        {/* <TableCell align="right">
-                          {
-                            <TableButton
-                              onClick={() =>
-                                history.push(
-                                  `/bophankd/congcu/chitiet/${row._id}`
-                                )
-                              }
-                            >
-                              Chi tiết
-                            </TableButton>
-                          }
-                        </TableCell> */}
+                        <TableCell align="right">{row.ten}</TableCell>
+                        <TableCell align="right">
+                          {row.loaisanpham.ten}
+                        </TableCell>
+                        <TableCell align="right">
+                          <Input
+                            type="text"
+                            value={row.soluong}
+                            onChange={(e) => handleChangeSoluong(e, row._id)}
+                          />
+                        </TableCell>
+                        <TableCell align="right">
+                          {row.soluong * row.gia}
+                        </TableCell>
                       </TableRow>
                     );
                   })}
@@ -169,12 +188,12 @@ const TableCongcu = ({ dsCongcu = [] }) => {
           <TablePagination
             rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
             colSpan={3}
-            count={dsCongcu?.length}
+            count={dsSanpham.length}
             rowsPerPage={rowsPerPage}
             page={page}
             SelectProps={{
               inputProps: {
-                "aria-label": "số dòng trên trang",
+                "aria-label": "rows per page",
               },
               native: true,
             }}
@@ -189,4 +208,17 @@ const TableCongcu = ({ dsCongcu = [] }) => {
   );
 };
 
-export default TableCongcu;
+const Input = styled.input`
+  width: 80px;
+  color: #444;
+  text-align: center;
+  padding: 3px;
+  outline: none;
+  border-radius: 3px;
+  border: 1px solid #ddd;
+  &:focus {
+    border: 1px solid #999;
+  }
+`;
+
+export default TableSanphamDonhang;

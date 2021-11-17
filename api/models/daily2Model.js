@@ -41,6 +41,18 @@ const daily2Schema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    donhang: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Donhang",
+      },
+    ],
+    subdonhang: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Donhang",
+      },
+    ],
   },
   {
     timestamps: true,

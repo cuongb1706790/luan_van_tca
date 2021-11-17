@@ -18,6 +18,7 @@ import Daily1Chitiet from "./Daily1Chitiet";
 import Daily1Chinhsua from "./Daily1Chinhsua";
 import Daily2 from "./Daily2";
 import Daily2Chitiet from "./Daily2Chitiet";
+import Donhang from "./Donhang";
 
 const Dashboard = (props) => {
   const dispatch = useDispatch();
@@ -68,6 +69,13 @@ const Dashboard = (props) => {
           </MenuItem>
 
           <MenuItem>
+            <NavLink to="/giamsatvung/donhang" activeClassName="active">
+              <Image src={langngheIcon} alt="donhang" />
+              <span>Đơn hàng</span>
+            </NavLink>
+          </MenuItem>
+
+          <MenuItem>
             <LogoutButton onClick={handleLogout}>Đăng xuất</LogoutButton>
           </MenuItem>
         </Menu>
@@ -102,6 +110,8 @@ const Dashboard = (props) => {
           path="/giamsatvung/daily2/chitiet/:id"
           component={Daily2Chitiet}
         />
+
+        <Route exact path="/giamsatvung/donhang" component={Donhang} />
       </RightContent>
     </Container>
   );

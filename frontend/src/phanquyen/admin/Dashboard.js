@@ -39,6 +39,9 @@ import Nguyenlieu from "./Nguyenlieu";
 import NguyenlieuThem from "./NguyenlieuThem";
 import NguyenlieuChitiet from "./NguyenlieuChitiet";
 import NguyenlieuChinhsua from "./NguyenlieuChinhsua";
+import Donhang from "./Donhang";
+import DonhangThem from "./DonhangThem";
+import DonhangChitiet from "./DonhangChitiet";
 
 const Dashboard = (props) => {
   const dispatch = useDispatch();
@@ -117,6 +120,13 @@ const Dashboard = (props) => {
           </MenuItem>
 
           <MenuItem>
+            <NavLink to="/admin/donhang" activeClassName="active">
+              <Image src={spIcon} alt="donhang" />
+              <span>Đơn hàng</span>
+            </NavLink>
+          </MenuItem>
+
+          <MenuItem>
             <LogoutButton onClick={handleLogout}>Đăng xuất</LogoutButton>
           </MenuItem>
         </Menu>
@@ -173,6 +183,10 @@ const Dashboard = (props) => {
           path="/admin/nguyenlieu/chinhsua/:id"
           component={NguyenlieuChinhsua}
         />
+
+        <Route exact path="/admin/donhang" component={Donhang} />
+        <Route path="/admin/donhang/them" component={DonhangThem} />
+        <Route path="/admin/donhang/chitiet/:id" component={DonhangChitiet} />
       </RightContent>
     </Container>
   );

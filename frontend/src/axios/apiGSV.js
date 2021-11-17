@@ -60,6 +60,12 @@ const apiGSV = {
     const url = `/gsv/duyet/${daily2Id}/${gsvId}`;
     return axiosClient.put(url);
   },
+
+  // lay ds don hang thuoc gsv
+  dsDonhang(gsvId) {
+    const url = `/gsv/dsdonhang/${gsvId}`;
+    return axiosClient.get(url);
+  },
 };
 
 export default apiGSV;

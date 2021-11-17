@@ -9,20 +9,103 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Checkbox from "@mui/material/Checkbox";
 import { useHistory } from "react-router-dom";
-import img_placeholder from "../../../assets/images/img_placeholder.png";
 import EnhancedTableHead from "../../../components/table/EnhancedTableHead";
 import { getComparator } from "../../../utils";
 import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
-import { headCellsCongcu } from "./headCells";
+import { headCellsDonhang } from "./headCells";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import { alpha } from "@mui/material/styles";
+import DialogMaterial from "../../../components/DialogMaterial";
 import TableButton from "../../../components/TableButton";
+import { toast } from "react-toastify";
+import apiLoaiSanpham from "../../../axios/apiLoaiSanpham";
 
-const TableCongcu = ({ dsCongcu = [] }) => {
+const EnhancedTableToolbar = ({
+  numSelected,
+  rowsSelected,
+  onClickChitiet,
+  onClickCapnhat,
+  onClickXoa,
+}) => {
+  return numSelected > 0 ? (
+    <>
+      <Toolbar
+        sx={{
+          pl: { sm: 7 },
+          pr: { xs: 1, sm: 1 },
+          ...(numSelected > 0 && {
+            bgcolor: (theme) =>
+              alpha(
+                theme.palette.primary.main,
+                theme.palette.action.activatedOpacity
+              ),
+          }),
+        }}
+      >
+        {numSelected > 0 ? (
+          <Typography
+            sx={{ flex: "1 1 100%" }}
+            color="inherit"
+            variant="subtitle1"
+            component="div"
+          >
+            <div className="d-flex align-items-center">
+              {rowsSelected.length === 1 ? (
+                <>
+                  <TableButton onClick={onClickChitiet}>Chi tiết</TableButton>
+                  <TableButton onClick={onClickCapnhat}>Cập nhật</TableButton>
+                  <TableButton onClick={onClickXoa}>Xóa</TableButton>
+                </>
+              ) : (
+                <TableButton onClick={onClickXoa}>Xóa</TableButton>
+              )}
+            </div>
+          </Typography>
+        ) : (
+          <Typography
+            sx={{ flex: "1 1 100%" }}
+            variant="h6"
+            id="tableTitle"
+            component="div"
+          >
+            Nutrition
+          </Typography>
+        )}
+      </Toolbar>
+    </>
+  ) : null;
+};
+
+const TableDonhang = ({ dsDonhang = [], setRowsRemoved }) => {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [open, setOpen] = React.useState(false);
   const history = useHistory();
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const onClickChitiet = () =>
+    history.push(`/admin/donhang/chitiet/${selected[0]}`);
+
+  const onClickCapnhat = () =>
+    history.push(`/admin/donhang/chinhsua/${selected[0]}`);
+
+  const onClickXoa = () => handleOpen();
+
+  const handleDeleteRow = async () => {
+    const { success } = await apiLoaiSanpham.xoaNhieuLoaiSanpham({
+      arrOfIds: selected,
+    });
+    if (success) {
+      toast.success("Xóa thành công!", { theme: "colored" });
+      setRowsRemoved(true);
+    }
+  };
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -32,14 +115,14 @@ const TableCongcu = ({ dsCongcu = [] }) => {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = dsCongcu?.map((item) => item._id);
+      const newSelecteds = dsDonhang.map((item) => item._id);
       setSelected(newSelecteds);
       return;
     }
     setSelected([]);
   };
 
-  const handleClick = (event, _id, row) => {
+  const handleClick = (event, _id) => {
     const selectedIndex = selected.indexOf(_id);
     let newSelected = [];
 
@@ -55,6 +138,7 @@ const TableCongcu = ({ dsCongcu = [] }) => {
         selected.slice(selectedIndex + 1)
       );
     }
+
     setSelected(newSelected);
   };
 
@@ -71,12 +155,19 @@ const TableCongcu = ({ dsCongcu = [] }) => {
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - dsCongcu?.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - dsDonhang.length) : 0;
 
   return (
     <>
       <Box sx={{ width: "100%" }}>
         <Paper sx={{ width: "100%", mb: 2 }}>
+          <EnhancedTableToolbar
+            numSelected={selected.length}
+            rowsSelected={selected}
+            onClickChitiet={onClickChitiet}
+            onClickCapnhat={onClickCapnhat}
+            onClickXoa={onClickXoa}
+          />
           <TableContainer>
             <Table
               sx={{ minWidth: 750 }}
@@ -90,12 +181,12 @@ const TableCongcu = ({ dsCongcu = [] }) => {
                 orderBy={orderBy}
                 onSelectAllClick={handleSelectAllClick}
                 onRequestSort={handleRequestSort}
-                rowCount={dsCongcu?.length}
-                headCells={headCellsCongcu}
+                rowCount={dsDonhang.length}
+                headCells={headCellsDonhang}
               />
               <TableBody>
-                {dsCongcu
-                  ?.slice()
+                {dsDonhang
+                  .slice()
                   .sort(getComparator(order, orderBy))
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row, index) => {
@@ -105,7 +196,7 @@ const TableCongcu = ({ dsCongcu = [] }) => {
                     return (
                       <TableRow
                         hover
-                        onClick={(event) => handleClick(event, row._id, row)}
+                        onClick={(event) => handleClick(event, row._id)}
                         role="checkbox"
                         aria-checked={isItemSelected}
                         tabIndex={-1}
@@ -121,36 +212,15 @@ const TableCongcu = ({ dsCongcu = [] }) => {
                             }}
                           />
                         </TableCell>
-                        <TableCell align="right">{row?.donhang.ma}</TableCell>
-                        <TableCell align="right">{row?.ten}</TableCell>
-                        <TableCell>
-                          <img
-                            src={
-                              row?.hinhanh
-                                ? `/uploads/${row?.hinhanh}`
-                                : img_placeholder
-                            }
-                            alt="anhcongcu"
-                            style={{ width: "30px" }}
-                            className={!row?.hinhanh && "noImage"}
-                          />
+                        <TableCell align="right">{row.ma}</TableCell>
+                        <TableCell align="right">{row.tongsanpham}</TableCell>
+                        <TableCell align="right">{row.tongcongcu}</TableCell>
+                        <TableCell align="right">{row.tongvattu}</TableCell>
+                        <TableCell align="right">
+                          {row.tongnguyenlieu}
                         </TableCell>
-                        <TableCell align="right">{row?.soluong}</TableCell>
-                        <TableCell align="right">{row?.congdung}</TableCell>
-                        <TableCell align="right">{row?.ngaytao}</TableCell>
-                        {/* <TableCell align="right">
-                          {
-                            <TableButton
-                              onClick={() =>
-                                history.push(
-                                  `/bophankd/congcu/chitiet/${row._id}`
-                                )
-                              }
-                            >
-                              Chi tiết
-                            </TableButton>
-                          }
-                        </TableCell> */}
+                        <TableCell align="right">{row.tongdongia}</TableCell>
+                        <TableCell align="right">{row.ngaytao}</TableCell>
                       </TableRow>
                     );
                   })}
@@ -169,12 +239,12 @@ const TableCongcu = ({ dsCongcu = [] }) => {
           <TablePagination
             rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
             colSpan={3}
-            count={dsCongcu?.length}
+            count={dsDonhang.length}
             rowsPerPage={rowsPerPage}
             page={page}
             SelectProps={{
               inputProps: {
-                "aria-label": "số dòng trên trang",
+                "aria-label": "rows per page",
               },
               native: true,
             }}
@@ -185,8 +255,19 @@ const TableCongcu = ({ dsCongcu = [] }) => {
           />
         </Paper>
       </Box>
+
+      <DialogMaterial
+        open={open}
+        onClose={handleClose}
+        title="Xóa sản phẩm làng nghề"
+        content="Bạn chắc xóa sản phẩm làng nghề này chứ?"
+        text1="Hủy"
+        text2="Xóa"
+        onClick1={handleClose}
+        onClick2={handleDeleteRow}
+      />
     </>
   );
 };
 
-export default TableCongcu;
+export default TableDonhang;

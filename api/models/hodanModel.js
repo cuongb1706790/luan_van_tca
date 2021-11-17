@@ -34,6 +34,12 @@ const hodanSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    donhang: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Donhang",
+      },
+    ],
   },
   {
     timestamps: true,

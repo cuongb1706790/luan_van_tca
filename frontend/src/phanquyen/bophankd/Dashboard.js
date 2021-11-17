@@ -22,6 +22,10 @@ import Giamsatvung from "./Giamsatvung";
 import GiamsatvungThem from "./GiamsatvungThem";
 import Daily2 from "./Daily2";
 import Daily2Chitiet from "./Daily2Chitiet";
+import Donhang from "./Donhang";
+import DonhangThem from "./DonhangThem";
+import DonhangChitiet from "./DonhangChitiet";
+import Tiendo from "./Tiendo";
 
 const Dashboard = (props) => {
   const dispatch = useDispatch();
@@ -100,6 +104,13 @@ const Dashboard = (props) => {
           </MenuItem>
 
           <MenuItem>
+            <NavLink to="/bophankd/donhang" activeClassName="active">
+              <i class="far fa-newspaper"></i>
+              <span>Đơn hàng</span>
+            </NavLink>
+          </MenuItem>
+
+          <MenuItem>
             <LogoutButton onClick={handleLogout}>Đăng xuất</LogoutButton>
           </MenuItem>
         </Menu>
@@ -128,6 +139,15 @@ const Dashboard = (props) => {
 
         <Route exact path="/bophankd/daily2" component={Daily2} />
         <Route path="/bophankd/daily2/chitiet/:id" component={Daily2Chitiet} />
+
+        <Route exact path="/bophankd/donhang" component={Donhang} />
+        <Route path="/bophankd/donhang/them" component={DonhangThem} />
+        <Route
+          exact
+          path="/bophankd/donhang/chitiet/:id"
+          component={DonhangChitiet}
+        />
+        <Route path="/bophankd/donhang/chitiet/:id/tiendo" component={Tiendo} />
       </RightContent>
     </Container>
   );

@@ -1,34 +1,28 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import apiBophankd from "../../axios/apiBophankd";
+import React from "react";
 import BackdropMaterial from "../../components/BackdropMaterial";
-import styled from "styled-components";
 import Header from "../../components/Header";
-import TableVattu from "./tables/TableVattu";
+import styled from "styled-components";
+import TableDonhang from "./tables/TableDonhang";
+import apiDonhang from "../../axios/apiDonhang";
 
-const Vattu = (props) => {
-  const [query, setQuery] = useState("");
-  const [searchColumns] = useState(["ten", "congdung"]);
-  const [loading, setLoading] = useState(false);
-  const [dsVattu, setDsVattu] = useState([]);
-  const { userInfo } = useSelector((state) => state.user);
+const Donhang = (props) => {
+  const [query, setQuery] = React.useState("");
+  const [searchColumns] = React.useState(["ma", "ten", "mota"]);
+  const [loading, setLoading] = React.useState(false);
+  const [dsDonhang, setDsDonhang] = React.useState([]);
+  const [rowsRemoved, setRowsRemoved] = React.useState(false);
 
-  const fetchDsVattu = async () => {
+  const fetchDsSanpham = async () => {
     setLoading(true);
-    const { bophankd } = await apiBophankd.bophankdBasedUserId(userInfo._id);
-    let { dsvattu } = await apiBophankd.bophankdDSVattu(bophankd._id);
-    dsvattu = dsvattu.map((vt) => ({
-      ...vt.vattu,
-      ...vt,
-    }));
-    setDsVattu(dsvattu);
+    const { donhang } = await apiDonhang.allDsDonhang();
+    setDsDonhang(donhang);
     setLoading(false);
   };
 
-  const search = (dsVattu) => {
+  const search = (dsSanpham) => {
     return (
-      dsVattu &&
-      dsVattu.filter((item) =>
+      dsSanpham &&
+      dsSanpham.filter((item) =>
         searchColumns.some(
           (col) =>
             item[col].toString().toLowerCase().indexOf(query.toLowerCase()) > -1
@@ -37,10 +31,11 @@ const Vattu = (props) => {
     );
   };
 
-  useEffect(() => {
-    fetchDsVattu();
+  React.useEffect(() => {
+    setRowsRemoved(false);
+    fetchDsSanpham();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [rowsRemoved]);
 
   if (loading) {
     return <BackdropMaterial />;
@@ -49,25 +44,37 @@ const Vattu = (props) => {
   return (
     <>
       <Wrapper>
-        <Header title="Vật tư" />
+        <Header title="Đơn hàng" />
         <Content>
+          <BtnRight>
+            <button
+              className="btn btn-primary px-4"
+              onClick={() => props.history.push("/admin/donhang/them")}
+            >
+              Thêm
+            </button>
+          </BtnRight>
           <FilterSection>
-            <TitleWrapper className="d-flex justify-content-between align-items-center">
-              <Title>Danh sách vật tư</Title>
+            <TitleWrapper>
+              <Title>Danh sách đơn hàng</Title>
             </TitleWrapper>
             <Filter>
               <SearchBox>
                 <i class="fas fa-search"></i>
                 <input
                   type="text"
-                  placeholder="Tim vật tư theo tên, công dụng"
+                  placeholder="Tìm đơn hàng theo mã"
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                 />
               </SearchBox>
             </Filter>
+
             <TableSection>
-              <TableVattu dsVattu={search(dsVattu)} />
+              <TableDonhang
+                dsDonhang={dsDonhang}
+                setRowsRemoved={setRowsRemoved}
+              />
             </TableSection>
           </FilterSection>
         </Content>
@@ -85,8 +92,16 @@ const Content = styled.div`
   flex: 1;
   background: #f0eeee;
   padding: 36px;
-  font-family: "Poppins", sans-serif;
 `;
+const BtnRight = styled.div`
+  text-align: right;
+  background-color: #fff;
+  margin-bottom: 16px;
+  padding: 10px;
+  border-radius: 4px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.18);
+`;
+
 const FilterSection = styled.div`
   background: #fff;
 `;
@@ -95,6 +110,7 @@ const Title = styled.div`
   padding: 14px 17px;
   font-weight: 500;
   color: #1e93e8;
+  font-family: "Poppins", sans-serif;
   display: inline-block;
   border-bottom: 2px solid #1e93e8;
 `;
@@ -124,9 +140,11 @@ const SearchBox = styled.div`
     padding: 0 10px;
     color: #182537;
     font-size: 14px;
+    font-family: "Poppins", sans-serif;
     &::placeholder {
       font-size: 14px;
       color: rgba(0, 0, 0, 0.35);
+      font-family: "Poppins", sans-serif;
     }
   }
 `;
@@ -135,10 +153,6 @@ const TableSection = styled.div`
   td {
     font-family: "Poppins", sans-serif;
   }
-  th:first-child,
-  td:first-child {
-    display: none;
-  }
 `;
 
-export default Vattu;
+export default Donhang;

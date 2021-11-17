@@ -10,10 +10,15 @@ useEffect(() => {},[]) => useEffect chỉ chạy 1 lần khác với state thay 
 * xem thong tin lang nghe -> click icon langnghe
 * langnghe: don dat hang, tuong tac voi' nong dan, theo doi don hang, su kien xay ra -> thong bao'
 
+db.bophankds.update({}, { $set: { dssanpham: [] }});
+db.bophankds.update({}, { $set: { dscongcu: [] }});
+db.bophankds.update({}, { $set: { dsvattu: [] }});
+db.bophankds.update({}, { $set: { dsnguyenlieu: [] }});
 
-db.bophankds.update({}, { $set: { daily1: [] }})
-db.bophankds.update({}, { $set: { daily2: [] }})
-db.giamsatvungs.update({}, { $set: { loaisanpham: [] }})
+db.bophankds.update({}, { $set: { donhang: [] }});
+db.bophankds.update({}, { $set: { subdonhang: [] }});
+db.giamsatvungs.update({}, { $set: { donhang: [] }});
+db.donhangs.update({}, { $set: { dasudung: false }});
 
 
 
@@ -69,33 +74,9 @@ gsv B (A, D, E)
         DL2H (D, E)
             HDQ(LSP: D)
             HDZ(LSP: E)
-        
 
-BPKD select GSV
-    - Don hang: tong hop ra loaisanpham: [Ax10 (lsp: A), Bx20 (lsp: B), Cx10 (lsp: C)]
-    - GSV: tong hop loaisanpham cho moi gsv
-        + gsvA: [A, B]
-        + gsvB: [A]
-    - thong bao: 
-        + gsvA thoa man 2 loaisanpham: A, B (dsthoamanA)
-        + gsvB thoa man 1 loaisanpham: A    (dsthoamanB)
 
-    - tien hanh chon gsv de chia don hang (dang multiple select)
-        + select gsvA -> show multiple select dsthoamanA: A, B
-            + select A -> show dssp trong don hang thuoc loai A
-                + select sanpham -> nhap so luong cho sanpham (so luong <= soluong goc)
-            + select B -> show dssp trong don hang thuoc loai B
-                + select sanpham -> nhap so luong cho sanpham (so luong <= soluong goc)
-        + select gsvB
-            + ...
-    - redirect to preview
-    - submit
 
-donhang: [
-    ma,
-    items: [
-        sanpham,
-        soluong
-    ]
-    
-]
+don hang goc A
+    - bpkd pp -> gsv A, gsv B
+=> 

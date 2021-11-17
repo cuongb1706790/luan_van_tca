@@ -198,6 +198,18 @@ const apiBophankd = {
     const url = `/bophankd/duyetdaily2/${daily2Id}/${bophankdId}`;
     return axiosClient.put(url);
   },
+
+  // lay ds don hang thuoc bophankd
+  dsDonhang(bpkdId) {
+    const url = `/bophankd/dsdonhang/${bpkdId}`;
+    return axiosClient.get(url);
+  },
+
+  // lay ds SUB don hang thuoc bophankd
+  dsSubDonhang(bpkdId, madh) {
+    const url = `/bophankd/dssubdonhang/${bpkdId}/${madh}`;
+    return axiosClient.get(url);
+  },
 };
 
 export default apiBophankd;

@@ -205,4 +205,17 @@ giamsatvungRouter.put("/duyet/:daily2Id/:gsvId", async (req, res) => {
   }
 });
 
+// lay ds don hang thuoc gsv
+giamsatvungRouter.get("/dsdonhang/:gsvId", async (req, res) => {
+  try {
+    let { donhang } = await Giamsatvung.findById(req.params.gsvId)
+      .select("donhang")
+      .populate("donhang");
+
+    res.send({ donhang, success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
 module.exports = giamsatvungRouter;

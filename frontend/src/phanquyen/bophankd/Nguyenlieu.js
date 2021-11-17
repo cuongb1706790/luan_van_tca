@@ -16,8 +16,12 @@ const Nguyenlieu = (props) => {
   const fetchDsNguyenlieu = async () => {
     setLoading(true);
     const { bophankd } = await apiBophankd.bophankdBasedUserId(userInfo._id);
-    const { nguyenlieu } = await apiBophankd.bophankdDSNguyenlieu(bophankd._id);
-    setDsNguyenlieu(nguyenlieu);
+    let { dsnguyenlieu } = await apiBophankd.bophankdDSNguyenlieu(bophankd._id);
+    dsnguyenlieu = dsnguyenlieu.map((ngl) => ({
+      ...ngl.nguyenlieu,
+      ...ngl,
+    }));
+    setDsNguyenlieu(dsnguyenlieu);
     setLoading(false);
   };
 

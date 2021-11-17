@@ -16,8 +16,12 @@ const Congcu = (props) => {
   const fetchDsCongcu = async () => {
     setLoading(true);
     const { bophankd } = await apiBophankd.bophankdBasedUserId(userInfo._id);
-    const { congcu } = await apiBophankd.bophankdDSCongcu(bophankd._id);
-    setDsCongcu(congcu);
+    let { dscongcu } = await apiBophankd.bophankdDSCongcu(bophankd._id);
+    dscongcu = dscongcu.map((cc) => ({
+      ...cc.congcu,
+      ...cc,
+    }));
+    setDsCongcu(dscongcu);
     setLoading(false);
   };
 

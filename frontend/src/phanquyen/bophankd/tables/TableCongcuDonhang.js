@@ -8,21 +8,18 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Checkbox from "@mui/material/Checkbox";
-import { useHistory } from "react-router-dom";
 import img_placeholder from "../../../assets/images/img_placeholder.png";
 import EnhancedTableHead from "../../../components/table/EnhancedTableHead";
 import { getComparator } from "../../../utils";
 import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
-import { headCellsCongcu } from "./headCells";
-import TableButton from "../../../components/TableButton";
+import { headCellsCongcuDonhang } from "./headCells";
 
-const TableCongcu = ({ dsCongcu = [] }) => {
+const TableCongcuDonhang = ({ dsCongcu = [] }) => {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const history = useHistory();
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -91,7 +88,7 @@ const TableCongcu = ({ dsCongcu = [] }) => {
                 onSelectAllClick={handleSelectAllClick}
                 onRequestSort={handleRequestSort}
                 rowCount={dsCongcu?.length}
-                headCells={headCellsCongcu}
+                headCells={headCellsCongcuDonhang}
               />
               <TableBody>
                 {dsCongcu
@@ -121,8 +118,6 @@ const TableCongcu = ({ dsCongcu = [] }) => {
                             }}
                           />
                         </TableCell>
-                        <TableCell align="right">{row?.donhang.ma}</TableCell>
-                        <TableCell align="right">{row?.ten}</TableCell>
                         <TableCell>
                           <img
                             src={
@@ -135,22 +130,9 @@ const TableCongcu = ({ dsCongcu = [] }) => {
                             className={!row?.hinhanh && "noImage"}
                           />
                         </TableCell>
-                        <TableCell align="right">{row?.soluong}</TableCell>
+                        <TableCell align="right">{row?.ten}</TableCell>
                         <TableCell align="right">{row?.congdung}</TableCell>
-                        <TableCell align="right">{row?.ngaytao}</TableCell>
-                        {/* <TableCell align="right">
-                          {
-                            <TableButton
-                              onClick={() =>
-                                history.push(
-                                  `/bophankd/congcu/chitiet/${row._id}`
-                                )
-                              }
-                            >
-                              Chi tiết
-                            </TableButton>
-                          }
-                        </TableCell> */}
+                        <TableCell align="right">{row?.soluong}</TableCell>
                       </TableRow>
                     );
                   })}
@@ -189,4 +171,4 @@ const TableCongcu = ({ dsCongcu = [] }) => {
   );
 };
 
-export default TableCongcu;
+export default TableCongcuDonhang;
