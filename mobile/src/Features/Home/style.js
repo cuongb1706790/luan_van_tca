@@ -13,17 +13,14 @@ const styles = StyleSheet.create({
     },
     containerLinkBar: {
       marginTop: 5,
-      paddingLeft: 10,
-      paddingRight: 10,
       flexDirection: "row",
       justifyContent: "center",
-      marginBottom: 10
     },
     singleBar: {
       paddingTop: 10,
       paddingBottom: 10,
-      paddingRight: 30,
-      paddingLeft: 30,
+      paddingRight: 35,
+      paddingLeft: 35,
     },
     activeBar : {
         backgroundColor : '#ff9933'
@@ -63,6 +60,9 @@ const styles = StyleSheet.create({
       paddingRight: 20,
       paddingLeft: 20,
       paddingBottom: 600,
+      marginLeft : 14,
+      marginRight : 14,
+      borderRadius : 10
     },
     containerRowRedirect: {
      marginBottom : 20,

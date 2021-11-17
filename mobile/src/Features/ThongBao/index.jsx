@@ -19,23 +19,10 @@ function ThongBao(props) {
         return dataAccount.includes(item.user._id);
       });
       setHoDan(findHoDan);
-      // const { hodan } = await apiHodan.singleHodanBasedUser(userInfo._id);
-      // console.log(findHoDan._id);
-
       const getDsPhanPhat = await hodanApi.dsPhanphat(findHoDan._id);
-
       setDsPhat(getDsPhanPhat.dsphanphat);
-      // const getDsPhatVatTu = await hodanApi.dsVattuPhanphat(findHoDan._id);
-      // setDsPhatVatTu(getDsPhatVatTu.dsphanphat);
-      // const getDsPhatCC = await hodanApi.dsCongcuPhanphat(findHoDan._id);
-      // setDsPhatCC(getDsPhatCC.dsphanphat);
-      // setDsPhat(getDsPhatVatTu.dsphanphat.length,getDsPhatCC.dsphanphat.length);
     })();
   }, []);
-  // const dsPhanPhat = [...dsPhatCC,...dsPhatVatTu];
-  if (dsPhat) {
-    // console.log(dsPhat[0]);
-  }
 
   const renderItem = ({ item }) => (
     <View>
@@ -47,16 +34,89 @@ function ThongBao(props) {
   //     <Text>{data._id}</Text>
   //   </View>
   // );
-
+  const orderList = [
+    {
+      id: 1,
+      madh: "DH001",
+      tongtien: 20000000,
+      ngaytao: "12/2/2020",
+      daxacnhan: "false",
+      productList: [
+        {
+          id: 11,
+          masp: "SP001",
+          tensp: "Lụa Tân Châu",
+          soluong: 1000,
+          donvi: "mét",
+          dongia: 20000,
+          congcu: [
+            {
+              id: 111,
+              macc: "CC001",
+              tencc: "Máy lấy tơ",
+              mota: "mới",
+              soluong: 10,
+              donvi: "máy",
+              hinhanh: "",
+              ngaynhan: "12/2/2020",
+            },
+            {
+              id: 112,
+              macc: "CC002",
+              tencc: "Máy dệt lụa",
+              mota: "mới",
+              soluong: 10,
+              donvi: "máy",
+              hinhanh: "",
+              ngaynhan: "12/2/2020",
+            },
+          ],
+          vattu: [
+            {
+              id: 112,
+              mavt: "VT001",
+              tenvt: "Thùng giấy",
+              mota: "mới",
+              soluong: 10,
+              donvi: "máy",
+              hinhanh: "",
+              ngaynhan: "12/2/2020",
+            },
+          ],
+        },
+        {
+          id: 12,
+          masp: "SP002",
+          tensp: "Vải thường",
+          soluong: 1000,
+          donvi: "mét",
+          dongia: 10000,
+          congcu: [
+            {
+              id: 121,
+              macc: "CC002",
+              tencc: "Máy ủi",
+              mota: "mới",
+              soluong: 10,
+              donvi: "máy",
+              hinhanh: "",
+              ngaynhan: "12/2/2020",
+            },
+          ],
+        },
+      ],
+    },
+    
+  ];
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.headerContainer}>
         <Text style={{ color: "white" }}>Thông báo gần đây</Text>
       </View>
-      {dsPhat && (
+      {orderList && (
         <FlatList
-          data={dsPhat}
-          renderItem={(item) => <RenderPhanPhat phanphat={item} />}
+          data={orderList}
+          renderItem={(item, index) => <RenderPhanPhat phanphat={item} />}
           keyExtractor={(item) => item._id}
         />
       )}
