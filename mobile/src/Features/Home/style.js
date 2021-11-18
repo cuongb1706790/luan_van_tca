@@ -93,5 +93,6 @@ const styles = StyleSheet.create({
       backgroundColor: "white",
       marginRight: 15,
     },
+    
   });
 export default styles;

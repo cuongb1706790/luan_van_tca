@@ -75,7 +75,7 @@ function RenderPhanPhat(props) {
             {data.productList.map((item, index) => (
               <>
                 <Text>Sản phẩm {index + 1}</Text>
-                <View style={{ marginLeft: 10 }}>
+                <View style={{ marginLeft: 10 }} key={item.id}>
                   <Text>
                   <Ionicons name="square" size={5} color="black"  />
                     {" "}Tên sản phẩm : {item.tensp}

@@ -346,7 +346,7 @@ function BCTienDo(props) {
             <View
               style={{
                 flexDirection: "row",
-                marginTop: 20,
+                marginTop: 35,
                 paddingTop: 10,
                 borderTopColor: "#b3b3b3",
                 borderWidth: 1,
@@ -407,7 +407,7 @@ const styles = StyleSheet.create({
   },
   containerForm: {
     backgroundColor: "white",
-    paddingBottom: 20,
+    paddingBottom: 40,
     paddingLeft: 40,
     paddingTop: 10,
     paddingRight: 30,
