@@ -11,10 +11,10 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import StickyHeaderFooterScrollView from "react-native-sticky-header-footer-scroll-view";
 function DonHang(props) {
   const data = props.route.params.data;
-  const {navigation } = props;
+  const { navigation } = props;
   const formatter = new Intl.NumberFormat("es");
   return (
-    <SafeAreaView style={{flex : 1,marginTop : 20}}>
+    <SafeAreaView style={{ flex: 1, marginTop: 20 }}>
       <View style={styles.headerContainer}>
         <Text style={{ color: "white" }}>Thông tin đơn hàng</Text>
       </View>
@@ -46,14 +46,14 @@ function DonHang(props) {
                     <Ionicons name="square" size={5} color="black" /> Đơn giá :{" "}
                     {formatter.format(item.dongia)} vnđ/m
                   </Text>
-                  <Text style={{color : 'blue'}}>
-                    <Ionicons name="square" size={5} color="black" /> Tiến độ hoàn thành :{" "}
-                    {item.tiendo}
+                  <Text style={{ color: "blue" }}>
+                    <Ionicons name="square" size={5} color="black" /> Tiến độ
+                    hoàn thành : {item.tiendo}
                   </Text>
                   {item.congcu &&
                     item.congcu.map((item, index) => (
                       <>
-                        <View>  
+                        <View>
                           <Text>
                             <Ionicons name="square" size={5} color="black" />{" "}
                             Công cụ {index + 1}
@@ -133,8 +133,8 @@ function DonHang(props) {
           borderRightWidth: 0,
           borderLeftWidth: 0,
           borderBottomWidth: 0,
-          alignItems : 'center',
-          justifyContent: 'center'
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
         <Text

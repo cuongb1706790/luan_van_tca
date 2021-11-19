@@ -26,7 +26,7 @@ function RenderPhanPhat(props) {
   };
   return (
     <>
-      <View style={{ marginBottom: 30 }}>
+      <View style={{ marginBottom: 30 }} key={data.id} >
         <View
           style={{
             flexDirection: "row",

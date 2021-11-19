@@ -1,56 +1,83 @@
-import React from 'react';
-import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar } from 'react-native';
+import React from "react";
+import {
+  SafeAreaView,
+  View,
+  FlatList,
+  StyleSheet,
+  Text,
+  StatusBar,
+} from "react-native";
+import Ionicons from "react-native-vector-icons/Ionicons";
+import { useDispatch } from "react-redux";
+import { logout } from "../auth/userSlice";
 
-const DATA = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    title: 'First Item',
-  },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    title: 'Second Item',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    title: 'Third Item',
-  },
-];
+const CaNhan = ({navigation}) => {
+ const dispatch = useDispatch();
+  const handleChangePassWord = () => {
+    // console.log("ChangePassWord");
+    navigation.navigate('ScreenDoiMatKhau');
+  };
 
-const Item = ({ title }) => (
-  <View style={styles.item}>
-    <Text style={styles.title}>{title}</Text>
-  </View>
-);
-
-const CaNhan = () => {
-  const renderItem = ({ item }) => (
-    <Item title={item.title} />
-  );
-
+  const handleClickLogout = () => {
+    dispatch(logout());
+    navigation.navigate('Login')
+  };
   return (
     <SafeAreaView style={styles.container}>
-      <FlatList
-        data={DATA}
-        renderItem={renderItem}
-        keyExtractor={item => item.id}
-      />
+      <View style={styles.headerContainer}>
+        <Text style={{ color: "white" }}>Thông tin cá nhân </Text>
+      </View>
+      <View style={styles.containerRowRedirect}>
+       
+        <View style={{ marginRight: 30 }}>
+          <Text onPress={handleChangePassWord}>
+            <View style={styles.containerRedirectKho}>
+              <Ionicons name="basket" size={60} color="#0000b3" />
+            </View>
+          </Text>
+          <Text style={[{ marginTop: 10, textAlign: "center" }]}>
+            Đổi mật khẩu
+          </Text>
+        </View>
+        <View>
+          <Text onPress={handleClickLogout}>
+            <View style={styles.containerRedirectKho}>
+              <Ionicons name="close-circle" size={60} color="#0000b3" />
+            </View>
+          </Text>
+
+          <Text style={[{ marginTop: 10, textAlign: "center" }]}>
+            Đăng xuất
+          </Text>
+        </View>
+      </View>
     </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
+    marginTop: 20,
+  },
+  headerContainer: {
+    backgroundColor: "#e65c00",
+    paddingTop: 10,
+    paddingBottom: 30,
     flex: 1,
-    marginTop: StatusBar.currentHeight || 0,
+    alignItems: "center",
   },
-  item: {
-    backgroundColor: '#f9c2ff',
+  containerRowRedirect: {
+    flexDirection: "row",
     padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
   },
-  title: {
-    fontSize: 32,
+  containerRedirectKho: {
+    borderRadius: 90,
+    paddingTop: 20,
+    paddingBottom: 15,
+    paddingLeft: 20,
+    paddingRight: 15,
+    backgroundColor: "white",
+    marginRight: 15,
   },
 });
 

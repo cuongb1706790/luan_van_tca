@@ -7,6 +7,7 @@ import BCTienDo from "../../../Home/ScreenTienDo/BCTienDo";
 import TabNav from "../../../TabNav";
 import LoginForm from "../LoginForm";
 import DonHang from "../../../Home/ScreenDonHang/DonHang"
+import SrceenDoiMatKhau from "../../../CaNhan/ScreenDoiMatKhau";
 function Login(props) {
   const Stack = createNativeStackNavigator();
   return (
@@ -23,6 +24,7 @@ function Login(props) {
         <Stack.Screen name="ScreenCongCu" component={ListCongCu} />
         <Stack.Screen name="ScreenVatTu" component={ListVatTu} />
         <Stack.Screen name="DonHang" component={DonHang} />
+        <Stack.Screen name="ScreenDoiMatKhau" component={SrceenDoiMatKhau} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -6,6 +6,7 @@ import {
   TextInput,
   Button,
   Image,
+  ScrollView,
   Alert,
 } from "react-native";
 import { Formik, ErrorMessage } from "formik";
@@ -16,10 +17,10 @@ import { unwrapResult } from "@reduxjs/toolkit";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import userApi from "../../../../api/userApi";
 import { MaterialDialog } from "react-native-material-dialog";
-// const SignupSchema = Yup.object().shape({
-//   taikhoan: Yup.string().required("Tài khoản chưa hợp lệ "),
-//   matkhau: Yup.string().required("Mật khẩu chưa hợp lệ"),
-// });
+const SignupSchema = Yup.object().shape({
+  taikhoan: Yup.string().required("Tài khoản chưa hợp lệ "),
+  matkhau: Yup.string().required("Mật khẩu chưa hợp lệ"),
+});
 
 function LoginForm(props) {
   const { navigation } = props;
@@ -43,27 +44,30 @@ function LoginForm(props) {
     // console.log(check);
 
     try {
-      // const dataForm ={
-      //   taikhoan : values.taikhoan.toLowerCase(),
-      //   matkhau : values.matkhau,
-      // }
       const dataForm ={
-        taikhoan : 'duyhodan',
-        matkhau : '123456',
+        taikhoan : values.taikhoan.toLowerCase(),
+        matkhau : values.matkhau,
       }
+      // const dataForm ={
+      //   taikhoan : 'duyhodan',
+      //   matkhau : '123456',
+      // }
       // console.log(dataForm);
 
       const action = loginUser(dataForm);
       const resultAction = await dispatch(action);
       unwrapResult(resultAction);
       const getData = await AsyncStorage.getItem("access_token");
+      values.taikhoan="";
+      values.matkhau="";
       navigation.navigate("TabNav");
     } catch (error) {
       handleOpen();
     }
   };
   return (
-    <View style={styles.container}>
+    <ScrollView >
+       <View style={styles.container}>
       <MaterialDialog
         title="Cảnh báo"
         visible={visible}
@@ -78,10 +82,11 @@ function LoginForm(props) {
           Bạn đã nhập sai tài khoản hoặc mật khẩu, vui lòng xem lại thông tin !
         </Text>
       </MaterialDialog>
+     
       <Formik
         initialValues={{ matkhau: "", taikhoan: "" }}
         onSubmit={handleSumitLogin}
-        // validationSchema={SignupSchema}
+        validationSchema={SignupSchema}
       >
         {({
           handleChange,
@@ -149,6 +154,7 @@ function LoginForm(props) {
               value={values.matkhau}
               error={errors.matkhau}
               touched={touched.matkhau}
+              secureTextEntry={true}
             />
             {errors.matkhau && touched.matkhau ? (
               <>
@@ -171,6 +177,8 @@ function LoginForm(props) {
         )}
       </Formik>
     </View>
+    </ScrollView>
+   
   );
 }
 const styles = StyleSheet.create({
@@ -179,7 +187,8 @@ const styles = StyleSheet.create({
     marginTop: 20,
     backgroundColor: "#b35900",
     alignItems: "center",
-    paddingTop: 150,
+   paddingTop: 150,
+   paddingBottom: 230,
   },
   containerForm: {
     backgroundColor: "white",
