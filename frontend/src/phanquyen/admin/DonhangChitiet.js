@@ -7,6 +7,7 @@ import TableVattuDonhang from "./tables/TableVattuDonhang";
 import TableNguyenlieuDonhang from "./tables/TableNguyenlieuDonhang";
 import apiDonhang from "../../axios/apiDonhang";
 import TableSanphamDonhangChitiet from "./tables/TableSanphamDonhangChitiet";
+import { formatMoney } from "../../utils";
 
 const DonhangChitiet = (props) => {
   const [loading, setLoading] = useState(false);
@@ -58,18 +59,20 @@ const DonhangChitiet = (props) => {
             </FormContent>
 
             <TableSection>
-              <TableTitle>Danh sách sản phẩm</TableTitle>
+              <TableTitle>Sản phẩm đơn hàng</TableTitle>
               <TableSanphamDonhangChitiet
                 dsSanpham={singleDonhang?.dssanpham}
               />
               <div className="text-right">
                 <Total>Tổng đơn giá:</Total>
-                <TotalValue>{singleDonhang?.tongdongia}</TotalValue>
+                <TotalValue>
+                  {formatMoney(singleDonhang?.tongdongia)}
+                </TotalValue>
               </div>
             </TableSection>
 
             <TableSection>
-              <TableTitle>Danh sách công cụ</TableTitle>
+              <TableTitle>Công cụ đơn hàng</TableTitle>
               <TableCongcuDonhang dsCongcu={singleDonhang?.dscongcu} />
               <div className="text-right">
                 <Total>Tổng số lượng:</Total>
@@ -78,7 +81,7 @@ const DonhangChitiet = (props) => {
             </TableSection>
 
             <TableSection>
-              <TableTitle>Danh sách vật tư</TableTitle>
+              <TableTitle>Vật tư đơn hàng</TableTitle>
               <TableVattuDonhang dsVattu={singleDonhang?.dsvattu} />
               <div className="text-right">
                 <Total>Tổng số lượng:</Total>
@@ -87,7 +90,7 @@ const DonhangChitiet = (props) => {
             </TableSection>
 
             <TableSection>
-              <TableTitle>Danh sách nguyên liệu</TableTitle>
+              <TableTitle>Nguyên liệu đơn hàng</TableTitle>
               <TableNguyenlieuDonhang
                 dsNguyenlieu={singleDonhang?.dsnguyenlieu}
               />

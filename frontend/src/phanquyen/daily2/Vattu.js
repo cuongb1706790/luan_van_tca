@@ -3,36 +3,25 @@ import { useSelector } from "react-redux";
 import BackdropMaterial from "../../components/BackdropMaterial";
 import styled from "styled-components";
 import Header from "../../components/Header";
-import ModalChitietVattu from "../../components/ModalChitietVattu";
-import apiDaily2 from "../../axios/apiDaily2";
 import TableVattu from "./tables/TableVattu";
+import apiDaily2 from "../../axios/apiDaily2";
 
 const Vattu = (props) => {
   const [query, setQuery] = useState("");
-  const [searchColumns] = useState(["ten", "bophankd"]);
+  const [searchColumns] = useState(["ten", "congdung"]);
   const [loading, setLoading] = useState(false);
   const [dsVattu, setDsVattu] = useState([]);
-  const [modalOpen, setModalOpen] = useState(false);
-  const [vattu, setVattu] = useState(null);
   const { userInfo } = useSelector((state) => state.user);
-
-  const handleOpenModal = () => setModalOpen(true);
-  const handleCloseModal = () => setModalOpen(false);
 
   const fetchDsVattu = async () => {
     setLoading(true);
     const { daily2 } = await apiDaily2.singleDaily2BasedUser(userInfo._id);
-    const { dsvattu } = await apiDaily2.dsVattu(daily2._id);
-    /// console.log(data);
-    setDsVattu(
-      dsvattu && dsvattu.length
-        ? dsvattu.map((item) => ({
-            ...item,
-            ten: item.vattu.ten,
-            bophankd: item.phanphat.from.bophankd.ten,
-          }))
-        : []
-    );
+    let { dsvattu } = await apiDaily2.dsVattu(daily2._id);
+    dsvattu = dsvattu.map((vt) => ({
+      ...vt.vattu,
+      ...vt,
+    }));
+    setDsVattu(dsvattu);
     setLoading(false);
   };
 
@@ -63,7 +52,7 @@ const Vattu = (props) => {
         <Header title="Vật tư" />
         <Content>
           <FilterSection>
-            <TitleWrapper>
+            <TitleWrapper className="d-flex justify-content-between align-items-center">
               <Title>Danh sách vật tư</Title>
             </TitleWrapper>
             <Filter>
@@ -77,23 +66,12 @@ const Vattu = (props) => {
                 />
               </SearchBox>
             </Filter>
-
             <TableSection>
-              <TableVattu
-                dsVattu={search(dsVattu)}
-                handleOpenModal={handleOpenModal}
-                setVattu={setVattu}
-              />
+              <TableVattu dsVattu={search(dsVattu)} />
             </TableSection>
           </FilterSection>
         </Content>
       </Wrapper>
-
-      <ModalChitietVattu
-        open={modalOpen}
-        onClose={handleCloseModal}
-        vattu={vattu}
-      />
     </>
   );
 };
@@ -153,17 +131,13 @@ const SearchBox = styled.div`
   }
 `;
 const TableSection = styled.div`
-  table {
-    th,
-    td {
-      font-family: "Poppins", sans-serif;
-    }
-    th:first-child {
-      display: none;
-    }
-    td:first-child {
-      display: none;
-    }
+  th,
+  td {
+    font-family: "Poppins", sans-serif;
+  }
+  th:first-child,
+  td:first-child {
+    display: none;
   }
 `;
 

@@ -9,7 +9,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Checkbox from "@mui/material/Checkbox";
 import EnhancedTableHead from "../../../components/table/EnhancedTableHead";
-import { getComparator } from "../../../utils";
+import { formatMoney, getComparator } from "../../../utils";
 import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
 import { headCellsSanphamDonhang } from "./headCells";
 import styled from "styled-components";
@@ -147,7 +147,9 @@ const TableSanphamDonhang = ({
                             }
                           />
                         </TableCell>
-                        <TableCell align="right">{row?.gia}</TableCell>
+                        <TableCell align="right">
+                          {formatMoney(row?.soluong * row?.gia)}
+                        </TableCell>
                       </TableRow>
                     );
                   })}

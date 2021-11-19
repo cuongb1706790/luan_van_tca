@@ -210,6 +210,12 @@ const apiBophankd = {
     const url = `/bophankd/dssubdonhang/${bpkdId}/${madh}`;
     return axiosClient.get(url);
   },
+
+  // lay so lieu tong quan
+  tongquan(id) {
+    const url = `/bophankd/tongquan/${id}`;
+    return axiosClient.get(url);
+  },
 };
 
 export default apiBophankd;

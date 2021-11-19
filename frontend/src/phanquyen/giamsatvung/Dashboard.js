@@ -19,6 +19,16 @@ import Daily1Chinhsua from "./Daily1Chinhsua";
 import Daily2 from "./Daily2";
 import Daily2Chitiet from "./Daily2Chitiet";
 import Donhang from "./Donhang";
+import DonhangChitiet from "./DonhangChitiet";
+import Tiendo from "./Tiendo";
+import DonhangThem from "./DonhangThem";
+import Congcu from "./Congcu";
+import Vattu from "./Vattu";
+import Nguyenlieu from "./Nguyenlieu";
+import Sanpham from "./Sanpham";
+import dl1Icon from "../../assets/icons/daily1.png";
+import dl2Icon from "../../assets/icons/daily2.png";
+import splnIcon from "../../assets/icons/spln.png";
 
 const Dashboard = (props) => {
   const dispatch = useDispatch();
@@ -56,22 +66,50 @@ const Dashboard = (props) => {
 
           <MenuItem>
             <NavLink to="/giamsatvung/daily1" activeClassName="active">
-              <Image src={langngheIcon} alt="lannghe" />
+              <Image src={dl1Icon} alt="splangnghe" />
               <span>Đại lý cấp 1</span>
             </NavLink>
           </MenuItem>
 
           <MenuItem>
             <NavLink to="/giamsatvung/daily2" activeClassName="active">
-              <Image src={langngheIcon} alt="lannghe" />
+              <Image src={dl2Icon} alt="splangnghe" />
               <span>Đại lý cấp 2</span>
             </NavLink>
           </MenuItem>
 
           <MenuItem>
             <NavLink to="/giamsatvung/donhang" activeClassName="active">
-              <Image src={langngheIcon} alt="donhang" />
+              <i class="far fa-newspaper"></i>
               <span>Đơn hàng</span>
+            </NavLink>
+          </MenuItem>
+
+          <MenuItem>
+            <NavLink to="/giamsatvung/sanpham" activeClassName="active">
+              <Image src={splnIcon} alt="splangnghe" />
+              <span>Sản phẩm</span>
+            </NavLink>
+          </MenuItem>
+
+          <MenuItem>
+            <NavLink to="/giamsatvung/congcu" activeClassName="active">
+              <i class="fas fa-tools"></i>
+              <span>Công cụ</span>
+            </NavLink>
+          </MenuItem>
+
+          <MenuItem>
+            <NavLink to="/giamsatvung/vattu" activeClassName="active">
+              <i class="fab fa-accusoft"></i>
+              <span>Vật tư</span>
+            </NavLink>
+          </MenuItem>
+
+          <MenuItem>
+            <NavLink to="/giamsatvung/nguyenlieu" activeClassName="active">
+              <i class="fab fa-bandcamp"></i>
+              <span>Nguyên liệu</span>
             </NavLink>
           </MenuItem>
 
@@ -112,6 +150,24 @@ const Dashboard = (props) => {
         />
 
         <Route exact path="/giamsatvung/donhang" component={Donhang} />
+        <Route
+          exact
+          path="/giamsatvung/donhang/chitiet/:id"
+          component={DonhangChitiet}
+        />
+        <Route
+          path="/giamsatvung/donhang/chitiet/:id/tiendo"
+          component={Tiendo}
+        />
+        <Route
+          path="/giamsatvung/donhang/chitiet/:id/them"
+          component={DonhangThem}
+        />
+
+        <Route exact path="/giamsatvung/sanpham" component={Sanpham} />
+        <Route exact path="/giamsatvung/congcu" component={Congcu} />
+        <Route exact path="/giamsatvung/vattu" component={Vattu} />
+        <Route exact path="/giamsatvung/nguyenlieu" component={Nguyenlieu} />
       </RightContent>
     </Container>
   );

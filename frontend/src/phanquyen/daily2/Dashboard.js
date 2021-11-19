@@ -13,6 +13,13 @@ import styled from "styled-components";
 import hodanIcon from "../../assets/icons/hodan.png";
 import HodanChitiet from "./HodanChitiet";
 import HodanChinhsua from "./HodanChinhsua";
+import Donhang from "./Donhang";
+import DonhangChitiet from "./DonhangChitiet";
+import DonhangThem from "./DonhangThem";
+import Sanpham from "./Sanpham";
+import Nguyenlieu from "./Nguyenlieu";
+import Tiendo from "./Tiendo";
+import splnIcon from "../../assets/icons/spln.png";
 
 const Dashboard = (props) => {
   const dispatch = useDispatch();
@@ -42,6 +49,13 @@ const Dashboard = (props) => {
           </MenuItem>
 
           <MenuItem>
+            <NavLink to="/daily2/sanpham" activeClassName="active">
+              <Image src={splnIcon} alt="splangnghe" />
+              <span>Sản phẩm</span>
+            </NavLink>
+          </MenuItem>
+
+          <MenuItem>
             <NavLink to="/daily2/congcu" activeClassName="active">
               <i class="fas fa-tools"></i>
               <span>Công cụ</span>
@@ -56,9 +70,23 @@ const Dashboard = (props) => {
           </MenuItem>
 
           <MenuItem>
+            <NavLink to="/daily2/nguyenlieu" activeClassName="active">
+              <i class="fab fa-bandcamp"></i>
+              <span>Nguyên liệu</span>
+            </NavLink>
+          </MenuItem>
+
+          <MenuItem>
             <NavLink to="/daily2/hodan" activeClassName="active">
-              <Image src={hodanIcon} alt="home" />
+              <Image src={hodanIcon} alt="hodan" />
               <span>Hộ dân</span>
+            </NavLink>
+          </MenuItem>
+
+          <MenuItem>
+            <NavLink to="/daily2/donhang" activeClassName="active">
+              <i class="far fa-newspaper"></i>
+              <span>Đơn hàng</span>
             </NavLink>
           </MenuItem>
 
@@ -70,12 +98,26 @@ const Dashboard = (props) => {
 
       <RightContent>
         <Route exact path="/daily2" component={Tongquan} />
+        <Route exact path="/daily2/sanpham" component={Sanpham} />
         <Route exact path="/daily2/congcu" component={Congcu} />
         <Route exact path="/daily2/vattu" component={Vattu} />
+        <Route exact path="/daily2/nguyenlieu" component={Nguyenlieu} />
         <Route exact path="/daily2/hodan" component={Hodan} />
         <Route path="/daily2/hodan/them" component={HodanThem} />
         <Route path="/daily2/hodan/chitiet/:id" component={HodanChitiet} />
         <Route path="/daily2/hodan/chinhsua/:id" component={HodanChinhsua} />
+
+        <Route exact path="/daily2/donhang" component={Donhang} />
+        <Route
+          exact
+          path="/daily2/donhang/chitiet/:id"
+          component={DonhangChitiet}
+        />
+        <Route
+          path="/daily2/donhang/chitiet/:id/them"
+          component={DonhangThem}
+        />
+        <Route path="/daily2/donhang/chitiet/:id/tiendo" component={Tiendo} />
       </RightContent>
     </Container>
   );

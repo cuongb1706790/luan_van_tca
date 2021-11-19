@@ -15,6 +15,7 @@ import TableSanphamDonhangChitiet from "./tables/TableSanphamDonhangChitiet";
 import TableCongcuDonhang from "./tables/TableCongcuDonhang";
 import TableVattuDonhang from "./tables/TableVattuDonhang";
 import TableNguyenlieuDonhang from "./tables/TableNguyenlieuDonhang";
+import { formatMoney } from "../../utils";
 
 const Tiendo = (props) => {
   const [dsSubDonhang, setDsSubDonhang] = useState([]);
@@ -128,7 +129,7 @@ const Tiendo = (props) => {
                       <TableSanphamDonhangChitiet dsSanpham={dh?.dssanpham} />
                       <div className="text-right mb-5">
                         <Total>Tổng đơn giá: </Total>
-                        <TotalValue>{dh?.tongdongia}</TotalValue>
+                        <TotalValue>{formatMoney(dh?.tongdongia)}</TotalValue>
                       </div>
                     </TableSection>
 

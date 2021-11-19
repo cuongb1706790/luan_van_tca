@@ -17,7 +17,6 @@ import LogoutButton from "../../components/LogoutButton";
 import styled from "styled-components";
 import Daily1Chitiet from "./Daily1Chitiet";
 import splnIcon from "../../assets/icons/spln.png";
-import daily1Icon from "../../assets/icons/daily1.png";
 import Giamsatvung from "./Giamsatvung";
 import GiamsatvungThem from "./GiamsatvungThem";
 import Daily2 from "./Daily2";
@@ -26,6 +25,9 @@ import Donhang from "./Donhang";
 import DonhangThem from "./DonhangThem";
 import DonhangChitiet from "./DonhangChitiet";
 import Tiendo from "./Tiendo";
+import dl1Icon from "../../assets/icons/daily1.png";
+import dl2Icon from "../../assets/icons/daily2.png";
+import gsvIcon from "../../assets/icons/gsv.png";
 
 const Dashboard = (props) => {
   const dispatch = useDispatch();
@@ -84,21 +86,21 @@ const Dashboard = (props) => {
 
           <MenuItem>
             <NavLink to="/bophankd/daily1" activeClassName="active">
-              <Image src={daily1Icon} alt="splangnghe" />
+              <Image src={dl1Icon} alt="splangnghe" />
               <span>Đại lý cấp 1</span>
             </NavLink>
           </MenuItem>
 
           <MenuItem>
             <NavLink to="/bophankd/daily2" activeClassName="active">
-              <Image src={daily1Icon} alt="splangnghe" />
+              <Image src={dl2Icon} alt="splangnghe" />
               <span>Đại lý cấp 2</span>
             </NavLink>
           </MenuItem>
 
           <MenuItem>
             <NavLink to="/bophankd/giamsatvung" activeClassName="active">
-              <Image src={daily1Icon} alt="splangnghe" />
+              <Image src={gsvIcon} alt="splangnghe" />
               <span>Giám sát vùng</span>
             </NavLink>
           </MenuItem>

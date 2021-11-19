@@ -17,9 +17,7 @@ const Daily2 = (props) => {
   const fetchData = async () => {
     setLoading(true);
     const { daily1 } = await apiDaily1.singleDaily1BasedUser(userInfo._id);
-    const {
-      daily2: { daily2 },
-    } = await apiDaily1.dsDaily2(daily1._id);
+    const { daily2 } = await apiDaily1.dsDaily2(daily1._id);
     setDsDaily2(daily2 && daily2.length ? daily2 : []);
     setLoading(false);
   };

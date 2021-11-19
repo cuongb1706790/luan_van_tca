@@ -1,6 +1,9 @@
 useEffect(() => {},[]) => useEffect chỉ chạy 1 lần khác với state thay đổi làm rerender components
 -> 2 thằng ko liên quan j nhau
 
+Lấy single đơn hàng từ GSV, ko cần dùng giamsatvungModel vì Giamsatvung collection chỉ reference đến document
+của Donhang collection => Dùng luôn router Donhang để lấy single đơn hàng
+
 * 1 langf nghe nhieu/1 sanpham
 * show thao tac
 * show thong ke trong page Tong quan
@@ -14,11 +17,31 @@ db.bophankds.update({}, { $set: { dssanpham: [] }});
 db.bophankds.update({}, { $set: { dscongcu: [] }});
 db.bophankds.update({}, { $set: { dsvattu: [] }});
 db.bophankds.update({}, { $set: { dsnguyenlieu: [] }});
-
 db.bophankds.update({}, { $set: { donhang: [] }});
 db.bophankds.update({}, { $set: { subdonhang: [] }});
+
+db.giamsatvungs.update({}, { $set: { dssanpham: [] }});
+db.giamsatvungs.update({}, { $set: { dscongcu: [] }});
+db.giamsatvungs.update({}, { $set: { dsvattu: [] }});
+db.giamsatvungs.update({}, { $set: { dsnguyenlieu: [] }});
 db.giamsatvungs.update({}, { $set: { donhang: [] }});
-db.donhangs.update({}, { $set: { dasudung: false }});
+db.giamsatvungs.update({}, { $set: { subdonhang: [] }});
+
+db.daily1.update({}, { $set: { dssanpham: [] }});
+db.daily1.update({}, { $set: { dscongcu: [] }});
+db.daily1.update({}, { $set: { dsvattu: [] }});
+db.daily1.update({}, { $set: { dsnguyenlieu: [] }});
+db.daily1.update({}, { $set: { donhang: [] }});
+db.daily1.update({}, { $set: { subdonhang: [] }});
+
+db.daily2.update({}, { $set: { dssanpham: [] }});
+db.daily2.update({}, { $set: { dscongcu: [] }});
+db.daily2.update({}, { $set: { dsvattu: [] }});
+db.daily2.update({}, { $set: { dsnguyenlieu: [] }});
+db.daily2.update({}, { $set: { donhang: [] }});
+db.daily2.update({}, { $set: { subdonhang: [] }});
+
+db.hodan.update({}, { $set: { donhang: [] }});
 
 
 
@@ -77,6 +100,15 @@ gsv B (A, D, E)
 
 
 
-don hang goc A
-    - bpkd pp -> gsv A, gsv B
-=> 
+Donhang model  (don hang goc)
+- ngaydathang
+
+array of don hang:
+    - Daily2 model
+        + donhang
+    - Daily1 model
+        + subdonhang
+        + dssanpham
+        + dscongcu
+        + dsvattu
+        + dsnguyenlieu

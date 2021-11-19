@@ -25,7 +25,6 @@ import LoaiSanphamChitiet from "./LoaiSanphamChitiet";
 import homeIcon from "../../assets/icons/home.png";
 import bpkdIcon from "../../assets/icons/bpkd.png";
 import gsvIcon from "../../assets/icons/gsv.png";
-import spIcon from "../../assets/icons/sp.png";
 import splnIcon from "../../assets/icons/spln.png";
 import Congcu from "./Congcu";
 import CongcuThem from "./CongcuThem";
@@ -86,42 +85,42 @@ const Dashboard = (props) => {
 
           <MenuItem>
             <NavLink to="/admin/loaisanpham" activeClassName="active">
-              <Image src={splnIcon} alt="splangnghe" />
+              <i class="fab fa-centercode"></i>
               <span>Loại sản phẩm</span>
             </NavLink>
           </MenuItem>
 
           <MenuItem>
             <NavLink to="/admin/congcu" activeClassName="active">
-              <Image src={splnIcon} alt="splangnghe" />
+              <i class="fas fa-tools"></i>
               <span>Công cụ</span>
             </NavLink>
           </MenuItem>
 
           <MenuItem>
             <NavLink to="/admin/vattu" activeClassName="active">
-              <Image src={splnIcon} alt="splangnghe" />
+              <i class="fab fa-accusoft"></i>
               <span>Vật tư</span>
             </NavLink>
           </MenuItem>
 
           <MenuItem>
             <NavLink to="/admin/nguyenlieu" activeClassName="active">
-              <Image src={splnIcon} alt="splangnghe" />
+              <i class="fab fa-bandcamp"></i>
               <span>Nguyên liệu</span>
             </NavLink>
           </MenuItem>
 
           <MenuItem>
             <NavLink to="/admin/sanpham" activeClassName="active">
-              <Image src={spIcon} alt="sanpham" />
+              <Image src={splnIcon} alt="splangnghe" />
               <span>Sản phẩm</span>
             </NavLink>
           </MenuItem>
 
           <MenuItem>
             <NavLink to="/admin/donhang" activeClassName="active">
-              <Image src={spIcon} alt="donhang" />
+              <i class="far fa-newspaper"></i>
               <span>Đơn hàng</span>
             </NavLink>
           </MenuItem>

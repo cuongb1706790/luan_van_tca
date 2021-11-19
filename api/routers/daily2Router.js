@@ -97,23 +97,6 @@ daily2Router.get("/danhsach", async (req, res) => {
   }
 });
 
-// lay danh sach ho dan thuoc dai ly 2
-daily2Router.get("/dshodan/:daily2Id", async (req, res) => {
-  try {
-    const { hodan } = await Daily2.findById(req.params.daily2Id)
-      .select("hodan")
-      .populate({
-        path: "hodan",
-        populate: {
-          path: "langnghe loaisanpham",
-        },
-      });
-    res.send({ hodan, success: true });
-  } catch (error) {
-    res.send({ message: error.message, success: false });
-  }
-});
-
 // lay thong tin 1 dai ly
 daily2Router.get("/single/:id", async (req, res) => {
   try {
@@ -424,6 +407,177 @@ daily2Router.post("/them", async (req, res) => {
     await dl1.save();
 
     res.send({ savedDaily2, success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+//======================
+
+// lay ds don hang thuoc daily2
+daily2Router.get("/dsdonhang/:daily2Id", async (req, res) => {
+  try {
+    let { donhang } = await Daily2.findById(req.params.daily2Id)
+      .select("donhang")
+      .populate("donhang");
+
+    res.send({ donhang, success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+// lay danh sach hodan thuoc daily2
+daily2Router.get("/dshodan/:daily2Id", async (req, res) => {
+  try {
+    let { hodan } = await Daily2.findById(req.params.daily2Id)
+      .select("hodan")
+      .populate({
+        path: "hodan",
+        populate: {
+          path: "langnghe loaisanpham user",
+        },
+      });
+    if (!hodan.length) {
+      return res.send({
+        message: "Không tìm thấy đại lý 2 nào",
+        success: false,
+      });
+    }
+    hodan = hodan.filter((hd) => hd.active);
+
+    res.send({ hodan, success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+// lay danh sach SUB don hang thuoc daily2
+daily2Router.get("/dssubdonhang/:daily2Id/:ma", async (req, res) => {
+  try {
+    let { subdonhang } = await Daily2.findById(req.params.daily2Id)
+      .select("subdonhang")
+      .populate({
+        path: "subdonhang",
+        populate: {
+          path: "from to dssanpham dscongcu dsvattu dsnguyenlieu",
+          populate: {
+            path: "daily2 hodan sanpham congcu vattu nguyenlieu",
+          },
+        },
+      })
+      .populate({
+        path: "subdonhang",
+        populate: {
+          path: "dssanpham",
+          populate: {
+            path: "sanpham",
+            populate: {
+              path: "loaisanpham",
+            },
+          },
+        },
+      });
+    subdonhang = subdonhang.filter((item) => item.ma === req.params.ma);
+
+    res.send({ subdonhang, success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+// lay danh sach sanpham thuoc Daily2
+daily2Router.get("/dssanpham/:daily2Id", async (req, res) => {
+  try {
+    const { dssanpham } = await Daily2.findById(req.params.daily2Id)
+      .select("dssanpham")
+      .populate({
+        path: "dssanpham",
+        populate: {
+          path: "donhang sanpham",
+        },
+      })
+      .populate({
+        path: "dssanpham",
+        populate: {
+          path: "sanpham",
+          populate: {
+            path: "loaisanpham",
+          },
+        },
+      });
+
+    res.send({ dssanpham, success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+// lay danh sach vattu thuoc Daily2
+daily2Router.get("/dsvattu/:daily2Id", async (req, res) => {
+  try {
+    let { dsvattu } = await Daily2.findById(req.params.daily2Id)
+      .select("dsvattu")
+      .populate({
+        path: "dsvattu",
+        populate: "donhang vattu",
+      });
+
+    res.send({ dsvattu, success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+// lay danh sach nguyenlieu thuoc Daily1
+daily2Router.get("/dsnguyenlieu/:daily2Id", async (req, res) => {
+  try {
+    const { dsnguyenlieu } = await Daily2.findById(req.params.daily2Id)
+      .select("dsnguyenlieu")
+      .populate({
+        path: "dsnguyenlieu",
+        populate: {
+          path: "donhang nguyenlieu",
+        },
+      });
+    res.send({ dsnguyenlieu, success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+// lay danh sach congcu thuoc Daily2
+daily2Router.get("/dscongcu/:daily2Id", async (req, res) => {
+  try {
+    let { dscongcu } = await Daily2.findById(req.params.daily2Id)
+      .select("dscongcu")
+      .populate({
+        path: "dscongcu",
+        populate: {
+          path: "donhang congcu",
+        },
+      });
+
+    res.send({ dscongcu, success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+// lay so lieu tong quan
+daily2Router.get("/tongquan/:daily2Id", async (req, res) => {
+  try {
+    let daily2 = await Daily2.findById(req.params.daily2Id);
+
+    res.send({
+      dssanpham: daily2.dssanpham.length,
+      dscongcu: daily2.dscongcu.length,
+      dsvattu: daily2.dsvattu.length,
+      dsnguyenlieu: daily2.dsnguyenlieu.length,
+      dshodan: daily2.hodan.length,
+      dsdonhang: daily2.donhang.length,
+      success: true,
+    });
   } catch (error) {
     res.send({ message: error.message, success: false });
   }

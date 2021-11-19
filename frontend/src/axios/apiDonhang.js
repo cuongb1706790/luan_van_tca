@@ -30,6 +30,24 @@ const apiDonhang = {
     const url = `/donhang/bophankdtogsv`;
     return axiosClient.put(url, payload);
   },
+
+  // gsv send donhang -> dl1
+  gsvToDaily1(payload) {
+    const url = `/donhang/gsvtodaily1`;
+    return axiosClient.put(url, payload);
+  },
+
+  // dl1 send donhang -> dl2
+  daily1ToDaily2(payload) {
+    const url = `/donhang/daily1todaily2`;
+    return axiosClient.put(url, payload);
+  },
+
+  // dl2 send donhang -> hodan
+  daily2ToHodan(payload) {
+    const url = `/donhang/daily2tohodan`;
+    return axiosClient.put(url, payload);
+  },
 };
 
 export default apiDonhang;

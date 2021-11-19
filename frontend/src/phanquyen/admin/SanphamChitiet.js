@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Header from "../../components/Header";
 import MaterialCard from "./MaterialCard";
 import img_placeholder from "../../assets/images/img_placeholder.png";
+import { formatMoney } from "../../utils";
 
 const SanphamChitiet = (props) => {
   const [loading, setLoading] = useState(false);
@@ -197,7 +198,7 @@ const SanphamChitiet = (props) => {
                 </BoxTitle>
                 <BoxContent>
                   <FormGroup>
-                    <Input type="text" value={sanpham?.gia} />
+                    <Input type="text" value={formatMoney(sanpham?.gia)} />
                   </FormGroup>
                 </BoxContent>
               </Box>

@@ -8,7 +8,11 @@ import apiSanpham from "../../axios/apiSanpham";
 import BackdropMaterial from "../../components/BackdropMaterial";
 import TableSanphamDonhang from "./tables/TableSanphamDonhang";
 import TableCongcuDonhang from "./tables/TableCongcuDonhang";
-import { getDsNguyenVatlieu, getTongNguyenVatlieu } from "../../utils";
+import {
+  formatMoney,
+  getDsNguyenVatlieu,
+  getTongNguyenVatlieu,
+} from "../../utils";
 import TableVattuDonhang from "./tables/TableVattuDonhang";
 import TableNguyenlieuDonhang from "./tables/TableNguyenlieuDonhang";
 import apiDonhang from "../../axios/apiDonhang";
@@ -22,8 +26,6 @@ const DonhangThem = (props) => {
   const [selectedSP, setSelectedSP] = useState([]);
   const { danhsachcongcu, danhsachvattu, danhsachnguyenlieu, tongdongia } =
     getDsNguyenVatlieu(dsSP);
-
-  console.log({ danhsachcongcu });
 
   const emptyFields = () => {
     if (!ma || !selectedSP.length) {
@@ -160,7 +162,7 @@ const DonhangThem = (props) => {
                   <TableSanphamDonhang dsSanpham={dsSP} setDsSP={setDsSP} />
                   <div className="text-right">
                     <Total>Tổng đơn giá: </Total>
-                    <TotalValue>{tongdongia}</TotalValue>
+                    <TotalValue>{formatMoney(tongdongia)}</TotalValue>
                   </div>
                 </TableSection>
 

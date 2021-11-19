@@ -12,6 +12,7 @@ import MaterialCard from "./MaterialCard";
 import DropdownMaterial2 from "../../components/DropdownMaterial2";
 import MenuItem from "@mui/material/MenuItem";
 import MultipleSelect from "../../components/MultipleSelect";
+import { formatMoney } from "../../utils";
 
 const SanphamChinhsua = (props) => {
   const [thuoctinh, setThuoctinh] = useState([{ ten: "", giatri: "" }]);

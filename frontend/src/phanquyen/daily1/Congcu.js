@@ -1,37 +1,27 @@
 import React, { useEffect, useState } from "react";
+import TableCongcu from "./tables/TableCongcu";
 import { useSelector } from "react-redux";
-import apiDaily1 from "../../axios/apiDaily1";
 import BackdropMaterial from "../../components/BackdropMaterial";
 import styled from "styled-components";
 import Header from "../../components/Header";
-import TableCongcu from "./tables/TableCongcu";
-import ModalChitietCongcu from "../../components/ModalChitietCongcu";
+import apiDaily1 from "../../axios/apiDaily1";
 
 const Congcu = (props) => {
   const [query, setQuery] = useState("");
-  const [searchColumns] = useState(["ten", "bophankd"]);
+  const [searchColumns] = useState(["ten", "congdung"]);
   const [loading, setLoading] = useState(false);
   const [dsCongcu, setDsCongcu] = useState([]);
-  const [modalOpen, setModalOpen] = useState(false);
-  const [congcu, setCongcu] = useState(null);
   const { userInfo } = useSelector((state) => state.user);
-
-  const handleOpenModal = () => setModalOpen(true);
-  const handleCloseModal = () => setModalOpen(false);
 
   const fetchDsCongcu = async () => {
     setLoading(true);
     const { daily1 } = await apiDaily1.singleDaily1BasedUser(userInfo._id);
-    const { dsCongcu } = await apiDaily1.dsCongcu(daily1._id);
-    setDsCongcu(
-      dsCongcu && dsCongcu.length
-        ? dsCongcu.map((item) => ({
-            ...item,
-            ten: item.congcu.ten,
-            bophankd: item.phanphat.from.bophankd.ten,
-          }))
-        : []
-    );
+    let { dscongcu } = await apiDaily1.dsCongcu(daily1._id);
+    dscongcu = dscongcu.map((cc) => ({
+      ...cc.congcu,
+      ...cc,
+    }));
+    setDsCongcu(dscongcu);
     setLoading(false);
   };
 
@@ -62,7 +52,7 @@ const Congcu = (props) => {
         <Header title="Công cụ" />
         <Content>
           <FilterSection>
-            <TitleWrapper>
+            <TitleWrapper className="d-flex justify-content-between align-items-center">
               <Title>Danh sách công cụ</Title>
             </TitleWrapper>
             <Filter>
@@ -78,21 +68,11 @@ const Congcu = (props) => {
             </Filter>
 
             <TableSection>
-              <TableCongcu
-                dsCongcu={search(dsCongcu)}
-                handleOpenModal={handleOpenModal}
-                setCongcu={setCongcu}
-              />
+              <TableCongcu dsCongcu={search(dsCongcu)} />
             </TableSection>
           </FilterSection>
         </Content>
       </Wrapper>
-
-      <ModalChitietCongcu
-        open={modalOpen}
-        onClose={handleCloseModal}
-        congcu={congcu}
-      />
     </>
   );
 };
@@ -106,7 +86,6 @@ const Content = styled.div`
   flex: 1;
   background: #f0eeee;
   padding: 36px;
-  font-family: "Poppins", sans-serif;
 `;
 const FilterSection = styled.div`
   background: #fff;
@@ -116,6 +95,7 @@ const Title = styled.div`
   padding: 14px 17px;
   font-weight: 500;
   color: #1e93e8;
+  font-family: "Poppins", sans-serif;
   display: inline-block;
   border-bottom: 2px solid #1e93e8;
 `;
@@ -145,24 +125,22 @@ const SearchBox = styled.div`
     padding: 0 10px;
     color: #182537;
     font-size: 14px;
+    font-family: "Poppins", sans-serif;
     &::placeholder {
       font-size: 14px;
       color: rgba(0, 0, 0, 0.35);
+      font-family: "Poppins", sans-serif;
     }
   }
 `;
 const TableSection = styled.div`
-  table {
-    th,
-    td {
-      font-family: "Poppins", sans-serif;
-    }
-    th:first-child {
-      display: none;
-    }
-    td:first-child {
-      display: none;
-    }
+  th,
+  td {
+    font-family: "Poppins", sans-serif;
+  }
+  th:first-child,
+  td:first-child {
+    display: none;
   }
 `;
 

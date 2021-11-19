@@ -49,7 +49,7 @@ export const getDsNguyenVatlieu = (dssanpham) => {
     for (const cc of dscongcu) {
       const soluongcc = cc.soluong;
       const arrOfId = danhsachcongcu.length
-        ? danhsachcongcu.map((item) => item.congcu._id)
+        ? danhsachcongcu.map((item) => item.congcu._id) // ***
         : [];
       if (arrOfId.includes(cc.congcu._id)) {
         const id = cc.congcu._id;
@@ -125,3 +125,8 @@ export const getTongNguyenVatlieu = (arr, type) => {
   }
   return sum;
 };
+
+export const formatMoney = (money) => {
+  const formatter = new Intl.NumberFormat("es");
+  return formatter.format(money)
+}

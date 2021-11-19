@@ -10,7 +10,11 @@ import { useSelector } from "react-redux";
 import DropdownMaterial2 from "../../components/DropdownMaterial2";
 import TableSanphamDonhang from "./tables/TableSanphamDonhang";
 import TableDonhangGoc from "./tables/TableDonhangGoc";
-import { getDsNguyenVatlieu, getTongNguyenVatlieu } from "../../utils";
+import {
+  formatMoney,
+  getDsNguyenVatlieu,
+  getTongNguyenVatlieu,
+} from "../../utils";
 import MultipleSelect from "../../components/MultipleSelect";
 
 const DonhangThem = (props) => {
@@ -93,9 +97,7 @@ const DonhangThem = (props) => {
       setDsGSV((prev) =>
         prev.map((gsv) =>
           gsv.loaisanpham.includes(sp.loaisanpham) &&
-          !gsv.dsthoaman
-            .map((item) => item.loaisanpham)
-            .includes(sp.loaisanpham)
+          !gsv.dsthoaman.map((item) => item._id).includes(sp._id)
             ? {
                 ...gsv,
                 dsthoaman: [{ ...sp, soluong: 1 }, ...gsv.dsthoaman],
@@ -259,11 +261,13 @@ const DonhangThem = (props) => {
                 <div className="text-right">
                   <Total>Tổng đơn hàng:</Total>
                   <TotalValue>
-                    {getTongDonhang(
-                      singleDonhang.dssanpham.map((sp) => ({
-                        ...sp.sanpham,
-                        soluong: sp.soluong,
-                      }))
+                    {formatMoney(
+                      getTongDonhang(
+                        singleDonhang.dssanpham.map((sp) => ({
+                          ...sp.sanpham,
+                          soluong: sp.soluong,
+                        }))
+                      )
                     )}
                   </TotalValue>
                 </div>
@@ -281,7 +285,9 @@ const DonhangThem = (props) => {
                   />
                   <div className="text-right">
                     <Total>Tổng đơn hàng:</Total>
-                    <TotalValue>{getTongDonhang(gsv?.dsthoaman)}</TotalValue>
+                    <TotalValue>
+                      {formatMoney(getTongDonhang(gsv?.dsthoaman))}
+                    </TotalValue>
                   </div>
                 </TableSection>
               ) : null

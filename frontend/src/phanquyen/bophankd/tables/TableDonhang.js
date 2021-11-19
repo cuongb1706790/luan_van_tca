@@ -10,7 +10,7 @@ import Paper from "@mui/material/Paper";
 import Checkbox from "@mui/material/Checkbox";
 import { useHistory } from "react-router-dom";
 import EnhancedTableHead from "../../../components/table/EnhancedTableHead";
-import { getComparator } from "../../../utils";
+import { formatMoney, getComparator } from "../../../utils";
 import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
 import { headCellsDonhang } from "./headCells";
 import Toolbar from "@mui/material/Toolbar";
@@ -213,7 +213,9 @@ const TableDonhang = ({ dsDonhang = [], setRowsRemoved }) => {
                         <TableCell align="right">
                           {row?.tongnguyenlieu}
                         </TableCell>
-                        <TableCell align="right">{row?.tongdongia}</TableCell>
+                        <TableCell align="right">
+                          {formatMoney(row?.tongdongia)}
+                        </TableCell>
                         <TableCell align="right">{row?.ngaydathang}</TableCell>
                       </TableRow>
                     );

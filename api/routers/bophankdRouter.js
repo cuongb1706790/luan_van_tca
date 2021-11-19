@@ -641,19 +641,44 @@ bophankdRouter.get("/dsnguyenlieu/:bophankdId", async (req, res) => {
   }
 });
 
-// lay danh sach congcu thuoc bophankdId
+// lay so lieu tong quan
+bophankdRouter.get("/tongquan/:bophankdId", async (req, res) => {
+  try {
+    const bophankd = await Bophankd.findById(req.params.bophankdId);
+
+    res.send({
+      dssanpham: bophankd.dssanpham.length,
+      dsvattu: bophankd.dsvattu.length,
+      dsnguyenlieu: bophankd.dsnguyenlieu.length,
+      dscongcu: bophankd.dscongcu.length,
+      daily1: bophankd.daily1.length,
+      daily2: bophankd.daily2.length,
+      donhang: bophankd.donhang.length,
+      giamsatvung: bophankd.giamsatvung.length,
+      success: true,
+    });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+// lay ds cong cu thuoc bophankd
 bophankdRouter.get("/dscongcu/:bophankdId", async (req, res) => {
   try {
-    let { dscongcu } = await Bophankd.findById(req.params.bophankdId)
-      .select("dscongcu")
-      .populate({
-        path: "dscongcu",
-        populate: {
-          path: "donhang congcu",
-        },
-      });
+    try {
+      let { dscongcu } = await Bophankd.findById(req.params.bophankdId)
+        .select("dscongcu")
+        .populate({
+          path: "dscongcu",
+          populate: {
+            path: "donhang congcu",
+          },
+        });
 
-    res.send({ dscongcu, success: true });
+      res.send({ dscongcu, success: true });
+    } catch (error) {
+      res.send({ message: error.message, success: false });
+    }
   } catch (error) {
     res.send({ message: error.message, success: false });
   }

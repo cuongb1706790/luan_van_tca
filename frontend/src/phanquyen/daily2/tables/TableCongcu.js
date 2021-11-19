@@ -8,24 +8,21 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Checkbox from "@mui/material/Checkbox";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import img_placeholder from "../../../assets/images/img_placeholder.png";
 import EnhancedTableHead from "../../../components/table/EnhancedTableHead";
 import { getComparator } from "../../../utils";
 import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
 import { headCellsCongcu } from "./headCells";
-import img_placeholder from "../../../assets/images/img_placeholder.png";
+import TableButton from "../../../components/TableButton";
 
-const TableCongcu = ({ dsCongcu = [], handleOpenModal, setCongcu }) => {
+const TableCongcu = ({ dsCongcu = [] }) => {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
-  const handleClickOpenModal = (congcu) => {
-    setCongcu(congcu);
-    handleOpenModal();
-  };
+  const history = useHistory();
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -35,14 +32,14 @@ const TableCongcu = ({ dsCongcu = [], handleOpenModal, setCongcu }) => {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = dsCongcu.map((item) => item._id);
+      const newSelecteds = dsCongcu?.map((item) => item._id);
       setSelected(newSelecteds);
       return;
     }
     setSelected([]);
   };
 
-  const handleClick = (event, _id) => {
+  const handleClick = (event, _id, row) => {
     const selectedIndex = selected.indexOf(_id);
     let newSelected = [];
 
@@ -58,7 +55,6 @@ const TableCongcu = ({ dsCongcu = [], handleOpenModal, setCongcu }) => {
         selected.slice(selectedIndex + 1)
       );
     }
-
     setSelected(newSelected);
   };
 
@@ -75,117 +71,121 @@ const TableCongcu = ({ dsCongcu = [], handleOpenModal, setCongcu }) => {
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - dsCongcu.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - dsCongcu?.length) : 0;
 
   return (
-    <Box sx={{ width: "100%" }}>
-      <Paper sx={{ width: "100%", mb: 2 }}>
-        <TableContainer>
-          <Table
-            sx={{ minWidth: 750 }}
-            aria-labelledby="tableTitle"
-            size="small"
-            id="tableMaterial"
-          >
-            <EnhancedTableHead
-              numSelected={selected.length}
-              order={order}
-              orderBy={orderBy}
-              onSelectAllClick={handleSelectAllClick}
-              onRequestSort={handleRequestSort}
-              rowCount={dsCongcu.length}
-              headCells={headCellsCongcu}
-            />
-            <TableBody>
-              {dsCongcu
-                .slice()
-                .sort(getComparator(order, orderBy))
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row, index) => {
-                  const isItemSelected = isSelected(row._id);
-                  const labelId = `enhanced-table-checkbox-${index}`;
+    <>
+      <Box sx={{ width: "100%" }}>
+        <Paper sx={{ width: "100%", mb: 2 }}>
+          <TableContainer>
+            <Table
+              sx={{ minWidth: 750 }}
+              aria-labelledby="tableTitle"
+              size="small"
+              id="tableMaterial"
+            >
+              <EnhancedTableHead
+                numSelected={selected.length}
+                order={order}
+                orderBy={orderBy}
+                onSelectAllClick={handleSelectAllClick}
+                onRequestSort={handleRequestSort}
+                rowCount={dsCongcu?.length}
+                headCells={headCellsCongcu}
+              />
+              <TableBody>
+                {dsCongcu
+                  ?.slice()
+                  .sort(getComparator(order, orderBy))
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((row, index) => {
+                    const isItemSelected = isSelected(row._id);
+                    const labelId = `enhanced-table-checkbox-${index}`;
 
-                  return (
-                    <TableRow
-                      hover
-                      onClick={(event) => handleClick(event, row._id)}
-                      role="checkbox"
-                      aria-checked={isItemSelected}
-                      tabIndex={-1}
-                      key={row._id}
-                      selected={isItemSelected}
-                    >
-                      <TableCell padding="checkbox">
-                        <Checkbox
-                          color="primary"
-                          checked={isItemSelected}
-                          inputProps={{
-                            "aria-labelledby": labelId,
-                          }}
-                        />
-                      </TableCell>
-                      <TableCell align="right">
-                        <img
-                          src={
-                            row.congcu.hinhanh
-                              ? `/uploads/${row.congcu.hinhanh}`
-                              : img_placeholder
+                    return (
+                      <TableRow
+                        hover
+                        onClick={(event) => handleClick(event, row._id, row)}
+                        role="checkbox"
+                        aria-checked={isItemSelected}
+                        tabIndex={-1}
+                        key={row._id}
+                        selected={isItemSelected}
+                      >
+                        <TableCell padding="checkbox">
+                          <Checkbox
+                            color="primary"
+                            checked={isItemSelected}
+                            inputProps={{
+                              "aria-labelledby": labelId,
+                            }}
+                          />
+                        </TableCell>
+                        <TableCell align="right">{row?.donhang.ma}</TableCell>
+                        <TableCell align="right">{row?.ten}</TableCell>
+                        <TableCell>
+                          <img
+                            src={
+                              row?.hinhanh
+                                ? `/uploads/${row?.hinhanh}`
+                                : img_placeholder
+                            }
+                            alt="anhcongcu"
+                            style={{ width: "30px" }}
+                            className={!row?.hinhanh && "noImage"}
+                          />
+                        </TableCell>
+                        <TableCell align="right">{row?.soluong}</TableCell>
+                        <TableCell align="right">{row?.congdung}</TableCell>
+                        <TableCell align="right">{row?.ngaytao}</TableCell>
+                        {/* <TableCell align="right">
+                          {
+                            <TableButton
+                              onClick={() =>
+                                history.push(
+                                  `/bophankd/congcu/chitiet/${row._id}`
+                                )
+                              }
+                            >
+                              Chi tiết
+                            </TableButton>
                           }
-                          alt="anhcongcu"
-                          style={{ width: "30px" }}
-                          className={!row.congcu.hinhanh && "noImage"}
-                        />
-                      </TableCell>
-                      <TableCell align="right">
-                        <Link
-                          to="#"
-                          onClick={() => handleClickOpenModal(row.congcu)}
-                        >
-                          {row.congcu.ten}
-                        </Link>
-                      </TableCell>
-                      <TableCell align="right">{row.soluongphanphat}</TableCell>
-                      <TableCell align="right">
-                        {row.phanphat.from.bophankd.ten}
-                      </TableCell>
-                      <TableCell align="right">{row.ngaytiepnhan}</TableCell>
-                      <TableCell align="right">
-                        {row.daphanphat ? "Đã phân phát" : "Đang chờ"}
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
-              {emptyRows > 0 && (
-                <TableRow
-                  style={{
-                    height: 53 * emptyRows,
-                  }}
-                >
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
-          colSpan={3}
-          count={dsCongcu.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          SelectProps={{
-            inputProps: {
-              "aria-label": "rows per page",
-            },
-            native: true,
-          }}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-          ActionsComponent={TablePaginationActions}
-          component="div"
-        />
-      </Paper>
-    </Box>
+                        </TableCell> */}
+                      </TableRow>
+                    );
+                  })}
+                {emptyRows > 0 && (
+                  <TableRow
+                    style={{
+                      height: 53 * emptyRows,
+                    }}
+                  >
+                    <TableCell colSpan={6} />
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <TablePagination
+            rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
+            colSpan={3}
+            count={dsCongcu?.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            SelectProps={{
+              inputProps: {
+                "aria-label": "số dòng trên trang",
+              },
+              native: true,
+            }}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+            ActionsComponent={TablePaginationActions}
+            component="div"
+          />
+        </Paper>
+      </Box>
+    </>
   );
 };
 

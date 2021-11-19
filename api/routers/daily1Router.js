@@ -186,26 +186,6 @@ daily1Router.put("/themdaily2", async (req, res) => {
   }
 });
 
-// lay danh sach daily 2 thuoc daily 1
-daily1Router.get("/dsdaily2/:daily1Id", async (req, res) => {
-  try {
-    const daily2 = await Daily1.findById(req.params.daily1Id)
-      .select("daily2")
-      .populate({
-        path: "daily2",
-        populate: {
-          path: "user",
-          model: "User",
-        },
-      })
-      .sort({ createdAt: "desc" });
-
-    res.send({ daily2, success: true });
-  } catch (error) {
-    res.send({ message: error.message, success: false });
-  }
-});
-
 // xoa nhieu` daily 2 thuoc daily1Id
 daily1Router.put("/xoanhieudaily2", async (req, res) => {
   const { daily1Id, arrayOfId } = req.body;
@@ -457,6 +437,171 @@ daily1Router.put("/duyet/:hodanId/:daily1Id", async (req, res) => {
     await gsv.save();
 
     res.send({ updatedHodan, success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+// lay ds don hang thuoc daily1
+daily1Router.get("/dsdonhang/:daily1Id", async (req, res) => {
+  try {
+    let { donhang } = await Daily1.findById(req.params.daily1Id)
+      .select("donhang")
+      .populate("donhang");
+
+    res.send({ donhang, success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+// lay danh sach daily 2 thuoc daily 1
+daily1Router.get("/dsdaily2/:daily1Id", async (req, res) => {
+  try {
+    let { daily2 } = await Daily1.findById(req.params.daily1Id)
+      .select("daily2")
+      .populate("daily2");
+    if (!daily2.length) {
+      return res.send({
+        message: "Không tìm thấy đại lý 2 nào",
+        success: false,
+      });
+    }
+    daily2 = daily2.filter((dl2) => dl2.active);
+
+    res.send({ daily2, success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+// lay danh sach SUB don hang thuoc daily1
+daily1Router.get("/dssubdonhang/:daily1Id/:ma", async (req, res) => {
+  try {
+    let { subdonhang } = await Daily1.findById(req.params.daily1Id)
+      .select("subdonhang")
+      .populate({
+        path: "subdonhang",
+        populate: {
+          path: "from to dssanpham dscongcu dsvattu dsnguyenlieu",
+          populate: {
+            path: "daily1 daily2 sanpham congcu vattu nguyenlieu",
+          },
+        },
+      })
+      .populate({
+        path: "subdonhang",
+        populate: {
+          path: "dssanpham",
+          populate: {
+            path: "sanpham",
+            populate: {
+              path: "loaisanpham",
+            },
+          },
+        },
+      });
+    subdonhang = subdonhang.filter((item) => item.ma === req.params.ma);
+
+    res.send({ subdonhang, success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+// lay danh sach sanpham thuoc Daily1
+daily1Router.get("/dssanpham/:daily1Id", async (req, res) => {
+  try {
+    const { dssanpham } = await Daily1.findById(req.params.daily1Id)
+      .select("dssanpham")
+      .populate({
+        path: "dssanpham",
+        populate: {
+          path: "donhang sanpham",
+        },
+      })
+      .populate({
+        path: "dssanpham",
+        populate: {
+          path: "sanpham",
+          populate: {
+            path: "loaisanpham",
+          },
+        },
+      });
+
+    res.send({ dssanpham, success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+// lay danh sach vattu thuoc Daily1
+daily1Router.get("/dsvattu/:daily1Id", async (req, res) => {
+  try {
+    let { dsvattu } = await Daily1.findById(req.params.daily1Id)
+      .select("dsvattu")
+      .populate({
+        path: "dsvattu",
+        populate: "donhang vattu",
+      });
+
+    res.send({ dsvattu, success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+// lay danh sach nguyenlieu thuoc Daily1
+daily1Router.get("/dsnguyenlieu/:daily1Id", async (req, res) => {
+  try {
+    const { dsnguyenlieu } = await Daily1.findById(req.params.daily1Id)
+      .select("dsnguyenlieu")
+      .populate({
+        path: "dsnguyenlieu",
+        populate: {
+          path: "donhang nguyenlieu",
+        },
+      });
+    res.send({ dsnguyenlieu, success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+// lay danh sach congcu thuoc Daily1
+daily1Router.get("/dscongcu/:daily1Id", async (req, res) => {
+  try {
+    let { dscongcu } = await Daily1.findById(req.params.daily1Id)
+      .select("dscongcu")
+      .populate({
+        path: "dscongcu",
+        populate: {
+          path: "donhang congcu",
+        },
+      });
+
+    res.send({ dscongcu, success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+// lay so lieu tong quan
+daily1Router.get("/tongquan/:daily1Id", async (req, res) => {
+  try {
+    let daily1 = await Daily1.findById(req.params.daily1Id);
+
+    res.send({
+      dssanpham: daily1.dssanpham.length,
+      dscongcu: daily1.dscongcu.length,
+      dsvattu: daily1.dsvattu.length,
+      dsnguyenlieu: daily1.dsnguyenlieu.length,
+      dsdaily2: daily1.daily2.length,
+      dshodan: daily1.hodan.length,
+      dsdonhang: daily1.donhang.length,
+      success: true,
+    });
   } catch (error) {
     res.send({ message: error.message, success: false });
   }

@@ -93,15 +93,46 @@ const apiDaily2 = {
     return axiosClient.get(url);
   },
 
-  // lay ds CONG CU thuoc daily 2
-  dsCongcu(daily2Id) {
-    const url = `/daily2/danhsachcongcu/${daily2Id}`;
+  //============
+  // lay ds don hang thuoc daily2
+  dsDonhang(daily1Id) {
+    const url = `/daily2/dsdonhang/${daily1Id}`;
     return axiosClient.get(url);
   },
 
-  // lay ds VAT TU thuoc daily 2
+  // lay ds SUB don hang thuoc daily2
+  dsSubDonhang(daily1Id, madh) {
+    const url = `/daily2/dssubdonhang/${daily1Id}/${madh}`;
+    return axiosClient.get(url);
+  },
+
+  // lay ds san pham thuoc daily2
+  dsSanpham(daily2Id) {
+    const url = `/daily2/dssanpham/${daily2Id}`;
+    return axiosClient.get(url);
+  },
+
+  // lay ds cong cu thuoc daily2
+  dsCongcu(daily2Id) {
+    const url = `/daily2/dscongcu/${daily2Id}`;
+    return axiosClient.get(url);
+  },
+
+  // lay ds vat tu thuoc daily2
   dsVattu(daily2Id) {
-    const url = `/daily2/danhsachvattu/${daily2Id}`;
+    const url = `/daily2/dsvattu/${daily2Id}`;
+    return axiosClient.get(url);
+  },
+
+  // lay ds cong cu thuoc daily2
+  dsNguyenlieu(daily2Id) {
+    const url = `/daily2/dsnguyenlieu/${daily2Id}`;
+    return axiosClient.get(url);
+  },
+
+  // lay so lieu tong quan
+  tongquan(daily2Id) {
+    const url = `/daily2/tongquan/${daily2Id}`;
     return axiosClient.get(url);
   },
 };
