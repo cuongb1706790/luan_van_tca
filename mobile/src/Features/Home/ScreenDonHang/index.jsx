@@ -1,39 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { FlatList, StyleSheet, Text, View, SafeAreaView } from "react-native";
-import hodanApi from "../../api/hodanApi";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import RenderPhanPhat from "./RenderPhanPhat";
-function ThongBao(props) {
-  // const [infoHoDan, setInfoHoDan] = useState();
-  const [dsPhat, setDsPhat] = useState();
-  const [hoDan, setHoDan] = useState("");
-  const [dsPhatVatTu, setDsPhatVatTu] = useState("");
-  const [dsPhatCC, setDsPhatCC] = useState("");
-  useEffect(() => {
-    (async () => {
-      //get info hodan
-      const dataHodan = await hodanApi.getAll();
-      //get id Account
-      const dataAccount = await AsyncStorage.getItem("user");
-      const findHoDan = dataHodan.hodan.find((item) => {
-        return dataAccount.includes(item.user._id);
-      });
-      setHoDan(findHoDan);
-      const getDsPhanPhat = await hodanApi.dsPhanphat(findHoDan._id);
-      setDsPhat(getDsPhanPhat.dsphanphat);
-    })();
-  }, []);
+import React from "react";
+import { FlatList, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import ListDonHang from "./ListDonHang";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
-  const renderItem = ({ item }) => (
-    <View>
-      <Text>{item._id}</Text>
-    </View>
-  );
-  // const Item = ({ data }) => (
-  //   <View >
-  //     <Text>{data._id}</Text>
-  //   </View>
-  // );
+function ScreenDonHang(props) {
+  const {navigation } = props;
   const orderList = [
     {
       id: 1,
@@ -41,6 +12,7 @@ function ThongBao(props) {
       tongtien: 20000000,
       ngaytao: "12/2/2020",
       daxacnhan: "false",
+      dagui: "chua",
       productList: [
         {
           id: 11,
@@ -49,6 +21,7 @@ function ThongBao(props) {
           soluong: 1000,
           donvi: "mét",
           dongia: 20000,
+          tiendo: '80%',
           congcu: [
             {
               id: 111,
@@ -91,6 +64,7 @@ function ThongBao(props) {
           soluong: 1000,
           donvi: "mét",
           dongia: 10000,
+          tiendo : '20%',
           congcu: [
             {
               id: 121,
@@ -106,34 +80,19 @@ function ThongBao(props) {
         },
       ],
     },
-    
   ];
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.headerContainer}>
-        <Text style={{ color: "white" }}>Thông báo gần đây</Text>
-      </View>
+    <SafeAreaView >
       {orderList && (
         <FlatList
           data={orderList}
-          renderItem={(item, index) => <RenderPhanPhat phanphat={item} />}
+          renderItem={(item, index) => <ListDonHang dataList={item} navigation={navigation} />}
           keyExtractor={(item) => item._id}
         />
       )}
+       
     </SafeAreaView>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    marginTop: 20,
-  },
-  headerContainer: {
-    backgroundColor: "#e65c00",
-    paddingTop: 10,
-    paddingBottom: 30,
-    flex: 1,
-    alignItems: "center",
-  },
-});
-export default ThongBao;
+export default ScreenDonHang;

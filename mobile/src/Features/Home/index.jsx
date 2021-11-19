@@ -1,9 +1,10 @@
-import React, { useState ,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Alert, Button, StyleSheet, Text, View, Pressable } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import hodanApi from "../../api/hodanApi";
 import styles from "./style";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import ScreenDonHang from "./ScreenDonHang";
 
 function Home(props) {
   const { navigation } = props;
@@ -12,7 +13,7 @@ function Home(props) {
   const [checkKho, setCheckKho] = useState(false);
   const [infoHoDan, setInfoHoDan] = useState();
   const [idAccount, setIdAccount] = useState();
-  let idHodan = '';
+  let idHodan = "";
   useEffect(() => {
     (async () => {
       //get info hodan
@@ -23,14 +24,13 @@ function Home(props) {
       setInfoHoDan(dataHodan);
     })();
   }, []);
-  if(infoHoDan)
-  {
+  if (infoHoDan) {
     const findHoDan = infoHoDan.hodan.find((item) => {
-        return idAccount.includes(item.user._id)
-      });
-      idHodan = findHoDan._id;
+      return idAccount.includes(item.user._id);
+    });
+    idHodan = findHoDan._id;
   }
-    // console.log(idHodan);
+  // console.log(idHodan);
 
   const handleChangeActiveBar1 = () => {
     setCheckTienDo(true);
@@ -47,16 +47,16 @@ function Home(props) {
     setCheckDonHang(false);
     setCheckKho(true);
   };
-  const handleRedirectBCBienDong = ()=>{
-    navigation.navigate("FormBCBienDong", {idHodan : `${idHodan}`});
-
-  }
-  const handleRedirectCongCu = ()=>{
-    navigation.navigate("ScreenCongCu", {idHodan : `${idHodan}`});
-  }
-  const handleRedirectVatTu = ()=>{
-    navigation.navigate("ScreenVatTu", {idHodan : `${idHodan}`});
-  }
+  const handleRedirectBCTienDo = () => {
+    navigation.navigate("FormBCTienDo", { idHodan: `${idHodan}` });
+  };
+  const handleRedirectCongCu = () => {
+    navigation.navigate("ScreenCongCu", { idHodan: `${idHodan}` });
+  };
+  const handleRedirectVatTu = () => {
+    navigation.navigate("ScreenVatTu", { idHodan: `${idHodan}` });
+  };
+ 
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
@@ -128,7 +128,10 @@ function Home(props) {
           <>
             <View style={styles.containerRowRedirect}>
               <View>
-                <Text style={styles.containerRedirect} onPress={handleRedirectBCBienDong}>
+                <Text
+                  style={styles.containerRedirect}
+                  onPress={handleRedirectBCTienDo}
+                >
                   <View>
                     <Ionicons name="reader-outline" size={70} color="#0000b3" />
                   </View>
@@ -137,14 +140,11 @@ function Home(props) {
                   Báo cáo biến động
                 </Text>
               </View>
-             
             </View>
-           
           </>
         ) : checkKho ? (
           <>
             <View style={styles.containerRowRedirect}>
-             
               <View style={{ marginRight: 30 }}>
                 <Text onPress={handleRedirectCongCu}>
                   <View style={styles.containerRedirectKho}>
@@ -177,13 +177,10 @@ function Home(props) {
                 </Text>
               </View>
             </View>
-         
           </>
         ) : (
           <>
-            <View>
-              <Text>Đơn Hàng</Text>
-            </View>
+            <ScreenDonHang navigation={navigation} />
           </>
         )}
       </View>
