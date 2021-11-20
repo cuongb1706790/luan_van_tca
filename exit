@@ -1,0 +1,41 @@
+[33mcommit f979852814f2edd196b003d679e0a8f6ec9a22b7[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/khanhduy[m[33m, [m[1;32mkhanhduy[m[33m)[m
+Author: Duy Tran <tranduy14884@gmail.com>
+Date:   Fri Nov 19 11:32:32 2021 +0700
+
+    complete interface
+
+[33mcommit f76b44a8d8f15de3e2b167297e524491d01bb27a[m
+Author: Duy Tran <tranduy14884@gmail.com>
+Date:   Thu Nov 18 21:52:56 2021 +0700
+
+    push DH by khanh duy
+
+[33mcommit 84e1af1e5f635b41f480274d35eb61e04cc85635[m
+Author: Duy Tran <tranduy14884@gmail.com>
+Date:   Wed Nov 17 22:09:34 2021 +0700
+
+    complete interface annoucement
+
+[33mcommit 61097b3eb4951fa190e64c1b7c9b2fd115409194[m
+Author: Duy Tran <tranduy14884@gmail.com>
+Date:   Thu Nov 11 22:52:53 2021 +0700
+
+    complete fameword TienDo by KD
+
+[33mcommit 57fbbd12aa9e8b162183d45f0c72043255007cc4[m
+Author: Duy Tran <tranduy14884@gmail.com>
+Date:   Thu Nov 11 17:32:10 2021 +0700
+
+    check mobile kD
+
+[33mcommit 78ec4790bedb18736e2a1f4f3a367e3dc0a1ad82[m
+Author: Duy Tran <tranduy14884@gmail.com>
+Date:   Thu Nov 11 16:25:23 2021 +0700
+
+    fix mobile first
+
+[33mcommit c7210383655a41c334e2fa2ecff269c46ae1675c[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/hoangcuong[m[33m)[m
+Author: Hoang Cuong Tran <thcuong1999@gmail.com>
+Date:   Thu Nov 11 16:14:56 2021 +0700
+
+    first commit 11.11.2021
