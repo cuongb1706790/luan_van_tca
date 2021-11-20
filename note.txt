@@ -112,3 +112,8 @@ array of don hang:
         + dscongcu
         + dsvattu
         + dsnguyenlieu
+
+
+
+hodanId, donhangId
+    => 
