@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Header from "../../components/Header";
 import { useSelector } from "react-redux";
-//
 import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
@@ -32,6 +31,9 @@ const Tiendo = (props) => {
     setLoading(true);
     const { daily1 } = await apiDaily1.singleDaily1BasedUser(userInfo._id);
     const { donhang } = await apiDonhang.singleDonhang(donhangId);
+    if (!donhang.ngaydathang) {
+      props.history.push(`/daily1/donhang/chitiet/${donhangId}`);
+    }
     let { subdonhang } = await apiDaily1.dsSubDonhang(daily1._id, donhang.ma);
     subdonhang = subdonhang.map((dh) => ({
       ...dh,
@@ -44,7 +46,7 @@ const Tiendo = (props) => {
       })),
     }));
     setDsSubDonhang(subdonhang);
-    setValue(subdonhang[0]._id);
+    setValue(subdonhang[0]?._id);
     setLoading(false);
   };
 

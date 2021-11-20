@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { toast } from "react-toastify";
 import Header from "../../components/Header";
 import BackdropMaterial from "../../components/BackdropMaterial";
 import apiDonhang from "../../axios/apiDonhang";
@@ -8,11 +9,28 @@ import TableCongcuDonhang from "./tables/TableCongcuDonhang";
 import TableVattuDonhang from "./tables/TableVattuDonhang";
 import TableNguyenlieuDonhang from "./tables/TableNguyenlieuDonhang";
 import { formatMoney } from "../../utils";
+import DialogMaterial from "../../components/DialogMaterial";
 
 const DonhangChitiet = (props) => {
   const [loading, setLoading] = useState(false);
   const [singleDonhang, setSingleDonhang] = useState(null);
   const { id: donhangId } = props.match.params;
+  const [success, setSuccess] = useState(false);
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const handleXacnhan = async () => {
+    const { success } = await apiDonhang.xacnhan(donhangId);
+    if (success) {
+      handleClose();
+      setSuccess(true);
+      toast.success("Xác nhận thành công!", {
+        theme: "colored",
+      });
+    }
+  };
 
   const fetchDonhang = async () => {
     setLoading(true);
@@ -32,9 +50,10 @@ const DonhangChitiet = (props) => {
   };
 
   useEffect(() => {
+    setSuccess(false);
     fetchDonhang();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [success]);
 
   if (loading) {
     return <BackdropMaterial />;
@@ -72,11 +91,17 @@ const DonhangChitiet = (props) => {
                 ) : (
                   <TitleContent
                     style={{ cursor: "pointer" }}
-                    onClick={() =>
-                      props.history.push(
-                        `/giamsatvung/donhang/chitiet/${donhangId}/them`
-                      )
-                    }
+                    onClick={() => {
+                      if (singleDonhang?.xacnhan) {
+                        props.history.push(
+                          `/giamsatvung/donhang/chitiet/${donhangId}/them`
+                        );
+                      } else {
+                        toast.warning("Vui lòng xác nhận đơn hàng!", {
+                          theme: "colored",
+                        });
+                      }
+                    }}
                   >
                     <span>Tiến hành phân phát</span>
                     <i class="fas fa-long-arrow-alt-right"></i>
@@ -147,9 +172,32 @@ const DonhangChitiet = (props) => {
                 <TotalValue>{singleDonhang?.tongnguyenlieu}</TotalValue>
               </div>
             </TableSection>
+
+            <div className="text-left mt-4">
+              {singleDonhang?.xacnhan ? (
+                <button type="button" class="btn btn-outline-success">
+                  <i class="fas fa-check"></i> Đã duyệt
+                </button>
+              ) : (
+                <button className="btn btn-success px-4" onClick={handleOpen}>
+                  Xác nhận
+                </button>
+              )}
+            </div>
           </Form>
         </Content>
       </Container>
+
+      <DialogMaterial
+        open={open}
+        onClose={handleClose}
+        title="Xác nhận"
+        content="Xác nhận đơn hàng ?"
+        text1="Hủy"
+        text2="Đồng ý"
+        onClick1={handleClose}
+        onClick2={handleXacnhan}
+      />
     </>
   );
 };

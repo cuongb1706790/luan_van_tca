@@ -32,6 +32,9 @@ const Tiendo = (props) => {
     setLoading(true);
     const { daily2 } = await apiDaily2.singleDaily2BasedUser(userInfo._id);
     const { donhang } = await apiDonhang.singleDonhang(donhangId);
+    if (!donhang.ngaydathang) {
+      props.history.push(`/daily2/donhang/chitiet/${donhangId}`);
+    }
     let { subdonhang } = await apiDaily2.dsSubDonhang(daily2._id, donhang.ma);
     subdonhang = subdonhang.map((dh) => ({
       ...dh,
@@ -44,7 +47,7 @@ const Tiendo = (props) => {
       })),
     }));
     setDsSubDonhang(subdonhang);
-    setValue(subdonhang[0]._id);
+    setValue(subdonhang[0]?._id);
     setLoading(false);
   };
 

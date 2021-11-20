@@ -179,6 +179,9 @@ const DonhangThem = (props) => {
   const fetchDsDonhang = async () => {
     setLoading(true);
     const { donhang } = await apiDonhang.singleDonhang(donhangId);
+    if (!donhang.xacnhan) {
+      props.history.push(`/giamsatvung/donhang/chitiet/${donhangId}`);
+    }
     const { gsv } = await apiGSV.singleGsvBasedUserId(userInfo._id);
     let { daily1 } = await apiGSV.dsDaily1(gsv._id);
     daily1 = daily1.map((item) => ({ ...item, dsthoaman: [] }));

@@ -474,4 +474,17 @@ donhangRouter.put("/baocao", async (req, res) => {
   }
 });
 
+// xac nhan don hang
+donhangRouter.put("/xacnhan/:donhangId", async (req, res) => {
+  try {
+    const donhang = await Donhang.findById(req.params.donhangId);
+    donhang.xacnhan = true;
+    const savedDonhang = await donhang.save();
+
+    res.send({ savedDonhang, success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
 module.exports = donhangRouter;

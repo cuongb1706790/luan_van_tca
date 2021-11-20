@@ -20,6 +20,7 @@ import DialogMaterial from "../../../components/DialogMaterial";
 import TableButton from "../../../components/TableButton";
 import { toast } from "react-toastify";
 import apiLoaiSanpham from "../../../axios/apiLoaiSanpham";
+import styled from "styled-components";
 
 const EnhancedTableToolbar = ({
   numSelected,
@@ -213,10 +214,12 @@ const TableDonhang = ({ dsDonhang = [], setRowsRemoved }) => {
                         <TableCell align="right">
                           {row?.tongnguyenlieu}
                         </TableCell>
-                        <TableCell align="right">
+                        <TableCell align="right" style={{ fontWeight: 500 }}>
                           {formatMoney(row?.tongdongia)}
                         </TableCell>
-                        <TableCell align="right">{row?.ngaydathang}</TableCell>
+                        <TableCell align="right">
+                          <Badge className="success">{row.ngaydathang}</Badge>
+                        </TableCell>
                       </TableRow>
                     );
                   })}
@@ -265,5 +268,17 @@ const TableDonhang = ({ dsDonhang = [], setRowsRemoved }) => {
     </>
   );
 };
+
+const Badge = styled.div`
+  display: inline-block;
+  text-align: center;
+  color: #fff;
+  padding: 6px 10px;
+  font-size: 15px;
+  border-radius: 3px;
+  &.success {
+    background-color: #28a745;
+  }
+`;
 
 export default TableDonhang;

@@ -79,12 +79,13 @@ const DonhangThem = (props) => {
     setselectedHodan(typeof value === "string" ? value.split(",") : value);
   };
 
-  const handleGetDsThoaman = (dssp, daily1) => {
+  const handleGetDsThoaman = (dssp, hodan) => {
+    console.log({ dssp, hodan });
     dssp.forEach((sp) => {
       setDsHodan((prev) =>
         prev.length
           ? prev.map((hd) =>
-              hd.loaisanpham.includes(sp.loaisanpham._id) && //*** */
+              hd.loaisanpham._id === sp.loaisanpham._id && //*** */
               !hd.dsthoaman
                 .map((item) => item.loaisanpham)
                 .includes(sp.loaisanpham._id)
@@ -94,8 +95,8 @@ const DonhangThem = (props) => {
                   }
                 : hd
             )
-          : daily1.map((hd) =>
-              hd.loaisanpham.includes(sp.loaisanpham._id) &&
+          : hodan.map((hd) =>
+              hd.loaisanpham._id === sp.loaisanpham._id &&
               !hd.dsthoaman
                 .map((item) => item.loaisanpham)
                 .includes(sp.loaisanpham._id)
@@ -180,6 +181,9 @@ const DonhangThem = (props) => {
   const fetchDsDonhang = async () => {
     setLoading(true);
     const { donhang } = await apiDonhang.singleDonhang(donhangId);
+    if (!donhang.xacnhan) {
+      props.history.push(`/daily2/donhang/chitiet/${donhangId}`);
+    }
     const { daily2 } = await apiDaily2.singleDaily2BasedUser(userInfo._id);
     let { hodan } = await apiDaily2.dsHodan(daily2._id);
     hodan = hodan.map((item) => ({ ...item, dsthoaman: [] }));

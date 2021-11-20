@@ -48,6 +48,12 @@ const apiDonhang = {
     const url = `/donhang/daily2tohodan`;
     return axiosClient.put(url, payload);
   },
+
+  // xac nhan don hang
+  xacnhan(donhangId) {
+    const url = `/donhang/xacnhan/${donhangId}`;
+    return axiosClient.put(url);
+  },
 };
 
 export default apiDonhang;

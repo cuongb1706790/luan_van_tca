@@ -24,7 +24,7 @@ const DialogMaterial = ({
       aria-describedby="alert-dialog-description"
     >
       <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
-      <DialogContent>
+      <DialogContent style={{ minWidth: 380 }}>
         <DialogContentText id="alert-dialog-description">
           {content}
         </DialogContentText>
