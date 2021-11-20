@@ -32,6 +32,9 @@ const Tiendo = (props) => {
     setLoading(true);
     const { gsv } = await apiGSV.singleGsvBasedUserId(userInfo._id);
     const { donhang } = await apiDonhang.singleDonhang(donhangId);
+    if (!donhang.ngaydathang) {
+      props.history.push(`/giamsatvung/donhang/chitiet/${donhangId}`);
+    }
     let { subdonhang } = await apiGSV.dsSubDonhang(gsv._id, donhang.ma);
     subdonhang = subdonhang.map((dh) => ({
       ...dh,
@@ -44,7 +47,7 @@ const Tiendo = (props) => {
       })),
     }));
     setDsSubDonhang(subdonhang);
-    setValue(subdonhang[0]._id);
+    setValue(subdonhang[0]?._id);
     setLoading(false);
   };
 

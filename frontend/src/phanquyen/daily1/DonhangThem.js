@@ -180,6 +180,9 @@ const DonhangThem = (props) => {
   const fetchDsDonhang = async () => {
     setLoading(true);
     const { donhang } = await apiDonhang.singleDonhang(donhangId);
+    if (!donhang.xacnhan) {
+      props.history.push(`/daily1/donhang/chitiet/${donhangId}`);
+    }
     const { daily1 } = await apiDaily1.singleDaily1BasedUser(userInfo._id);
     let { daily2 } = await apiDaily1.dsDaily2(daily1._id);
     daily2 = daily2.map((item) => ({ ...item, dsthoaman: [] }));
