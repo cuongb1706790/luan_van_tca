@@ -68,7 +68,7 @@ const Tiendo = (props) => {
         <Header
           title="Quay lại danh sách đơn hàng"
           titleBack
-          onClick={() => props.history.push("/daily1/donhang")}
+          onClick={() => props.history.push("/daily2/donhang")}
         />
         <Content>
           <Form>
@@ -106,14 +106,14 @@ const Tiendo = (props) => {
                       <BoxInfo>
                         <BoxInfoTitle>Hộ dân</BoxInfoTitle>
                         <div className="d-flex">
-                          <div style={{ width: 140 }}>
+                          <div className="pr-3">
                             <Text>Tên:</Text>
                             <Text>SĐT:</Text>
                             <Text>CMND:</Text>
                             <Text>Năm sinh:</Text>
                             <Text>Địa chỉ:</Text>
                           </div>
-                          <div>
+                          <div style={{ flex: 1 }}>
                             <Text>{dh?.to.hodan.daidien}</Text>
                             <Text>{dh?.to.hodan.sdt}</Text>
                             <Text>{dh?.to.hodan.cmnd}</Text>

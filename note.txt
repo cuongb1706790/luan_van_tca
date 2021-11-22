@@ -99,21 +99,53 @@ gsv B (A, D, E)
             HDZ(LSP: E)
 
 
+- subdonhang gsv -> show dl1
+- subdonhang dl1 -> show dl2
+- subdonhang dl2 -> show hodan
 
-Donhang model  (don hang goc)
-- ngaydathang
+gsvA
+    - dl1A
+        + dl2 A
+            + hd A
+            + hd B
+        + dl2 B
+            + hd C
+            + hd D
+    - dl1B
+        + dl2 C
+        + dl2 D
+            + hd E
+            + hd F
+   
+gsvB
 
-array of don hang:
-    - Daily2 model
-        + donhang
-    - Daily1 model
-        + subdonhang
-        + dssanpham
-        + dscongcu
-        + dsvattu
-        + dsnguyenlieu
 
+show daily1: {
+    from: gsvA
+    to: dl1A
+}
+{
+    from: gsvA
+    to: dl1B
+}
+=> subdonhang cua gsvA where madh = 'DHA01'
 
+show daily2: {
+    from :dl1A
+    to: daily2A
+}
+{
+    from :dl1A
+    to: daily2B
+}
+=> subdonhang dl1A where madh = 'DHA01'
 
-hodanId, donhangId
-    => 
+show daily2: {
+    from :dl1B
+    to: daily2C
+}
+{
+    from :dl1B
+    to: daily2D
+}
+=> subdonhang dl1B where madh = 'DHA01'
