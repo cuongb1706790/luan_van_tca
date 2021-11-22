@@ -16,6 +16,8 @@ import TableCongcuDonhang from "./tables/TableCongcuDonhang";
 import TableVattuDonhang from "./tables/TableVattuDonhang";
 import TableNguyenlieuDonhang from "./tables/TableNguyenlieuDonhang";
 import { formatMoney } from "../../utils";
+import StepperMaterial from "../../components/StepperMaterial";
+import CustomModal from "../../components/CustomModal";
 
 const Tiendo = (props) => {
   const [dsSubDonhang, setDsSubDonhang] = useState([]);
@@ -23,9 +25,45 @@ const Tiendo = (props) => {
   const [value, setValue] = useState("1");
   const { userInfo } = useSelector((state) => state.user);
   const { id: donhangId } = props.match.params;
+  const [subDHPQuyen, setSubDHPQuyen] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [selectedPQ, setSelectedPQ] = useState({ subdh: [], type: "" });
 
-  const handleChange = (event, newValue) => {
+  const handleClickDaily1 = () => {
+    setSelectedPQ({
+      subdh: subDHPQuyen.subdhGSV,
+      type: "daily1",
+    });
+    handleOpen();
+  };
+
+  const handleClickDaily2 = () => {
+    setSelectedPQ({
+      subdh: subDHPQuyen.subdhAllDL1,
+      type: "daily2",
+    });
+    handleOpen();
+  };
+
+  const handleClickHodan = () => {
+    setSelectedPQ({
+      subdh: subDHPQuyen.subdhAllDL2,
+      type: "hodan",
+    });
+    handleOpen();
+  };
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const handleChangeTab = async (event, newValue) => {
     setValue(newValue);
+    fetchPhanquenSubDH(newValue);
+  };
+
+  const fetchPhanquenSubDH = async (donhangId) => {
+    const data = await apiDonhang.subdhPhanquyen(donhangId);
+    setSubDHPQuyen(data);
   };
 
   const fetchSubDonhang = async () => {
@@ -48,10 +86,9 @@ const Tiendo = (props) => {
     }));
     setDsSubDonhang(subdonhang);
     setValue(subdonhang[0]._id);
+    fetchPhanquenSubDH(subdonhang[0]?._id);
     setLoading(false);
   };
-
-  console.log({ dsSubDonhang });
 
   useEffect(() => {
     fetchSubDonhang();
@@ -87,7 +124,7 @@ const Tiendo = (props) => {
               <TabContext value={value}>
                 <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
                   <TabList
-                    onChange={handleChange}
+                    onChange={handleChangeTab}
                     aria-label="lab API tabs example"
                   >
                     {dsSubDonhang.map((dh) => (
@@ -97,31 +134,49 @@ const Tiendo = (props) => {
                 </Box>
                 {dsSubDonhang.map((dh) => (
                   <TabPanel value={dh._id}>
-                    <div className="text-right">
-                      <FormGroup>
-                        <span>Mã đơn hàng:</span>
-                        <span>{dh?.ma}</span>
-                      </FormGroup>
+                    <div className="d-flex align-items-center justify-content-between">
+                      <StepperMaterial
+                        dl1success={
+                          subDHPQuyen?.subdhGSV?.length ? true : false
+                        }
+                        dl2success={
+                          subDHPQuyen?.subdhAllDL1?.length ? true : false
+                        }
+                        hdsuccess={
+                          subDHPQuyen?.subdhAllDL2?.length ? true : false
+                        }
+                        onClickDl1={handleClickDaily1}
+                        onClickDl2={handleClickDaily2}
+                        onClickHd={handleClickHodan}
+                        numOfPhanquyen={3}
+                      />
 
-                      <BoxInfo>
-                        <BoxInfoTitle>Giám sát vùng</BoxInfoTitle>
-                        <div className="d-flex">
-                          <div style={{ width: 120 }}>
-                            <Text>Tên:</Text>
-                            <Text>SĐT:</Text>
-                            <Text>Email:</Text>
-                            <Text>CMND:</Text>
-                            <Text>Địa chỉ:</Text>
+                      <div>
+                        <FormGroup>
+                          <span>Mã đơn hàng:</span>
+                          <span>{dh?.ma}</span>
+                        </FormGroup>
+
+                        <BoxInfo>
+                          <BoxInfoTitle>Giám sát vùng</BoxInfoTitle>
+                          <div className="d-flex">
+                            <div className="pr-3">
+                              <Text>Tên:</Text>
+                              <Text>SĐT:</Text>
+                              <Text>Email:</Text>
+                              <Text>CMND:</Text>
+                              <Text>Địa chỉ:</Text>
+                            </div>
+                            <div style={{ flex: 1 }}>
+                              <Text>{dh?.to.giamsatvung.ten}</Text>
+                              <Text>{dh?.to.giamsatvung.sdt}</Text>
+                              <Text>{dh?.to.giamsatvung.email}</Text>
+                              <Text>{dh?.to.giamsatvung.cmnd}</Text>
+                              <Text>{`${dh?.to.giamsatvung.xa}, ${dh?.to.giamsatvung.huyen}, ${dh?.to.giamsatvung.tinh}`}</Text>
+                            </div>
                           </div>
-                          <div>
-                            <Text>{dh?.to.giamsatvung.ten}</Text>
-                            <Text>{dh?.to.giamsatvung.sdt}</Text>
-                            <Text>{dh?.to.giamsatvung.email}</Text>
-                            <Text>{dh?.to.giamsatvung.cmnd}</Text>
-                            <Text>{`${dh?.to.giamsatvung.xa}, ${dh?.to.giamsatvung.huyen}, ${dh?.to.giamsatvung.tinh}`}</Text>
-                          </div>
-                        </div>
-                      </BoxInfo>
+                        </BoxInfo>
+                      </div>
                     </div>
 
                     <TableSection>
@@ -166,6 +221,8 @@ const Tiendo = (props) => {
           </Form>
         </Content>
       </Container>
+
+      <CustomModal open={open} onClick={handleClose} phanquyen={selectedPQ} />
     </>
   );
 };

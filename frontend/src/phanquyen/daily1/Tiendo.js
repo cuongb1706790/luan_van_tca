@@ -15,6 +15,8 @@ import TableVattuDonhang from "./tables/TableVattuDonhang";
 import TableNguyenlieuDonhang from "./tables/TableNguyenlieuDonhang";
 import apiDaily1 from "../../axios/apiDaily1";
 import { formatMoney } from "../../utils";
+import CustomModal from "../../components/CustomModal";
+import StepperMaterial from "../../components/StepperMaterial";
 
 const Tiendo = (props) => {
   const [dsSubDonhang, setDsSubDonhang] = useState([]);
@@ -22,9 +24,30 @@ const Tiendo = (props) => {
   const [value, setValue] = useState("1");
   const { userInfo } = useSelector((state) => state.user);
   const { id: donhangId } = props.match.params;
+  const [subDHPQuyen, setSubDHPQuyen] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [selectedPQ, setSelectedPQ] = useState({ subdh: [], type: "" });
 
-  const handleChange = (event, newValue) => {
+  const handleClickHodan = () => {
+    setSelectedPQ({
+      subdh: subDHPQuyen.subdhDL2,
+      type: "hodan",
+    });
+    handleOpen();
+  };
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const handleChangeTab = (event, newValue) => {
     setValue(newValue);
+    fetchPhanquenSubDH(newValue);
+  };
+
+  const fetchPhanquenSubDH = async (donhangId) => {
+    const data = await apiDonhang.subdhPhanquyenDuoiDL2(donhangId);
+    console.log({ data });
+    setSubDHPQuyen(data);
   };
 
   const fetchSubDonhang = async () => {
@@ -47,6 +70,7 @@ const Tiendo = (props) => {
     }));
     setDsSubDonhang(subdonhang);
     setValue(subdonhang[0]?._id);
+    fetchPhanquenSubDH(subdonhang[0]?._id);
     setLoading(false);
   };
 
@@ -86,7 +110,7 @@ const Tiendo = (props) => {
               <TabContext value={value}>
                 <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
                   <TabList
-                    onChange={handleChange}
+                    onChange={handleChangeTab}
                     aria-label="lab API tabs example"
                   >
                     {dsSubDonhang.map((dh) => (
@@ -96,29 +120,41 @@ const Tiendo = (props) => {
                 </Box>
                 {dsSubDonhang.map((dh) => (
                   <TabPanel value={dh._id}>
-                    <div className="text-right">
-                      <FormGroup>
-                        <span>Mã đơn hàng:</span>
-                        <span>{dh?.ma}</span>
-                      </FormGroup>
+                    <div className="d-flex align-items-center justify-content-between">
+                      <div className="text-center" style={{ flex: 1 }}>
+                        <StepperMaterial
+                          hdsuccess={
+                            subDHPQuyen?.subdhDL2?.length ? true : false
+                          }
+                          onClickHd={handleClickHodan}
+                          numOfPhanquyen={1}
+                        />
+                      </div>
 
-                      <BoxInfo>
-                        <BoxInfoTitle>Đại lý cấp 2</BoxInfoTitle>
-                        <div className="d-flex">
-                          <div style={{ width: 100 }}>
-                            <Text>Tên:</Text>
-                            <Text>SĐT:</Text>
-                            <Text>Email:</Text>
-                            <Text>Địa chỉ:</Text>
+                      <div>
+                        <FormGroup>
+                          <span>Mã đơn hàng:</span>
+                          <span>{dh?.ma}</span>
+                        </FormGroup>
+
+                        <BoxInfo>
+                          <BoxInfoTitle>Đại lý cấp 2</BoxInfoTitle>
+                          <div className="d-flex">
+                            <div className="pr-3">
+                              <Text>Tên:</Text>
+                              <Text>SĐT:</Text>
+                              <Text>Email:</Text>
+                              <Text>Địa chỉ:</Text>
+                            </div>
+                            <div style={{ flex: 1 }}>
+                              <Text>{dh?.to.daily2.ten}</Text>
+                              <Text>{dh?.to.daily2.sdt}</Text>
+                              <Text>{dh?.to.daily2.email}</Text>
+                              <Text>{`${dh?.to.daily2.xa}, ${dh?.to.daily2.huyen}, ${dh?.to.daily2.tinh}`}</Text>
+                            </div>
                           </div>
-                          <div>
-                            <Text>{dh?.to.daily2.ten}</Text>
-                            <Text>{dh?.to.daily2.sdt}</Text>
-                            <Text>{dh?.to.daily2.email}</Text>
-                            <Text>{`${dh?.to.daily2.xa}, ${dh?.to.daily2.huyen}, ${dh?.to.daily2.tinh}`}</Text>
-                          </div>
-                        </div>
-                      </BoxInfo>
+                        </BoxInfo>
+                      </div>
                     </div>
 
                     <TableSection>
@@ -163,6 +199,8 @@ const Tiendo = (props) => {
           </Form>
         </Content>
       </Container>
+
+      <CustomModal open={open} onClick={handleClose} phanquyen={selectedPQ} />
     </>
   );
 };

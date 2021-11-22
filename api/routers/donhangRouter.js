@@ -487,4 +487,308 @@ donhangRouter.put("/xacnhan/:donhangId", async (req, res) => {
   }
 });
 
+// lay subdonhang cua cac phan quyen cap duoi gsv
+donhangRouter.get("/subdhduoigsv/:donhangId", async (req, res) => {
+  try {
+    const donhang = await Donhang.findById(req.params.donhangId);
+    let { subdonhang: subdhGSV } = await Giamsatvung.findById(
+      donhang.to.giamsatvung
+    )
+      .select("subdonhang")
+      .populate({
+        path: "subdonhang",
+        populate: {
+          path: "dssanpham dscongcu dsvattu dsnguyenlieu",
+          populate: {
+            path: "sanpham congcu vattu nguyenlieu",
+          },
+        },
+      })
+      .populate({
+        path: "subdonhang",
+        populate: {
+          path: "from",
+          populate: {
+            path: "bophankd giamsatvung daily1 daily2",
+          },
+        },
+      })
+      .populate({
+        path: "subdonhang",
+        populate: {
+          path: "to",
+          populate: {
+            path: "giamsatvung daily1 daily2 hodan",
+          },
+        },
+      })
+      .populate({
+        path: "subdonhang",
+        populate: {
+          path: "dssanpham",
+          populate: {
+            path: "sanpham",
+            populate: {
+              path: "loaisanpham dscongcu.congcu dsvattu.vattu dsnguyenlieu.nguyenlieu",
+            },
+          },
+        },
+      });
+    subdhGSV = subdhGSV.filter((item) => item.ma === donhang.ma);
+    //-----------------------
+    let subdhAllDL1 = [];
+    for (const item of subdhGSV) {
+      let { subdonhang: subdhDL1 } = await Daily1.findById(item.to.daily1._id)
+        .select("subdonhang")
+        .populate({
+          path: "subdonhang",
+          populate: {
+            path: "dssanpham dscongcu dsvattu dsnguyenlieu",
+            populate: {
+              path: "sanpham congcu vattu nguyenlieu",
+            },
+          },
+        })
+        .populate({
+          path: "subdonhang",
+          populate: {
+            path: "from",
+            populate: {
+              path: "bophankd giamsatvung daily1 daily2",
+            },
+          },
+        })
+        .populate({
+          path: "subdonhang",
+          populate: {
+            path: "to",
+            populate: {
+              path: "giamsatvung daily1 daily2 hodan",
+            },
+          },
+        })
+        .populate({
+          path: "subdonhang",
+          populate: {
+            path: "dssanpham",
+            populate: {
+              path: "sanpham",
+              populate: {
+                path: "loaisanpham dscongcu.congcu dsvattu.vattu dsnguyenlieu.nguyenlieu",
+              },
+            },
+          },
+        });
+      subdhDL1 = subdhDL1.filter((item) => item.ma === donhang.ma);
+      subdhAllDL1 = [...subdhDL1, ...subdhAllDL1];
+    }
+    //----------------------
+    let subdhAllDL2 = [];
+    for (const item of subdhAllDL1) {
+      let { subdonhang: subdhDL2 } = await Daily2.findById(item.to.daily2._id)
+        .select("subdonhang")
+        .populate({
+          path: "subdonhang",
+          populate: {
+            path: "dssanpham dscongcu dsvattu dsnguyenlieu",
+            populate: {
+              path: "sanpham congcu vattu nguyenlieu",
+            },
+          },
+        })
+        .populate({
+          path: "subdonhang",
+          populate: {
+            path: "from",
+            populate: {
+              path: "bophankd giamsatvung daily1 daily2",
+            },
+          },
+        })
+        .populate({
+          path: "subdonhang",
+          populate: {
+            path: "to",
+            populate: {
+              path: "giamsatvung daily1 daily2 hodan",
+            },
+          },
+        })
+        .populate({
+          path: "subdonhang",
+          populate: {
+            path: "dssanpham",
+            populate: {
+              path: "sanpham",
+              populate: {
+                path: "loaisanpham dscongcu.congcu dsvattu.vattu dsnguyenlieu.nguyenlieu",
+              },
+            },
+          },
+        });
+      subdhDL2 = subdhDL2.filter((item) => item.ma === donhang.ma);
+      subdhAllDL2 = [...subdhDL2, ...subdhAllDL2];
+    }
+
+    res.send({ subdhGSV, subdhAllDL1, subdhAllDL2 });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+// lay subdonhang cua cac phan quyen cap duoi daily1
+donhangRouter.get("/subdhduoidaily1/:donhangId", async (req, res) => {
+  try {
+    const donhang = await Donhang.findById(req.params.donhangId);
+
+    let { subdonhang: subdhDL1 } = await Daily1.findById(donhang.to.daily1)
+      .select("subdonhang")
+      .populate({
+        path: "subdonhang",
+        populate: {
+          path: "dssanpham dscongcu dsvattu dsnguyenlieu",
+          populate: {
+            path: "sanpham congcu vattu nguyenlieu",
+          },
+        },
+      })
+      .populate({
+        path: "subdonhang",
+        populate: {
+          path: "from",
+          populate: {
+            path: "bophankd giamsatvung daily1 daily2",
+          },
+        },
+      })
+      .populate({
+        path: "subdonhang",
+        populate: {
+          path: "to",
+          populate: {
+            path: "giamsatvung daily1 daily2 hodan",
+          },
+        },
+      })
+      .populate({
+        path: "subdonhang",
+        populate: {
+          path: "dssanpham",
+          populate: {
+            path: "sanpham",
+            populate: {
+              path: "loaisanpham dscongcu.congcu dsvattu.vattu dsnguyenlieu.nguyenlieu",
+            },
+          },
+        },
+      });
+    subdhDL1 = subdhDL1.filter((item) => item.ma === donhang.ma);
+    //-----------------------
+    let subdhAllDL2 = [];
+    for (const item of subdhDL1) {
+      let { subdonhang: subdhDL2 } = await Daily2.findById(item.to.daily2._id)
+        .select("subdonhang")
+        .populate({
+          path: "subdonhang",
+          populate: {
+            path: "dssanpham dscongcu dsvattu dsnguyenlieu",
+            populate: {
+              path: "sanpham congcu vattu nguyenlieu",
+            },
+          },
+        })
+        .populate({
+          path: "subdonhang",
+          populate: {
+            path: "from",
+            populate: {
+              path: "bophankd giamsatvung daily1 daily2",
+            },
+          },
+        })
+        .populate({
+          path: "subdonhang",
+          populate: {
+            path: "to",
+            populate: {
+              path: "giamsatvung daily1 daily2 hodan",
+            },
+          },
+        })
+        .populate({
+          path: "subdonhang",
+          populate: {
+            path: "dssanpham",
+            populate: {
+              path: "sanpham",
+              populate: {
+                path: "loaisanpham dscongcu.congcu dsvattu.vattu dsnguyenlieu.nguyenlieu",
+              },
+            },
+          },
+        });
+      subdhDL2 = subdhDL2.filter((item) => item.ma === donhang.ma);
+      subdhAllDL2 = [...subdhDL2, ...subdhAllDL2];
+    }
+
+    res.send({ subdhDL1, subdhAllDL2 });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+// lay subdonhang cua cac phan quyen cap duoi daily2
+donhangRouter.get("/subdhduoidaily2/:donhangId", async (req, res) => {
+  try {
+    const donhang = await Donhang.findById(req.params.donhangId);
+
+    let { subdonhang: subdhDL2 } = await Daily2.findById(donhang.to.daily2)
+      .select("subdonhang")
+      .populate({
+        path: "subdonhang",
+        populate: {
+          path: "dssanpham dscongcu dsvattu dsnguyenlieu",
+          populate: {
+            path: "sanpham congcu vattu nguyenlieu",
+          },
+        },
+      })
+      .populate({
+        path: "subdonhang",
+        populate: {
+          path: "from",
+          populate: {
+            path: "bophankd giamsatvung daily1 daily2",
+          },
+        },
+      })
+      .populate({
+        path: "subdonhang",
+        populate: {
+          path: "to",
+          populate: {
+            path: "giamsatvung daily1 daily2 hodan",
+          },
+        },
+      })
+      .populate({
+        path: "subdonhang",
+        populate: {
+          path: "dssanpham",
+          populate: {
+            path: "sanpham",
+            populate: {
+              path: "loaisanpham dscongcu.congcu dsvattu.vattu dsnguyenlieu.nguyenlieu",
+            },
+          },
+        },
+      });
+    subdhDL2 = subdhDL2.filter((item) => item.ma === donhang.ma);
+
+    res.send({ subdhDL2 });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
 module.exports = donhangRouter;

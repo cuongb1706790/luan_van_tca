@@ -114,13 +114,13 @@ const DonhangChitiet = (props) => {
               <BoxInfo>
                 <BoxInfoTitle>Đại lý cấp 1</BoxInfoTitle>
                 <div className="d-flex">
-                  <div style={{ width: 100 }}>
+                  <div className="pr-3">
                     <Text>Tên:</Text>
                     <Text>SĐT:</Text>
                     <Text>Email:</Text>
                     <Text>Địa chỉ:</Text>
                   </div>
-                  <div>
+                  <div style={{ flex: 1 }}>
                     <Text>{singleDonhang?.from.daily1.ten}</Text>
                     <Text>{singleDonhang?.from.daily1.sdt}</Text>
                     <Text>{singleDonhang?.from.daily1.email}</Text>
