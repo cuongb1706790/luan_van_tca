@@ -19,15 +19,14 @@ const DonhangChitiet = (props) => {
     let { donhang } = await apiDonhang.singleDonhang(donhangId);
     donhang = {
       ...donhang,
-      dssanpham: donhang.dssanpham.map((sp) => ({ ...sp, ...sp.sanpham })),
-      dscongcu: donhang.dscongcu.map((cc) => ({ ...cc, ...cc.congcu })),
-      dsvattu: donhang.dsvattu.map((vt) => ({ ...vt, ...vt.vattu })),
-      dsnguyenlieu: donhang.dsnguyenlieu.map((ngl) => ({
+      dssanpham: donhang?.dssanpham.map((sp) => ({ ...sp, ...sp.sanpham })),
+      dscongcu: donhang?.dscongcu.map((cc) => ({ ...cc, ...cc.congcu })),
+      dsvattu: donhang?.dsvattu.map((vt) => ({ ...vt, ...vt.vattu })),
+      dsnguyenlieu: donhang?.dsnguyenlieu.map((ngl) => ({
         ...ngl,
         ...ngl.nguyenlieu,
       })),
     };
-    console.log({ donhang });
     setSingleDonhang(donhang);
     setLoading(false);
   };
