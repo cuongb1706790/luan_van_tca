@@ -180,7 +180,7 @@ function Home(props) {
           </>
         ) : (
           <>
-            <ScreenDonHang navigation={navigation} />
+            <ScreenDonHang navigation={navigation} hodanId={idHodan} />
           </>
         )}
       </View>

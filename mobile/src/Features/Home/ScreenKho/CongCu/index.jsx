@@ -11,8 +11,9 @@ import {
 } from "react-native";
 
 function CongCu(props) {
-  const congcu = props.congcu;
-//   console.log(props.congcu);
+
+  const data = props.congcu.item;
+  console.log(data);
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
@@ -33,11 +34,11 @@ function CongCu(props) {
           >
             <Image
               source={{
-                uri: `http://10.3.53.160:5000/uploads/${congcu.congcu.hinhanh}`,
+                uri: `http://10.3.53.160:5000/uploads/${data.congcu.hinhanh}`,
               }}
               style={{
                 width: Dimensions.get("window").width - 220,
-                height: 150,
+                height: 130,
                 borderRadius: 20,
               }}
             />
@@ -49,19 +50,13 @@ function CongCu(props) {
               marginBottom: 10,
             }}
           >
-            <Text style={{ color: "white" }}>Tên :{congcu.congcu.ten}</Text>
+            <Text style={{ color: "white" }}>Tên :{data.congcu.ten}</Text>
             <Text style={{ color: "white" }}>
-              Công dụng :{congcu.congcu.congdung}
+              Công dụng :{data.congcu.congdung}
             </Text>
-            <Text style={{ color: "white" }}>Mô tả :{congcu.congcu.mota}</Text>
+            <Text style={{ color: "white" }}>Mô tả :{data.congcu.mota}</Text>
             <Text style={{ color: "white" }}>
-              Số lượng :{congcu.soluongphanphat}
-            </Text>
-            <Text style={{ color: "white" }}>
-              Người gửi :{congcu.phanphat.to.daily2.ten}
-            </Text>
-            <Text style={{ color: "white" }}>
-              Ngày nhận :{congcu.ngaytiepnhan}
+              Số lượng :{data.soluong}
             </Text>
             <Text
               style={{

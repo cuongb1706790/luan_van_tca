@@ -4,37 +4,41 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 
 function ListDonHang(props) {
   const {
-    dataList: { item : data }, navigation
+    dataList: { item: data },
+    navigation,
   } = props;
-  const handleClickOrder = ()=>{
-    navigation.navigate('DonHang', {data});
-    // console.log('alo alo');
-  }
-//    console.log(data);
-  return (
+  const handleClickOrder = () => {
+    navigation.navigate("DonHang", { data });
+  };
+  // const checkConfirm = data.xacnhan;
 
-    <View
-      style={{
-        flexDirection: "row",
-        paddingTop: 20,
-        paddingBottom: 20,
-        paddingLeft: 10,
-        borderRadius: 10,
-        backgroundColor: "white",
-        alignItems: "center",
-      }}
-    >
-      <Text style={{ marginRight: 10 }} onPress={handleClickOrder}>
-        <Ionicons name="cart" size={50} color="black" />
-      </Text>
-      <View style={{ marginRight: 10 }}>
-        <Text>Mã đơn hàng : {data.madh}</Text>
-        <Text>Thời gian : {data.ngaytao}</Text>
-      </View>
-      <Text style={[styles.btnClass, { backgroundColor: "red" }]}>
-        Giao hàng
-      </Text>
-    </View>
+  return (
+    <>
+      {data.xacnhan && (
+        <View
+          style={{
+            flexDirection: "row",
+            paddingTop: 20,
+            paddingBottom: 20,
+            paddingLeft: 10,
+            borderRadius: 10,
+            backgroundColor: "white",
+            alignItems: "center",
+          }}
+        >
+          <Text style={{ marginRight: 10 }} onPress={handleClickOrder}>
+            <Ionicons name="cart" size={50} color="black" />
+          </Text>
+          <View style={{ marginRight: 10 }}>
+            <Text>Mã đơn hàng : {data.ma}</Text>
+            <Text>Thời gian : {data.ngaytao}</Text>
+          </View>
+          <Text style={[styles.btnClass, { backgroundColor: "red" }]}>
+            Giao hàng
+          </Text>
+        </View>
+      )}
+    </>
   );
 }
 const styles = StyleSheet.create({

@@ -44,141 +44,141 @@ function LoginForm(props) {
     // console.log(check);
 
     try {
-      const dataForm ={
-        taikhoan : values.taikhoan.toLowerCase(),
-        matkhau : values.matkhau,
-      }
       // const dataForm ={
-      //   taikhoan : 'duyhodan',
-      //   matkhau : '123456',
+      //   taikhoan : values.taikhoan.toLowerCase(),
+      //   matkhau : values.matkhau,
       // }
-      // console.log(dataForm);
+      const dataForm = {
+        taikhoan: "hodan",
+        matkhau: "123456",
+      };
+      console.log(dataForm);
 
       const action = loginUser(dataForm);
       const resultAction = await dispatch(action);
       unwrapResult(resultAction);
       const getData = await AsyncStorage.getItem("access_token");
-      values.taikhoan="";
-      values.matkhau="";
+      values.taikhoan = "";
+      values.matkhau = "";
       navigation.navigate("TabNav");
     } catch (error) {
       handleOpen();
     }
   };
   return (
-    <ScrollView >
-       <View style={styles.container}>
-      <MaterialDialog
-        title="Cảnh báo"
-        visible={visible}
-        onOk={() => {
-          setVisible(false);
-        }}
-        onCancel={() => {
-          setVisible(false);
-        }}
-      >
-        <Text>
-          Bạn đã nhập sai tài khoản hoặc mật khẩu, vui lòng xem lại thông tin !
-        </Text>
-      </MaterialDialog>
-     
-      <Formik
-        initialValues={{ matkhau: "", taikhoan: "" }}
-        onSubmit={handleSumitLogin}
-        validationSchema={SignupSchema}
-      >
-        {({
-          handleChange,
-          handleBlur,
-          handleSubmit,
-          values,
-          errors,
-          touched,
-        }) => (
-          <View style={styles.containerForm}>
-            <View style={styles.containerImg}>
-              <Image
-                style={styles.img}
-                source={require("../../../../../assets/logo.png")}
-              />
-            </View>
-            <Text style={[styles.text]}>TÀI KHOẢN</Text>
-            <TextInput
-              style={[
-                styles.textInput,
-                {
-                  borderColor: !touched
-                    ? "#ccccccf2"
-                    : errors.taikhoan
-                    ? "#FF5A5F"
-                    : "#ccccccf2",
-                },
-              ]}
-              onChangeText={handleChange("taikhoan")}
-              onBlur={handleBlur("taikhoan")}
-              value={values.taikhoan}
-              error={errors.taikhoan}
-              touched={touched.taikhoan}
-            />
-            {errors.taikhoan && touched.taikhoan ? (
-              <>
-                <Text
-                  style={{
-                    color: !touched
+    <ScrollView>
+      <View style={styles.container}>
+        <MaterialDialog
+          title="Cảnh báo"
+          visible={visible}
+          onOk={() => {
+            setVisible(false);
+          }}
+          onCancel={() => {
+            setVisible(false);
+          }}
+        >
+          <Text>
+            Bạn đã nhập sai tài khoản hoặc mật khẩu, vui lòng xem lại thông tin
+            !
+          </Text>
+        </MaterialDialog>
+
+        <Formik
+          initialValues={{ matkhau: "", taikhoan: "" }}
+          onSubmit={handleSumitLogin}
+          // validationSchema={SignupSchema}
+        >
+          {({
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            values,
+            errors,
+            touched,
+          }) => (
+            <View style={styles.containerForm}>
+              <View style={styles.containerImg}>
+                <Image
+                  style={styles.img}
+                  source={require("../../../../../assets/logo.png")}
+                />
+              </View>
+              <Text style={[styles.text]}>TÀI KHOẢN</Text>
+              <TextInput
+                style={[
+                  styles.textInput,
+                  {
+                    borderColor: !touched
                       ? "#ccccccf2"
                       : errors.taikhoan
                       ? "#FF5A5F"
                       : "#ccccccf2",
-                    marginBottom: 10,
-                  }}
-                >
-                  {errors.taikhoan}
-                </Text>
-              </>
-            ) : null}
-            <Text style={styles.text}>MẬT KHẨU</Text>
-            <TextInput
-              style={[
-                styles.textInput,
-                {
-                  borderColor: !touched
-                    ? "#ccccccf2"
-                    : errors.matkhau
-                    ? "#FF5A5F"
-                    : "#ccccccf2",
-                },
-              ]}
-              onChangeText={handleChange("matkhau")}
-              onBlur={handleBlur("matkhau")}
-              value={values.matkhau}
-              error={errors.matkhau}
-              touched={touched.matkhau}
-              secureTextEntry={true}
-            />
-            {errors.matkhau && touched.matkhau ? (
-              <>
-                <Text
-                  style={{
-                    color: !touched
+                  },
+                ]}
+                onChangeText={handleChange("taikhoan")}
+                onBlur={handleBlur("taikhoan")}
+                value={values.taikhoan}
+                error={errors.taikhoan}
+                touched={touched.taikhoan}
+              />
+              {errors.taikhoan && touched.taikhoan ? (
+                <>
+                  <Text
+                    style={{
+                      color: !touched
+                        ? "#ccccccf2"
+                        : errors.taikhoan
+                        ? "#FF5A5F"
+                        : "#ccccccf2",
+                      marginBottom: 10,
+                    }}
+                  >
+                    {errors.taikhoan}
+                  </Text>
+                </>
+              ) : null}
+              <Text style={styles.text}>MẬT KHẨU</Text>
+              <TextInput
+                style={[
+                  styles.textInput,
+                  {
+                    borderColor: !touched
                       ? "#ccccccf2"
                       : errors.matkhau
                       ? "#FF5A5F"
                       : "#ccccccf2",
-                    marginBottom: 10,
-                  }}
-                >
-                  {errors.matkhau}
-                </Text>
-              </>
-            ) : null}
-            <Button onPress={handleSubmit} title="Đăng nhập" />
-          </View>
-        )}
-      </Formik>
-    </View>
+                  },
+                ]}
+                onChangeText={handleChange("matkhau")}
+                onBlur={handleBlur("matkhau")}
+                value={values.matkhau}
+                error={errors.matkhau}
+                touched={touched.matkhau}
+                secureTextEntry={true}
+              />
+              {errors.matkhau && touched.matkhau ? (
+                <>
+                  <Text
+                    style={{
+                      color: !touched
+                        ? "#ccccccf2"
+                        : errors.matkhau
+                        ? "#FF5A5F"
+                        : "#ccccccf2",
+                      marginBottom: 10,
+                    }}
+                  >
+                    {errors.matkhau}
+                  </Text>
+                </>
+              ) : null}
+              <Button onPress={handleSubmit} title="Đăng nhập" />
+            </View>
+          )}
+        </Formik>
+      </View>
     </ScrollView>
-   
   );
 }
 const styles = StyleSheet.create({
@@ -187,8 +187,8 @@ const styles = StyleSheet.create({
     marginTop: 20,
     backgroundColor: "#b35900",
     alignItems: "center",
-   paddingTop: 150,
-   paddingBottom: 230,
+    paddingTop: 150,
+    paddingBottom: 230,
   },
   containerForm: {
     backgroundColor: "white",

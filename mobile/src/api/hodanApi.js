@@ -107,15 +107,31 @@ const hodanApi = {
 
   // lay danh sach CONG CU thuoc ho dan
   dsCongcu(hodanId) {
-    const url = `/hodan/danhsachcongcu/${hodanId}`;
+    const url = `/hodan/dscongcu/${hodanId}`;
     return axiosClient.get(url);
   },
 
   // lay danh sach VAT TU thuoc ho dan
   dsVattu(hodanId) {
-    const url = `/hodan/danhsachvattu/${hodanId}`;
+    const url = `/hodan/dsvattu/${hodanId}`;
     return axiosClient.get(url);
   },
+  // lay danh sach NGUYEN Lieu thuoc ho dan
+  dsNguyenlieu(hodanId) {
+    const url = `/hodan/dsnguyenlieu/${hodanId}`;
+    return axiosClient.get(url);
+  },
+   // lay ds don hang thuoc hodan
+   dsDonhang(hodanId) {
+    const url = `/hodan/dsdonhang/${hodanId}`;
+    return axiosClient.get(url);
+  },
+  // xac nhan don hang thuoc hodan
+    xacnhan(hodanId,donhangId) {
+    const url = `/hodan/xacnhandh/${hodanId}/${donhangId}`;
+    return axiosClient.put(url);
+  },
+
 };
 
 export default hodanApi;

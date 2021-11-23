@@ -21,14 +21,14 @@ const ListVatTu = (props) => {
     };
     fetchData();
   }, []);
-  console.log(listVatTu);
+  // console.log(listVatTu);
  
   return (
     <SafeAreaView style={styles.container}>
       {listVatTu && (
         <FlatList
           data={listVatTu}
-          renderItem={(item) => <VatTu vattu={item.item} />}
+          renderItem={(item) => <VatTu vattu={item} />}
           keyExtractor={(item) => item._id}
         />
       )}

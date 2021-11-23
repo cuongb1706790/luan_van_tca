@@ -11,7 +11,9 @@ import {
 } from "react-native";
 
 function VatTu(props) {
-  const vattu = props.vattu;
+
+  const data = props.vattu.item;
+  console.log(data);
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
@@ -32,11 +34,11 @@ function VatTu(props) {
           >
             <Image
               source={{
-                uri: `http://10.3.53.160:5000/uploads/${vattu.vattu.hinhanh}`,
+                uri: `http://10.3.53.160:5000/uploads/${data.vattu.hinhanh}`,
               }}
               style={{
                 width: Dimensions.get("window").width - 220,
-                height: 150,
+                height: 130,
                 borderRadius: 20,
               }}
             />
@@ -48,19 +50,13 @@ function VatTu(props) {
               marginBottom: 10,
             }}
           >
-            <Text style={{ color: "white" }}>Tên :{vattu.vattu.ten}</Text>
+            <Text style={{ color: "white" }}>Tên :{data.vattu.ten}</Text>
             <Text style={{ color: "white" }}>
-              Công dụng :{vattu.vattu.congdung}
+              Công dụng :{data.vattu.congdung}
             </Text>
-            <Text style={{ color: "white" }}>Mô tả :{vattu.vattu.mota}</Text>
+            <Text style={{ color: "white" }}>Mô tả :{data.vattu.mota}</Text>
             <Text style={{ color: "white" }}>
-              Số lượng :{vattu.soluongphanphat}
-            </Text>
-            <Text style={{ color: "white" }}>
-              Người gửi :{vattu.phanphat.to.daily2.ten}
-            </Text>
-            <Text style={{ color: "white" }}>
-              Ngày nhận :{vattu.ngaytiepnhan}
+              Số lượng :{data.soluong}
             </Text>
             <Text
               style={{
