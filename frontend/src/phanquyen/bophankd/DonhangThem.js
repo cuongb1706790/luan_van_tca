@@ -165,14 +165,16 @@ const DonhangThem = (props) => {
           dsdonhang.push(dl);
         }
       });
-      const { success } = await apiDonhang.bophankdToGsv({
+      const { success, savedDonhang } = await apiDonhang.bophankdToGsv({
         donhangId: selectedDonhang,
         dsdonhang,
         bophankdId: singleBophankd._id,
       });
       if (success) {
         toast.success("Thêm thành công!", { theme: "colored" });
-        props.history.push(`/bophankd/donhang/chitiet/${donhangId}`);
+        props.history.push(
+          `/bophankd/donhang/chitiet/${savedDonhang._id}/tiendo`
+        );
       }
     }
   };
