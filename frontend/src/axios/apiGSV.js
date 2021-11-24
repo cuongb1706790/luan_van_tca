@@ -102,6 +102,12 @@ const apiGSV = {
     const url = `/gsv/tongquan/${gsvId}`;
     return axiosClient.get(url);
   },
+
+  // lay ds daily2, donhang chua duyet hien thi badge
+  dsShowBadge(gsvId) {
+    const url = `/gsv/dsshowbadge/${gsvId}`;
+    return axiosClient.get(url);
+  },
 };
 
 export default apiGSV;

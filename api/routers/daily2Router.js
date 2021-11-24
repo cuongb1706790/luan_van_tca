@@ -444,7 +444,6 @@ daily2Router.get("/dshodan/:daily2Id", async (req, res) => {
         success: false,
       });
     }
-    hodan = hodan.filter((hd) => hd.active);
 
     res.send({ hodan, success: true });
   } catch (error) {
@@ -578,6 +577,20 @@ daily2Router.get("/tongquan/:daily2Id", async (req, res) => {
       dsdonhang: daily2.donhang.length,
       success: true,
     });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+// lay ds donhang chua duyet hien thi badge
+daily2Router.get("/dsshowbadge/:daily2Id", async (req, res) => {
+  try {
+    let { donhang } = await Daily2.findById(req.params.daily2Id)
+      .select("donhang")
+      .populate("donhang");
+    donhang = donhang.filter((dh) => !dh.xacnhan);
+
+    res.send({ donhangBadge: donhang.length, success: true });
   } catch (error) {
     res.send({ message: error.message, success: false });
   }

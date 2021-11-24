@@ -27,7 +27,6 @@ const DonhangThem = (props) => {
   const [dsGSV, setDsGSV] = useState([]);
   const [selectedGSV, setselectedGSV] = useState([]);
   const { userInfo } = useSelector((state) => state.user);
-  const { id: donhangId } = props.match.params;
 
   const getTongDonhang = (dssp) => {
     const { tongdongia } = getDsNguyenVatlieu(dssp);
@@ -165,14 +164,16 @@ const DonhangThem = (props) => {
           dsdonhang.push(dl);
         }
       });
-      const { success } = await apiDonhang.bophankdToGsv({
+      const { savedDonhang, success } = await apiDonhang.bophankdToGsv({
         donhangId: selectedDonhang,
         dsdonhang,
         bophankdId: singleBophankd._id,
       });
       if (success) {
         toast.success("Thêm thành công!", { theme: "colored" });
-        props.history.push(`/bophankd/donhang/chitiet/${donhangId}`);
+        props.history.push(
+          `/bophankd/donhang/chitiet/${savedDonhang._id}/tiendo`
+        );
       }
     }
   };

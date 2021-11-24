@@ -74,6 +74,7 @@ const Daily1 = (props) => {
                 dsDaily1={search(dsDaily1)}
                 setSuccess={setSuccess}
                 bophankdId={bophankdInfo._id}
+                setRefresh={props.setRefresh}
               />
             </TableSection>
           </FilterSection>

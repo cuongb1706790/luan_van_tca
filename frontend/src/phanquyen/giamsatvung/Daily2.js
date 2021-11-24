@@ -72,6 +72,7 @@ const Daily2 = (props) => {
                 dsDaily2={search(dsDaily2)}
                 gsvId={gsvInfo?._id}
                 setSuccess={setSuccess}
+                setRefresh={props.setRefresh}
               />
             </TableSection>
           </FilterSection>

@@ -18,7 +18,7 @@ import styled from "styled-components";
 import apiDaily1 from "../../../axios/apiDaily1";
 import { toast } from "react-toastify";
 
-const TableHodan = ({ dsHodan = [], setSuccess, daily1Id }) => {
+const TableHodan = ({ dsHodan = [], setSuccess, daily1Id, setRefresh }) => {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
   const [selected, setSelected] = React.useState([]);
@@ -34,6 +34,7 @@ const TableHodan = ({ dsHodan = [], setSuccess, daily1Id }) => {
   const handleDuyetHodan = async () => {
     const { success } = await apiDaily1.activeHodan(rowOfDuyet, daily1Id);
     if (success) {
+      setRefresh(true);
       toast.success("Duyệt thành công!", { theme: "colored" });
       setSuccess(true);
     }
