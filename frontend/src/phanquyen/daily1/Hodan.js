@@ -77,6 +77,7 @@ const Hodan = (props) => {
                 dsHodan={search(dsHodan)}
                 setSuccess={setSuccess}
                 daily1Id={daily1Info?._id}
+                setRefresh={props.setRefresh}
               />
             </TableSection>
           </FilterSection>

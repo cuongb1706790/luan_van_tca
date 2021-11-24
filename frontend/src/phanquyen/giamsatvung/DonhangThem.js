@@ -106,7 +106,6 @@ const DonhangThem = (props) => {
       );
     });
   };
-  console.log({ dsDaily1 });
 
   const emptyFields = () => {
     if (!selectedDaily1.length) {
@@ -184,6 +183,7 @@ const DonhangThem = (props) => {
     }
     const { gsv } = await apiGSV.singleGsvBasedUserId(userInfo._id);
     let { daily1 } = await apiGSV.dsDaily1(gsv._id);
+    daily1 = daily1.filter((dl1) => dl1.user);
     daily1 = daily1.map((item) => ({ ...item, dsthoaman: [] }));
     setSingleDonhang(donhang);
     setSingleGSV(gsv);

@@ -138,6 +138,12 @@ const apiDaily1 = {
     const url = `/daily1/tongquan/${daily1Id}`;
     return axiosClient.get(url);
   },
+
+  // lay ds hodan, donhang chua duyet hien thi badge
+  dsShowBadge(gsvId) {
+    const url = `/daily1/dsshowbadge/${gsvId}`;
+    return axiosClient.get(url);
+  },
 };
 
 export default apiDaily1;

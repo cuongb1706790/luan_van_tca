@@ -18,7 +18,7 @@ import styled from "styled-components";
 import apiGSV from "../../../axios/apiGSV";
 import { toast } from "react-toastify";
 
-const TableDaily2 = ({ dsDaily2 = [], gsvId, setSuccess }) => {
+const TableDaily2 = ({ dsDaily2 = [], gsvId, setSuccess, setRefresh }) => {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
   const [selected, setSelected] = React.useState([]);
@@ -34,6 +34,7 @@ const TableDaily2 = ({ dsDaily2 = [], gsvId, setSuccess }) => {
   const handleDuyetDaily1 = async () => {
     const { success } = await apiGSV.activeDaily2(rowOfDuyet, gsvId);
     if (success) {
+      setRefresh(true);
       toast.success("Duyệt thành công!", { theme: "colored" });
       setSuccess(true);
     }

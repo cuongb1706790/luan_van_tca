@@ -1,6 +1,13 @@
 useEffect(() => {},[]) => useEffect chỉ chạy 1 lần khác với state thay đổi làm rerender components
 -> 2 thằng ko liên quan j nhau
 
+*** REACT LIFECYCLE METHOD: TỨC CÁC METHOD(HÀM/PHUONG THỨC DÙNG TRONG LIFECYCLE), quan sát sơ đồ
+*** REACT LIFECYCLE: vòng đời react (mounting: sinh ra tức render vào DOM, updating: phát triển tức update DOM, unmounting: chết, tức bị loại khỏi DOM)
+*** Method: render() -> render component vào DOM/UI (xảy ra ở 2 gđ: mouting, updating). Cách check: console.log trong component react, bên ngoài all hàm
+*** method: componentDidMount(), trigger sau hàm render() vì nhìn vào sơ đồ hàm này ở sau hàm render(). Hàm trigger ngay sau khi component vừa render, cách hiêu tiếng việt: component đã mount
+*** method: componentDidUpdate(), component ĐÃ update thì làm j...
+*** method: componentWillUnmount(), component sẽ chết, rút ra khỏi DOM, trước khi rút khỏi DOM thì làm j....
+
 Lấy single đơn hàng từ GSV, ko cần dùng giamsatvungModel vì Giamsatvung collection chỉ reference đến document
 của Donhang collection => Dùng luôn router Donhang để lấy single đơn hàng
 
@@ -13,35 +20,39 @@ của Donhang collection => Dùng luôn router Donhang để lấy single đơn 
 * xem thong tin lang nghe -> click icon langnghe
 * langnghe: don dat hang, tuong tac voi' nong dan, theo doi don hang, su kien xay ra -> thong bao'
 
-db.bophankds.update({}, { $set: { dssanpham: [] }});
-db.bophankds.update({}, { $set: { dscongcu: [] }});
-db.bophankds.update({}, { $set: { dsvattu: [] }});
-db.bophankds.update({}, { $set: { dsnguyenlieu: [] }});
-db.bophankds.update({}, { $set: { donhang: [] }});
-db.bophankds.update({}, { $set: { subdonhang: [] }});
+db.bophankds.updateMany({}, { $set: { dssanpham: [] }});
+db.bophankds.updateMany({}, { $set: { dscongcu: [] }});
+db.bophankds.updateMany({}, { $set: { dsvattu: [] }});
+db.bophankds.updateMany({}, { $set: { dsnguyenlieu: [] }});
+db.bophankds.updateMany({}, { $set: { donhang: [] }});
+db.bophankds.updateMany({}, { $set: { subdonhang: [] }});
 
-db.giamsatvungs.update({}, { $set: { dssanpham: [] }});
-db.giamsatvungs.update({}, { $set: { dscongcu: [] }});
-db.giamsatvungs.update({}, { $set: { dsvattu: [] }});
-db.giamsatvungs.update({}, { $set: { dsnguyenlieu: [] }});
-db.giamsatvungs.update({}, { $set: { donhang: [] }});
-db.giamsatvungs.update({}, { $set: { subdonhang: [] }});
+db.giamsatvungs.updateMany({}, { $set: { dssanpham: [] }});
+db.giamsatvungs.updateMany({}, { $set: { dscongcu: [] }});
+db.giamsatvungs.updateMany({}, { $set: { dsvattu: [] }});
+db.giamsatvungs.updateMany({}, { $set: { dsnguyenlieu: [] }});
+db.giamsatvungs.updateMany({}, { $set: { donhang: [] }});
+db.giamsatvungs.updateMany({}, { $set: { subdonhang: [] }});
 
-db.daily1.update({}, { $set: { dssanpham: [] }});
-db.daily1.update({}, { $set: { dscongcu: [] }});
-db.daily1.update({}, { $set: { dsvattu: [] }});
-db.daily1.update({}, { $set: { dsnguyenlieu: [] }});
-db.daily1.update({}, { $set: { donhang: [] }});
-db.daily1.update({}, { $set: { subdonhang: [] }});
+db.daily1.updateMany({}, { $set: { dssanpham: [] }});
+db.daily1.updateMany({}, { $set: { dscongcu: [] }});
+db.daily1.updateMany({}, { $set: { dsvattu: [] }});
+db.daily1.updateMany({}, { $set: { dsnguyenlieu: [] }});
+db.daily1.updateMany({}, { $set: { donhang: [] }});
+db.daily1.updateMany({}, { $set: { subdonhang: [] }});
 
-db.daily2.update({}, { $set: { dssanpham: [] }});
-db.daily2.update({}, { $set: { dscongcu: [] }});
-db.daily2.update({}, { $set: { dsvattu: [] }});
-db.daily2.update({}, { $set: { dsnguyenlieu: [] }});
-db.daily2.update({}, { $set: { donhang: [] }});
-db.daily2.update({}, { $set: { subdonhang: [] }});
+db.daily2.updateMany({}, { $set: { dssanpham: [] }});
+db.daily2.updateMany({}, { $set: { dscongcu: [] }});
+db.daily2.updateMany({}, { $set: { dsvattu: [] }});
+db.daily2.updateMany({}, { $set: { dsnguyenlieu: [] }});
+db.daily2.updateMany({}, { $set: { donhang: [] }});
+db.daily2.updateMany({}, { $set: { subdonhang: [] }});
 
-db.hodan.update({}, { $set: { donhang: [] }});
+db.hodans.updateMany({}, { $set: { dssanpham: [] }});
+db.hodans.updateMany({}, { $set: { dscongcu: [] }});
+db.hodans.updateMany({}, { $set: { dsvattu: [] }});
+db.hodans.updateMany({}, { $set: { dsnguyenlieu: [] }});
+db.hodans.updateMany({}, { $set: { donhang: [] }});
 
 
 

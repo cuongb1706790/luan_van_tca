@@ -27,7 +27,6 @@ const DonhangThem = (props) => {
   const [dsGSV, setDsGSV] = useState([]);
   const [selectedGSV, setselectedGSV] = useState([]);
   const { userInfo } = useSelector((state) => state.user);
-  const { id: donhangId } = props.match.params;
 
   const getTongDonhang = (dssp) => {
     const { tongdongia } = getDsNguyenVatlieu(dssp);

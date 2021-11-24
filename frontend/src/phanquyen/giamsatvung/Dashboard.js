@@ -1,5 +1,5 @@
-import React from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import logo from "../../assets/images/logo.png";
 import { Route, NavLink } from "react-router-dom";
 import Tongquan from "./Tongquan";
@@ -29,14 +29,39 @@ import Sanpham from "./Sanpham";
 import dl1Icon from "../../assets/icons/daily1.png";
 import dl2Icon from "../../assets/icons/daily2.png";
 import splnIcon from "../../assets/icons/spln.png";
+import Badge from "@mui/material/Badge";
+import apiGSV from "../../axios/apiGSV";
+import BackdropMaterial from "../../components/BackdropMaterial";
 
 const Dashboard = (props) => {
+  const [loading, setLoading] = useState(false);
+  const [dsBadge, setDsBadge] = useState(null);
   const dispatch = useDispatch();
+  const { userInfo } = useSelector((state) => state.user);
+  const [refresh, setRefresh] = useState(false);
 
   const handleLogout = () => {
     dispatch(logout());
     props.history.push("/");
   };
+
+  const fetchDsBadge = async () => {
+    setLoading(true);
+    const { gsv } = await apiGSV.singleGsvBasedUserId(userInfo._id);
+    const data = await apiGSV.dsShowBadge(gsv._id);
+    setDsBadge(data);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    setRefresh(false);
+    fetchDsBadge();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [refresh]);
+
+  if (loading) {
+    return <BackdropMaterial />;
+  }
 
   return (
     <Container>
@@ -53,63 +78,75 @@ const Dashboard = (props) => {
               activeClassName={props.match.path === "/giamsatvung" && "active"}
             >
               <Image src={homeIcon} alt="home" />
-              <span>Tổng quan</span>
+              <span className="ml-3">Tổng quan</span>
             </NavLink>
           </MenuItem>
 
           <MenuItem>
             <NavLink to="/giamsatvung/langnghe" activeClassName="active">
               <Image src={langngheIcon} alt="lannghe" />
-              <span>Làng nghề</span>
+              <span className="ml-3">Làng nghề</span>
             </NavLink>
           </MenuItem>
 
           <MenuItem>
             <NavLink to="/giamsatvung/daily1" activeClassName="active">
               <Image src={dl1Icon} alt="splangnghe" />
-              <span>Đại lý cấp 1</span>
+              <span className="ml-3">Đại lý cấp 1</span>
             </NavLink>
           </MenuItem>
 
           <MenuItem>
             <NavLink to="/giamsatvung/daily2" activeClassName="active">
-              <Image src={dl2Icon} alt="splangnghe" />
-              <span>Đại lý cấp 2</span>
+              {dsBadge?.daily2Badge > 0 ? (
+                <Badge badgeContent={dsBadge?.daily2Badge} color="secondary">
+                  <Image src={dl2Icon} alt="splangnghe" />
+                </Badge>
+              ) : (
+                <Image src={dl2Icon} alt="splangnghe" />
+              )}
+              <span className="ml-3">Đại lý cấp 2</span>
             </NavLink>
           </MenuItem>
 
           <MenuItem>
             <NavLink to="/giamsatvung/donhang" activeClassName="active">
-              <i class="far fa-newspaper"></i>
-              <span>Đơn hàng</span>
+              {dsBadge?.donhangBadge > 0 ? (
+                <Badge badgeContent={dsBadge?.donhangBadge} color="secondary">
+                  <i class="far fa-newspaper"></i>
+                </Badge>
+              ) : (
+                <i class="far fa-newspaper"></i>
+              )}
+              <span className="ml-3">Đơn hàng</span>
             </NavLink>
           </MenuItem>
 
           <MenuItem>
             <NavLink to="/giamsatvung/sanpham" activeClassName="active">
               <Image src={splnIcon} alt="splangnghe" />
-              <span>Sản phẩm</span>
+              <span className="ml-3">Sản phẩm</span>
             </NavLink>
           </MenuItem>
 
           <MenuItem>
             <NavLink to="/giamsatvung/congcu" activeClassName="active">
               <i class="fas fa-tools"></i>
-              <span>Công cụ</span>
+              <span className="ml-3">Công cụ</span>
             </NavLink>
           </MenuItem>
 
           <MenuItem>
             <NavLink to="/giamsatvung/vattu" activeClassName="active">
               <i class="fab fa-accusoft"></i>
-              <span>Vật tư</span>
+              <span className="ml-3">Vật tư</span>
             </NavLink>
           </MenuItem>
 
           <MenuItem>
             <NavLink to="/giamsatvung/nguyenlieu" activeClassName="active">
               <i class="fab fa-bandcamp"></i>
-              <span>Nguyên liệu</span>
+              <span className="ml-3">Nguyên liệu</span>
             </NavLink>
           </MenuItem>
 
@@ -143,7 +180,11 @@ const Dashboard = (props) => {
           component={Daily1Chinhsua}
         />
 
-        <Route exact path="/giamsatvung/daily2" component={Daily2} />
+        <Route
+          exact
+          path="/giamsatvung/daily2"
+          render={(props) => <Daily2 {...props} setRefresh={setRefresh} />}
+        />
         <Route
           path="/giamsatvung/daily2/chitiet/:id"
           component={Daily2Chitiet}
@@ -153,7 +194,9 @@ const Dashboard = (props) => {
         <Route
           exact
           path="/giamsatvung/donhang/chitiet/:id"
-          component={DonhangChitiet}
+          render={(props) => (
+            <DonhangChitiet {...props} setRefresh={setRefresh} />
+          )}
         />
         <Route
           path="/giamsatvung/donhang/chitiet/:id/tiendo"
@@ -224,7 +267,6 @@ const MenuItem = styled.li`
     }
     span {
       color: #cad6e2;
-      margin-left: 14px;
     }
     &:hover {
       background: #304664;

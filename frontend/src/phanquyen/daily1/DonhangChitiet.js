@@ -26,6 +26,7 @@ const DonhangChitiet = (props) => {
     if (success) {
       handleClose();
       setSuccess(true);
+      props.setRefresh(true);
       toast.success("Xác nhận thành công!", {
         theme: "colored",
       });
