@@ -186,6 +186,7 @@ const DonhangThem = (props) => {
     }
     const { daily2 } = await apiDaily2.singleDaily2BasedUser(userInfo._id);
     let { hodan } = await apiDaily2.dsHodan(daily2._id);
+    hodan = hodan.filter((hd) => hd.user);
     hodan = hodan.map((item) => ({ ...item, dsthoaman: [] }));
     setSingleDonhang(donhang);
     setSingleDaily2(daily2);
