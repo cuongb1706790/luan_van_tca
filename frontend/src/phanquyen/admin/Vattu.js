@@ -112,6 +112,7 @@ const Title = styled.div`
   color: #1e93e8;
   display: inline-block;
   border-bottom: 2px solid #1e93e8;
+  font-family: "Roboto", sans-serif;
 `;
 const TitleWrapper = styled.div`
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);

@@ -12,7 +12,6 @@ import MaterialCard from "./MaterialCard";
 import DropdownMaterial2 from "../../components/DropdownMaterial2";
 import MenuItem from "@mui/material/MenuItem";
 import MultipleSelect from "../../components/MultipleSelect";
-import { formatMoney } from "../../utils";
 
 const SanphamThem = (props) => {
   const [thuoctinh, setThuoctinh] = useState([{ ten: "", giatri: "" }]);
@@ -591,6 +590,7 @@ const Box = styled.div`
 `;
 const BoxTitle = styled.div`
   border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  font-family: "Roboto", sans-serif;
   h5 {
     font-size: 16px;
     display: inline-block;

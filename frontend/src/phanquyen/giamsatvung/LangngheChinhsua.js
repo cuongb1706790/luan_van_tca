@@ -1,52 +1,43 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Header from "../../components/Header";
-import DropdownCustom from "../../components/DropdownCustom";
 import { apiTinhThanh } from "../../apiTinhThanh";
 import { useSelector } from "react-redux";
 import apiGSV from "../../axios/apiGSV";
 import apiLangnghe from "../../axios/apiLangnghe";
-import MultipleSelectCheckmarks from "../../components/MultipleSelect";
 import BackdropMaterial from "../../components/BackdropMaterial";
 import { toast } from "react-toastify";
 import apiLoaiSanpham from "../../axios/apiLoaiSanpham";
-import MenuItem from "@mui/material/MenuItem";
 import DropdownMaterial2 from "../../components/DropdownMaterial2";
+import MultipleSelect from "../../components/MultipleSelect";
+import MenuItem from "@mui/material/MenuItem";
 
 const LangngheChinhsua = (props) => {
-  const { id: langngheId } = props.match.params;
   const [loading, setLoading] = useState(false);
-  const [spChinh, setSPChinh] = React.useState([]);
   const [gsvInfo, setGsvInfo] = useState(null);
   const { userInfo } = useSelector((state) => state.user);
   const [ten, setTen] = useState("");
   const [dsLoaiSp, setDsLoaiSp] = useState([]);
-  const [tinh, setTinh] = useState("Chọn Tỉnh/Thành Phố");
-  const [huyen, sethuyen] = useState("Chọn Quận/Huyện");
+  const [selectedLoaiSP, setSelectedLoaiSP] = React.useState([]);
+  const [tinh, setTinh] = useState(null);
+  const [huyen, sethuyen] = useState(null);
+  const [errMsg, setErrMsg] = useState("");
+  const { id: langngheId } = props.match.params;
+
   const dsTinh = apiTinhThanh.map((item) => item.name);
   const dsHuyen = apiTinhThanh
     .find((item) => item.name === tinh)
     ?.districts.map((item) => item.name);
 
-  const [errMsg, setErrMsg] = useState("");
-
-  const handleChangeSPChinh = (e) => {
+  const handleChangeLoaiSP = (e) => {
     const {
       target: { value },
     } = e;
-    setSPChinh(
-      // On autofill we get a the stringified value.
-      typeof value === "string" ? value.split(",") : value
-    );
+    setSelectedLoaiSP(typeof value === "string" ? value.split(",") : value);
   };
 
   const emptyFields = () => {
-    if (
-      !ten ||
-      tinh === "Chọn Tỉnh/Thành Phố" ||
-      huyen === "Chọn Quận/Huyện" ||
-      spChinh.length === 0
-    ) {
+    if (!ten || !tinh || !huyen || selectedLoaiSP.length === 0) {
       setErrMsg("Trường không đươc để trống");
       return true;
     } else {
@@ -58,20 +49,25 @@ const LangngheChinhsua = (props) => {
   const handleSubmit = async () => {
     if (!emptyFields()) {
       const dl = {
-        gsvId: gsvInfo._id,
         ten,
         tinh,
         huyen,
-        sanphamchinh: spChinh.map(
-          (ten) => dsLoaiSp.find((_item) => _item.ten === ten)._id
-        ),
+        loaisanpham: selectedLoaiSP,
       };
       const { success } = await apiLangnghe.chinhsuaLangnghe(langngheId, dl);
       if (success) {
-        toast.success("Cập nhật thành công!", { theme: "colored" });
-        props.history.push("/giamsatvung/langnghe");
+        toast.success("Thêm thành công!", { theme: "colored" });
+        resetFields();
       }
     }
+  };
+
+  const resetFields = () => {
+    setTen("");
+    setErrMsg("");
+    setTinh(null);
+    sethuyen(null);
+    setSelectedLoaiSP([]);
   };
 
   const fetchData = async () => {
@@ -83,12 +79,12 @@ const LangngheChinhsua = (props) => {
     // fetch sanpham langnghe (loai sp)
     const { loaiSanpham } = await apiLoaiSanpham.dsLoaiSanpham();
     // set data
-    setGsvInfo(gsv);
-    setDsLoaiSp(loaiSanpham);
     setTen(langnghe.ten);
     setTinh(langnghe.tinh);
     sethuyen(langnghe.huyen);
-    setSPChinh(langnghe.sanphamchinh.map((item) => item.ten));
+    setSelectedLoaiSP(langnghe.loaisanpham.map((lsp) => lsp._id));
+    setGsvInfo(gsv);
+    setDsLoaiSp(loaiSanpham);
     setLoading(false);
   };
 
@@ -109,7 +105,7 @@ const LangngheChinhsua = (props) => {
         onClick={() => props.history.push("/giamsatvung/langnghe")}
         headerRight={
           <button className="btn btn-primary px-4" onClick={handleSubmit}>
-            Cập nhật
+            Lưu
           </button>
         }
       />
@@ -173,18 +169,23 @@ const LangngheChinhsua = (props) => {
             </FormGroup>
 
             <FormGroup>
-              <Label>Sản phẩm chính:</Label>
-              <MultipleSelectCheckmarks
-                label="Chọn sản phẩm"
-                value={spChinh}
-                onChange={handleChangeSPChinh}
-                renderData={
-                  dsLoaiSp && dsLoaiSp.length
-                    ? dsLoaiSp.map((item) => item.ten)
-                    : []
-                }
-              />
-              {spChinh.length === 0 && <ErrMsg>{errMsg}</ErrMsg>}
+              <Label>Loại sản phẩm:</Label>
+              {dsLoaiSp && dsLoaiSp.length ? (
+                <MultipleSelect
+                  label="Chọn loại sản phẩm"
+                  value={selectedLoaiSP}
+                  onChange={handleChangeLoaiSP}
+                >
+                  {dsLoaiSp.map((item) => (
+                    <MenuItem key={item._id} value={item._id}>
+                      {item.ten}
+                    </MenuItem>
+                  ))}
+                </MultipleSelect>
+              ) : (
+                <MultipleSelect label="Chọn loại sản phẩm" />
+              )}
+              {selectedLoaiSP.length === 0 && <ErrMsg>{errMsg}</ErrMsg>}
             </FormGroup>
           </FormContent>
         </Form>
@@ -206,7 +207,7 @@ const Content = styled.div`
 
 const Form = styled.div`
   background: #fff;
-  padding: 36px 20px 100px 20px;
+  padding: 36px 20px 120px 20px;
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
     rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
   border-radius: 3px;
@@ -219,10 +220,12 @@ const FormContent = styled.div`
 const FormTitle = styled.div`
   font-size: 22px;
   font-weight: 600;
+  text-align: center;
   color: #555;
   margin-bottom: 20px;
   margin-top: 20px;
   text-align: center;
+  font-family: "Roboto", sans-serif;
 `;
 const FormGroup = styled.div`
   margin-bottom: 26px;

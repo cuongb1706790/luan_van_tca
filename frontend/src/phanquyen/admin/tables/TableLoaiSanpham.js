@@ -8,7 +8,7 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Checkbox from "@mui/material/Checkbox";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import EnhancedTableHead from "../../../components/table/EnhancedTableHead";
 import { getComparator } from "../../../utils";
 import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
@@ -212,7 +212,11 @@ const TableLoaiSanpham = ({ dsSanpham = [], setRowsRemoved }) => {
                             }}
                           />
                         </TableCell>
-                        <TableCell align="right">{row.ma}</TableCell>
+                        <TableCell align="right">
+                          <Link to={`/admin/loaisanpham/chitiet/${row._id}`}>
+                            {row.ma}
+                          </Link>
+                        </TableCell>
                         <TableCell align="right">{row.ten}</TableCell>
                         <TableCell align="right">{row.mota}</TableCell>
                         <TableCell align="right">{row.ngaytao}</TableCell>

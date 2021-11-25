@@ -176,6 +176,7 @@ const FormTitle = styled.div`
   font-weight: 600;
   color: #555;
   margin-bottom: 26px;
+  font-family: "Roboto", sans-serif;
 `;
 const Image = styled.img`
   width: 200px;

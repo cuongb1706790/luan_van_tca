@@ -221,6 +221,7 @@ const FormTitle = styled.div`
   margin-bottom: 20px;
   margin-top: 20px;
   text-align: center;
+  font-family: "Roboto", sans-serif;
 `;
 const FormGroup = styled.div`
   margin-bottom: 26px;

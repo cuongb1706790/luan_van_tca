@@ -230,6 +230,7 @@ const Box = styled.div`
 `;
 const BoxTitle = styled.div`
   border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  font-family: "Roboto", sans-serif;
   h5 {
     font-size: 16px;
     display: inline-block;

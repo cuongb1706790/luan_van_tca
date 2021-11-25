@@ -131,6 +131,20 @@ donhangRouter.get("/single/:id", async (req, res) => {
   }
 });
 
+// Xoa nhieu don hang
+donhangRouter.put("/xoanhieudonhang", async (req, res) => {
+  const { arrOfIds } = req.body;
+  try {
+    for (const item of arrOfIds) {
+      await Donhang.findByIdAndDelete(item);
+    }
+
+    res.send({ success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
 // bophankds send donhang -> gsv
 donhangRouter.put("/bophankdtogsv", async (req, res) => {
   const { donhangId, dsdonhang, bophankdId } = req.body;

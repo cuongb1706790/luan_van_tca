@@ -32,6 +32,7 @@ import Badge from "@mui/material/Badge";
 import { useSelector } from "react-redux";
 import apiBophankd from "../../axios/apiBophankd";
 import BackdropMaterial from "../../components/BackdropMaterial";
+import GiamsatvungChitiet from "./GiamsatvungChitiet";
 
 const Dashboard = (props) => {
   const [loading, setLoading] = useState(false);
@@ -182,7 +183,10 @@ const Dashboard = (props) => {
         <Route path="/bophankd/daily1/chitiet/:id" component={Daily1Chitiet} />
         <Route exact path="/bophankd/giamsatvung" component={Giamsatvung} />
         <Route path="/bophankd/giamsatvung/them" component={GiamsatvungThem} />
-
+        <Route
+          path="/bophankd/giamsatvung/chitiet/:id"
+          component={GiamsatvungChitiet}
+        />
         <Route
           exact
           path="/bophankd/daily2"

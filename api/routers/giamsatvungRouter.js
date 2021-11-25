@@ -82,13 +82,17 @@ giamsatvungRouter.get("/danhsach", async (req, res) => {
 // lay thong tin 1 gsv
 giamsatvungRouter.get("/single/:id", async (req, res) => {
   try {
-    const gsv = await Giamsatvung.findById(req.params.id).populate("user");
-    if (!gsv) {
-      return res.send({
-        message: "Không tìm thấy giám sát vùng nào",
-        success: false,
+    const gsv = await Giamsatvung.findById(req.params.id)
+      .populate({
+        path: "user daily1 daily2 donhang dscongcu dsnguyenlieu dsvattu dssanpham",
+      })
+      .populate({
+        path: "dscongcu dsvattu dsnguyenlieu dssanpham",
+        populate: {
+          path: "donhang congcu vattu nguyenlieu sanpham",
+        },
       });
-    }
+
     res.send({ gsv, success: true });
   } catch (error) {
     res.send({ message: error.message, success: false });

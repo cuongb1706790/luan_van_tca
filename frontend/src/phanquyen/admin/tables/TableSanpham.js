@@ -21,6 +21,7 @@ import DialogMaterial from "../../../components/DialogMaterial";
 import TableButton from "../../../components/TableButton";
 import apiSanpham from "../../../axios/apiSanpham";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const EnhancedTableToolbar = ({
   numSelected,
@@ -213,7 +214,11 @@ const TableSanpham = ({ dsSanpham = [], setRowsRemoved }) => {
                             }}
                           />
                         </TableCell>
-                        <TableCell align="right">{row.ma}</TableCell>
+                        <TableCell align="right">
+                          <Link to={`/admin/sanpham/chitiet/${row._id}`}>
+                            {row.ma}
+                          </Link>
+                        </TableCell>
                         <TableCell
                           component="th"
                           id={labelId}
