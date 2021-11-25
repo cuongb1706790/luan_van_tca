@@ -110,9 +110,9 @@ const Title = styled.div`
   padding: 14px 17px;
   font-weight: 500;
   color: #1e93e8;
-  font-family: "Poppins", sans-serif;
   display: inline-block;
   border-bottom: 2px solid #1e93e8;
+  font-family: "Roboto", sans-serif;
 `;
 const TitleWrapper = styled.div`
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);

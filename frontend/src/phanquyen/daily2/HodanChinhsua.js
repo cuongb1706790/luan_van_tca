@@ -86,12 +86,12 @@ const HodanChinhsua = (props) => {
     const { hodan } = await apiHodan.singleHodan(hodanId);
     const { langnghe } = await apiLangnghe.dsLangnghe();
     const { loaisanpham } = langnghe.find(
-      (item) => item._id === hodan.langnghe._id
+      (item) => item._id === hodan.langnghe
     );
     setHodan(hodan);
     setDsLangnghe(langnghe);
-    setSelectedLangnghe(hodan.langnghe._id);
-    setselectedLoaiSP(hodan.loaisanpham._id);
+    setSelectedLangnghe(hodan.langnghe);
+    setselectedLoaiSP(hodan.loaisanpham);
     setTinh(hodan.tinh);
     sethuyen(hodan.huyen);
     setXa(hodan.xa);
@@ -329,6 +329,7 @@ const FormTitle = styled.div`
   margin-bottom: 20px;
   margin-top: 20px;
   text-align: center;
+  font-family: "Roboto", sans-serif;
 `;
 const FormGroup = styled.div`
   margin-bottom: 26px;

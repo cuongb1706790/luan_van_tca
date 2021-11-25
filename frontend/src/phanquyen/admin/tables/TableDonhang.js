@@ -19,7 +19,8 @@ import { alpha } from "@mui/material/styles";
 import DialogMaterial from "../../../components/DialogMaterial";
 import TableButton from "../../../components/TableButton";
 import { toast } from "react-toastify";
-import apiLoaiSanpham from "../../../axios/apiLoaiSanpham";
+import apiDonhang from "../../../axios/apiDonhang";
+import { Link } from "react-router-dom";
 
 const EnhancedTableToolbar = ({
   numSelected,
@@ -98,7 +99,7 @@ const TableDonhang = ({ dsDonhang = [], setRowsRemoved }) => {
   const onClickXoa = () => handleOpen();
 
   const handleDeleteRow = async () => {
-    const { success } = await apiLoaiSanpham.xoaNhieuLoaiSanpham({
+    const { success } = await apiDonhang.xoaNhieuDonhang({
       arrOfIds: selected,
     });
     if (success) {
@@ -212,7 +213,11 @@ const TableDonhang = ({ dsDonhang = [], setRowsRemoved }) => {
                             }}
                           />
                         </TableCell>
-                        <TableCell align="right">{row.ma}</TableCell>
+                        <TableCell align="right">
+                          <Link to={`/admin/donhang/chitiet/${row._id}`}>
+                            {row.ma}
+                          </Link>
+                        </TableCell>
                         <TableCell align="right">{row.tongsanpham}</TableCell>
                         <TableCell align="right">{row.tongcongcu}</TableCell>
                         <TableCell align="right">{row.tongvattu}</TableCell>
@@ -261,8 +266,8 @@ const TableDonhang = ({ dsDonhang = [], setRowsRemoved }) => {
       <DialogMaterial
         open={open}
         onClose={handleClose}
-        title="Xóa sản phẩm làng nghề"
-        content="Bạn chắc xóa sản phẩm làng nghề này chứ?"
+        title="Xóa đơn hàng"
+        content="Bạn chắc xóa đơn hàng này chứ?"
         text1="Hủy"
         text2="Xóa"
         onClick1={handleClose}

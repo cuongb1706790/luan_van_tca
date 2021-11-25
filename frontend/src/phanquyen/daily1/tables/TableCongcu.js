@@ -8,13 +8,11 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Checkbox from "@mui/material/Checkbox";
-import { useHistory } from "react-router-dom";
 import img_placeholder from "../../../assets/images/img_placeholder.png";
 import EnhancedTableHead from "../../../components/table/EnhancedTableHead";
 import { getComparator } from "../../../utils";
 import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
 import { headCellsCongcu } from "./headCells";
-import TableButton from "../../../components/TableButton";
 
 const TableCongcu = ({ dsCongcu = [] }) => {
   const [order, setOrder] = React.useState("asc");
@@ -22,7 +20,6 @@ const TableCongcu = ({ dsCongcu = [] }) => {
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const history = useHistory();
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";

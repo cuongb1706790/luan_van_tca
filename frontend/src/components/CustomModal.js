@@ -305,6 +305,7 @@ const FormGroup = styled.div`
   margin-bottom: 8px;
   span:nth-child(1) {
     margin-right: 14px;
+    font-family: "Roboto", sans-serif;
   }
   span:nth-child(2) {
     font-weight: 500;
@@ -317,7 +318,7 @@ const BoxInfo = styled.div`
   border-radius: 3px;
   display: inline-block;
   text-align: left;
-  font-family: "Poppins", sans-serif;
+  font-family: "Roboto", sans-serif;
   margin-bottom: 36px;
   span {
     font-size: 15px;

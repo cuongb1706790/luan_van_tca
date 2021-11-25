@@ -243,6 +243,9 @@ const TitleWrapper = styled.div`
 `;
 const TitleContent = styled.div`
   display: inline-block;
+  span:first-child {
+    font-family: "Roboto", sans-serif;
+  }
 `;
 const TableSection = styled.div`
   th,
@@ -277,7 +280,7 @@ const BoxInfo = styled.div`
   border-radius: 3px;
   display: inline-block;
   text-align: left;
-  font-family: "Poppins", sans-serif;
+  font-family: "Roboto", sans-serif;
   margin-bottom: 36px;
   span {
     font-size: 15px;

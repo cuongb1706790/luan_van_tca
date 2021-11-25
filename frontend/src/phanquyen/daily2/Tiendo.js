@@ -218,6 +218,7 @@ const TitleContent = styled.div`
   }
   span {
     margin-left: 8px;
+    font-family: "Roboto", sans-serif;
   }
 `;
 const BoxInfo = styled.div`
@@ -227,7 +228,7 @@ const BoxInfo = styled.div`
   border-radius: 3px;
   display: inline-block;
   text-align: left;
-  font-family: "Poppins", sans-serif;
+  font-family: "Roboto", sans-serif;
   margin-bottom: 36px;
   span {
     font-size: 15px;
@@ -236,6 +237,7 @@ const BoxInfo = styled.div`
 `;
 const BoxInfoTitle = styled.h6`
   margin-bottom: 16px;
+  font-family: "Roboto", sans-serif;
 `;
 const Text = styled.div`
   font-size: 15px;

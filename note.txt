@@ -160,3 +160,12 @@ show daily2: {
     to: daily2D
 }
 => subdonhang dl1B where madh = 'DHA01'
+
+
+import { Link } from "react-router-dom";
+
+<Link to={`/bophankd/donhang/chitiet/${row._id}`}>
+    {row?.ma}
+</Link>
+
+font-family: 'Roboto', sans-serif;

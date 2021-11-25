@@ -18,7 +18,13 @@ import styled from "styled-components";
 import apiDaily1 from "../../../axios/apiDaily1";
 import { toast } from "react-toastify";
 
-const TableHodan = ({ dsHodan = [], setSuccess, daily1Id, setRefresh }) => {
+const TableHodan = ({
+  dsHodan = [],
+  setSuccess,
+  daily1Id,
+  setRefresh,
+  readOnly,
+}) => {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
   const [selected, setSelected] = React.useState([]);
@@ -141,9 +147,13 @@ const TableHodan = ({ dsHodan = [], setSuccess, daily1Id, setRefresh }) => {
                           />
                         </TableCell>
                         <TableCell align="right">
-                          <Link to={`/daily1/hodan/chitiet/${row._id}`}>
-                            {row.daidien}
-                          </Link>
+                          {readOnly ? (
+                            row.daidien
+                          ) : (
+                            <Link to={`/daily1/hodan/chitiet/${row._id}`}>
+                              {row.daidien}
+                            </Link>
+                          )}
                         </TableCell>
                         <TableCell align="right">{row.sdt}</TableCell>
                         <TableCell align="right">{row.cmnd}</TableCell>
@@ -161,15 +171,24 @@ const TableHodan = ({ dsHodan = [], setSuccess, daily1Id, setRefresh }) => {
                         </TableCell>
                         <TableCell align="right">
                           {!row.active ? (
-                            <button
-                              className="btn btn-info"
-                              onClick={() => {
-                                onClickDuyet();
-                                setrowOfDuyet(row._id);
-                              }}
-                            >
-                              <i class="fas fa-user-edit"></i> Duyệt
-                            </button>
+                            readOnly ? (
+                              <button
+                                type="button"
+                                class="btn btn-outline-danger"
+                              >
+                                Chờ duyệt...
+                              </button>
+                            ) : (
+                              <button
+                                className="btn btn-info"
+                                onClick={() => {
+                                  onClickDuyet();
+                                  setrowOfDuyet(row._id);
+                                }}
+                              >
+                                <i class="fas fa-user-edit"></i> Duyệt
+                              </button>
+                            )
                           ) : (
                             <button type="button" class="btn btn-outline-info">
                               <i class="fas fa-check"></i> Đã duyệt

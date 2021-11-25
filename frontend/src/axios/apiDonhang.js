@@ -72,6 +72,12 @@ const apiDonhang = {
     const url = `/donhang/subdhduoidaily2/${donhangId}`;
     return axiosClient.get(url);
   },
+
+  // Xoa nhieu don hang
+  xoaNhieuDonhang(arrOfIds) {
+    const url = "/donhang/xoanhieudonhang";
+    return axiosClient.put(url, arrOfIds);
+  },
 };
 
 export default apiDonhang;

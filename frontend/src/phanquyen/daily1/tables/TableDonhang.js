@@ -8,7 +8,7 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Checkbox from "@mui/material/Checkbox";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import EnhancedTableHead from "../../../components/table/EnhancedTableHead";
 import { formatMoney, getComparator } from "../../../utils";
 import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
@@ -26,8 +26,7 @@ const EnhancedTableToolbar = ({
   numSelected,
   rowsSelected,
   onClickChitiet,
-  onClickCapnhat,
-  onClickXoa,
+  onClickTiendo,
 }) => {
   return numSelected > 0 ? (
     <>
@@ -53,7 +52,10 @@ const EnhancedTableToolbar = ({
           >
             <div className="d-flex align-items-center">
               {rowsSelected.length === 1 && (
-                <TableButton onClick={onClickChitiet}>Chi tiết</TableButton>
+                <>
+                  <TableButton onClick={onClickChitiet}>Chi tiết</TableButton>
+                  <TableButton onClick={onClickTiendo}>Tiến độ</TableButton>
+                </>
               )}
             </div>
           </Typography>
@@ -72,7 +74,7 @@ const EnhancedTableToolbar = ({
   ) : null;
 };
 
-const TableDonhang = ({ dsDonhang = [], setRowsRemoved }) => {
+const TableDonhang = ({ dsDonhang = [], setRowsRemoved, readOnly }) => {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
   const [selected, setSelected] = React.useState([]);
@@ -87,8 +89,8 @@ const TableDonhang = ({ dsDonhang = [], setRowsRemoved }) => {
   const onClickChitiet = () =>
     history.push(`/daily1/donhang/chitiet/${selected[0]}`);
 
-  const onClickCapnhat = () =>
-    history.push(`/daily1/donhang/chinhsua/${selected[0]}`);
+  const onClickTiendo = () =>
+    history.push(`/daily1/donhang/chitiet/${selected[0]}/tiendo`);
 
   const onClickXoa = () => handleOpen();
 
@@ -156,13 +158,15 @@ const TableDonhang = ({ dsDonhang = [], setRowsRemoved }) => {
     <>
       <Box sx={{ width: "100%" }}>
         <Paper sx={{ width: "100%", mb: 2 }}>
-          <EnhancedTableToolbar
-            numSelected={selected.length}
-            rowsSelected={selected}
-            onClickChitiet={onClickChitiet}
-            onClickCapnhat={onClickCapnhat}
-            onClickXoa={onClickXoa}
-          />
+          {!readOnly && (
+            <EnhancedTableToolbar
+              numSelected={selected.length}
+              rowsSelected={selected}
+              onClickChitiet={onClickChitiet}
+              onClickTiendo={onClickTiendo}
+              onClickXoa={onClickXoa}
+            />
+          )}
           <TableContainer>
             <Table
               sx={{ minWidth: 750 }}
@@ -207,7 +211,15 @@ const TableDonhang = ({ dsDonhang = [], setRowsRemoved }) => {
                             }}
                           />
                         </TableCell>
-                        <TableCell align="right">{row?.ma}</TableCell>
+                        <TableCell align="right">
+                          {readOnly ? (
+                            row?.ma
+                          ) : (
+                            <Link to={`/daily1/donhang/chitiet/${row._id}`}>
+                              {row?.ma}
+                            </Link>
+                          )}
+                        </TableCell>
                         <TableCell align="right">{row?.tongsanpham}</TableCell>
                         <TableCell align="right">{row?.tongcongcu}</TableCell>
                         <TableCell align="right">{row?.tongvattu}</TableCell>

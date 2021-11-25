@@ -8,7 +8,7 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Checkbox from "@mui/material/Checkbox";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import EnhancedTableHead from "../../../components/table/EnhancedTableHead";
 import { formatMoney, getComparator } from "../../../utils";
 import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
@@ -26,7 +26,7 @@ const EnhancedTableToolbar = ({
   numSelected,
   rowsSelected,
   onClickChitiet,
-  onClickCapnhat,
+  onClickTiendo,
   onClickXoa,
 }) => {
   return numSelected > 0 ? (
@@ -53,7 +53,10 @@ const EnhancedTableToolbar = ({
           >
             <div className="d-flex align-items-center">
               {rowsSelected.length === 1 && (
-                <TableButton onClick={onClickChitiet}>Chi tiết</TableButton>
+                <>
+                  <TableButton onClick={onClickChitiet}>Chi tiết</TableButton>
+                  <TableButton onClick={onClickTiendo}>Tiến độ</TableButton>
+                </>
               )}
             </div>
           </Typography>
@@ -87,8 +90,8 @@ const TableDonhang = ({ dsDonhang = [], setRowsRemoved }) => {
   const onClickChitiet = () =>
     history.push(`/bophankd/donhang/chitiet/${selected[0]}`);
 
-  const onClickCapnhat = () =>
-    history.push(`/bophankd/donhang/chinhsua/${selected[0]}`);
+  const onClickTiendo = () =>
+    history.push(`/bophankd/donhang/chitiet/${selected[0]}/tiendo`);
 
   const onClickXoa = () => handleOpen();
 
@@ -160,7 +163,7 @@ const TableDonhang = ({ dsDonhang = [], setRowsRemoved }) => {
             numSelected={selected.length}
             rowsSelected={selected}
             onClickChitiet={onClickChitiet}
-            onClickCapnhat={onClickCapnhat}
+            onClickTiendo={onClickTiendo}
             onClickXoa={onClickXoa}
           />
           <TableContainer>
@@ -207,7 +210,11 @@ const TableDonhang = ({ dsDonhang = [], setRowsRemoved }) => {
                             }}
                           />
                         </TableCell>
-                        <TableCell align="right">{row?.ma}</TableCell>
+                        <TableCell align="right">
+                          <Link to={`/bophankd/donhang/chitiet/${row._id}`}>
+                            {row?.ma}
+                          </Link>
+                        </TableCell>
                         <TableCell align="right">{row?.tongsanpham}</TableCell>
                         <TableCell align="right">{row?.tongcongcu}</TableCell>
                         <TableCell align="right">{row?.tongvattu}</TableCell>

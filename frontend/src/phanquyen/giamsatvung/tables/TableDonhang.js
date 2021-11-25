@@ -21,6 +21,7 @@ import TableButton from "../../../components/TableButton";
 import { toast } from "react-toastify";
 import apiLoaiSanpham from "../../../axios/apiLoaiSanpham";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const EnhancedTableToolbar = ({
   numSelected,
@@ -72,7 +73,7 @@ const EnhancedTableToolbar = ({
   ) : null;
 };
 
-const TableDonhang = ({ dsDonhang = [], setRowsRemoved }) => {
+const TableDonhang = ({ dsDonhang = [], setRowsRemoved, readOnly }) => {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
   const [selected, setSelected] = React.useState([]);
@@ -156,13 +157,15 @@ const TableDonhang = ({ dsDonhang = [], setRowsRemoved }) => {
     <>
       <Box sx={{ width: "100%" }}>
         <Paper sx={{ width: "100%", mb: 2 }}>
-          <EnhancedTableToolbar
-            numSelected={selected.length}
-            rowsSelected={selected}
-            onClickChitiet={onClickChitiet}
-            onClickCapnhat={onClickCapnhat}
-            onClickXoa={onClickXoa}
-          />
+          {!readOnly && (
+            <EnhancedTableToolbar
+              numSelected={selected.length}
+              rowsSelected={selected}
+              onClickChitiet={onClickChitiet}
+              onClickCapnhat={onClickCapnhat}
+              onClickXoa={onClickXoa}
+            />
+          )}
           <TableContainer>
             <Table
               sx={{ minWidth: 750 }}
@@ -207,7 +210,17 @@ const TableDonhang = ({ dsDonhang = [], setRowsRemoved }) => {
                             }}
                           />
                         </TableCell>
-                        <TableCell align="right">{row?.ma}</TableCell>
+                        <TableCell align="right">
+                          {readOnly ? (
+                            row?.ma
+                          ) : (
+                            <Link
+                              to={`/giamsatvung/donhang/chitiet/${row._id}`}
+                            >
+                              {row?.ma}
+                            </Link>
+                          )}
+                        </TableCell>
                         <TableCell align="right">{row?.tongsanpham}</TableCell>
                         <TableCell align="right">{row?.tongcongcu}</TableCell>
                         <TableCell align="right">{row?.tongvattu}</TableCell>

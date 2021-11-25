@@ -100,13 +100,23 @@ daily2Router.get("/danhsach", async (req, res) => {
 // lay thong tin 1 dai ly
 daily2Router.get("/single/:id", async (req, res) => {
   try {
-    const daily2 = await Daily2.findById(req.params.id).populate("user");
-    if (!daily2) {
-      return res.send({
-        message: "Không tìm thấy đại lý 2 nào",
-        success: false,
+    const daily2 = await Daily2.findById(req.params.id)
+      .populate({
+        path: "hodan user donhang dscongcu dsvattu dsnguyenlieu",
+      })
+      .populate({
+        path: "hodan",
+        populate: {
+          path: "langnghe loaisanpham",
+        },
+      })
+      .populate({
+        path: "dscongcu dsvattu dsnguyenlieu dssanpham",
+        populate: {
+          path: "donhang congcu vattu nguyenlieu sanpham",
+        },
       });
-    }
+
     res.send({ daily2, success: true });
   } catch (error) {
     res.send({ message: error.message, success: false });

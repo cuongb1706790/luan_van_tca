@@ -105,13 +105,23 @@ daily1Router.get("/dsdaily1bpkdnull", async (req, res) => {
 // lay thong tin 1 dai ly
 daily1Router.get("/single/:id", async (req, res) => {
   try {
-    const daily1 = await Daily1.findById(req.params.id).populate("user");
-    if (!daily1) {
-      return res.send({
-        message: "Không tìm thấy đại lý 1 nào",
-        success: false,
+    const daily1 = await Daily1.findById(req.params.id)
+      .populate({
+        path: "daily2 hodan user donhang subdonhang dscongcu dsvattu dsnguyenlieu dssanpham",
+      })
+      .populate({
+        path: "hodan",
+        populate: {
+          path: "langnghe loaisanpham",
+        },
+      })
+      .populate({
+        path: "dscongcu dsvattu dsnguyenlieu dssanpham",
+        populate: {
+          path: "donhang congcu vattu nguyenlieu sanpham",
+        },
       });
-    }
+
     res.send({ daily1, success: true });
   } catch (error) {
     res.send({ message: error.message, success: false });

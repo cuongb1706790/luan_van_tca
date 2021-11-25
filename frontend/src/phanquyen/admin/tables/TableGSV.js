@@ -20,6 +20,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { alpha } from "@mui/material/styles";
 import TableButton from "../../../components/TableButton";
+import { Link } from "react-router-dom";
 
 const EnhancedTableToolbar = ({
   numSelected,
@@ -211,7 +212,11 @@ const TableGSV = ({ dsGsv = [], setRowsRemoved }) => {
                             }}
                           />
                         </TableCell>
-                        <TableCell align="right">{row.ten}</TableCell>
+                        <TableCell align="right">
+                          <Link to={`/admin/gsv/chitiet/${row._id}`}>
+                            {row.ten}
+                          </Link>
+                        </TableCell>
                         <TableCell align="right">{row.sdt}</TableCell>
                         <TableCell align="right">{row.cmnd}</TableCell>
                         <TableCell align="right">

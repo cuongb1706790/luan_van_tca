@@ -110,7 +110,7 @@ const Title = styled.div`
   padding: 14px 17px;
   font-weight: 500;
   color: #1e93e8;
-  font-family: "Poppins", sans-serif;
+  font-family: "Roboto", sans-serif;
   display: inline-block;
   border-bottom: 2px solid #1e93e8;
 `;

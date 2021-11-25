@@ -18,7 +18,13 @@ import styled from "styled-components";
 import apiGSV from "../../../axios/apiGSV";
 import { toast } from "react-toastify";
 
-const TableDaily2 = ({ dsDaily2 = [], gsvId, setSuccess, setRefresh }) => {
+const TableDaily2 = ({
+  dsDaily2 = [],
+  gsvId,
+  setSuccess,
+  setRefresh,
+  readOnly,
+}) => {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
   const [selected, setSelected] = React.useState([]);
@@ -141,9 +147,13 @@ const TableDaily2 = ({ dsDaily2 = [], gsvId, setSuccess, setRefresh }) => {
                           />
                         </TableCell>
                         <TableCell align="right">
-                          <Link to={`/giamsatvung/daily2/chitiet/${row._id}`}>
-                            {row.ten}
-                          </Link>
+                          {readOnly ? (
+                            row.ten
+                          ) : (
+                            <Link to={`/giamsatvung/daily2/chitiet/${row._id}`}>
+                              {row.ten}
+                            </Link>
+                          )}
                         </TableCell>
                         <TableCell align="right">{row.sdt}</TableCell>
                         <TableCell align="right">{row.email}</TableCell>
@@ -157,15 +167,24 @@ const TableDaily2 = ({ dsDaily2 = [], gsvId, setSuccess, setRefresh }) => {
                         </TableCell>
                         <TableCell align="right">
                           {!row.giamsatvung ? (
-                            <button
-                              className="btn btn-info"
-                              onClick={() => {
-                                onClickDuyet();
-                                setrowOfDuyet(row._id);
-                              }}
-                            >
-                              <i class="fas fa-user-edit"></i> Duyệt
-                            </button>
+                            readOnly ? (
+                              <button
+                                type="button"
+                                class="btn btn-outline-danger"
+                              >
+                                Chờ duyệt...
+                              </button>
+                            ) : (
+                              <button
+                                className="btn btn-info"
+                                onClick={() => {
+                                  onClickDuyet();
+                                  setrowOfDuyet(row._id);
+                                }}
+                              >
+                                <i class="fas fa-user-edit"></i> Duyệt
+                              </button>
+                            )
                           ) : (
                             <button type="button" class="btn btn-outline-info">
                               <i class="fas fa-check"></i> Đã duyệt
