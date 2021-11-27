@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
 import { toast } from "react-toastify";
 import Header from "../../components/Header";
 import BackdropMaterial from "../../components/BackdropMaterial";
@@ -10,6 +9,29 @@ import TableVattuDonhang from "./tables/TableVattuDonhang";
 import TableNguyenlieuDonhang from "./tables/TableNguyenlieuDonhang";
 import { formatMoney } from "../../utils";
 import DialogMaterial from "../../components/DialogMaterial";
+import ma from "../../assets/icons/ma.png";
+import ten from "../../assets/icons/ten.png";
+import sdt from "../../assets/icons/sdt.png";
+import email from "../../assets/icons/email.png";
+import diachi from "../../assets/icons/diachi.png";
+import dssanpham from "../../assets/icons/dssanpham.png";
+import dscongcu from "../../assets/icons/dscongcu.png";
+import dsvattu from "../../assets/icons/dsvattu.png";
+import dsnglieu from "../../assets/icons/dsnglieu.png";
+import {
+  BoxInfo,
+  BoxInfoTitle,
+  Container,
+  Content,
+  Form,
+  FormGroup,
+  TableSection,
+  TableTitle,
+  TiendoProcess,
+  TiendoProcessText,
+  Total,
+  TotalValue,
+} from "./styledComponents";
 
 const DonhangChitiet = (props) => {
   const [loading, setLoading] = useState(false);
@@ -69,71 +91,87 @@ const DonhangChitiet = (props) => {
           onClick={() => props.history.push("/giamsatvung/donhang")}
         />
         <Content>
-          <Form>
-            <Title>
-              <TitleWrapper>
-                <TitleContent>
-                  <span>Mã đơn hàng:</span>
-                  <span style={{ fontWeight: 500 }}>{singleDonhang?.ma}</span>
-                </TitleContent>
-
-                {singleDonhang?.ngaydathang ? (
-                  <TitleContent
-                    style={{ cursor: "pointer" }}
-                    onClick={() =>
+          <Form className="px-5">
+            <TiendoProcess className="text-right">
+              {singleDonhang?.ngaydathang ? (
+                <TiendoProcessText
+                  onClick={() =>
+                    props.history.push(
+                      `/giamsatvung/donhang/chitiet/${donhangId}/tiendo`
+                    )
+                  }
+                >
+                  <span>Theo dõi tiến độ</span>
+                  <i class="fas fa-long-arrow-alt-right"></i>
+                </TiendoProcessText>
+              ) : (
+                <TiendoProcessText
+                  onClick={() => {
+                    if (singleDonhang?.xacnhan) {
                       props.history.push(
-                        `/giamsatvung/donhang/chitiet/${donhangId}/tiendo`
-                      )
+                        `/giamsatvung/donhang/chitiet/${donhangId}/them`
+                      );
+                    } else {
+                      toast.warning("Vui lòng xác nhận đơn hàng!", {
+                        theme: "colored",
+                      });
                     }
-                  >
-                    <span>Theo dõi tiến độ</span>
-                    <i class="fas fa-long-arrow-alt-right"></i>
-                  </TitleContent>
-                ) : (
-                  <TitleContent
-                    style={{ cursor: "pointer" }}
-                    onClick={() => {
-                      if (singleDonhang?.xacnhan) {
-                        props.history.push(
-                          `/giamsatvung/donhang/chitiet/${donhangId}/them`
-                        );
-                      } else {
-                        toast.warning("Vui lòng xác nhận đơn hàng!", {
-                          theme: "colored",
-                        });
-                      }
-                    }}
-                  >
-                    <span>Tiến hành phân phát</span>
-                    <i class="fas fa-long-arrow-alt-right"></i>
-                  </TitleContent>
-                )}
-              </TitleWrapper>
-            </Title>
+                  }}
+                >
+                  <span>Tiến hành phân phát</span>
+                  <i class="fas fa-long-arrow-alt-right"></i>
+                </TiendoProcessText>
+              )}
+            </TiendoProcess>
 
             <div className="text-left">
+              <FormGroup className="dh">
+                <img src={ma} alt="ma" />
+                <span>Mã đơn hàng:</span>
+                <span>{singleDonhang?.ma}</span>
+              </FormGroup>
+
               <BoxInfo>
                 <BoxInfoTitle>Bộ phận kinh doanh</BoxInfoTitle>
-                <div className="d-flex">
-                  <div className="pr-3">
-                    <Text>Tên:</Text>
-                    <Text>SĐT:</Text>
-                    <Text>Email:</Text>
-                    <Text>Địa chỉ:</Text>
-                  </div>
-                  <div style={{ flex: 1 }}>
-                    <Text>{singleDonhang?.from.bophankd.ten}</Text>
-                    <Text>{singleDonhang?.from.bophankd.sdt}</Text>
-                    <Text>{singleDonhang?.from.bophankd.email}</Text>
-                    <Text>{singleDonhang?.from.bophankd.cmnd}</Text>
-                    <Text>{`${singleDonhang?.from.bophankd.xa}, ${singleDonhang?.from.bophankd.huyen}, ${singleDonhang?.from.bophankd.tinh}`}</Text>
-                  </div>
-                </div>
+
+                <table>
+                  <tr>
+                    <td>
+                      <img src={ten} alt="ten" />
+                      <span>Tên:</span>
+                    </td>
+                    <td>{singleDonhang?.from.bophankd.ten}</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <img src={sdt} alt="sdt" />
+                      <span>SĐT:</span>
+                    </td>
+                    <td>{singleDonhang?.from.bophankd.sdt}</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <img src={email} alt="email" />
+                      <span>E-mail:</span>
+                    </td>
+                    <td>{singleDonhang?.from.bophankd.email}</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <img src={diachi} alt="diachi" />
+                      <span>Địa chỉ:</span>
+                    </td>
+                    <td>{`${singleDonhang?.from.bophankd.xa}, ${singleDonhang?.from.bophankd.huyen}, ${singleDonhang?.from.bophankd.tinh}`}</td>
+                  </tr>
+                </table>
               </BoxInfo>
             </div>
 
             <TableSection>
-              <TableTitle>Sản phẩm đơn hàng</TableTitle>
+              <TableTitle>
+                <img src={dssanpham} alt="dssanpham" />
+                <span>Sản phẩm đơn hàng</span>
+              </TableTitle>
               <TableSanphamDonhangChitiet
                 dsSanpham={singleDonhang?.dssanpham}
               />
@@ -146,7 +184,10 @@ const DonhangChitiet = (props) => {
             </TableSection>
 
             <TableSection>
-              <TableTitle>Công cụ đơn hàng</TableTitle>
+              <TableTitle>
+                <img src={dscongcu} alt="dscongcu" />
+                <span>Công cụ đơn hàng</span>
+              </TableTitle>
               <TableCongcuDonhang dsCongcu={singleDonhang?.dscongcu} />
               <div className="text-right mb-3">
                 <Total>Tổng số lượng: </Total>
@@ -155,7 +196,10 @@ const DonhangChitiet = (props) => {
             </TableSection>
 
             <TableSection>
-              <TableTitle>Vật tư đơn hàng</TableTitle>
+              <TableTitle>
+                <img src={dsvattu} alt="dsvattu" />
+                <span>Vật tư đơn hàng</span>
+              </TableTitle>
               <TableVattuDonhang dsVattu={singleDonhang?.dsvattu} />
               <div className="text-right mb-3">
                 <Total>Tổng số lượng: </Total>
@@ -164,7 +208,10 @@ const DonhangChitiet = (props) => {
             </TableSection>
 
             <TableSection>
-              <TableTitle>Nguyên liệu đơn hàng</TableTitle>
+              <TableTitle>
+                <img src={dsnglieu} alt="dsnglieu" />
+                <span>Nguyên liệu đơn hàng</span>
+              </TableTitle>
               <TableNguyenlieuDonhang
                 dsNguyenlieu={singleDonhang?.dsnguyenlieu}
               />
@@ -202,96 +249,5 @@ const DonhangChitiet = (props) => {
     </>
   );
 };
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-`;
-const Content = styled.div`
-  flex: 1;
-  background: #f0eeee;
-  padding: 36px;
-  font-family: "Poppins", sans-serif;
-`;
-const Form = styled.div`
-  background: #fff;
-  padding: 36px 72px 60px 72px;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
-    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
-  border-radius: 3px;
-`;
-const Title = styled.div`
-  text-align: right;
-  margin-bottom: 20px;
-  margin-top: 20px;
-`;
-const TitleWrapper = styled.div`
-  font-size: 16px;
-  color: #555;
-  color: #1c7ed6;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  &:hover {
-    color: #11548f;
-  }
-  span {
-    margin-right: 8px;
-  }
-`;
-const TitleContent = styled.div`
-  display: inline-block;
-  span:first-child {
-    font-family: "Roboto", sans-serif;
-  }
-`;
-const TableSection = styled.div`
-  th,
-  td {
-    font-family: "Poppins", sans-serif;
-  }
-  th:first-child,
-  td:first-child {
-    display: none;
-  }
-`;
-const TableTitle = styled.div`
-  font-size: 16px;
-  display: inline-block;
-  padding-left: 16px;
-  margin-bottom: 16px;
-  border-left: 10px solid green;
-  line-height: 16px;
-`;
-const Total = styled.span`
-  font-size: 15px;
-  margin-right: 10px;
-  font-weight: 400;
-`;
-const TotalValue = styled.span`
-  font-size: 15px;
-`;
-const BoxInfo = styled.div`
-  width: 380px;
-  padding: 26px;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  border-radius: 3px;
-  display: inline-block;
-  text-align: left;
-  font-family: "Roboto", sans-serif;
-  margin-bottom: 36px;
-  span {
-    font-size: 15px;
-    margin-right: 10px;
-  }
-`;
-const BoxInfoTitle = styled.h6`
-  margin-bottom: 16px;
-`;
-const Text = styled.div`
-  font-size: 15px;
-  margin-bottom: 4px;
-`;
 
 export default DonhangChitiet;

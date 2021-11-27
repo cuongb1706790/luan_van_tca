@@ -1,5 +1,18 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import {
+  Container,
+  Content,
+  ErrMsg,
+  Form,
+  FormContent,
+  FormGroup,
+  FormTitle,
+  Label,
+  TableSection,
+  TableTitle,
+  Total,
+  TotalValue,
+} from "./styledComponents";
 import Header from "../../components/Header";
 import { toast } from "react-toastify";
 import MenuItem from "@mui/material/MenuItem";
@@ -16,6 +29,10 @@ import {
   getTongNguyenVatlieu,
 } from "../../utils";
 import MultipleSelect from "../../components/MultipleSelect";
+import them from "../../assets/icons/them.png";
+import ma from "../../assets/icons/ma.png";
+import _gsv from "../../assets/icons/giamsatvung.png";
+import dhgoc from "../../assets/icons/dhgoc.png";
 
 const DonhangThem = (props) => {
   const [loading, setLoading] = useState(false);
@@ -206,17 +223,24 @@ const DonhangThem = (props) => {
           titleBack
           onClick={() => props.history.push("/bophankd/donhang")}
           headerRight={
-            <button className="btn btn-primary px-4" onClick={handleSubmit}>
+            <button className="btn btn-primary px-3" onClick={handleSubmit}>
               Lưu
+              <i class="fas fa-save"></i>
             </button>
           }
         />
         <Content>
           <Form>
             <FormContent>
-              <FormTitle>Thêm đơn hàng</FormTitle>
+              <FormTitle>
+                <span>Thêm đơn hàng</span>
+              </FormTitle>
+
               <FormGroup>
-                <Label>Mã đơn hàng:</Label>
+                <Label>
+                  <img src={ma} alt="ma" />
+                  <span>Mã đơn hàng:</span>
+                </Label>
                 {dsDonhang && dsDonhang.length ? (
                   <DropdownMaterial2
                     label="Chọn mã đơn hàng"
@@ -234,7 +258,10 @@ const DonhangThem = (props) => {
               </FormGroup>
 
               <FormGroup>
-                <Label>Giám sát vùng:</Label>
+                <Label>
+                  <img src={_gsv} alt="gsv" />
+                  <span>Giám sát vùng:</span>
+                </Label>
                 {dsGSV && dsGSV.length ? (
                   <MultipleSelect
                     label="Chọn gám sát vùng"
@@ -256,44 +283,52 @@ const DonhangThem = (props) => {
               </FormGroup>
             </FormContent>
 
-            {selectedDonhang ? (
-              <TableSection>
-                <TableTitle>Đơn hàng gốc</TableTitle>
-                <TableDonhangGoc donhang={singleDonhang} />
-                <div className="text-right">
-                  <Total>Tổng đơn hàng:</Total>
-                  <TotalValue>
-                    {formatMoney(
-                      getTongDonhang(
-                        singleDonhang.dssanpham.map((sp) => ({
-                          ...sp.sanpham,
-                          soluong: sp.soluong,
-                        }))
-                      )
-                    )}
-                  </TotalValue>
-                </div>
-              </TableSection>
-            ) : null}
-
-            {dsGSV.map((gsv) =>
-              selectedGSV.includes(gsv._id) ? (
+            <div className="px-5">
+              {selectedDonhang ? (
                 <TableSection>
-                  <TableTitle>{gsv?.ten}</TableTitle>
-                  <TableSanphamDonhang
-                    dsSanpham={gsv?.dsthoaman}
-                    handleChangeSlSanpham={handleChangeSlSanpham}
-                    gsvId={gsv._id}
-                  />
+                  <TableTitle>
+                    <img src={dhgoc} alt="dhgoc" />
+                    <span>Đơn hàng gốc</span>
+                  </TableTitle>
+                  <TableDonhangGoc donhang={singleDonhang} />
                   <div className="text-right">
                     <Total>Tổng đơn hàng:</Total>
                     <TotalValue>
-                      {formatMoney(getTongDonhang(gsv?.dsthoaman))}
+                      {formatMoney(
+                        getTongDonhang(
+                          singleDonhang.dssanpham.map((sp) => ({
+                            ...sp.sanpham,
+                            soluong: sp.soluong,
+                          }))
+                        )
+                      )}
                     </TotalValue>
                   </div>
                 </TableSection>
-              ) : null
-            )}
+              ) : null}
+
+              {dsGSV.map((gsv) =>
+                selectedGSV.includes(gsv._id) ? (
+                  <TableSection>
+                    <TableTitle>
+                      <img src={_gsv} alt="gsv" />
+                      <span>{gsv?.ten}</span>
+                    </TableTitle>
+                    <TableSanphamDonhang
+                      dsSanpham={gsv?.dsthoaman}
+                      handleChangeSlSanpham={handleChangeSlSanpham}
+                      gsvId={gsv._id}
+                    />
+                    <div className="text-right">
+                      <Total>Tổng đơn hàng:</Total>
+                      <TotalValue>
+                        {formatMoney(getTongDonhang(gsv?.dsthoaman))}
+                      </TotalValue>
+                    </div>
+                  </TableSection>
+                ) : null
+              )}
+            </div>
           </Form>
         </Content>
       </Container>
@@ -301,77 +336,4 @@ const DonhangThem = (props) => {
   );
 };
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-`;
-const Content = styled.div`
-  flex: 1;
-  background: #f0eeee;
-  padding: 36px;
-  font-family: "Poppins", sans-serif;
-`;
-const Form = styled.div`
-  background: #fff;
-  padding: 36px 72px 60px 72px;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
-    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
-  border-radius: 3px;
-`;
-const FormContent = styled.div`
-  width: 600px;
-  margin: auto;
-  font-family: "Poppins", sans-serif;
-  margin-bottom: 72px;
-`;
-const FormTitle = styled.div`
-  font-size: 22px;
-  font-weight: 600;
-  text-align: center;
-  color: #555;
-  margin-bottom: 20px;
-  margin-top: 20px;
-`;
-const FormGroup = styled.div`
-  margin-bottom: 26px;
-`;
-const Label = styled.span`
-  font-size: 16px;
-  color: #333;
-  display: block;
-  margin-bottom: 10px;
-`;
-const ErrMsg = styled.div`
-  font-size: 13px;
-  color: red;
-  margin-top: 4px;
-`;
-const TableSection = styled.div`
-  margin-bottom: 36px;
-  th,
-  td {
-    font-family: "Poppins", sans-serif;
-  }
-  th:first-child,
-  td:first-child {
-    display: none;
-  }
-`;
-const TableTitle = styled.div`
-  font-size: 16px;
-  display: inline-block;
-  padding-left: 16px;
-  margin-bottom: 16px;
-  border-left: 10px solid green;
-  line-height: 16px;
-`;
-const Total = styled.span`
-  font-size: 15px;
-  margin-right: 10px;
-  font-weight: 400;
-`;
-const TotalValue = styled.span`
-  font-size: 15px;
-`;
 export default DonhangThem;

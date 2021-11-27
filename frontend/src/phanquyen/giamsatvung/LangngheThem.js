@@ -1,5 +1,15 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import {
+  Container,
+  Content,
+  ErrMsg,
+  Form,
+  FormContent,
+  FormGroup,
+  FormTitle,
+  Input,
+  Label,
+} from "./styledComponents";
 import Header from "../../components/Header";
 import { apiTinhThanh } from "../../apiTinhThanh";
 import { useSelector } from "react-redux";
@@ -11,6 +21,11 @@ import apiLoaiSanpham from "../../axios/apiLoaiSanpham";
 import DropdownMaterial2 from "../../components/DropdownMaterial2";
 import MultipleSelect from "../../components/MultipleSelect";
 import MenuItem from "@mui/material/MenuItem";
+import them from "../../assets/icons/them.png";
+import _ten from "../../assets/icons/ten.png";
+import _tinh from "../../assets/icons/tinh.png";
+import _huyen from "../../assets/icons/huyen.png";
+import loai from "../../assets/icons/loai.png";
 
 const LangngheThem = (props) => {
   const [loading, setLoading] = useState(false);
@@ -100,18 +115,24 @@ const LangngheThem = (props) => {
         titleBack
         onClick={() => props.history.push("/giamsatvung/langnghe")}
         headerRight={
-          <button className="btn btn-primary px-4" onClick={handleSubmit}>
+          <button className="btn btn-primary px-3" onClick={handleSubmit}>
             Lưu
+            <i class="fas fa-save"></i>
           </button>
         }
       />
       <Content>
         <Form>
           <FormContent>
-            <FormTitle>Thêm làng nghề</FormTitle>
+            <FormTitle>
+              <span>Thêm làng nghề</span>
+            </FormTitle>
 
             <FormGroup>
-              <Label>Tên làng:</Label>
+              <Label>
+                <img src={_ten} alt="ten" />
+                <span>Tên làng:</span>
+              </Label>
               <Input
                 placeholder="Nhập tên"
                 type="text"
@@ -124,7 +145,10 @@ const LangngheThem = (props) => {
             </FormGroup>
 
             <FormGroup>
-              <Label>Tỉnh:</Label>
+              <Label>
+                <img src={_tinh} alt="tinh" />
+                <span>Tỉnh:</span>
+              </Label>
               {dsTinh && dsTinh.length ? (
                 <DropdownMaterial2
                   label="Chọn Tỉnh/Thành Phố"
@@ -145,7 +169,10 @@ const LangngheThem = (props) => {
             </FormGroup>
 
             <FormGroup>
-              <Label>Huyện:</Label>
+              <Label>
+                <img src={_huyen} alt="_huyen" />
+                <span>Huyện:</span>
+              </Label>
               {dsHuyen && dsHuyen.length ? (
                 <DropdownMaterial2
                   label="Chọn Quận/Huyện"
@@ -165,7 +192,10 @@ const LangngheThem = (props) => {
             </FormGroup>
 
             <FormGroup>
-              <Label>Loại sản phẩm:</Label>
+              <Label>
+                <img src={loai} alt="loai" />
+                <span>Loại sản phẩm:</span>
+              </Label>
               {dsLoaiSp && dsLoaiSp.length ? (
                 <MultipleSelect
                   label="Chọn loại sản phẩm"
@@ -189,64 +219,5 @@ const LangngheThem = (props) => {
     </Container>
   );
 };
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-`;
-const Content = styled.div`
-  flex: 1;
-  background: #f0eeee;
-  padding: 36px;
-`;
-
-const Form = styled.div`
-  background: #fff;
-  padding: 36px 20px 120px 20px;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
-    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
-  border-radius: 3px;
-`;
-const FormContent = styled.div`
-  width: 570px;
-  margin: auto;
-  font-family: "Poppins", sans-serif;
-`;
-const FormTitle = styled.div`
-  font-size: 22px;
-  font-weight: 600;
-  text-align: center;
-  color: #555;
-  margin-bottom: 20px;
-  margin-top: 20px;
-  text-align: center;
-  font-family: "Roboto", sans-serif;
-`;
-const FormGroup = styled.div`
-  margin-bottom: 26px;
-`;
-const Label = styled.span`
-  font-size: 16px;
-  color: #333;
-  display: block;
-  margin-bottom: 10px;
-`;
-const Input = styled.input`
-  width: 100%;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  padding: 13px 16px;
-  outline: none;
-  color: #333;
-  border-radius: 3px;
-  &:focus {
-    border: 1px solid blue;
-  }
-`;
-const ErrMsg = styled.div`
-  font-size: 13px;
-  color: red;
-  margin-top: 4px;
-`;
 
 export default LangngheThem;

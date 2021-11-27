@@ -120,6 +120,10 @@ const AvatarWrapper = styled.div`
 `;
 const HeaderRight = styled.div`
   display: flex;
+  i {
+    font-size: 22px;
+    margin-left: 8px;
+  }
 `;
 
 export default Header;
