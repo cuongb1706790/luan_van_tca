@@ -1,9 +1,24 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
 import Header from "../../components/Header";
 import BackdropMaterial from "../../components/BackdropMaterial";
 import { toast } from "react-toastify";
 import apiLoaiSanpham from "../../axios/apiLoaiSanpham";
+import ma from "../../assets/icons/ma.png";
+import ten from "../../assets/icons/ten.png";
+import mota from "../../assets/icons/mota.png";
+import capnhat from "../../assets/icons/capnhat.png";
+import {
+  Container,
+  Content,
+  ErrMsg,
+  Form,
+  FormContent,
+  FormGroup,
+  FormTitle,
+  Input,
+  Label,
+  TextArea,
+} from "./styledComponents";
 
 const LoaiSanphamChinhsua = (props) => {
   const [spLangnghe, setSpLangnghe] = useState(null);
@@ -63,17 +78,24 @@ const LoaiSanphamChinhsua = (props) => {
           titleBack
           onClick={() => props.history.push("/admin/loaisanpham")}
           headerRight={
-            <button className="btn btn-primary px-4" onClick={handleSubmit}>
-              Cập nhật
+            <button className="btn btn-primary px-3" onClick={handleSubmit}>
+              Lưu
+              <i class="fas fa-save"></i>
             </button>
           }
         />
         <Content>
           <Form>
             <FormContent>
-              <FormTitle>Cập nhật loại sản phẩm</FormTitle>
+              <FormTitle>
+                <span>Cập nhật loại sản phẩm</span>
+              </FormTitle>
+
               <FormGroup>
-                <Label>Mã loại:</Label>
+                <Label>
+                  <img src={ma} alt="ma" />
+                  <span>Mã loại:</span>
+                </Label>
                 <Input
                   placeholder="Nhập mã"
                   type="text"
@@ -82,8 +104,12 @@ const LoaiSanphamChinhsua = (props) => {
                   onChange={handleChange}
                 />
               </FormGroup>
+
               <FormGroup>
-                <Label>Tên loại:</Label>
+                <Label>
+                  <img src={ten} alt="ten" />
+                  <span>Tên loại:</span>
+                </Label>
                 <Input
                   placeholder="Nhập tên"
                   type="text"
@@ -93,8 +119,12 @@ const LoaiSanphamChinhsua = (props) => {
                 />
                 {!spLangnghe?.ten && <ErrMsg>{errMsg}</ErrMsg>}
               </FormGroup>
+
               <FormGroup>
-                <Label>Mô tả:</Label>
+                <Label>
+                  <img src={mota} alt="ten" />
+                  <span>Mô tả:</span>
+                </Label>
                 <TextArea
                   placeholder="Nhập mô tả"
                   rows="5"
@@ -110,73 +140,5 @@ const LoaiSanphamChinhsua = (props) => {
     </>
   );
 };
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-`;
-const Content = styled.div`
-  flex: 1;
-  background: #f0eeee;
-  padding: 36px;
-`;
-const Form = styled.div`
-  background: #fff;
-  padding: 36px 20px 100px 20px;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
-    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
-  border-radius: 3px;
-`;
-const FormContent = styled.div`
-  width: 600px;
-  margin: auto;
-  font-family: "Poppins", sans-serif;
-`;
-const FormTitle = styled.div`
-  font-size: 22px;
-  font-weight: 600;
-  text-align: center;
-  color: #555;
-  margin-bottom: 20px;
-  margin-top: 20px;
-  font-family: "Roboto", sans-serif;
-`;
-const FormGroup = styled.div`
-  margin-bottom: 26px;
-`;
-const Label = styled.span`
-  font-size: 16px;
-  color: #333;
-  display: block;
-  margin-bottom: 10px;
-`;
-const Input = styled.input`
-  width: 100%;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  padding: 13px 16px;
-  outline: none;
-  color: #333;
-  border-radius: 3px;
-  &:focus {
-    border: 1px solid blue;
-  }
-`;
-const TextArea = styled.textarea`
-  width: 100%;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  padding: 13px 16px;
-  outline: none;
-  color: #333;
-  border-radius: 3px;
-  &:focus {
-    border: 1px solid blue;
-  }
-`;
-const ErrMsg = styled.div`
-  font-size: 13px;
-  color: red;
-  margin-top: 4px;
-`;
 
 export default LoaiSanphamChinhsua;

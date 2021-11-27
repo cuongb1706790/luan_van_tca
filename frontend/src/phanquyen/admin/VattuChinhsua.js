@@ -1,9 +1,28 @@
 import React, { useState, useEffect } from "react";
 import BackdropMaterial from "../../components/BackdropMaterial";
-import styled from "styled-components";
 import Header from "../../components/Header";
 import apiVattu from "../../axios/apiVattu";
 import { toast } from "react-toastify";
+import {
+  Container,
+  Content,
+  CrossButton,
+  ErrMsg,
+  Form,
+  FormContent,
+  FormGroup,
+  FormTitle,
+  Input,
+  Label,
+  PlusButton,
+  TextArea,
+} from "./styledComponents";
+import _ten from "../../assets/icons/ten.png";
+import capnhat from "../../assets/icons/capnhat.png";
+import _mota from "../../assets/icons/mota.png";
+import anh from "../../assets/icons/anh.png";
+import tt from "../../assets/icons/thuoctinh.png";
+import cd from "../../assets/icons/congdung.png";
 
 const VattuChinhsua = (props) => {
   const [thuoctinh, setThuoctinh] = useState([{ ten: "", giatri: "" }]);
@@ -90,17 +109,25 @@ const VattuChinhsua = (props) => {
           titleBack
           onClick={() => props.history.push("/admin/vattu")}
           headerRight={
-            <button className="btn btn-primary px-4" onClick={submitForm}>
-              Cập nhật
+            <button className="btn btn-primary px-3" onClick={submitForm}>
+              Lưu
+              <i class="fas fa-save"></i>
             </button>
           }
         />
         <Content>
           <Form>
             <FormContent>
-              <FormTitle>Cập nhật vật tư</FormTitle>
+              <FormTitle></FormTitle>
+              <FormTitle>
+                <span>Cập nhật vật tư</span>
+              </FormTitle>
+
               <FormGroup>
-                <Label>Tên vật tư:</Label>
+                <Label>
+                  <img src={_ten} alt="ten" />
+                  <span>Tên vật tư:</span>
+                </Label>
                 <Input
                   type="text"
                   placeholder="Nhập tên vật tư"
@@ -112,7 +139,10 @@ const VattuChinhsua = (props) => {
               </FormGroup>
 
               <FormGroup>
-                <Label>Mô tả vật tư:</Label>
+                <Label>
+                  <img src={_mota} alt="mota" />
+                  <span>Mô tả vật tư:</span>
+                </Label>
                 <TextArea
                   value={vattu.mota}
                   name="mota"
@@ -122,7 +152,10 @@ const VattuChinhsua = (props) => {
               </FormGroup>
 
               <FormGroup>
-                <Label>Chọn ảnh:</Label>
+                <Label>
+                  <img src={anh} alt="anh" />
+                  <span>Chọn ảnh:</span>
+                </Label>
                 <input
                   type="file"
                   onChange={(e) =>
@@ -135,7 +168,10 @@ const VattuChinhsua = (props) => {
               </FormGroup>
 
               <FormGroup>
-                <Label>Công dụng:</Label>
+                <Label>
+                  <img src={cd} alt="cd" />
+                  <span>Công dụng:</span>
+                </Label>
                 <Input
                   type="text"
                   placeholder="Nhập công dụng"
@@ -147,7 +183,10 @@ const VattuChinhsua = (props) => {
               </FormGroup>
 
               <FormGroup>
-                <Label>Thuộc tính:</Label>
+                <Label>
+                  <img src={tt} alt="tt" />
+                  <span>Thuộc tính:</span>
+                </Label>
                 {thuoctinh.map((item, key) => {
                   return (
                     <div className="row">
@@ -198,104 +237,5 @@ const VattuChinhsua = (props) => {
     </>
   );
 };
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-`;
-const Content = styled.div`
-  flex: 1;
-  background: #f0eeee;
-  padding: 36px;
-  font-family: "Poppins", sans-serif;
-`;
-const Form = styled.div`
-  background: #fff;
-  padding: 36px 20px 70px 20px;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
-    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
-  border-radius: 3px;
-`;
-const FormContent = styled.div`
-  width: 750px;
-  margin: auto;
-`;
-const FormTitle = styled.div`
-  font-size: 22px;
-  font-weight: 600;
-  color: #555;
-  margin-bottom: 20px;
-  margin-top: 20px;
-  text-align: center;
-  font-family: "Roboto", sans-serif;
-`;
-const FormGroup = styled.div`
-  margin-bottom: 26px;
-`;
-const CrossButton = styled.button`
-  border: none;
-  margin-left: 10px;
-  background: #fff;
-  outline: none;
-  i {
-    font-size: 26px;
-    color: rgba(0, 0, 0, 0.3);
-  }
-  &:active {
-    outline: none;
-  }
-`;
-const PlusButton = styled.button`
-  margin-left: 20px;
-  background: #fff;
-  border: none;
-  outline: none;
-  i {
-    font-size: 13px;
-    color: #0088ff;
-    width: 25px;
-    height: 25px;
-    line-height: 20px;
-    border: 3px solid #0088ff;
-    text-align: center;
-    border-radius: 50%;
-  }
-  span {
-    color: #0088ff;
-    margin-left: 8px;
-  }
-  &:active {
-    outline: none;
-  }
-`;
-const Label = styled.span`
-  font-size: 16px;
-  color: #333;
-  display: block;
-  margin-bottom: 10px;
-`;
-const Input = styled.input`
-  width: 100%;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  padding: 13px 16px;
-  outline: none;
-  color: #333;
-  border-radius: 3px;
-  &:focus {
-    border: 1px solid blue;
-  }
-`;
-const TextArea = styled.textarea`
-  width: 100%;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  padding: 13px 16px;
-  outline: none;
-  color: #333;
-  border-radius: 3px;
-  &:focus {
-    border: 1px solid blue;
-  }
-`;
 
 export default VattuChinhsua;

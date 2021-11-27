@@ -1,5 +1,27 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import {
+  BoxInfo,
+  BoxInfoTitle,
+  Container,
+  Content,
+  Form,
+  FormGroup,
+  TableSection,
+  TableTitle,
+  TiendoProcess,
+  TiendoProcessText,
+  Total,
+  TotalValue,
+} from "./styledComponents";
+import ma from "../../assets/icons/ma.png";
+import ten from "../../assets/icons/ten.png";
+import sdt from "../../assets/icons/sdt.png";
+import email from "../../assets/icons/email.png";
+import diachi from "../../assets/icons/diachi.png";
+import dssanpham from "../../assets/icons/dssanpham.png";
+import dscongcu from "../../assets/icons/dscongcu.png";
+import dsvattu from "../../assets/icons/dsvattu.png";
+import dsnglieu from "../../assets/icons/dsnglieu.png";
 import Header from "../../components/Header";
 import { useSelector } from "react-redux";
 import Box from "@mui/material/Box";
@@ -95,16 +117,16 @@ const Tiendo = (props) => {
         />
         <Content>
           <Form>
-            <Title>
-              <TitleContent
+            <TiendoProcess>
+              <TiendoProcessText
                 onClick={() =>
                   props.history.push(`/daily1/donhang/chitiet/${donhangId}`)
                 }
               >
                 <i class="fas fa-long-arrow-alt-left"></i>
                 <span>Quay lại chi tiết đơn hàng</span>
-              </TitleContent>
-            </Title>
+              </TiendoProcessText>
+            </TiendoProcess>
 
             <Box sx={{ width: "100%", typography: "body1" }}>
               <TabContext value={value}>
@@ -132,33 +154,53 @@ const Tiendo = (props) => {
                       </div>
 
                       <div>
-                        <FormGroup>
+                        <FormGroup className="dh">
+                          <img src={ma} alt="ma" />
                           <span>Mã đơn hàng:</span>
                           <span>{dh?.ma}</span>
                         </FormGroup>
 
                         <BoxInfo>
                           <BoxInfoTitle>Đại lý cấp 2</BoxInfoTitle>
-                          <div className="d-flex">
-                            <div className="pr-3">
-                              <Text>Tên:</Text>
-                              <Text>SĐT:</Text>
-                              <Text>Email:</Text>
-                              <Text>Địa chỉ:</Text>
-                            </div>
-                            <div style={{ flex: 1 }}>
-                              <Text>{dh?.to.daily2.ten}</Text>
-                              <Text>{dh?.to.daily2.sdt}</Text>
-                              <Text>{dh?.to.daily2.email}</Text>
-                              <Text>{`${dh?.to.daily2.xa}, ${dh?.to.daily2.huyen}, ${dh?.to.daily2.tinh}`}</Text>
-                            </div>
-                          </div>
+                          <table>
+                            <tr>
+                              <td>
+                                <img src={ten} alt="ten" />
+                                <span>Tên:</span>
+                              </td>
+                              <td>{dh?.to.daily2.ten}</td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <img src={sdt} alt="sdt" />
+                                <span>SĐT:</span>
+                              </td>
+                              <td>{dh?.to.daily2.sdt}</td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <img src={email} alt="email" />
+                                <span>E-mail:</span>
+                              </td>
+                              <td>{dh?.to.daily2.email}</td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <img src={diachi} alt="diachi" />
+                                <span>Địa chỉ:</span>
+                              </td>
+                              <td>{`${dh?.to.daily2.xa}, ${dh?.to.daily2.huyen}, ${dh?.to.daily2.tinh}`}</td>
+                            </tr>
+                          </table>
                         </BoxInfo>
                       </div>
                     </div>
 
                     <TableSection>
-                      <TableTitle>Danh sách sản phẩm</TableTitle>
+                      <TableTitle>
+                        <img src={dssanpham} alt="dssanpham" />
+                        <span>Danh sách sản phẩm</span>
+                      </TableTitle>
                       <TableSanphamDonhangChitiet dsSanpham={dh?.dssanpham} />
                       <div className="text-right mb-5">
                         <Total>Tổng đơn giá: </Total>
@@ -167,7 +209,10 @@ const Tiendo = (props) => {
                     </TableSection>
 
                     <TableSection>
-                      <TableTitle>Danh sách công cụ</TableTitle>
+                      <TableTitle>
+                        <img src={dscongcu} alt="dscongcu" />
+                        <span>Danh sách công cụ</span>
+                      </TableTitle>
                       <TableCongcuDonhang dsCongcu={dh?.dscongcu} />
                       <div className="text-right mb-3">
                         <Total>Tổng số lượng: </Total>
@@ -176,7 +221,10 @@ const Tiendo = (props) => {
                     </TableSection>
 
                     <TableSection>
-                      <TableTitle>Danh sách vật tư</TableTitle>
+                      <TableTitle>
+                        <img src={dsvattu} alt="dsvattu" />
+                        <span>Danh sách vật tư</span>
+                      </TableTitle>
                       <TableVattuDonhang dsVattu={dh?.dsvattu} />
                       <div className="text-right mb-3">
                         <Total>Tổng số lượng: </Total>
@@ -185,7 +233,10 @@ const Tiendo = (props) => {
                     </TableSection>
 
                     <TableSection>
-                      <TableTitle>Danh sách nguyên liệu</TableTitle>
+                      <TableTitle>
+                        <img src={dsnglieu} alt="dsnglieu" />
+                        <span>Danh sách nguyên liệu</span>
+                      </TableTitle>
                       <TableNguyenlieuDonhang dsNguyenlieu={dh?.dsnguyenlieu} />
                       <div className="text-right mb-3">
                         <Total>Tổng khối lượng: </Total>
@@ -204,106 +255,5 @@ const Tiendo = (props) => {
     </>
   );
 };
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-`;
-const Content = styled.div`
-  flex: 1;
-  background: #f0eeee;
-  padding: 36px;
-  font-family: "Poppins", sans-serif;
-`;
-const Form = styled.div`
-  background: #fff;
-  padding: 36px 72px 60px 72px;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
-    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
-  border-radius: 3px;
-  min-height: 85vh;
-  .MuiButtonBase-root {
-    outline: none;
-  }
-`;
-const FormGroup = styled.div`
-  text-align: right;
-  margin-bottom: 8px;
-  span:nth-child(1) {
-    margin-right: 14px;
-    font-family: "Roboto", sans-serif;
-  }
-  span:nth-child(2) {
-    font-weight: 500;
-  }
-`;
-const Title = styled.div`
-  text-align: left;
-  margin-bottom: 20px;
-  margin-top: 20px;
-`;
-const TitleContent = styled.div`
-  display: inline-block;
-  font-size: 15px;
-  color: #555;
-  cursor: pointer;
-  color: #1c7ed6;
-  &:hover {
-    color: #11548f;
-  }
-  span {
-    margin-left: 8px;
-    font-family: "Roboto", sans-serif;
-  }
-`;
-const BoxInfo = styled.div`
-  width: 380px;
-  padding: 26px;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  border-radius: 3px;
-  display: inline-block;
-  text-align: left;
-  font-family: "Roboto", sans-serif;
-  margin-bottom: 36px;
-  span {
-    font-size: 15px;
-    margin-right: 10px;
-  }
-`;
-const BoxInfoTitle = styled.h6`
-  margin-bottom: 16px;
-`;
-const Text = styled.div`
-  font-size: 15px;
-  margin-bottom: 4px;
-`;
-const TableSection = styled.div`
-  margin-bottom: 36px;
-  th,
-  td {
-    font-family: "Poppins", sans-serif;
-  }
-  th:first-child,
-  td:first-child {
-    display: none;
-  }
-`;
-const TableTitle = styled.div`
-  font-size: 16px;
-  display: inline-block;
-  padding-left: 16px;
-  margin-bottom: 16px;
-  border-left: 10px solid green;
-  line-height: 16px;
-`;
-const Total = styled.span`
-  font-size: 15px;
-  margin-right: 10px;
-  font-weight: 400;
-`;
-const TotalValue = styled.span`
-  font-size: 15px;
-`;
 
 export default Tiendo;

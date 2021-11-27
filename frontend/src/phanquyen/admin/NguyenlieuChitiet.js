@@ -6,6 +6,23 @@ import styled from "styled-components";
 import Header from "../../components/Header";
 import apiNguyenlieu from "../../axios/apiNguyenlieu";
 import { toast } from "react-toastify";
+import {
+  Container,
+  Content,
+  Form,
+  FormContent,
+  FormGroup,
+  FormTitle,
+  Input,
+  Label,
+  TextArea,
+} from "./styledComponents";
+import _ten from "../../assets/icons/ten.png";
+import chitiet from "../../assets/icons/chitiet.png";
+import _mota from "../../assets/icons/mota.png";
+import anh from "../../assets/icons/anh.png";
+import tt from "../../assets/icons/thuoctinh.png";
+import cd from "../../assets/icons/congdung.png";
 
 const NguyenlieuChitiet = (props) => {
   const [open, setOpen] = React.useState(false);
@@ -51,9 +68,10 @@ const NguyenlieuChitiet = (props) => {
             <>
               <button className="btn btn-danger px-4" onClick={handleClickOpen}>
                 Xóa
+                <i class="fas fa-trash-alt"></i>
               </button>
               <button
-                className="btn btn-primary px-4 ml-3"
+                className="btn btn-primary px-3 ml-3"
                 onClick={() =>
                   props.history.push(
                     `/admin/nguyenlieu/chinhsua/${nguyenlieuId}`
@@ -61,6 +79,7 @@ const NguyenlieuChitiet = (props) => {
                 }
               >
                 Chỉnh sửa
+                <i class="fas fa-edit"></i>
               </button>
             </>
           }
@@ -68,19 +87,32 @@ const NguyenlieuChitiet = (props) => {
         <Content>
           <Form>
             <FormContent>
-              <FormTitle>Chi tiết nguyên liệu</FormTitle>
+              <FormTitle></FormTitle>
+              <FormTitle>
+                <span>Chi tiết nguyên liệu</span>
+              </FormTitle>
+
               <FormGroup>
-                <Label>Tên nguyên liệu:</Label>
+                <Label>
+                  <img src={_ten} alt="ten" />
+                  <span>Tên nguyên liệu:</span>
+                </Label>
                 <Input type="text" value={nguyenlieu?.ten} />
               </FormGroup>
 
               <FormGroup>
-                <Label>Mô tả nguyên liệu:</Label>
+                <Label>
+                  <img src={_mota} alt="mota" />
+                  <span>Mô tả:</span>
+                </Label>
                 <TextArea value={nguyenlieu?.mota} rows="5" />
               </FormGroup>
 
               <FormGroup>
-                <Label>Hình ảnh:</Label>
+                <Label>
+                  <img src={anh} alt="anh" />
+                  <span>Hình ảnh:</span>
+                </Label>
                 <Image
                   src={
                     nguyenlieu?.hinhanh
@@ -93,12 +125,18 @@ const NguyenlieuChitiet = (props) => {
               </FormGroup>
 
               <FormGroup>
-                <Label>Công dụng:</Label>
+                <Label>
+                  <img src={cd} alt="cd" />
+                  <span>Công dụng:</span>
+                </Label>
                 <Input type="text" value={nguyenlieu?.congdung} />
               </FormGroup>
 
               <FormGroup>
-                <Label>Thuộc tính:</Label>
+                <Label>
+                  <img src={tt} alt="tt" />
+                  <span>Thuộc tính:</span>
+                </Label>
                 {nguyenlieu && nguyenlieu.thuoctinh.length
                   ? nguyenlieu.thuoctinh.map((item, key) => {
                       return (
@@ -143,68 +181,6 @@ const NguyenlieuChitiet = (props) => {
   );
 };
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-`;
-const Content = styled.div`
-  flex: 1;
-  background: #f0eeee;
-  padding: 36px;
-`;
-const Form = styled.div`
-  background: #fff;
-  padding: 36px 20px 70px 20px;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
-    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
-  border-radius: 3px;
-`;
-const FormContent = styled.div`
-  width: 750px;
-  margin: auto;
-  font-family: "Poppins", sans-serif;
-`;
-const FormTitle = styled.div`
-  font-size: 22px;
-  font-weight: 600;
-  color: #555;
-  margin-bottom: 20px;
-  margin-top: 20px;
-  text-align: center;
-  font-family: "Roboto", sans-serif;
-`;
-const FormGroup = styled.div`
-  margin-bottom: 26px;
-`;
-const Label = styled.span`
-  font-size: 16px;
-  color: #333;
-  display: block;
-  margin-bottom: 10px;
-`;
-const Input = styled.input`
-  width: 100%;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  padding: 13px 16px;
-  outline: none;
-  color: #333;
-  border-radius: 3px;
-  &:focus {
-    border: 1px solid blue;
-  }
-`;
-const TextArea = styled.textarea`
-  width: 100%;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  padding: 13px 16px;
-  outline: none;
-  color: #333;
-  border-radius: 3px;
-  &:focus {
-    border: 1px solid blue;
-  }
-`;
 const Image = styled.img`
   width: 100px;
   &.noImage {
