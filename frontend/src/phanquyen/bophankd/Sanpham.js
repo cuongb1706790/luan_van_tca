@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 import BackdropMaterial from "../../components/BackdropMaterial";
 import Header from "../../components/Header";
 import {
-  BtnRight,
   Container,
   Content,
   Filter,
