@@ -209,7 +209,7 @@ const Tiendo = (props) => {
                       </div>
                     </div>
 
-                    <TableSection>
+                    <TableSection className="noCheckbox">
                       <TableTitle>
                         <img src={dssanpham} alt="dssanpham" />
                         <span>Danh sách sản phẩm</span>
@@ -221,7 +221,7 @@ const Tiendo = (props) => {
                       </div>
                     </TableSection>
 
-                    <TableSection>
+                    <TableSection className="noCheckbox">
                       <TableTitle>
                         <img src={dscongcu} alt="dscongcu" />
                         <span>Danh sách công cụ</span>
@@ -233,7 +233,7 @@ const Tiendo = (props) => {
                       </div>
                     </TableSection>
 
-                    <TableSection>
+                    <TableSection className="noCheckbox">
                       <TableTitle>
                         <img src={dsvattu} alt="dsvattu" />
                         <span>Danh sách vật tư</span>
@@ -245,7 +245,7 @@ const Tiendo = (props) => {
                       </div>
                     </TableSection>
 
-                    <TableSection>
+                    <TableSection className="noCheckbox">
                       <TableTitle>
                         <img src={dsnglieu} alt="dsnglieu" />
                         <span>Danh sách nguyên liệu</span>

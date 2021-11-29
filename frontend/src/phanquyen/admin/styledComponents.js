@@ -86,6 +86,12 @@ export const TableSection = styled.div`
   td {
     font-family: "Poppins", sans-serif;
   }
+  &.noCheckbox {
+    th:first-child,
+    td:first-child {
+      display: none;
+    }
+  }
 `;
 
 export const ErrMsg = styled.div`
@@ -113,8 +119,9 @@ export const Label = styled.span`
   align-items: flex-end;
   margin-bottom: 10px;
   img {
-    width: 33px;
+    width: 30px;
     margin-right: 14px;
+    opacity: 0.7;
   }
 `;
 
@@ -130,7 +137,8 @@ export const FormTitle = styled.div`
   color: #27a9e3;
   margin-bottom: 36px;
   margin-top: 20px;
-  font-family: "Roboto", sans-serif;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
   img {
     width: 30px;
   }
@@ -208,16 +216,21 @@ export const TableTitle = styled.div`
   margin-bottom: 16px;
   display: flex;
   align-items: center;
+  font-family: "Montserrat", sans-serif;
   img {
     width: 36px;
     margin-right: 8px;
+    opacity: 0.6;
   }
 `;
 export const Total = styled.span`
   font-size: 15px;
   margin-right: 10px;
   font-weight: 400;
+  font-family: "Montserrat", sans-serif;
 `;
 export const TotalValue = styled.span`
   font-size: 15px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
 `;

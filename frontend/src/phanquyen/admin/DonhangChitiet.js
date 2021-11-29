@@ -86,7 +86,7 @@ const DonhangChitiet = (props) => {
             </FormContent>
 
             <div className="px-5">
-              <TableSection>
+              <TableSection className="noCheckbox">
                 <TableTitle>
                   <img src={dssanpham} alt="dssanpham" />
                   <span>Danh sách sản phẩm</span>
@@ -102,7 +102,7 @@ const DonhangChitiet = (props) => {
                 </div>
               </TableSection>
 
-              <TableSection>
+              <TableSection className="noCheckbox">
                 <TableTitle>
                   <img src={dscongcu} alt="dscongcu" />
                   <span>Danh sách công cụ</span>
@@ -114,7 +114,7 @@ const DonhangChitiet = (props) => {
                 </div>
               </TableSection>
 
-              <TableSection>
+              <TableSection className="noCheckbox">
                 <TableTitle>
                   <img src={dsvattu} alt="dsvattu" />
                   <span>Danh sách vật tư</span>
@@ -126,7 +126,7 @@ const DonhangChitiet = (props) => {
                 </div>
               </TableSection>
 
-              <TableSection>
+              <TableSection className="noCheckbox">
                 <TableTitle>
                   <img src={dsnglieu} alt="dsnglieu" />
                   <span>Danh sách nguyên liệu</span>

@@ -246,13 +246,15 @@ const Box = styled.div`
 `;
 const BoxTitle = styled.div`
   border-bottom: 1px solid rgba(0, 0, 0, 0.15);
-  font-family: "Roboto", sans-serif;
+  font-family: "Montserrat", sans-serif;
+  color: #333;
   display: flex;
   align-items: center;
   padding: 20px;
   img {
     width: 36px;
     margin-right: 8px;
+    opacity: 0.7;
   }
   h5 {
     font-size: 16px;

@@ -232,7 +232,7 @@ const CustomModal = ({ open, onClick, phanquyen }) => {
                               </tr>
                               <tr>
                                 <td>
-                                  <img src={cmnd} alt="cmnd" />
+                                  <img src={diachi} alt="diachi" />
                                   <span>Địa chỉ:</span>
                                 </td>
                                 <td>{`${dh?.to.daily1.xa}, ${dh?.to.daily1.huyen}, ${dh?.to.daily1.tinh}`}</td>
@@ -263,7 +263,7 @@ const CustomModal = ({ open, onClick, phanquyen }) => {
                               </tr>
                               <tr>
                                 <td>
-                                  <img src={cmnd} alt="cmnd" />
+                                  <img src={diachi} alt="diachi" />
                                   <span>Địa chỉ:</span>
                                 </td>
                                 <td>{`${dh?.to.daily2.xa}, ${dh?.to.daily2.huyen}, ${dh?.to.daily2.tinh}`}</td>
@@ -294,7 +294,7 @@ const CustomModal = ({ open, onClick, phanquyen }) => {
                               </tr>
                               <tr>
                                 <td>
-                                  <img src={cmnd} alt="cmnd" />
+                                  <img src={diachi} alt="diachi" />
                                   <span>Địa chỉ:</span>
                                 </td>
                                 <td>{`${dh?.to.hodan.xa}, ${dh?.to.hodan.huyen}, ${dh?.to.hodan.tinh}`}</td>
@@ -306,7 +306,7 @@ const CustomModal = ({ open, onClick, phanquyen }) => {
                     </div>
                   </div>
 
-                  <TableSection>
+                  <TableSection className="noCheckbox">
                     <TableTitle>
                       <img src={dssanpham} alt="dssanpham" />
                       <span>Danh sách sản phẩm</span>
@@ -323,7 +323,7 @@ const CustomModal = ({ open, onClick, phanquyen }) => {
                     </div>
                   </TableSection>
 
-                  <TableSection>
+                  <TableSection className="noCheckbox">
                     <TableTitle>
                       <img src={dscongcu} alt="dscongcu" />
                       <span>Danh sách công cụ</span>
@@ -340,7 +340,7 @@ const CustomModal = ({ open, onClick, phanquyen }) => {
                     </div>
                   </TableSection>
 
-                  <TableSection>
+                  <TableSection className="noCheckbox">
                     <TableTitle>
                       <img src={dsvattu} alt="dsvattu" />
                       <span>Danh sách vật tư</span>
@@ -357,7 +357,7 @@ const CustomModal = ({ open, onClick, phanquyen }) => {
                     </div>
                   </TableSection>
 
-                  <TableSection>
+                  <TableSection className="noCheckbox">
                     <TableTitle>
                       <img src={dsnglieu} alt="dsnglieu" />
                       <span>Danh sách nguyên liệu</span>

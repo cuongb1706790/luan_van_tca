@@ -132,6 +132,10 @@ export const FormGroup = styled.div`
     img {
       width: 36px;
       margin-right: 8px;
+      opacity: 0.6;
+    }
+    span {
+      font-family: "Montserrat", sans-serif;
     }
     span:last-child {
       font-weight: 500;
@@ -225,9 +229,11 @@ export const TableTitle = styled.div`
   margin-bottom: 16px;
   display: flex;
   align-items: center;
+  font-family: "Montserrat", sans-serif;
   img {
     width: 36px;
     margin-right: 8px;
+    opacity: 0.6;
   }
 `;
 
@@ -235,10 +241,13 @@ export const Total = styled.span`
   font-size: 15px;
   margin-right: 10px;
   font-weight: 400;
+  font-family: "Montserrat", sans-serif;
 `;
 
 export const TotalValue = styled.span`
   font-size: 15px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
 `;
 
 export const FilterWrapper = styled.div`
@@ -261,7 +270,7 @@ export const BoxInfo = styled.div`
   border-radius: 3px;
   display: inline-block;
   text-align: left;
-  font-family: "Roboto", sans-serif;
+  font-family: "Montserrat", sans-serif;
   margin-bottom: 36px;
   span {
     font-size: 15px;
@@ -270,16 +279,19 @@ export const BoxInfo = styled.div`
   img {
     width: 22px;
     margin-right: 8px;
+    opacity: 0.6;
   }
   td {
     padding-bottom: 6px;
     min-width: 100px;
+    vertical-align: top;
+    font-size: 14px;
   }
 `;
 
 export const TiendoProcessText = styled.div`
   display: inline-block;
-  font-size: 16px;
+  font-size: 14px;
   color: #555;
   cursor: pointer;
   color: #1c7ed6;
@@ -289,7 +301,7 @@ export const TiendoProcessText = styled.div`
   span {
     margin-right: 8px;
     margin-left: 8px;
-    font-family: "Roboto", sans-serif;
+    font-family: "Montserrat", sans-serif;
   }
 `;
 

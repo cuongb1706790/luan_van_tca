@@ -59,16 +59,18 @@ const Title = styled.h5`
   font-size: 18px;
   margin: 0;
   font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  color: #666;
 `;
 const TitleBack = styled.h5`
   margin: 0;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 400;
   display: flex;
   align-items: center;
   cursor: pointer;
-  color: rgba(0, 0, 0, 0.7);
-  font-family: "Roboto", sans-serif;
+  color: #666;
+  font-family: "Montserrat", sans-serif;
   i {
     color: rgba(0, 0, 0, 0.35);
     margin-right: 10px;
@@ -83,7 +85,7 @@ const AvatarWrapper = styled.div`
   span {
     font-size: 15px;
     margin-left: 10px;
-    color: #444;
+    color: #666;
     font-family: "Roboto", sans-serif;
   }
   .dropdown {
