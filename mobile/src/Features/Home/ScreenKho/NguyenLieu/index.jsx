@@ -10,12 +10,13 @@ import {
   Dimensions,
 } from "react-native";
 
-function VatTu(props) {
+function NguyenLieu(props) {
 
-  const data = props.vattu.item;
+  const data = props.nguyenlieu.item;
   // console.log(data);
   return (
     <View style={styles.container}>
+      
       <View style={{ padding: 20 }}>
         <View
           style={{
@@ -31,7 +32,7 @@ function VatTu(props) {
           >
             <Image
               source={{
-                uri: `http://10.3.53.160:5000/uploads/${data.vattu.hinhanh}`,
+                uri: `http://10.3.53.160:5000/uploads/${data.nguyenlieu.hinhanh}`,
               }}
               style={{
                 width: Dimensions.get("window").width - 220,
@@ -47,13 +48,13 @@ function VatTu(props) {
               marginBottom: 10,
             }}
           >
-            <Text style={{ color: "white" }}>Tên :{data.vattu.ten}</Text>
+            <Text style={{ color: "white" }}>Tên :{data.nguyenlieu.ten}</Text>
             <Text style={{ color: "white" }}>
-              Công dụng :{data.vattu.congdung}
+              Công dụng :{data.nguyenlieu.congdung}
             </Text>
-            <Text style={{ color: "white" }}>Mô tả :{data.vattu.mota}</Text>
+            <Text style={{ color: "white" }}>Mô tả :{data.nguyenlieu.mota}</Text>
             <Text style={{ color: "white" }}>
-              Số lượng :{data.soluong}
+              Số lượng :{data.khoiluong}
             </Text>
             <Text
               style={{
@@ -77,5 +78,6 @@ const styles = StyleSheet.create({
   container: {
     marginTop: 0,
   },
+  
 });
-export default VatTu;
+export default NguyenLieu;

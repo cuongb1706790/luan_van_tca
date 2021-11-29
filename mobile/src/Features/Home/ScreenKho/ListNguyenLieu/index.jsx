@@ -8,15 +8,15 @@ import {
   StatusBar,
 } from "react-native";
 import hodanApi from "../../../../api/hodanApi";
-import CongCu from "../CongCu";
+import NguyenLieu from "../NguyenLieu";
 
-const ListCongCu = (props) => {
+const ListNguyenLieu = (props) => {
   const idHodan = props.route.params.idHodan;
-  const [listCongCu, setListCongCu] = useState();
+  const [listNguyenLieu, setListNguyenLieu] = useState();
   useEffect(() => {
     const fetchData = async () => {
-      const getData = await hodanApi.dsCongcu(idHodan);
-      setListCongCu(getData.dscongcu);
+      const getData = await hodanApi.dsNguyenlieu(idHodan);
+      setListNguyenLieu(getData.dsnguyenlieu);
     };
     fetchData();
   }, []);
@@ -26,12 +26,12 @@ const ListCongCu = (props) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.headerContainer}>
-        <Text style={{ color: "white" }}>Danh sách công cụ</Text>
+        <Text style={{ color: "white" }}>Danh sách Nguyên liệu</Text>
       </View>
-      {listCongCu && (
+      {listNguyenLieu && (
         <FlatList
-          data={listCongCu}
-          renderItem={(item) => <CongCu congcu={item} />}
+          data={listNguyenLieu}
+          renderItem={(item) => <NguyenLieu nguyenlieu={item} />}
           keyExtractor={(item) => item._id}
         />
       )}
@@ -61,4 +61,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ListCongCu;
+export default ListNguyenLieu;

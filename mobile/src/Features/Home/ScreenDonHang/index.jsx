@@ -17,7 +17,7 @@ function ScreenDonHang(props) {
   // console.log(orderList)
  
   return (
-    <SafeAreaView >
+    <View style={{}}>
       {orderList && (
         <FlatList
           data={orderList}
@@ -26,7 +26,7 @@ function ScreenDonHang(props) {
         />
       )}
        
-    </SafeAreaView>
+    </View>
   );
 }
 

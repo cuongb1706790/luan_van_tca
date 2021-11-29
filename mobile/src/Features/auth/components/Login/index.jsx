@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
 import ListCongCu from "../../../Home/ScreenKho/ListCongCu";
 import ListVatTu from "../../../Home/ScreenKho/ListVatTu";
+import ListNguyenLieu from "../../../Home/ScreenKho/ListNguyenLieu";
 import BCTienDo from "../../../Home/ScreenTienDo/BCTienDo";
 import TabNav from "../../../TabNav";
 import LoginForm from "../LoginForm";
@@ -23,6 +24,7 @@ function Login(props) {
         <Stack.Screen name="FormBCTienDo" component={BCTienDo} />
         <Stack.Screen name="ScreenCongCu" component={ListCongCu} />
         <Stack.Screen name="ScreenVatTu" component={ListVatTu} />
+        <Stack.Screen name="ScreenNguyenLieu" component={ListNguyenLieu} />
         <Stack.Screen name="DonHang" component={DonHang} />
         <Stack.Screen name="ScreenDoiMatKhau" component={SrceenDoiMatKhau} />
       </Stack.Navigator>

@@ -3,15 +3,26 @@ import { FlatList, StyleSheet, Text, View, SafeAreaView,RefreshControl } from "r
 import hodanApi from "../../api/hodanApi";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import RenderPhanPhat from "./RenderPhanPhat";
+import { useIsFocused } from '@react-navigation/native';
 function ThongBao(props) {
   // const [infoHoDan, setInfoHoDan] = useState();
   const [orderList, setOrderList] = useState();
   const [hoDan, setHoDan] = useState("");
+  const [callBack, setCallBack] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const wait = (timeout) => {
     return new Promise(resolve => setTimeout(resolve, timeout));
   }
-  
+  const isFocused = useIsFocused();
+  const checkCallBack = (data)=>{
+    
+    if(data)
+    {
+      setCallBack(!callBack);
+      // console.log(callBack);
+
+    }
+  }
   useEffect(() => {
     (async () => {
       //get info hodan
@@ -25,7 +36,7 @@ function ThongBao(props) {
       const getListOrder = await hodanApi.dsDonhang(findHoDan._id);
       setOrderList(getListOrder.dsdonhang);
     })();
-  }, []);
+  }, [callBack]);
   // console.log(orderList);
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
@@ -41,7 +52,7 @@ function ThongBao(props) {
         <FlatList
           data={orderList}
           renderItem={(item, index) => (
-            <RenderPhanPhat phanphat={item} hodanId={hoDan._id} />
+            <RenderPhanPhat phanphat={item} hodanId={hoDan._id} checkCallBack={checkCallBack} />
           )}
           keyExtractor={(item) => item._id}
           refreshControl={

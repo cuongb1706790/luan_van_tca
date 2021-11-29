@@ -11,27 +11,41 @@ function Home(props) {
   const [checkTienDo, setCheckTienDo] = useState(true);
   const [checkDonHang, setCheckDonHang] = useState(false);
   const [checkKho, setCheckKho] = useState(false);
-  const [infoHoDan, setInfoHoDan] = useState();
+  const [listHoDan, setListHoDan] = useState();
+  const [hoDan, setHoDan] = useState();
   const [idAccount, setIdAccount] = useState();
-  let idHodan = "";
+  // let idHodan = "";
+  // useEffect(() => {
+  //   (async () => {
+  //     //get info hodan
+  //     const dataListHodan = await hodanApi.getAll();
+  //     setListHoDan(dataListHodan);
+  //     const dataAccount = await AsyncStorage.getItem("user");
+  //     const findHoDan = dataHodan.hodan.find((item) => {
+  //       return dataAccount.includes(item.user._id);
+  //     });
+  //     console.log(dataAccount);
+
+  //     setHoDan(findHoDan);
+  //     // idHodan = findHoDan._id;
+  //     //get id Account
+  //     setIdAccount(dataAccount);
+  //   })();
+  // }, []);
   useEffect(() => {
     (async () => {
       //get info hodan
       const dataHodan = await hodanApi.getAll();
       //get id Account
       const dataAccount = await AsyncStorage.getItem("user");
-      setIdAccount(dataAccount);
-      setInfoHoDan(dataHodan);
+      const findHoDan = dataHodan.hodan.find((item) => {
+        return dataAccount.includes(item.user._id);
+      });
+      setHoDan(findHoDan);
+     
     })();
   }, []);
-  if (infoHoDan) {
-    const findHoDan = infoHoDan.hodan.find((item) => {
-      return idAccount.includes(item.user._id);
-    });
-    idHodan = findHoDan._id;
-  }
-  // console.log(idHodan);
-
+  // console.log(hoDan)
   const handleChangeActiveBar1 = () => {
     setCheckTienDo(true);
     setCheckDonHang(false);
@@ -48,19 +62,25 @@ function Home(props) {
     setCheckKho(true);
   };
   const handleRedirectBCTienDo = () => {
-    navigation.navigate("FormBCTienDo", { idHodan: `${idHodan}` });
+    navigation.navigate("FormBCTienDo", { idHodan: `${hoDan._id}` });
   };
   const handleRedirectCongCu = () => {
-    navigation.navigate("ScreenCongCu", { idHodan: `${idHodan}` });
+    navigation.navigate("ScreenCongCu", { idHodan: `${hoDan._id}` });
   };
   const handleRedirectVatTu = () => {
-    navigation.navigate("ScreenVatTu", { idHodan: `${idHodan}` });
+    navigation.navigate("ScreenVatTu", { idHodan: `${hoDan._id}` });
+  };
+ const handleRedirectNguyenLieu = () => {
+    navigation.navigate("ScreenNguyenLieu", { idHodan: `${hoDan._id}` });
   };
  
   return (
     <View style={styles.container}>
-      <View style={styles.headerContainer}>
-        <Text style={{ color: "white" }}>Xin chào Nguyễn Văn A</Text>
+      {
+        hoDan && (
+          <>
+ <View style={styles.headerContainer}>
+        <Text style={{ color: "white" }}>Xin chào {hoDan.daidien} </Text>
       </View>
       <Text>Ứng dụng di động dành cho hộ dân</Text>
 
@@ -137,7 +157,7 @@ function Home(props) {
                   </View>
                 </Text>
                 <Text style={[{ marginTop: 10, textAlign: "center" }]}>
-                  Báo cáo biến động
+                  Báo cáo tiến độ
                 </Text>
               </View>
             </View>
@@ -166,26 +186,29 @@ function Home(props) {
                 </Text>
               </View>
               <View>
-                <Text>
+                <Text onPress={handleRedirectNguyenLieu}>
                   <View style={styles.containerRedirectKho}>
-                    <Ionicons name="close-circle" size={60} color="#0000b3" />
+                    <Ionicons name="nuclear" size={60} color="#0000b3" />
                   </View>
                 </Text>
-
                 <Text style={[{ marginTop: 10, textAlign: "center" }]}>
-                  Kho lỗi
+                  Nguyên liệu
                 </Text>
               </View>
             </View>
           </>
         ) : (
           <>
-            <ScreenDonHang navigation={navigation} hodanId={idHodan} />
+            <ScreenDonHang navigation={navigation} hodanId={hoDan._id} />
           </>
         )}
       </View>
 
       {/****************************** {End redirect screen} ******************************/}
+          </>
+        )
+      }
+     
     </View>
   );
 }

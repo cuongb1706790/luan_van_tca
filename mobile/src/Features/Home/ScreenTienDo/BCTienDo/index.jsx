@@ -34,16 +34,15 @@ function BCTienDo(props) {
   const [visible3, setVisible3] = useState(false);
   const [orderList, setOrderList] = useState();
   const [selectedMaDH, setSelectedMaDH] = useState();
-  const [selectedTenSP, setSelectedTenSP] = useState();
+  const [selectedMaSP, setSelectedMaSP] = useState();
   let checkUndifined = false;
   useEffect(() => {
     (async () => {
       const getListOrder = await hodanApi.dsDonhang(idHodan);
       setOrderList(getListOrder.dsdonhang);
       setSelectedMaDH(getListOrder.dsdonhang[0].ma);
-      setSelectedTenSP(
-        getListOrder.dsdonhang.find((item) => item.madh === selectedMaDH)
-          .dssanpham[0].sanpham.ten
+      setSelectedMaSP(
+        getListOrder.dsdonhang.find((item) => item.madh === selectedMaDH).dssanpham[0].sanpham.ma
       );
       //custom file img
       if (Platform.OS !== "web") {
@@ -55,10 +54,12 @@ function BCTienDo(props) {
       }
     })();
   }, []);
-  // console.log(orderList, selectedMaDH, selectedTenSP);
-  if ((orderList, selectedMaDH, selectedTenSP)) {
+  // console.log(orderList, selectedMaDH, selectedMaSP);
+  if ((orderList, selectedMaDH)) {
     checkUndifined = true;
   }
+  console.log(selectedMaDH);
+
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
     setShow(Platform.OS === "ios");
@@ -111,29 +112,30 @@ function BCTienDo(props) {
   const handleOpen3 = () => {
     setVisible3(true);
   };
-  // console.log(orderList.find((item) => item.ma === selectedMaDH).xacnhan);
+
   const handleSumitForm = async (values) => {
     try {
       if (orderList.find((item) => item.ma === selectedMaDH).xacnhan) {
         if (image) {
           const dataForm = {
             donhangId: orderList.find((item) => item.ma === selectedMaDH)._id,
-            sanphamId: orderList
-              .find((item) => item.ma === selectedMaDH)
-              .dssanpham.find((item) => item.sanpham.ten === selectedTenSP)
-              .sanpham._id,
-            soluong:  parseInt(values.soluong),
-            hinhanh: image,
+            // sanphamId: orderList
+            //   .find((item) => item.ma === selectedMaDH).dssanpham.find((sp) => sp.sanpham.ma=== selectedMaSP),
+              // .find((sp) => sp.sanpham.ma=== selectedMaSP).sanpham._id,
+             
+            soluong: parseInt(values.soluong),
+            // hinhanh: image,
+            masp : selectedMaSP,
+            madh : selectedMaDH,
             thoigian: thoigianValue,
           };
-          const sendRequest = await apiDonhang.baocao(dataForm);
-          handleOpen2();
-          // console.log(dataForm)
+          console.log(dataForm);
+          // const sendRequest = await apiDonhang.baocao(dataForm);
+          // handleOpen2();
         } else {
           handleOpen();
         }
-      }
-      else {
+      } else {
         handleOpen3();
         // console.log('chua dat yeu cau');
       }
@@ -145,7 +147,7 @@ function BCTienDo(props) {
       <View style={styles.headerContainer}>
         <Text style={{ color: "white" }}>Báo cáo biến động</Text>
       </View>
-      {checkUndifined && (
+      { checkUndifined && (
         // <Text style={{ color: "white" }}>Báo cáo biến động</Text>
 
         <Formik
@@ -203,9 +205,9 @@ function BCTienDo(props) {
                 }}
               >
                 <Picker
-                  selectedValue={selectedTenSP}
+                  selectedValue={selectedMaSP}
                   onValueChange={(itemValue, itemIndex) =>
-                    setSelectedTenSP(itemValue)
+                    setSelectedMaSP(itemValue)
                   }
                 >
                   {orderList
@@ -214,7 +216,7 @@ function BCTienDo(props) {
                       <Picker.Item
                         label={`${item.sanpham.ma} - ${item.sanpham.ten}`}
                         value={item.sanpham.ma}
-                        key={item.id}
+                        key={item._id}
                       />
                     ))}
                 </Picker>
@@ -333,7 +335,9 @@ function BCTienDo(props) {
                   setVisible3(false);
                 }}
               >
-                <Text style={{color:'#ff5500'}}>Vui lòng xác nhận đơn hàng trước khi gửi báo cáo!</Text>
+                <Text style={{ color: "#ff5500" }}>
+                  Vui lòng xác nhận đơn hàng trước khi gửi báo cáo!
+                </Text>
               </MaterialDialog>
               <View>
                 {show && (

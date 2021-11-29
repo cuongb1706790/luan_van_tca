@@ -52,12 +52,13 @@ function LoginForm(props) {
         taikhoan: "hodan",
         matkhau: "123456",
       };
-      console.log(dataForm);
+      // console.log(dataForm);
 
       const action = loginUser(dataForm);
       const resultAction = await dispatch(action);
       unwrapResult(resultAction);
-      const getData = await AsyncStorage.getItem("access_token");
+      // const getData2 = await AsyncStorage.getItem("user");
+      // console.log(getData2);
       values.taikhoan = "";
       values.matkhau = "";
       navigation.navigate("TabNav");

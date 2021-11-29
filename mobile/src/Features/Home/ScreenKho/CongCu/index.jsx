@@ -16,9 +16,6 @@ function CongCu(props) {
   console.log(data);
   return (
     <View style={styles.container}>
-      <View style={styles.headerContainer}>
-        <Text style={{ color: "white" }}>Danh sách công cụ</Text>
-      </View>
       <View style={{ padding: 20 }}>
         <View
           style={{
@@ -80,12 +77,6 @@ const styles = StyleSheet.create({
   container: {
     marginTop: 0,
   },
-  headerContainer: {
-    backgroundColor: "#e65c00",
-    paddingTop: 15,
-    paddingBottom: 15,
-    flex: 1,
-    alignItems: "center",
-  },
+ 
 });
 export default CongCu;

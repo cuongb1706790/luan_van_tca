@@ -12,19 +12,28 @@ import {
 import Ionicons from "react-native-vector-icons/Ionicons";
 import hodanApi from "../../../api/hodanApi";
 import { Snackbar } from "react-native-paper";
+// import {Restart} from 'fiction-expo-restart';
+// import * as Updates from 'expo-updates';
+// import RNRestart from 'react-native-restart';
 function RenderPhanPhat(props) {
-  const { phanphat, hodanId } = props;
+  const { phanphat, hodanId ,checkCallBack} = props;
   const { item: data } = phanphat;
   // console.log(props);
   const [visible, setVisible] = useState(false);
   const formatter = new Intl.NumberFormat("es");
+
   const handleComfirm = async () => {
     //call to send request
     try {
       const sendRequest = await hodanApi.xacnhan(hodanId, data._id);
+      checkCallBack('Callback');
       setVisible(true);
+      // Restart();
+      // Updates.reloadAsync();
+      // RNRestart.Restart();
+      
     } catch (error) {
-      console.log("Error");
+      console.log(error, RNRestart);
     }
   };
   return (
