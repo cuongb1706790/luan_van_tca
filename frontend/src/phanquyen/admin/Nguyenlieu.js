@@ -4,7 +4,7 @@ import BackdropMaterial from "../../components/BackdropMaterial";
 import Header from "../../components/Header";
 import apiNguyenlieu from "../../axios/apiNguyenlieu";
 import {
-  BtnRight,
+  AddButton,
   Container,
   Content,
   Filter,
@@ -56,18 +56,16 @@ const Nguyenlieu = (props) => {
       <Container>
         <Header title="Nguyên liệu" />
         <Content>
-          <BtnRight>
-            <button
-              className="btn btn-primary"
-              onClick={() => props.history.push("/admin/nguyenlieu/them")}
-            >
-              Thêm
-              <i class="fas fa-plus-circle"></i>
-            </button>
-          </BtnRight>
           <FilterSection>
             <TitleWrapper>
               <Title>Tất cả nguyên liệu</Title>
+              <AddButton
+                className="btn btn-primary"
+                onClick={() => props.history.push("/admin/nguyenlieu/them")}
+              >
+                <span>Thêm</span>
+                <i class="fas fa-plus-circle"></i>
+              </AddButton>
             </TitleWrapper>
             <Filter>
               <SearchBox>

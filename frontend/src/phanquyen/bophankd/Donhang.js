@@ -3,7 +3,6 @@ import BackdropMaterial from "../../components/BackdropMaterial";
 import Header from "../../components/Header";
 import {
   AddButton,
-  BtnRight,
   Container,
   Content,
   Filter,
@@ -60,18 +59,16 @@ const Donhang = (props) => {
       <Container>
         <Header title="Đơn hàng" />
         <Content>
-          <BtnRight>
-            <AddButton
-              className="btn btn-primary"
-              onClick={() => props.history.push("/bophankd/donhang/them")}
-            >
-              <span>Thêm</span>
-              <i class="fas fa-plus-circle"></i>
-            </AddButton>
-          </BtnRight>
           <FilterSection>
             <TitleWrapper>
               <Title>Danh sách đơn hàng</Title>
+              <AddButton
+                className="btn btn-primary"
+                onClick={() => props.history.push("/bophankd/donhang/them")}
+              >
+                <span>Thêm</span>
+                <i class="fas fa-plus-circle"></i>
+              </AddButton>
             </TitleWrapper>
             <Filter>
               <SearchBox>

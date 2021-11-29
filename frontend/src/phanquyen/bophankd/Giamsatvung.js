@@ -4,7 +4,6 @@ import apiBophankd from "../../axios/apiBophankd";
 import { useSelector } from "react-redux";
 import {
   AddButton,
-  BtnRight,
   Container,
   Content,
   Filter,
@@ -69,18 +68,16 @@ const Giamsatvung = (props) => {
       <Container>
         <Header title="Giám sát vùng" />
         <Content>
-          <BtnRight>
-            <AddButton
-              className="btn btn-primary"
-              onClick={() => props.history.push("/bophankd/giamsatvung/them")}
-            >
-              <span>Thêm</span>
-              <i class="fas fa-plus-circle"></i>
-            </AddButton>
-          </BtnRight>
           <FilterSection>
             <TitleWrapper>
               <Title>Danh sách giám sát vùng</Title>
+              <AddButton
+                className="btn btn-primary"
+                onClick={() => props.history.push("/bophankd/giamsatvung/them")}
+              >
+                <span>Thêm</span>
+                <i class="fas fa-plus-circle"></i>
+              </AddButton>
             </TitleWrapper>
             <Filter>
               <SearchBox>

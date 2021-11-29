@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 import apiDaily1 from "../../axios/apiDaily1";
 import {
   AddButton,
-  BtnRight,
   Container,
   Content,
   Filter,
@@ -60,18 +59,16 @@ const Daily2 = (props) => {
       <Container>
         <Header title="Đại lý cấp 2" />
         <Content>
-          <BtnRight>
-            <AddButton
-              className="btn btn-primary"
-              onClick={() => props.history.push("/daily1/daily2/them")}
-            >
-              <span>Thêm</span>
-              <i class="fas fa-plus-circle"></i>
-            </AddButton>
-          </BtnRight>
           <FilterSection>
             <TitleWrapper>
               <Title>Danh sách đại lý cấp 2</Title>
+              <AddButton
+                className="btn btn-primary"
+                onClick={() => props.history.push("/daily1/daily2/them")}
+              >
+                <span>Thêm</span>
+                <i class="fas fa-plus-circle"></i>
+              </AddButton>
             </TitleWrapper>
             <Filter>
               <SearchBox>

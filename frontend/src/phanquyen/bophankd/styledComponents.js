@@ -28,7 +28,11 @@ export const BtnRight = styled.div`
 export const AddButton = styled.button`
   display: flex;
   align-items: center;
-  font-family: "Lato", sans-serif;
+  justify-content: center;
+  i {
+    margin-left: 6px;
+    font-size: 20px;
+  }
 `;
 
 export const FilterSection = styled.div`
@@ -47,6 +51,12 @@ export const Title = styled.div`
 
 export const TitleWrapper = styled.div`
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  button {
+    margin-right: 10px;
+  }
 `;
 
 export const Filter = styled.div`

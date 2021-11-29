@@ -5,7 +5,6 @@ import Header from "../../components/Header";
 import apiCongcu from "../../axios/apiCongcu";
 import {
   AddButton,
-  BtnRight,
   Container,
   Content,
   Filter,
@@ -57,18 +56,16 @@ const Congcu = (props) => {
       <Container>
         <Header title="Công cụ" />
         <Content>
-          <BtnRight>
-            <AddButton
-              className="btn btn-primary"
-              onClick={() => props.history.push("/admin/congcu/them")}
-            >
-              <span>Thêm</span>
-              <i class="fas fa-plus-circle"></i>
-            </AddButton>
-          </BtnRight>
           <FilterSection>
             <TitleWrapper>
               <Title>Danh sách công cụ</Title>
+              <AddButton
+                className="btn btn-primary"
+                onClick={() => props.history.push("/admin/congcu/them")}
+              >
+                <span>Thêm</span>
+                <i class="fas fa-plus-circle"></i>
+              </AddButton>
             </TitleWrapper>
             <Filter>
               <SearchBox>

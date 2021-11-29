@@ -3,7 +3,7 @@ import TableSanpham from "./tables/TableSanpham";
 import BackdropMaterial from "../../components/BackdropMaterial";
 import Header from "../../components/Header";
 import {
-  BtnRight,
+  AddButton,
   Container,
   Content,
   Filter,
@@ -57,18 +57,16 @@ const Sanpham = (props) => {
       <Container>
         <Header title="Sản phẩm" />
         <Content>
-          <BtnRight>
-            <button
-              className="btn btn-primary px-3"
-              onClick={() => props.history.push("/admin/sanpham/them")}
-            >
-              Thêm
-              <i class="fas fa-plus-circle"></i>
-            </button>
-          </BtnRight>
           <FilterSection>
             <TitleWrapper>
               <Title>Tất cả sản phẩm</Title>
+              <AddButton
+                className="btn btn-primary"
+                onClick={() => props.history.push("/admin/sanpham/them")}
+              >
+                <span>Thêm</span>
+                <i class="fas fa-plus-circle"></i>
+              </AddButton>
             </TitleWrapper>
             <Filter>
               <SearchBox>

@@ -5,7 +5,6 @@ import TableVattu from "./tables/TableVattu";
 import apiVattu from "../../axios/apiVattu";
 import {
   AddButton,
-  BtnRight,
   Container,
   Content,
   Filter,
@@ -57,18 +56,16 @@ const Vattu = (props) => {
       <Container>
         <Header title="Vật tư" />
         <Content>
-          <BtnRight>
-            <AddButton
-              className="btn btn-primary"
-              onClick={() => props.history.push("/admin/vattu/them")}
-            >
-              <span>Thêm</span>
-              <i class="fas fa-plus-circle"></i>
-            </AddButton>
-          </BtnRight>
           <FilterSection>
             <TitleWrapper>
               <Title>Danh sách vật tư</Title>
+              <AddButton
+                className="btn btn-primary"
+                onClick={() => props.history.push("/admin/vattu/them")}
+              >
+                <span>Thêm</span>
+                <i class="fas fa-plus-circle"></i>
+              </AddButton>
             </TitleWrapper>
             <Filter>
               <SearchBox>

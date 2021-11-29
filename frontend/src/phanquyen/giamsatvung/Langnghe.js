@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Header from "../../components/Header";
 import {
   AddButton,
-  BtnRight,
   Container,
   Content,
   Filter,
@@ -57,18 +56,16 @@ const Langnghe = (props) => {
       <Container>
         <Header title="Làng nghề" />
         <Content>
-          <BtnRight>
-            <AddButton
-              className="btn btn-primary"
-              onClick={() => props.history.push("/giamsatvung/langnghe/them")}
-            >
-              <span>Thêm</span>
-              <i class="fas fa-plus-circle"></i>
-            </AddButton>
-          </BtnRight>
           <FilterSection>
             <TitleWrapper>
               <Title>Danh sách làng nghề</Title>
+              <AddButton
+                className="btn btn-primary"
+                onClick={() => props.history.push("/giamsatvung/langnghe/them")}
+              >
+                <span>Thêm</span>
+                <i class="fas fa-plus-circle"></i>
+              </AddButton>
             </TitleWrapper>
             <Filter>
               <SearchBox>
