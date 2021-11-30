@@ -13,7 +13,7 @@ import {
 function CongCu(props) {
 
   const data = props.congcu.item;
-  console.log(data);
+  // console.log(data);
   return (
     <View style={styles.container}>
       <View style={{ padding: 20 }}>

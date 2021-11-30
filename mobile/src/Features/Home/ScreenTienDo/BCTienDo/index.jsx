@@ -35,12 +35,14 @@ function BCTienDo(props) {
   const [orderList, setOrderList] = useState();
   const [selectedMaDH, setSelectedMaDH] = useState();
   const [selectedMaSP, setSelectedMaSP] = useState();
+  const [orderNoComplete, setOrderNoComplete] = useState();
   let checkUndifined = false;
   useEffect(() => {
     (async () => {
       const getListOrder = await hodanApi.dsDonhang(idHodan);
       setOrderList(getListOrder.dsdonhang);
-      setSelectedMaDH(getListOrder.dsdonhang[0].ma);
+      setOrderNoComplete(getListOrder.dsdonhang.find(order=>order.dssanpham.find(sp=>sp.soluong !==sp.soluonghoanthanh)));
+      setSelectedMaDH(getListOrder.dsdonhang.find(order=>order.dssanpham.find(sp=>sp.soluong !==sp.soluonghoanthanh)).ma);
       setSelectedMaSP(
         getListOrder.dsdonhang.find((item) => item.madh === selectedMaDH).dssanpham[0].sanpham.ma
       );
@@ -54,11 +56,13 @@ function BCTienDo(props) {
       }
     })();
   }, []);
-  // console.log(orderList, selectedMaDH, selectedMaSP);
-  if ((orderList, selectedMaDH)) {
-    checkUndifined = true;
-  }
-  console.log(selectedMaDH);
+  // const orderNoComplete = orderList.find(order=>order.dssanpham.find(sp=>sp.soluong !==sp.soluonghoanthanh));
+  // if(orderList)
+  // { 
+  //   const check = orderList.find(order=>order.dssanpham.find(sp=>sp.soluong !==sp.soluonghoanthanh));
+  //   console.log(check);
+  // }
+
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
@@ -119,19 +123,19 @@ function BCTienDo(props) {
         if (image) {
           const dataForm = {
             donhangId: orderList.find((item) => item.ma === selectedMaDH)._id,
-            // sanphamId: orderList
-            //   .find((item) => item.ma === selectedMaDH).dssanpham.find((sp) => sp.sanpham.ma=== selectedMaSP),
+            sanphamId: orderList
+              .find((item) => item.ma === selectedMaDH).dssanpham.find((sp) => sp.sanpham.ma=== selectedMaSP).sanpham._id,
               // .find((sp) => sp.sanpham.ma=== selectedMaSP).sanpham._id,
              
             soluong: parseInt(values.soluong),
-            // hinhanh: image,
-            masp : selectedMaSP,
-            madh : selectedMaDH,
+            hinhanh: image,
+            // masp : selectedMaSP,
+            // madh : selectedMaDH,
             thoigian: thoigianValue,
           };
-          console.log(dataForm);
-          // const sendRequest = await apiDonhang.baocao(dataForm);
-          // handleOpen2();
+          // console.log(dataForm);
+          const sendRequest = await apiDonhang.baocao(dataForm);
+          handleOpen2();
         } else {
           handleOpen();
         }
@@ -145,10 +149,9 @@ function BCTienDo(props) {
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
-        <Text style={{ color: "white" }}>Báo cáo biến động</Text>
+        <Text style={{ color: "white" }}>Báo cáo tiến độ</Text>
       </View>
-      { checkUndifined && (
-        // <Text style={{ color: "white" }}>Báo cáo biến động</Text>
+      { orderList && (
 
         <Formik
           initialValues={{ soluong: "" }}
@@ -183,13 +186,15 @@ function BCTienDo(props) {
                     setSelectedMaDH(itemValue)
                   }
                 >
-                  {orderList.map((item) => (
+                  {
+                    
+                 orderNoComplete && 
                     <Picker.Item
-                      label={item.ma}
-                      value={item.ma}
-                      key={item._id}
+                      label={orderNoComplete.ma}
+                      value={orderNoComplete.ma}
+                      key={orderNoComplete._id}
                     />
-                  ))}
+                  }
                 </Picker>
               </View>
               <Text style={[styles.text]}>Tên sản phẩm</Text>
@@ -210,7 +215,7 @@ function BCTienDo(props) {
                     setSelectedMaSP(itemValue)
                   }
                 >
-                  {orderList
+                  {selectedMaDH && orderList
                     .find((item) => item.ma === selectedMaDH)
                     .dssanpham.map((item) => (
                       <Picker.Item
@@ -398,7 +403,7 @@ function BCTienDo(props) {
             </View>
           )}
         </Formik>
-      )}
+      )} 
     </View>
   );
 }
