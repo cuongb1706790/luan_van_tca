@@ -21,7 +21,8 @@ import hodanApi from "../../../../api/hodanApi";
 import apiDonhang from "../../../../api/apiDonhang";
 function BCTienDo(props) {
   const { navigation } = props;
-  const idHodan = props.route.params.idHodan;
+  const data = props.route.params.data;
+  // console.log(data);
   // console.log(idHodan);
   const SignupSchema = Yup.object().shape({
     soluong: Yup.string().required("Số lượng không được để trống "),
@@ -39,12 +40,10 @@ function BCTienDo(props) {
   let checkUndifined = false;
   useEffect(() => {
     (async () => {
-      const getListOrder = await hodanApi.dsDonhang(idHodan);
-      setOrderList(getListOrder.dsdonhang);
-      setOrderNoComplete(getListOrder.dsdonhang.find(order=>order.dssanpham.find(sp=>sp.soluong !==sp.soluonghoanthanh)));
-      setSelectedMaDH(getListOrder.dsdonhang.find(order=>order.dssanpham.find(sp=>sp.soluong !==sp.soluonghoanthanh)).ma);
+     
+      setSelectedMaDH(data.ma);
       setSelectedMaSP(
-        getListOrder.dsdonhang.find((item) => item.madh === selectedMaDH).dssanpham[0].sanpham.ma
+        data.dssanpham[0].sanpham.ma
       );
       //custom file img
       if (Platform.OS !== "web") {
@@ -56,12 +55,6 @@ function BCTienDo(props) {
       }
     })();
   }, []);
-  // const orderNoComplete = orderList.find(order=>order.dssanpham.find(sp=>sp.soluong !==sp.soluonghoanthanh));
-  // if(orderList)
-  // { 
-  //   const check = orderList.find(order=>order.dssanpham.find(sp=>sp.soluong !==sp.soluonghoanthanh));
-  //   console.log(check);
-  // }
 
 
   const onChange = (event, selectedDate) => {
@@ -119,12 +112,11 @@ function BCTienDo(props) {
 
   const handleSumitForm = async (values) => {
     try {
-      if (orderList.find((item) => item.ma === selectedMaDH).xacnhan) {
+
         if (image) {
           const dataForm = {
-            donhangId: orderList.find((item) => item.ma === selectedMaDH)._id,
-            sanphamId: orderList
-              .find((item) => item.ma === selectedMaDH).dssanpham.find((sp) => sp.sanpham.ma=== selectedMaSP).sanpham._id,
+            donhangId: data._id,
+            sanphamId: data.dssanpham.find((sp) => sp.sanpham.ma=== selectedMaSP).sanpham._id,
               // .find((sp) => sp.sanpham.ma=== selectedMaSP).sanpham._id,
              
             soluong: parseInt(values.soluong),
@@ -139,10 +131,7 @@ function BCTienDo(props) {
         } else {
           handleOpen();
         }
-      } else {
-        handleOpen3();
-        // console.log('chua dat yeu cau');
-      }
+     
     } catch (error) {}
   };
 
@@ -151,7 +140,7 @@ function BCTienDo(props) {
       <View style={styles.headerContainer}>
         <Text style={{ color: "white" }}>Báo cáo tiến độ</Text>
       </View>
-      { orderList && (
+      { data && (
 
         <Formik
           initialValues={{ soluong: "" }}
@@ -188,11 +177,11 @@ function BCTienDo(props) {
                 >
                   {
                     
-                 orderNoComplete && 
+                 data && 
                     <Picker.Item
-                      label={orderNoComplete.ma}
-                      value={orderNoComplete.ma}
-                      key={orderNoComplete._id}
+                      label={data.ma}
+                      value={data.ma}
+                      key={data._id}
                     />
                   }
                 </Picker>
@@ -215,9 +204,7 @@ function BCTienDo(props) {
                     setSelectedMaSP(itemValue)
                   }
                 >
-                  {selectedMaDH && orderList
-                    .find((item) => item.ma === selectedMaDH)
-                    .dssanpham.map((item) => (
+                  {data.dssanpham.map((item) => (
                       <Picker.Item
                         label={`${item.sanpham.ma} - ${item.sanpham.ten}`}
                         value={item.sanpham.ma}

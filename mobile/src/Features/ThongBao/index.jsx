@@ -46,7 +46,7 @@ function ThongBao(props) {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.headerContainer}>
-        <Text style={{ color: "white" }}>Thông báo gần đây</Text>
+        <Text style={{ color: "white" }}>Đơn hàng mới</Text>
       </View>
       {orderList && (
         <FlatList

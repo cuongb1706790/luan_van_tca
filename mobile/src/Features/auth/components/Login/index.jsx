@@ -21,7 +21,7 @@ function Login(props) {
           options={{ header: () => null}}
         />
         <Stack.Screen name="TabNav" component={TabNav} />
-        <Stack.Screen name="FormBCTienDo" component={BCTienDo} />
+        <Stack.Screen name="BCTienDo" component={BCTienDo} />
         <Stack.Screen name="ScreenCongCu" component={ListCongCu} />
         <Stack.Screen name="ScreenVatTu" component={ListVatTu} />
         <Stack.Screen name="ScreenNguyenLieu" component={ListNguyenLieu} />

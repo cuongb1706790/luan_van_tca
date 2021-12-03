@@ -22,7 +22,7 @@ function ListDonHang(props) {
 // console.log(data);
   return (
     <>
-      {data.xacnhan && (
+  
         <View
           style={{
             flexDirection: "row",
@@ -55,7 +55,7 @@ function ListDonHang(props) {
           }
          
         </View>
-      )}
+ 
     </>
   );
 }
