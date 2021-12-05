@@ -141,6 +141,46 @@ const apiDaily2 = {
     const url = `/daily2/dsshowbadge/${dl2Id}`;
     return axiosClient.get(url);
   },
+
+  // them cong cu hu loi
+  themCongcuHuloi(dl2Id, payload) {
+    const url = `/daily2/themcchuloi/${dl2Id}`;
+    return axiosClient.put(url, payload);
+  },
+
+  // lay ds cong cu hu loi
+  dsCongcuHuloi(dl2Id) {
+    const url = `/daily2/dscchuloi/${dl2Id}`;
+    return axiosClient.get(url);
+  },
+
+  //-------------
+
+  // them vat tu hu loi
+  themVattuHuloi(dl2Id, payload) {
+    const url = `/daily2/themvthuloi/${dl2Id}`;
+    return axiosClient.put(url, payload);
+  },
+
+  // lay ds vat tu hu loi
+  dsVattuHuloi(dl2Id) {
+    const url = `/daily2/dsvthuloi/${dl2Id}`;
+    return axiosClient.get(url);
+  },
+
+  //-------------
+
+  // them nguyen lieu hu loi
+  themNguyenlieuHuloi(dl2Id, payload) {
+    const url = `/daily2/themnglhuloi/${dl2Id}`;
+    return axiosClient.put(url, payload);
+  },
+
+  // lay ds nguyen lieu hu loi
+  dsNguyenlieuHuloi(dl2Id) {
+    const url = `/daily2/dsnglhuloi/${dl2Id}`;
+    return axiosClient.get(url);
+  },
 };
 
 export default apiDaily2;

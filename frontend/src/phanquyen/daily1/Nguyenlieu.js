@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import TableNguyenlieu from "./tables/TableNguyenlieu";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import BackdropMaterial from "../../components/BackdropMaterial";
 import {
   Container,
@@ -14,6 +15,7 @@ import {
 } from "./styledComponents";
 import Header from "../../components/Header";
 import apiDaily1 from "../../axios/apiDaily1";
+import ModalHuloi from "../../components/ModalHuloi";
 
 const Nguyenlieu = (props) => {
   const [query, setQuery] = useState("");
@@ -21,6 +23,26 @@ const Nguyenlieu = (props) => {
   const [loading, setLoading] = useState(false);
   const [dsNguyenlieu, setDsNguyenlieu] = useState([]);
   const { userInfo } = useSelector((state) => state.user);
+  //---------------
+  const [open, setOpen] = useState(false);
+  const [dsNguyenlieuHuloiShow, setDsNguyenlieuHuloiShow] = useState([]);
+  const [dsNguyenlieuHuloi, setDsNguyenlieuHuloi] = useState([]);
+  const [daily1Info, setDaily1Info] = useState(null);
+  const [active, setActive] = useState({
+    code: 1,
+    present: "dsnguyenlieu",
+  });
+
+  const handleClick = async () => {
+    const { success } = await apiDaily1.themNguyenlieuHuloi(daily1Info._id, {
+      dsnglLoi: dsNguyenlieuHuloi,
+    });
+    if (success) {
+      setOpen(false);
+      toast.success("Thêm thành công!", { theme: "colored" });
+      fetchDsNguyenlieu();
+    }
+  };
 
   const fetchDsNguyenlieu = async () => {
     setLoading(true);
@@ -30,6 +52,13 @@ const Nguyenlieu = (props) => {
       ...ngl.nguyenlieu,
       ...ngl,
     }));
+    let { dsnguyenlieuhuloi } = await apiDaily1.dsNguyenlieuHuloi(daily1._id);
+    dsnguyenlieuhuloi = dsnguyenlieuhuloi.map((ngl) => ({
+      ...ngl.nguyenlieu,
+      ...ngl,
+    }));
+    setDaily1Info(daily1);
+    setDsNguyenlieuHuloiShow(dsnguyenlieuhuloi);
     setDsNguyenlieu(dsnguyenlieu);
     setLoading(false);
   };
@@ -60,10 +89,34 @@ const Nguyenlieu = (props) => {
       <Container>
         <Header title="Nguyên liệu" />
         <Content>
+          <div className="text-right mb-3">
+            {active.code === 1 ? (
+              <button
+                className="btn btn-primary px-4"
+                onClick={() =>
+                  setActive({ code: 2, present: "dsnguyenlieuhuloi" })
+                }
+              >
+                Hư lỗi
+              </button>
+            ) : (
+              <button
+                className="btn btn-primary px-3"
+                onClick={() => setActive({ code: 1, present: "dsnguyenlieu" })}
+              >
+                Danh sách
+              </button>
+            )}
+          </div>
           <FilterSection>
             <TitleWrapper>
-              <Title>Danh sách nguyên liệu</Title>
+              <Title>
+                {active.code === 1
+                  ? "Danh sách nguyên liệu"
+                  : "Danh sách nguyên liệu hư lỗi"}
+              </Title>
             </TitleWrapper>
+
             <Filter>
               <SearchBox>
                 <i class="fas fa-search"></i>
@@ -76,12 +129,34 @@ const Nguyenlieu = (props) => {
               </SearchBox>
             </Filter>
 
-            <TableSection className="noCheckbox">
-              <TableNguyenlieu dsNguyenlieu={search(dsNguyenlieu)} />
-            </TableSection>
+            {active.code === 1 ? (
+              <TableSection>
+                <TableNguyenlieu
+                  dsNguyenlieu={search(dsNguyenlieu)}
+                  setOpen={setOpen}
+                  setDsNguyenlieuHuloi={setDsNguyenlieuHuloi}
+                />
+              </TableSection>
+            ) : active.code === 2 ? (
+              <TableSection className="noCheckbox">
+                <TableNguyenlieu
+                  dsNguyenlieu={dsNguyenlieuHuloiShow}
+                  dsnguyenlieuhuloi
+                />
+              </TableSection>
+            ) : null}
           </FilterSection>
         </Content>
       </Container>
+
+      <ModalHuloi
+        type="nguyenlieu"
+        open={open}
+        setOpen={setOpen}
+        dsNguyenlieuHuloi={dsNguyenlieuHuloi}
+        setDsNguyenlieuHuloi={setDsNguyenlieuHuloi}
+        onClick={handleClick}
+      />
     </>
   );
 };

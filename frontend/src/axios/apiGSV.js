@@ -108,6 +108,48 @@ const apiGSV = {
     const url = `/gsv/dsshowbadge/${gsvId}`;
     return axiosClient.get(url);
   },
+
+  //-------------
+
+  // them cong cu hu loi
+  themCongcuHuloi(gsvId, payload) {
+    const url = `/gsv/themcchuloi/${gsvId}`;
+    return axiosClient.put(url, payload);
+  },
+
+  // lay ds cong cu hu loi
+  dsCongcuHuloi(gsvId) {
+    const url = `/gsv/dscchuloi/${gsvId}`;
+    return axiosClient.get(url);
+  },
+
+  //-------------
+
+  // them vat tu hu loi
+  themVattuHuloi(gsvId, payload) {
+    const url = `/gsv/themvthuloi/${gsvId}`;
+    return axiosClient.put(url, payload);
+  },
+
+  // lay ds vat tu hu loi
+  dsVattuHuloi(gsvId) {
+    const url = `/gsv/dsvthuloi/${gsvId}`;
+    return axiosClient.get(url);
+  },
+
+  //-------------
+
+  // them nguyen lieu hu loi
+  themNguyenlieuHuloi(gsvId, payload) {
+    const url = `/gsv/themnglhuloi/${gsvId}`;
+    return axiosClient.put(url, payload);
+  },
+
+  // lay ds nguyen lieu hu loi
+  dsNguyenlieuHuloi(gsvId) {
+    const url = `/gsv/dsnglhuloi/${gsvId}`;
+    return axiosClient.get(url);
+  },
 };
 
 export default apiGSV;

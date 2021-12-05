@@ -130,7 +130,7 @@ export const Label = styled.span`
   align-items: flex-end;
   margin-bottom: 10px;
   img {
-    width: 30px;
+    width: 24px;
     margin-right: 14px;
     opacity: 0.7;
   }
@@ -151,7 +151,7 @@ export const FormTitle = styled.div`
   font-family: "Montserrat", sans-serif;
   font-weight: 600;
   img {
-    width: 30px;
+    width: 24px;
   }
   img:first-child {
     margin-right: 36px;
@@ -229,7 +229,7 @@ export const TableTitle = styled.div`
   align-items: center;
   font-family: "Montserrat", sans-serif;
   img {
-    width: 36px;
+    width: 24px;
     margin-right: 8px;
     opacity: 0.6;
   }

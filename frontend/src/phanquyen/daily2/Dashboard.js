@@ -59,7 +59,7 @@ const Dashboard = (props) => {
       <LeftMenu>
         <Logo>
           <img src={logo} alt="logo" />
-          <span>Craft Village</span>
+          <span>Làng Nghề</span>
         </Logo>
 
         <Menu>

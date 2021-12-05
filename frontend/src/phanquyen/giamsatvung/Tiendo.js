@@ -264,7 +264,7 @@ const Tiendo = (props) => {
         </Content>
       </Container>
 
-      <CustomModal open={open} onClick={handleClose} phanquyen={selectedPQ} />
+      <CustomModal open={open} setOpen={setOpen} phanquyen={selectedPQ} />
     </>
   );
 };

@@ -64,7 +64,7 @@ const Title = styled.h5`
 `;
 const TitleBack = styled.h5`
   margin: 0;
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 400;
   display: flex;
   align-items: center;

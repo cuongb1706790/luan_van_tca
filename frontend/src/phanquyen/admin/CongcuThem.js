@@ -17,7 +17,6 @@ import {
   TextArea,
 } from "./styledComponents";
 import _ten from "../../assets/icons/ten.png";
-import them from "../../assets/icons/them.png";
 import cd from "../../assets/icons/congdung.png";
 import _mota from "../../assets/icons/mota.png";
 import anh from "../../assets/icons/anh.png";

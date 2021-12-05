@@ -162,7 +162,8 @@ const TableSanphamDonhang = ({ dsSanpham = [], setDsSP }) => {
                         </TableCell>
                         <TableCell align="right">
                           <Input
-                            type="text"
+                            type="number"
+                            min="1"
                             value={row.soluong}
                             onChange={(e) => handleChangeSoluong(e, row._id)}
                           />

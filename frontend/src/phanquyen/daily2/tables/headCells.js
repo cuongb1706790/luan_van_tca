@@ -238,6 +238,45 @@ export const headCellsCongcu = [
   },
 ];
 
+export const headCellsCongcuHuloi = [
+  {
+    id: "madh",
+    numeric: false,
+    disablePadding: true,
+    label: "Mã đơn hàng",
+  },
+  {
+    id: "ten",
+    numeric: false,
+    disablePadding: false,
+    label: "Tên công cụ",
+  },
+  {
+    id: "hinhanh",
+    numeric: true,
+    disablePadding: false,
+    label: "Hình ảnh",
+  },
+  {
+    id: "tongsoluong",
+    numeric: false,
+    disablePadding: false,
+    label: "Số lượng",
+  },
+  {
+    id: "mota",
+    numeric: false,
+    disablePadding: false,
+    label: "Công dụng",
+  },
+  {
+    id: "ngaytao",
+    numeric: false,
+    disablePadding: false,
+    label: "Ngày tạo",
+  },
+];
+
 export const headCellsVattu = [
   {
     id: "madonhang",
@@ -261,7 +300,46 @@ export const headCellsVattu = [
     id: "tongsoluong",
     numeric: true,
     disablePadding: false,
-    label: "Tổng Số lượng",
+    label: "Tổng số lượng",
+  },
+  {
+    id: "congdung",
+    numeric: true,
+    disablePadding: false,
+    label: "Công dụng",
+  },
+  {
+    id: "ngaytao",
+    numeric: true,
+    disablePadding: false,
+    label: "Ngày tạo",
+  },
+];
+
+export const headCellsVattuHuloi = [
+  {
+    id: "madonhang",
+    numeric: false,
+    disablePadding: true,
+    label: "Mã đơn hàng",
+  },
+  {
+    id: "ten",
+    numeric: false,
+    disablePadding: false,
+    label: "Tên vật tư",
+  },
+  {
+    id: "hinhanh",
+    numeric: false,
+    disablePadding: true,
+    label: "Hình ảnh",
+  },
+  {
+    id: "tongsoluong",
+    numeric: true,
+    disablePadding: false,
+    label: "Số lượng",
   },
   {
     id: "congdung",
@@ -595,6 +673,51 @@ export const headCellsNguyenlieu = [
     numeric: true,
     disablePadding: false,
     label: "Tổng khối lượng",
+  },
+  {
+    id: "congdung",
+    numeric: true,
+    disablePadding: false,
+    label: "Công dụng",
+  },
+  // {
+  //   id: "donvitinh",
+  //   numeric: false,
+  //   disablePadding: false,
+  //   label: "Đơn vị tính",
+  // },
+  {
+    id: "ngaykhoitao",
+    numeric: false,
+    disablePadding: false,
+    label: "Ngày tạo",
+  },
+];
+
+export const headCellsNguyenlieuHuloi = [
+  {
+    id: "madh",
+    numeric: false,
+    disablePadding: true,
+    label: "Mã đơn hàng",
+  },
+  {
+    id: "ten",
+    numeric: false,
+    disablePadding: false,
+    label: "Tên nguyên liệu",
+  },
+  {
+    id: "hinhanh",
+    numeric: false,
+    disablePadding: true,
+    label: "Hình ảnh",
+  },
+  {
+    id: "khoiluong",
+    numeric: true,
+    disablePadding: false,
+    label: "Khối lượng",
   },
   {
     id: "congdung",

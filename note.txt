@@ -1,6 +1,8 @@
 useEffect(() => {},[]) => useEffect chỉ chạy 1 lần khác với state thay đổi làm rerender components
 -> 2 thằng ko liên quan j nhau
 
+ham reduce javascript
+
 *** REACT LIFECYCLE METHOD: TỨC CÁC METHOD(HÀM/PHUONG THỨC DÙNG TRONG LIFECYCLE), quan sát sơ đồ
 *** REACT LIFECYCLE: vòng đời react (mounting: sinh ra tức render vào DOM, updating: phát triển tức update DOM, unmounting: chết, tức bị loại khỏi DOM)
 *** Method: render() -> render component vào DOM/UI (xảy ra ở 2 gđ: mouting, updating). Cách check: console.log trong component react, bên ngoài all hàm
@@ -234,3 +236,8 @@ import {
   PlusButton,
   TextArea,
 } from "./styledComponents";
+
+
+
+db.sanphams.find({"createdAt":{ $gte:ISODate("2021-11-10"), $lt:ISODate("2021-11-18") }
+}).pretty();

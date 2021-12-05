@@ -644,7 +644,7 @@ const BoxTitle = styled.div`
   align-items: center;
   padding: 20px;
   img {
-    width: 36px;
+    width: 24px;
     margin-right: 8px;
     opacity: 0.7;
   }

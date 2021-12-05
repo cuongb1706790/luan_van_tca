@@ -18,7 +18,7 @@ import img_placeholder from "../../../assets/images/img_placeholder.png";
 const TableSanphamDonhang = ({
   dsSanpham = [],
   handleChangeSlSanpham,
-  dl2Id,
+  hodanId,
 }) => {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
@@ -140,15 +140,16 @@ const TableSanphamDonhang = ({
                         <TableCell align="right">{row?.ten}</TableCell>
                         <TableCell align="right">
                           <Input
-                            type="text"
-                            value={row?.soluong}
+                            type="number"
+                            min="1"
+                            value={row?.soluongpp}
                             onChange={(e) =>
-                              handleChangeSlSanpham(e, row._id, dl2Id)
+                              handleChangeSlSanpham(e, row._id, hodanId)
                             }
                           />
                         </TableCell>
                         <TableCell align="right">
-                          {formatMoney(row?.soluong * row?.gia)}
+                          {formatMoney(parseInt(row?.soluongpp) * row?.gia)}
                         </TableCell>
                       </TableRow>
                     );

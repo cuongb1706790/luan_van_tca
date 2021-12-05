@@ -8,21 +8,97 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Checkbox from "@mui/material/Checkbox";
-import { useHistory } from "react-router-dom";
 import img_placeholder from "../../../assets/images/img_placeholder.png";
 import EnhancedTableHead from "../../../components/table/EnhancedTableHead";
 import { getComparator } from "../../../utils";
 import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
-import { headCellsVattu } from "./headCells";
+import { headCellsVattu, headCellsVattuHuloi } from "./headCells";
 import TableButton from "../../../components/TableButton";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import { alpha } from "@mui/material/styles";
+import { InputSoluong } from "../styledComponents";
 
-const TableVattu = ({ dsVattu = [] }) => {
+const EnhancedTableToolbar = ({ numSelected, rowsSelected, onClickBaoloi }) => {
+  return numSelected > 0 ? (
+    <>
+      <Toolbar
+        sx={{
+          pl: { sm: 7 },
+          pr: { xs: 1, sm: 1 },
+          ...(numSelected > 0 && {
+            bgcolor: (theme) =>
+              alpha(
+                theme.palette.primary.main,
+                theme.palette.action.activatedOpacity
+              ),
+          }),
+        }}
+      >
+        {numSelected > 0 ? (
+          <Typography
+            sx={{ flex: "1 1 100%" }}
+            color="inherit"
+            variant="subtitle1"
+            component="div"
+          >
+            <div className="d-flex align-items-center">
+              {rowsSelected.length && (
+                <TableButton onClick={onClickBaoloi}>Báo lỗi</TableButton>
+              )}
+            </div>
+          </Typography>
+        ) : (
+          <Typography
+            sx={{ flex: "1 1 100%" }}
+            variant="h6"
+            id="tableTitle"
+            component="div"
+          >
+            Nutrition
+          </Typography>
+        )}
+      </Toolbar>
+    </>
+  ) : null;
+};
+
+const TableVattu = ({
+  dsVattu = [],
+  setOpen,
+  setDsVattuHuloi,
+  vattuhuloithem,
+  dsvattuhuloi,
+}) => {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const history = useHistory();
+
+  const handleChangeSLHuloi = (e, id) => {
+    setDsVattuHuloi((prev) =>
+      prev.map((item) =>
+        item._id === id
+          ? {
+              ...item,
+              soluongloi: e.target.value,
+            }
+          : item
+      )
+    );
+  };
+
+  const getObjectsVT = () => {
+    return dsVattu
+      .filter((vt) => selected.includes(vt._id))
+      .map((vt) => ({ ...vt, soluongloi: 1 }));
+  };
+
+  const onClickBaoloi = () => {
+    setDsVattuHuloi(getObjectsVT);
+    setOpen(true);
+  };
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -77,6 +153,13 @@ const TableVattu = ({ dsVattu = [] }) => {
     <>
       <Box sx={{ width: "100%" }}>
         <Paper sx={{ width: "100%", mb: 2 }}>
+          {dsvattuhuloi || vattuhuloithem ? null : (
+            <EnhancedTableToolbar
+              numSelected={selected.length}
+              rowsSelected={selected}
+              onClickBaoloi={onClickBaoloi}
+            />
+          )}
           <TableContainer>
             <Table
               sx={{ minWidth: 750 }}
@@ -91,7 +174,11 @@ const TableVattu = ({ dsVattu = [] }) => {
                 onSelectAllClick={handleSelectAllClick}
                 onRequestSort={handleRequestSort}
                 rowCount={dsVattu?.length}
-                headCells={headCellsVattu}
+                headCells={
+                  vattuhuloithem || dsvattuhuloi
+                    ? headCellsVattuHuloi
+                    : headCellsVattu
+                }
               />
               <TableBody>
                 {dsVattu
@@ -135,23 +222,23 @@ const TableVattu = ({ dsVattu = [] }) => {
                             className={!row?.hinhanh && "noImage"}
                           />
                         </TableCell>
-                        <TableCell align="right">{row?.soluong}</TableCell>
+                        <TableCell align="right">
+                          {vattuhuloithem ? (
+                            <InputSoluong
+                              type="number"
+                              value={row?.soluongloi}
+                              onChange={(e) => handleChangeSLHuloi(e, row?._id)}
+                            />
+                          ) : dsvattuhuloi ? (
+                            row?.loi.soluongloi
+                          ) : (
+                            row?.soluong
+                          )}
+                        </TableCell>
                         <TableCell align="right">{row?.congdung}</TableCell>
-                        <TableCell align="right">{row?.ngaytao}</TableCell>
-                        {/* <TableCell align="right">{row.ngaytao}</TableCell> */}
-                        {/* <TableCell align="right">
-                          {
-                            <TableButton
-                              onClick={() =>
-                                history.push(
-                                  `/bophankd/vattu/chitiet/${row._id}`
-                                )
-                              }
-                            >
-                              Chi tiết
-                            </TableButton>
-                          }
-                        </TableCell> */}
+                        <TableCell align="right">
+                          {dsvattuhuloi ? row?.loi.ngaybaoloi : row?.ngaytao}
+                        </TableCell>
                       </TableRow>
                     );
                   })}

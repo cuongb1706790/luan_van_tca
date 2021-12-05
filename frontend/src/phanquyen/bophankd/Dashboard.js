@@ -69,7 +69,7 @@ const Dashboard = (props) => {
       <LeftMenu>
         <Logo>
           <img src={logo} alt="logo" />
-          <span>Craft Village</span>
+          <span>Làng Nghề</span>
         </Logo>
 
         <Menu>
@@ -141,7 +141,7 @@ const Dashboard = (props) => {
 
           <MenuItem>
             <NavLink to="/bophankd/giamsatvung" activeClassName="active">
-              <Image src={gsvIcon} alt="splangnghe" />
+              <Image src={gsvIcon} alt="gsvIcon" />
               <span className="ml-3">Giám sát vùng</span>
             </NavLink>
           </MenuItem>

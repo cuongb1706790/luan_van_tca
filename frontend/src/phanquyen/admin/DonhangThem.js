@@ -30,7 +30,6 @@ import {
 import TableVattuDonhang from "./tables/TableVattuDonhang";
 import TableNguyenlieuDonhang from "./tables/TableNguyenlieuDonhang";
 import apiDonhang from "../../axios/apiDonhang";
-import them from "../../assets/icons/them.png";
 import _ma from "../../assets/icons/ma.png";
 import sp from "../../assets/icons/sanpham.png";
 import dssanpham from "../../assets/icons/dssanpham.png";
@@ -188,7 +187,7 @@ const DonhangThem = (props) => {
 
             {selectedSP.length ? (
               <div className="px-5">
-                <TableSection>
+                <TableSection className="noCheckbox">
                   <TableTitle>
                     <img src={dssanpham} alt="dssanpham" />
                     <span>Danh sách sản phẩm</span>
@@ -200,7 +199,7 @@ const DonhangThem = (props) => {
                   </div>
                 </TableSection>
 
-                <TableSection>
+                <TableSection className="noCheckbox">
                   <TableTitle>
                     <img src={dscongcu} alt="dscongcu" />
                     <span>Danh sách công cụ</span>
@@ -214,7 +213,7 @@ const DonhangThem = (props) => {
                   </div>
                 </TableSection>
 
-                <TableSection>
+                <TableSection className="noCheckbox">
                   <TableTitle>
                     <img src={dsvattu} alt="dsvattu" />
                     <span>Danh sách vật tư</span>
@@ -228,7 +227,7 @@ const DonhangThem = (props) => {
                   </div>
                 </TableSection>
 
-                <TableSection>
+                <TableSection className="noCheckbox">
                   <TableTitle>
                     <img src={dsnglieu} alt="dsnglieu" />
                     <span>Danh sách nguyên liệu</span>

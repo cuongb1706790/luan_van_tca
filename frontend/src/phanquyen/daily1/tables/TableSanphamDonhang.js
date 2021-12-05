@@ -140,15 +140,16 @@ const TableSanphamDonhang = ({
                         <TableCell align="right">{row?.ten}</TableCell>
                         <TableCell align="right">
                           <Input
-                            type="text"
-                            value={row?.soluong}
+                            type="number"
+                            min="1"
+                            value={row?.soluongpp}
                             onChange={(e) =>
                               handleChangeSlSanpham(e, row._id, dl2Id)
                             }
                           />
                         </TableCell>
                         <TableCell align="right">
-                          {formatMoney(row?.soluong * row?.gia)}
+                          {formatMoney(parseInt(row?.soluongpp) * row?.gia)}
                         </TableCell>
                       </TableRow>
                     );

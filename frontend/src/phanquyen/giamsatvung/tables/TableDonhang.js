@@ -27,8 +27,7 @@ const EnhancedTableToolbar = ({
   numSelected,
   rowsSelected,
   onClickChitiet,
-  onClickCapnhat,
-  onClickXoa,
+  onClickTiendo,
 }) => {
   return numSelected > 0 ? (
     <>
@@ -54,7 +53,10 @@ const EnhancedTableToolbar = ({
           >
             <div className="d-flex align-items-center">
               {rowsSelected.length === 1 && (
-                <TableButton onClick={onClickChitiet}>Chi tiết</TableButton>
+                <>
+                  <TableButton onClick={onClickChitiet}>Chi tiết</TableButton>
+                  <TableButton onClick={onClickTiendo}>Tiến độ</TableButton>
+                </>
               )}
             </div>
           </Typography>
@@ -88,10 +90,8 @@ const TableDonhang = ({ dsDonhang = [], setRowsRemoved, readOnly }) => {
   const onClickChitiet = () =>
     history.push(`/giamsatvung/donhang/chitiet/${selected[0]}`);
 
-  const onClickCapnhat = () =>
-    history.push(`/giamsatvung/donhang/chinhsua/${selected[0]}`);
-
-  const onClickXoa = () => handleOpen();
+  const onClickTiendo = () =>
+    history.push(`/giamsatvung/donhang/chitiet/${selected[0]}/tiendo`);
 
   const handleDeleteRow = async () => {
     const { success } = await apiLoaiSanpham.xoaNhieuLoaiSanpham({
@@ -162,8 +162,7 @@ const TableDonhang = ({ dsDonhang = [], setRowsRemoved, readOnly }) => {
               numSelected={selected.length}
               rowsSelected={selected}
               onClickChitiet={onClickChitiet}
-              onClickCapnhat={onClickCapnhat}
-              onClickXoa={onClickXoa}
+              onClickTiendo={onClickTiendo}
             />
           )}
           <TableContainer>

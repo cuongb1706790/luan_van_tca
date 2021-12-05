@@ -10,6 +10,9 @@ export const Content = styled.div`
   flex: 1;
   background: #f0eeee;
   padding: 36px;
+  .MuiButtonBase-root {
+    outline: none;
+  }
 `;
 
 export const BtnRight = styled.div`
@@ -130,8 +133,9 @@ export const Label = styled.span`
   align-items: flex-end;
   margin-bottom: 10px;
   img {
-    width: 33px;
+    width: 24px;
     margin-right: 14px;
+    opacity: 0.7;
   }
 `;
 
@@ -141,7 +145,7 @@ export const FormGroup = styled.div`
   &.dh {
     margin-bottom: 16px;
     img {
-      width: 36px;
+      width: 24px;
       margin-right: 8px;
       opacity: 0.6;
     }
@@ -162,9 +166,10 @@ export const FormTitle = styled.div`
   color: #27a9e3;
   margin-bottom: 36px;
   margin-top: 20px;
-  font-family: "Roboto", sans-serif;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
   img {
-    width: 30px;
+    width: 24px;
   }
   img:first-child {
     margin-right: 36px;
@@ -242,7 +247,7 @@ export const TableTitle = styled.div`
   align-items: center;
   font-family: "Montserrat", sans-serif;
   img {
-    width: 36px;
+    width: 24px;
     margin-right: 8px;
     opacity: 0.6;
   }
@@ -288,7 +293,7 @@ export const BoxInfo = styled.div`
     margin-right: 10px;
   }
   img {
-    width: 22px;
+    width: 16px;
     margin-right: 8px;
     opacity: 0.6;
   }
@@ -319,4 +324,48 @@ export const TiendoProcessText = styled.div`
 export const TiendoProcess = styled.div`
   margin-bottom: 20px;
   margin-top: 20px;
+`;
+
+export const InputSoluong = styled.input`
+  text-align: center;
+  width: 70px;
+  outline: none;
+  padding: 4px;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 255, 0.25);
+  &:focus {
+    outline: none;
+    border: 1px solid rgba(0, 0, 255, 0.5);
+  }
+`;
+
+export const Alert = styled.div`
+  display: block;
+  border-radius: 4px;
+  text-align: left;
+  background: transparent;
+  font-family: "poppins", sans-serif;
+  font-size: 15px;
+  margin: 16px 0 48px 0;
+  .title {
+    display: flex;
+    align-items: center;
+    margin-bottom: 6px;
+    margin-top: -30px;
+  }
+  .title > span {
+    color: rgb(95, 33, 32);
+  }
+  .content > p {
+    margin: 0;
+    color: #555;
+    font-size: 14px;
+    font-family: "montserrat", sans-serif;
+    padding: 2px 0;
+    span {
+      color: #111;
+      font-weight: 500;
+      margin-left: 10px;
+    }
+  }
 `;

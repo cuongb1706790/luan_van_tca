@@ -81,7 +81,7 @@ const DonhangChitiet = (props) => {
                   <img src={_ma} alt="ma" />
                   <span>Mã đơn hàng:</span>
                 </Label>
-                <Input type="text" value={singleDonhang?.ma} />
+                <Input type="text" value={singleDonhang?.ma} disabled />
               </FormGroup>
             </FormContent>
 

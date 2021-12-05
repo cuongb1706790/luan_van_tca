@@ -49,6 +49,7 @@ const DonhangChitiet = (props) => {
       handleClose();
       setSuccess(true);
       props.setRefresh(true);
+      props.history.push(`/daily2/donhang/chitiet/${donhangId}/them`);
       toast.success("Xác nhận thành công!", {
         theme: "colored",
       });

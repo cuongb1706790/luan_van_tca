@@ -26,12 +26,6 @@ const apiCongcu = {
     return axiosClient.delete(url);
   },
 
-  // them cong cu hu loi
-  themCongcuHuloi(payload) {
-    const url = "/congcu/themcchuloi";
-    return axiosClient.put(url, payload);
-  },
-
   // Xoa nhieu cong cu
   xoaNhieuCongcu(arrOfIds) {
     const url = "/congcu/xoanhieucongcu";

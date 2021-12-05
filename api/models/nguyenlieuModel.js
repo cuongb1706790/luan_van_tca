@@ -19,14 +19,11 @@ const nguyenlieuSchema = new mongoose.Schema(
     soluong: {
       type: Number,
     },
-    soluongloi: {
-      type: Number,
-    },
-    slsaukhipp: {
-      type: Number,
-    },
     ngaytao: String,
-    ngaybaoloi: String,
+    loi: {
+      soluongloi: Number,
+      ngaybaoloi: String,
+    },
   },
   {
     timestamps: true,

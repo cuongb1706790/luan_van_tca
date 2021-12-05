@@ -8,21 +8,98 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Checkbox from "@mui/material/Checkbox";
-import { useHistory } from "react-router-dom";
 import img_placeholder from "../../../assets/images/img_placeholder.png";
 import EnhancedTableHead from "../../../components/table/EnhancedTableHead";
 import { getComparator } from "../../../utils";
 import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
-import { headCellsNguyenlieu } from "./headCells";
+import { headCellsNguyenlieu, headCellsNguyenlieuHuloi } from "./headCells";
 import TableButton from "../../../components/TableButton";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import { alpha } from "@mui/material/styles";
+import { InputSoluong } from "../styledComponents";
 
-const TableCongcu = ({ dsNguyenlieu = [], setRowsRemoved, bophankdId }) => {
+const EnhancedTableToolbar = ({ numSelected, rowsSelected, onClickBaoloi }) => {
+  return numSelected > 0 ? (
+    <>
+      <Toolbar
+        sx={{
+          pl: { sm: 7 },
+          pr: { xs: 1, sm: 1 },
+          ...(numSelected > 0 && {
+            bgcolor: (theme) =>
+              alpha(
+                theme.palette.primary.main,
+                theme.palette.action.activatedOpacity
+              ),
+          }),
+        }}
+      >
+        {numSelected > 0 ? (
+          <Typography
+            sx={{ flex: "1 1 100%" }}
+            color="inherit"
+            variant="subtitle1"
+            component="div"
+          >
+            <div className="d-flex align-items-center">
+              {rowsSelected.length && (
+                <TableButton onClick={onClickBaoloi}>Báo lỗi</TableButton>
+              )}
+            </div>
+          </Typography>
+        ) : (
+          <Typography
+            sx={{ flex: "1 1 100%" }}
+            variant="h6"
+            id="tableTitle"
+            component="div"
+          >
+            Nutrition
+          </Typography>
+        )}
+      </Toolbar>
+    </>
+  ) : null;
+};
+
+const TableNguyenlieu = ({
+  dsNguyenlieu = [],
+  setOpen,
+  setDsNguyenlieuHuloi,
+  nguyenlieuhuloithem,
+  dsnguyenlieuhuloi,
+}) => {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const history = useHistory();
+
+  const handleChangeKLHuloi = (e, id) => {
+    const val = e.target.value;
+    setDsNguyenlieuHuloi((prev) =>
+      prev.map((item) =>
+        item._id === id
+          ? {
+              ...item,
+              khoiluongloi: val < 0 ? 1 : val,
+            }
+          : item
+      )
+    );
+  };
+
+  const getObjectsNGL = () => {
+    return dsNguyenlieu
+      .filter((ngl) => selected.includes(ngl._id))
+      .map((ngl) => ({ ...ngl, khoiluongloi: 1 }));
+  };
+
+  const onClickBaoloi = () => {
+    setDsNguyenlieuHuloi(getObjectsNGL);
+    setOpen(true);
+  };
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -77,6 +154,13 @@ const TableCongcu = ({ dsNguyenlieu = [], setRowsRemoved, bophankdId }) => {
     <>
       <Box sx={{ width: "100%" }}>
         <Paper sx={{ width: "100%", mb: 2 }}>
+          {dsnguyenlieuhuloi || nguyenlieuhuloithem ? null : (
+            <EnhancedTableToolbar
+              numSelected={selected.length}
+              rowsSelected={selected}
+              onClickBaoloi={onClickBaoloi}
+            />
+          )}
           <TableContainer>
             <Table
               sx={{ minWidth: 750 }}
@@ -91,7 +175,11 @@ const TableCongcu = ({ dsNguyenlieu = [], setRowsRemoved, bophankdId }) => {
                 onSelectAllClick={handleSelectAllClick}
                 onRequestSort={handleRequestSort}
                 rowCount={dsNguyenlieu?.length}
-                headCells={headCellsNguyenlieu}
+                headCells={
+                  nguyenlieuhuloithem || dsnguyenlieuhuloi
+                    ? headCellsNguyenlieuHuloi
+                    : headCellsNguyenlieu
+                }
               />
               <TableBody>
                 {dsNguyenlieu
@@ -135,22 +223,26 @@ const TableCongcu = ({ dsNguyenlieu = [], setRowsRemoved, bophankdId }) => {
                             className={!row?.hinhanh && "noImage"}
                           />
                         </TableCell>
-                        <TableCell align="right">{row?.khoiluong}</TableCell>
+                        <TableCell align="right">
+                          {nguyenlieuhuloithem ? (
+                            <InputSoluong
+                              type="number"
+                              min="1"
+                              value={row?.khoiluongloi}
+                              onChange={(e) => handleChangeKLHuloi(e, row?._id)}
+                            />
+                          ) : dsnguyenlieuhuloi ? (
+                            row?.loi.khoiluongloi
+                          ) : (
+                            row?.khoiluong
+                          )}
+                        </TableCell>
                         <TableCell align="right">{row?.congdung}</TableCell>
-                        <TableCell align="right">{row?.ngaytao}</TableCell>
-                        {/* <TableCell align="right">
-                          {
-                            <TableButton
-                              onClick={() =>
-                                history.push(
-                                  `/bophankd/nguyenlieu/chitiet/${row._id}`
-                                )
-                              }
-                            >
-                              Chi tiết
-                            </TableButton>
-                          }
-                        </TableCell> */}
+                        <TableCell align="right">
+                          {dsnguyenlieuhuloi
+                            ? row?.loi.ngaybaoloi
+                            : row?.ngaytao}
+                        </TableCell>
                       </TableRow>
                     );
                   })}
@@ -189,4 +281,4 @@ const TableCongcu = ({ dsNguyenlieu = [], setRowsRemoved, bophankdId }) => {
   );
 };
 
-export default TableCongcu;
+export default TableNguyenlieu;
