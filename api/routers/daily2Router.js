@@ -795,4 +795,28 @@ daily2Router.get("/dsnglhuloi/:dl2", async (req, res) => {
   }
 });
 
+// lay ds subdonhang cua 1 don hang co ma cu the va thuoc daily2 co ma daily2
+daily2Router.get("/dssubdhofsingledh/:daily2Id/:madh", async (req, res) => {
+  try {
+    let { subdonhang } = await Daily2.findById(req.params.daily2Id)
+      .select("subdonhang")
+      .populate({
+        path: "subdonhang",
+        populate: {
+          path: "to",
+          populate: {
+            path: "hodan",
+          },
+        },
+      });
+    subdonhang = subdonhang.filter(
+      (dh) => dh.ma === req.params.madh.toString()
+    );
+
+    res.send({ subdonhang, success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
 module.exports = daily2Router;

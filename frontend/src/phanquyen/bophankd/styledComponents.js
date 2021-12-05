@@ -284,7 +284,8 @@ export const BoxInfoTitle = styled.span`
 export const BoxInfo = styled.div`
   width: 380px;
   padding: 26px;
-  border: 1px solid #0088ff;
+  /* border: 1px solid #0088ff; */
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.08);
   border-radius: 3px;
   display: inline-block;
   text-align: left;
@@ -368,6 +369,69 @@ export const Alert = styled.div`
       color: #111;
       font-weight: 500;
       margin-left: 10px;
+    }
+  }
+`;
+
+export const MaDonhang = styled.div`
+  margin-bottom: 10px;
+  span:nth-child(1) {
+    color: #333;
+    font-family: "Montserrat", sans-serif;
+    margin-right: 10px;
+    font-size: 14px;
+  }
+  span:nth-child(2) {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+  }
+`;
+
+export const Chart = styled.div`
+  background: #2255a4;
+  width: 45%;
+  padding: 20px;
+  box-sizing: border-box;
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+    rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+  margin-bottom: 36px;
+  border-radius: 4px;
+  .title {
+    color: #fff;
+    margin: 0;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    font-size: 17px;
+    font-family: "Roboto", sans-serif;
+    margin-bottom: 16px;
+    font-weight: bold;
+  }
+  .box {
+    box-sizing: border-box;
+    width: 100%;
+    margin: 18px 0;
+    .labels {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      p {
+        margin: 0;
+        color: #fff;
+        margin: 0 0 4px;
+        font-weight: 500;
+        font-family: "Montserrat", sans-serif;
+        font-size: 15px;
+      }
+    }
+    .level {
+      border: 2px solid #75b5fa;
+      padding: 4px;
+      border-radius: 3px;
+      .levelStatus {
+        height: 20px;
+        background: #75b5fa;
+        border-radius: 2px;
+      }
     }
   }
 `;

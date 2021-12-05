@@ -22,7 +22,6 @@ import {
   Container,
   Content,
   Form,
-  FormGroup,
   TableSection,
   TableTitle,
   TiendoProcess,
@@ -30,16 +29,15 @@ import {
   Total,
   TotalValue,
 } from "./styledComponents";
-import ma from "../../assets/icons/ma.png";
 import ten from "../../assets/icons/ten.png";
 import sdt from "../../assets/icons/sdt.png";
 import email from "../../assets/icons/email.png";
-import cmnd from "../../assets/icons/cmnd.png";
 import diachi from "../../assets/icons/diachi.png";
 import dssanpham from "../../assets/icons/dssanpham.png";
 import dscongcu from "../../assets/icons/dscongcu.png";
 import dsvattu from "../../assets/icons/dsvattu.png";
 import dsnglieu from "../../assets/icons/dsnglieu.png";
+import { MaDonhang } from "../bophankd/styledComponents";
 
 const Tiendo = (props) => {
   const [dsSubDonhang, setDsSubDonhang] = useState([]);
@@ -166,11 +164,10 @@ const Tiendo = (props) => {
                       </div>
 
                       <div>
-                        <FormGroup className="dh">
-                          <img src={ma} alt="ma" />
+                        <MaDonhang>
                           <span>Mã đơn hàng:</span>
                           <span>{dh?.ma}</span>
-                        </FormGroup>
+                        </MaDonhang>
 
                         <BoxInfo>
                           <BoxInfoTitle>Đại lý cấp 1</BoxInfoTitle>

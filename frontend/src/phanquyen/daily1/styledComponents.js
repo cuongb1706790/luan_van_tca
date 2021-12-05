@@ -282,7 +282,8 @@ export const BoxInfoTitle = styled.h6`
 export const BoxInfo = styled.div`
   width: 380px;
   padding: 26px;
-  border: 1px solid #0088ff;
+  /* border: 1px solid #0088ff; */
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.08);
   border-radius: 3px;
   display: inline-block;
   text-align: left;

@@ -5,7 +5,6 @@ import {
   Container,
   Content,
   Form,
-  FormGroup,
   TableSection,
   TableTitle,
   TiendoProcess,
@@ -13,7 +12,6 @@ import {
   Total,
   TotalValue,
 } from "./styledComponents";
-import ma from "../../assets/icons/ma.png";
 import ten from "../../assets/icons/ten.png";
 import sdt from "../../assets/icons/sdt.png";
 import cmnd from "../../assets/icons/cmnd.png";
@@ -37,6 +35,7 @@ import TableVattuDonhang from "./tables/TableVattuDonhang";
 import TableNguyenlieuDonhang from "./tables/TableNguyenlieuDonhang";
 import apiDaily2 from "../../axios/apiDaily2";
 import { formatMoney } from "../../utils";
+import { MaDonhang } from "../bophankd/styledComponents";
 
 const Tiendo = (props) => {
   const [dsSubDonhang, setDsSubDonhang] = useState([]);
@@ -119,11 +118,11 @@ const Tiendo = (props) => {
                 {dsSubDonhang.map((dh) => (
                   <TabPanel value={dh._id}>
                     <div className="text-right">
-                      <FormGroup className="dh text-left">
-                        <img src={ma} alt="ma" />
+                      <MaDonhang className="text-left">
                         <span>Mã đơn hàng:</span>
                         <span>{dh?.ma}</span>
-                      </FormGroup>
+                      </MaDonhang>
+
                       <BoxInfo>
                         <BoxInfoTitle>Hộ dân</BoxInfoTitle>
 

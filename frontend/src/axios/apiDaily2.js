@@ -181,6 +181,12 @@ const apiDaily2 = {
     const url = `/daily2/dsnglhuloi/${dl2Id}`;
     return axiosClient.get(url);
   },
+
+  // lay ds subdonhang cua 1 don hang co ma cu the va thuoc daily2 co ma daily2
+  dssubdonhangOfSingleDH(daily2Id, madh) {
+    const url = `/daily2/dssubdhofsingledh/${daily2Id}/${madh}`;
+    return axiosClient.get(url);
+  },
 };
 
 export default apiDaily2;

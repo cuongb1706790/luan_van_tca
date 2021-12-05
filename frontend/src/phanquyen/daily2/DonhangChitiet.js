@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import ma from "../../assets/icons/ma.png";
 import ten from "../../assets/icons/ten.png";
 import sdt from "../../assets/icons/sdt.png";
 import email from "../../assets/icons/email.png";
@@ -15,7 +14,6 @@ import {
   Container,
   Content,
   Form,
-  FormGroup,
   TableSection,
   TableTitle,
   TiendoProcess,
@@ -32,6 +30,11 @@ import TableVattuDonhang from "./tables/TableVattuDonhang";
 import TableNguyenlieuDonhang from "./tables/TableNguyenlieuDonhang";
 import { formatMoney } from "../../utils";
 import DialogMaterial from "../../components/DialogMaterial";
+import { useSelector } from "react-redux";
+import apiDaily2 from "../../axios/apiDaily2";
+import { MaDonhang } from "../bophankd/styledComponents";
+import HorizontalBarChart from "../../components/HorizontalBarChart";
+import HorizontalBarChartItem from "../../components/HorizontalBarChartItem";
 
 const DonhangChitiet = (props) => {
   const [loading, setLoading] = useState(false);
@@ -39,6 +42,9 @@ const DonhangChitiet = (props) => {
   const { id: donhangId } = props.match.params;
   const [success, setSuccess] = useState(false);
   const [open, setOpen] = useState(false);
+  const { userInfo } = useSelector((state) => state.user);
+  const [tiLePhanphat, setTiLePhanphat] = useState(null);
+  const [tiendoHT, setTiendoHT] = useState(null);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -56,9 +62,38 @@ const DonhangChitiet = (props) => {
     }
   };
 
+  const getChartData = (dssubdh) => {
+    let fullPercent = 0;
+    dssubdh.forEach((dh) => {
+      let sum = dh.dssanpham.reduce((acc, sp) => acc + sp.soluong, 0);
+      fullPercent = fullPercent + sum;
+    });
+    // ti le phan phat
+    const tilephanphat = dssubdh.map((dh) => ({
+      label: `${dh.to.hodan.daidien} (${dh.to.hodan.xa}, ${dh.to.hodan.huyen}, ${dh.to.hodan.tinh})`,
+      percent:
+        (dh.dssanpham.reduce((acc, sp) => acc + sp.soluong, 0) * 100) /
+        fullPercent,
+    }));
+    // tien do hoan thanh
+    const tiendoHT = dssubdh.map((dh) => ({
+      label: `${dh.to.hodan.daidien} (${dh.to.hodan.xa}, ${dh.to.hodan.huyen}, ${dh.to.hodan.tinh})`,
+      percent:
+        (dh.dssanpham.reduce((acc, sp) => acc + sp.soluonghoanthanh, 0) * 100) /
+        dh.dssanpham.reduce((acc, sp) => acc + sp.soluong, 0),
+    }));
+    setTiLePhanphat(tilephanphat);
+    setTiendoHT(tiendoHT);
+  };
+
   const fetchDonhang = async () => {
     setLoading(true);
+    const { daily2 } = await apiDaily2.singleDaily2BasedUser(userInfo._id);
     let { donhang } = await apiDonhang.singleDonhang(donhangId);
+    const { subdonhang } = await apiDaily2.dssubdonhangOfSingleDH(
+      daily2._id,
+      donhang.ma
+    );
     donhang = {
       ...donhang,
       dssanpham: donhang.dssanpham.map((sp) => ({ ...sp, ...sp.sanpham })),
@@ -69,6 +104,7 @@ const DonhangChitiet = (props) => {
         ...ngl.nguyenlieu,
       })),
     };
+    getChartData(subdonhang);
     setSingleDonhang(donhang);
     setLoading(false);
   };
@@ -125,48 +161,78 @@ const DonhangChitiet = (props) => {
               )}
             </TiendoProcess>
 
-            <div className="text-left">
-              <FormGroup className="dh">
-                <img src={ma} alt="ma" />
-                <span>Mã đơn hàng:</span>
-                <span>{singleDonhang?.ma}</span>
-              </FormGroup>
+            {singleDonhang?.ngaydathang ? (
+              <>
+                <MaDonhang>
+                  <span>Mã đơn hàng:</span>
+                  <span>{singleDonhang?.ma}</span>
+                </MaDonhang>
 
-              <BoxInfo>
-                <BoxInfoTitle>Đại lý cấp 1</BoxInfoTitle>
+                <div className="d-flex justify-content-between">
+                  <HorizontalBarChart title="Tỉ lệ phân phát">
+                    {tiLePhanphat &&
+                      tiLePhanphat.length &&
+                      tiLePhanphat.map((tl) => (
+                        <HorizontalBarChartItem
+                          label={tl?.label}
+                          percent={Math.round(tl?.percent)}
+                        />
+                      ))}
+                  </HorizontalBarChart>
+                  <HorizontalBarChart title="Tiến độ hoàn thành">
+                    {tiendoHT &&
+                      tiendoHT.length &&
+                      tiendoHT.map((td) => (
+                        <HorizontalBarChartItem
+                          label={td?.label}
+                          percent={Math.round(td?.percent)}
+                        />
+                      ))}
+                  </HorizontalBarChart>
+                </div>
+              </>
+            ) : (
+              <div className="text-left">
+                <MaDonhang>
+                  <span>Mã đơn hàng:</span>
+                  <span>{singleDonhang?.ma}</span>
+                </MaDonhang>
 
-                <table>
-                  <tr>
-                    <td>
-                      <img src={ten} alt="ten" />
-                      <span>Tên:</span>
-                    </td>
-                    <td>{singleDonhang?.from.daily1.ten}</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <img src={sdt} alt="sdt" />
-                      <span>SĐT:</span>
-                    </td>
-                    <td>{singleDonhang?.from.daily1.sdt}</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <img src={email} alt="email" />
-                      <span>E-mail:</span>
-                    </td>
-                    <td>{singleDonhang?.from.daily1.email}</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <img src={diachi} alt="diachi" />
-                      <span>Địa chỉ:</span>
-                    </td>
-                    <td>{`${singleDonhang?.from.daily1.xa}, ${singleDonhang?.from.daily1.huyen}, ${singleDonhang?.from.daily1.tinh}`}</td>
-                  </tr>
-                </table>
-              </BoxInfo>
-            </div>
+                <BoxInfo>
+                  <BoxInfoTitle>Đại lý cấp 1</BoxInfoTitle>
+                  <table>
+                    <tr>
+                      <td>
+                        <img src={ten} alt="ten" />
+                        <span>Tên:</span>
+                      </td>
+                      <td>{singleDonhang?.from.daily1.ten}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <img src={sdt} alt="sdt" />
+                        <span>SĐT:</span>
+                      </td>
+                      <td>{singleDonhang?.from.daily1.sdt}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <img src={email} alt="email" />
+                        <span>E-mail:</span>
+                      </td>
+                      <td>{singleDonhang?.from.daily1.email}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <img src={diachi} alt="diachi" />
+                        <span>Địa chỉ:</span>
+                      </td>
+                      <td>{`${singleDonhang?.from.daily1.xa}, ${singleDonhang?.from.daily1.huyen}, ${singleDonhang?.from.daily1.tinh}`}</td>
+                    </tr>
+                  </table>
+                </BoxInfo>
+              </div>
+            )}
 
             <TableSection className="noCheckbox">
               <TableTitle>

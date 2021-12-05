@@ -22,7 +22,7 @@ import {
   Container,
   Content,
   Form,
-  FormGroup,
+  MaDonhang,
   TableSection,
   TableTitle,
   TiendoProcess,
@@ -30,7 +30,6 @@ import {
   Total,
   TotalValue,
 } from "./styledComponents";
-import ma from "../../assets/icons/ma.png";
 import ten from "../../assets/icons/ten.png";
 import sdt from "../../assets/icons/sdt.png";
 import email from "../../assets/icons/email.png";
@@ -174,11 +173,10 @@ const Tiendo = (props) => {
                       />
 
                       <div>
-                        <FormGroup className="dh">
-                          <img src={ma} alt="ma" />
+                        <MaDonhang>
                           <span>Mã đơn hàng:</span>
                           <span>{dh?.ma}</span>
-                        </FormGroup>
+                        </MaDonhang>
 
                         <BoxInfo>
                           <BoxInfoTitle>Giám sát vùng</BoxInfoTitle>

@@ -582,4 +582,28 @@ giamsatvungRouter.get("/dsnglhuloi/:gsvId", async (req, res) => {
   }
 });
 
+// lay ds subdonhang cua 1 don hang co ma cu the va thuoc gsv co ma gsv
+giamsatvungRouter.get("/dssubdhofsingledh/:gsvId/:madh", async (req, res) => {
+  try {
+    let { subdonhang } = await Giamsatvung.findById(req.params.gsvId)
+      .select("subdonhang")
+      .populate({
+        path: "subdonhang",
+        populate: {
+          path: "to",
+          populate: {
+            path: "daily1",
+          },
+        },
+      });
+    subdonhang = subdonhang.filter(
+      (dh) => dh.ma === req.params.madh.toString()
+    );
+
+    res.send({ subdonhang, success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
 module.exports = giamsatvungRouter;

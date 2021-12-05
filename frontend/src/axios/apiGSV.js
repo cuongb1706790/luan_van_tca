@@ -150,6 +150,12 @@ const apiGSV = {
     const url = `/gsv/dsnglhuloi/${gsvId}`;
     return axiosClient.get(url);
   },
+
+  // lay ds subdonhang cua 1 don hang co ma cu the va thuoc bpkd co ma bpkd
+  dssubdonhangOfSingleDH(gsvId, madh) {
+    const url = `/gsv/dssubdhofsingledh/${gsvId}/${madh}`;
+    return axiosClient.get(url);
+  },
 };
 
 export default apiGSV;

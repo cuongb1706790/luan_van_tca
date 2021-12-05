@@ -241,3 +241,9 @@ import {
 
 db.sanphams.find({"createdAt":{ $gte:ISODate("2021-11-10"), $lt:ISODate("2021-11-18") }
 }).pretty();
+
+
+#0fffb7
+
+
+ham xoa ho dan => update loaisp

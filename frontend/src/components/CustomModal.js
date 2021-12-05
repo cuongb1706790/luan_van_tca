@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useCallback } from "react";
+import React, { useEffect, useRef,  } from "react";
 import { useSpring, animated } from "react-spring";
 import styled from "styled-components";
 import Box from "@mui/material/Box";
@@ -14,7 +14,7 @@ import TableVattuDonhang from "../phanquyen/giamsatvung/tables/TableVattuDonhang
 import {
   BoxInfo,
   BoxInfoTitle,
-  FormGroup,
+  MaDonhang,
   TableSection,
   TableTitle,
   Total,
@@ -24,7 +24,6 @@ import dssanpham from "../assets/icons/dssanpham.png";
 import dscongcu from "../assets/icons/dscongcu.png";
 import dsvattu from "../assets/icons/dsvattu.png";
 import dsnglieu from "../assets/icons/dsnglieu.png";
-import ma from "../assets/icons/ma.png";
 import ten from "../assets/icons/ten.png";
 import sdt from "../assets/icons/sdt.png";
 import email from "../assets/icons/email.png";
@@ -96,11 +95,10 @@ const CustomModal = ({ open, setOpen, phanquyen }) => {
                     {subdh.map((dh) => (
                       <TabPanel value={dh._id}>
                         <div>
-                          <FormGroup className="dh text-left">
-                            <img src={ma} alt="ma" />
+                          <MaDonhang>
                             <span>Mã đơn hàng:</span>
                             <span>{dh?.ma}</span>
-                          </FormGroup>
+                          </MaDonhang>
 
                           <div className="d-flex justify-content-center">
                             <BoxInfo className="mr-5">

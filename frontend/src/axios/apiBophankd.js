@@ -250,6 +250,12 @@ const apiBophankd = {
     const url = `/bophankd/dsnglhuloi/${bpkdId}`;
     return axiosClient.get(url);
   },
+
+  // lay ds subdonhang cua 1 don hang co ma cu the va thuoc bpkd co ma bpkd
+  dssubdonhangOfSingleDH(bophankd, madh) {
+    const url = `/bophankd/dssubdhofsingledh/${bophankd}/${madh}`;
+    return axiosClient.get(url);
+  },
 };
 
 export default apiBophankd;
