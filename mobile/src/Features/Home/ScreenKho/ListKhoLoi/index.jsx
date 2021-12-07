@@ -9,29 +9,35 @@ import {
 } from "react-native";
 import hodanApi from "../../../../api/hodanApi";
 import CongCu from "../CongCu";
-import VatTu from "../VatTu";
+import KhoLoi from "../KhoLoi";
 
-const ListVatTu = (props) => {
-  const {navigation} = props;
+const ListKhoLoi = (props) => {
   const idHodan = props.route.params.idHodan;
-  const [listVatTu, setListVatTu] = useState();
+  const {navigation} = props;
+  const [listKhoLoi, setListKhoLoi] = useState();
   useEffect(() => {
     const fetchData = async () => {
-      const getData = await hodanApi.dsVattu(idHodan);
-      setListVatTu(getData.dsvattu);
+      const getCCLoi = await hodanApi.dsCongcuHuloi(idHodan);
+      const getVTLoi = await hodanApi.dsVattuHuloi(idHodan);
+      const getNLLoi = await hodanApi.dsNguyenlieuHuloi(idHodan);
+
+      setListKhoLoi([...getCCLoi.dscongcuhuloi,...getVTLoi.dsvattuhuloi,...getNLLoi.dsnguyenlieuhuloi]);
+
     };
     fetchData();
   }, []);
- 
+
+      //  console.log(listKhoLoi);
+
   return (
     <SafeAreaView style={styles.container}>
-       <View style={styles.headerContainer}>
-        <Text style={{ color: "white" }}>Danh sách vật tư</Text>
+      <View style={styles.headerContainer}>
+        <Text style={{ color: "white" }}>Danh sách kho lỗi</Text>
       </View>
-      {listVatTu && (
+      {listKhoLoi && (
         <FlatList
-          data={listVatTu}
-          renderItem={(item) => <VatTu vattu={item}  navigation={navigation} idHodan={idHodan}  />}
+          data={listKhoLoi}
+          renderItem={(item) => <KhoLoi kholoi={item} navigation={navigation} idHodan={idHodan} />}
           keyExtractor={(item) => item._id}
         />
       )}
@@ -54,11 +60,11 @@ const styles = StyleSheet.create({
     fontSize: 32,
   },
   headerContainer: {
-    backgroundColor: "#e65c00",
+    backgroundColor: "red",
     paddingTop: 15,
     paddingBottom: 15,
     alignItems: "center",
   },
 });
 
-export default ListVatTu;
+export default ListKhoLoi;

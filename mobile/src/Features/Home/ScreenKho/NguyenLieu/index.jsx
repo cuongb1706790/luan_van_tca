@@ -11,9 +11,12 @@ import {
 } from "react-native";
 
 function NguyenLieu(props) {
-
+  const { navigation, idHodan } = props;
   const data = props.nguyenlieu.item;
   // console.log(data);
+  const handleClickError = () => {
+    navigation.navigate("FormNguyenLieuLoi", { ...data, idHodan });
+  };
   return (
     <View style={styles.container}>
       
@@ -65,6 +68,8 @@ function NguyenLieu(props) {
                 marginTop: 5,
                 borderRadius: 10,
               }}
+              onPress={handleClickError}
+
             >
               Báo lỗi
             </Text>

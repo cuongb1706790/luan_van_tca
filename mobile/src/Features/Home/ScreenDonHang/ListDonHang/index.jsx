@@ -7,55 +7,52 @@ function ListDonHang(props) {
     dataList: { item: data },
     navigation,
   } = props;
-  let checkComplelteOrder = false;
-  const numberCompleteOrder = data.dssanpham.filter(item=>(item.soluong === item.soluonghoanthanh)).length;
-  if(numberCompleteOrder === data.dssanpham.length)
-  {
-    checkComplelteOrder = true;
-  }
+  const checkComplelteOrder = data.dssanpham.find(item=>(item.soluong !== item.soluonghoanthanh))
   // console.log(checkComplelteOrder);
   const handleClickOrder = () => {
     navigation.navigate("DonHang", { data });
   };
-  //check complete order
+  const handleClickSendOrder = ()=>{
+    navigation.navigate('FormGiaoHang',{data});
+  }
 
-// console.log(data);
+  // console.log(data);
   return (
     <>
-  
-        <View
-          style={{
-            flexDirection: "row",
-            paddingTop: 20,
-            paddingBottom: 20,
-            paddingLeft: 5,
-            borderRadius: 10,
-            backgroundColor: "white",
-            alignItems: "center",
-            marginBottom : 20
-          }}
-        >
-          <Text style={{ marginRight: 10 }} onPress={handleClickOrder}>
-            <Ionicons name="cart" size={50} color="black" />
-          </Text>
-          <View style={{ marginRight: 10 }}>
-            <Text>Mã đơn hàng : {data.ma}</Text>
-            <Text>Thời gian : {data.ngaytao}</Text>
-          </View>
-          {
-            checkComplelteOrder ? (
-              <Text style={[styles.btnClass, { backgroundColor: "green",fontSize : 9 }]}>
-              Đã hoàn thành
-            </Text>
-            ) : (
-              <Text style={[styles.btnClass, { backgroundColor: "red",fontSize : 9 }]}>
-              Chưa hoàn thành
-            </Text>
-            )
-          }
-         
+      <View
+        style={{
+          flexDirection: "row",
+          paddingTop: 20,
+          paddingBottom: 20,
+          paddingLeft: 5,
+          borderRadius: 10,
+          backgroundColor: "white",
+          alignItems: "center",
+          marginBottom: 20,
+        }}
+      >
+        <Text style={{ marginRight: 10 }} onPress={handleClickOrder}>
+          <Ionicons name="cart" size={50} color="black" />
+        </Text>
+        <View style={{ marginRight: 10 }}>
+          <Text>Mã đơn hàng : {data.ma}</Text>
+          <Text>Thời gian : {data.ngaytao}</Text>
         </View>
- 
+        {!checkComplelteOrder ? (
+          <Text
+            style={[styles.btnClass, { backgroundColor: "green", fontSize: 9 }]}
+          >
+            Đã hoàn thành
+          </Text>
+        ) : (
+          <Text
+            style={[styles.btnClass, { backgroundColor: "red", fontSize: 11 }]}
+            onPress={handleClickSendOrder}
+          >
+            Giao hàng
+          </Text>
+        )}
+      </View>
     </>
   );
 }

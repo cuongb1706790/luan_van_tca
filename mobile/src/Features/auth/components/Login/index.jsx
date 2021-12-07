@@ -9,6 +9,11 @@ import TabNav from "../../../TabNav";
 import LoginForm from "../LoginForm";
 import DonHang from "../../../Home/ScreenDonHang/DonHang"
 import SrceenDoiMatKhau from "../../../CaNhan/ScreenDoiMatKhau";
+import FormCCLoi from "../../../Home/ScreenKho/CongCu/FormCCLoi";
+import FormNLLoi from "../../../Home/ScreenKho/NguyenLieu/FormNLLoi";
+import FormVTLoi from "../../../Home/ScreenKho/VatTu/FormVTLoi";
+import ListKhoLoi from "../../../Home/ScreenKho/ListKhoLoi";
+import FormGiaoHang from "../../../Home/ScreenDonHang/FormGiaoHang";
 function Login(props) {
   const Stack = createNativeStackNavigator();
   return (
@@ -23,9 +28,14 @@ function Login(props) {
         <Stack.Screen name="TabNav" component={TabNav} />
         <Stack.Screen name="BCTienDo" component={BCTienDo} />
         <Stack.Screen name="ScreenCongCu" component={ListCongCu} />
+        <Stack.Screen name="FormCongCuLoi" component={FormCCLoi} />
         <Stack.Screen name="ScreenVatTu" component={ListVatTu} />
+        <Stack.Screen name="FormVattuLoi" component={FormVTLoi} />
         <Stack.Screen name="ScreenNguyenLieu" component={ListNguyenLieu} />
+        <Stack.Screen name="FormNguyenLieuLoi" component={FormNLLoi} />
+        <Stack.Screen name="ScreenKhoLoi" component={ListKhoLoi} />
         <Stack.Screen name="DonHang" component={DonHang} />
+        <Stack.Screen name="FormGiaoHang" component={FormGiaoHang} />
         <Stack.Screen name="ScreenDoiMatKhau" component={SrceenDoiMatKhau} />
       </Stack.Navigator>
     </NavigationContainer>

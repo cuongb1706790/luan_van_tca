@@ -12,6 +12,7 @@ import CongCu from "../CongCu";
 
 const ListCongCu = (props) => {
   const idHodan = props.route.params.idHodan;
+  const {navigation} = props;
   const [listCongCu, setListCongCu] = useState();
   useEffect(() => {
     const fetchData = async () => {
@@ -20,7 +21,7 @@ const ListCongCu = (props) => {
     };
     fetchData();
   }, []);
-  // console.log(listCongCu);
+  // console.log(props);
 
 
   return (
@@ -31,7 +32,7 @@ const ListCongCu = (props) => {
       {listCongCu && (
         <FlatList
           data={listCongCu}
-          renderItem={(item) => <CongCu congcu={item} />}
+          renderItem={(item) => <CongCu congcu={item} navigation={navigation} idHodan={idHodan} />}
           keyExtractor={(item) => item._id}
         />
       )}

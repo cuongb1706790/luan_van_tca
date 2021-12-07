@@ -121,17 +121,55 @@ const hodanApi = {
     const url = `/hodan/dsnguyenlieu/${hodanId}`;
     return axiosClient.get(url);
   },
-   // lay ds don hang thuoc hodan
-   dsDonhang(hodanId) {
+  // lay ds don hang thuoc hodan
+  dsDonhang(hodanId) {
     const url = `/hodan/dsdonhang/${hodanId}`;
     return axiosClient.get(url);
   },
   // xac nhan don hang thuoc hodan
-    xacnhan(hodanId,donhangId) {
+  xacnhan(hodanId, donhangId) {
     const url = `/hodan/xacnhandh/${hodanId}/${donhangId}`;
     return axiosClient.put(url);
   },
+  // them cong cu hu loi
+  themCongcuHuloi(hodanId, payload) {
+    const url = `/hodan/themcchuloi/${hodanId}`;
+    return axiosClient.put(url, payload);
+  },
 
+  // lay ds cong cu hu loi
+  dsCongcuHuloi(hodanId) {
+    const url = `/hodan/dscchuloi/${hodanId}`;
+    return axiosClient.get(url);
+  },
+
+  //-------------
+
+  // them vat tu hu loi
+  themVattuHuloi(hodanId, payload) {
+    const url = `/hodan/themvthuloi/${hodanId}`;
+    return axiosClient.put(url, payload);
+  },
+
+  // lay ds vat tu hu loi
+  dsVattuHuloi(hodanId) {
+    const url = `/hodan/dsvthuloi/${hodanId}`;
+    return axiosClient.get(url);
+  },
+
+  //-------------
+
+  // them nguyen lieu hu loi
+  themNguyenlieuHuloi(hodanId, payload) {
+    const url = `/hodan/themnglhuloi/${hodanId}`;
+    return axiosClient.put(url, payload);
+  },
+
+  // lay ds nguyen lieu hu loi
+  dsNguyenlieuHuloi(hodanId) {
+    const url = `/hodan/dsnglhuloi/${hodanId}`;
+    return axiosClient.get(url);
+  },
 };
 
 export default hodanApi;

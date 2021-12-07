@@ -11,9 +11,12 @@ import {
 } from "react-native";
 
 function CongCu(props) {
-
+  const { navigation, idHodan } = props;
   const data = props.congcu.item;
-  // console.log(data);
+  // console.log(props);
+  const handleClickError = () => {
+    navigation.navigate("FormCongCuLoi", { ...data, idHodan });
+  };
   return (
     <View style={styles.container}>
       <View style={{ padding: 20 }}>
@@ -52,9 +55,7 @@ function CongCu(props) {
               Công dụng :{data.congcu.congdung}
             </Text>
             <Text style={{ color: "white" }}>Mô tả :{data.congcu.mota}</Text>
-            <Text style={{ color: "white" }}>
-              Số lượng :{data.soluong}
-            </Text>
+            <Text style={{ color: "white" }}>Số lượng :{data.soluong}</Text>
             <Text
               style={{
                 color: "white",
@@ -64,6 +65,7 @@ function CongCu(props) {
                 marginTop: 5,
                 borderRadius: 10,
               }}
+              onPress={handleClickError}
             >
               Báo lỗi
             </Text>
@@ -77,6 +79,5 @@ const styles = StyleSheet.create({
   container: {
     marginTop: 0,
   },
- 
 });
 export default CongCu;

@@ -11,6 +11,7 @@ import hodanApi from "../../../../api/hodanApi";
 import NguyenLieu from "../NguyenLieu";
 
 const ListNguyenLieu = (props) => {
+  const {navigation} = props;
   const idHodan = props.route.params.idHodan;
   const [listNguyenLieu, setListNguyenLieu] = useState();
   useEffect(() => {
@@ -31,7 +32,7 @@ const ListNguyenLieu = (props) => {
       {listNguyenLieu && (
         <FlatList
           data={listNguyenLieu}
-          renderItem={(item) => <NguyenLieu nguyenlieu={item} />}
+          renderItem={(item) => <NguyenLieu nguyenlieu={item} navigation={navigation} idHodan={idHodan} />}
           keyExtractor={(item) => item._id}
         />
       )}

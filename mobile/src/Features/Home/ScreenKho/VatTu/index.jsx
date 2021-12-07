@@ -11,9 +11,12 @@ import {
 } from "react-native";
 
 function VatTu(props) {
-
+  const { navigation, idHodan } = props;
   const data = props.vattu.item;
   // console.log(data);
+  const handleClickError = () => {
+    navigation.navigate("FormVattuLoi", { ...data, idHodan });
+  };
   return (
     <View style={styles.container}>
       <View style={{ padding: 20 }}>
@@ -64,6 +67,7 @@ function VatTu(props) {
                 marginTop: 5,
                 borderRadius: 10,
               }}
+              onPress={handleClickError}
             >
               Báo lỗi
             </Text>

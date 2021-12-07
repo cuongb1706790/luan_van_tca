@@ -64,6 +64,10 @@ function Home(props) {
   const handleRedirectNguyenLieu = () => {
     navigation.navigate("ScreenNguyenLieu", { idHodan: `${hoDan._id}` });
   };
+  const handleRedirectKhoLoi = () => {
+    navigation.navigate("ScreenKhoLoi", { idHodan: `${hoDan._id}` });
+  };
+
 
   return (
     <View style={styles.container}>
@@ -145,7 +149,7 @@ function Home(props) {
               ) : checkKho ? (
                 <>
                   <View style={styles.containerRowRedirect}>
-                    <View style={{ marginRight: 30 }}>
+                    <View style={{ marginRight: 20 }}>
                       <Text onPress={handleRedirectCongCu}>
                         <View style={styles.containerRedirectKho}>
                           <Ionicons
@@ -159,7 +163,7 @@ function Home(props) {
                         Công cụ
                       </Text>
                     </View>
-                    <View style={{ marginRight: 30 }}>
+                    <View style={{ marginRight: 20 }}>
                       <Text onPress={handleRedirectVatTu}>
                         <View style={styles.containerRedirectKho}>
                           <Ionicons name="basket" size={60} color="#0000b3" />
@@ -179,6 +183,33 @@ function Home(props) {
                         Nguyên liệu
                       </Text>
                     </View>
+                  </View>
+                  <View style={styles.containerRowRedirect}>
+                    <View style={{ marginRight: 30 }}>
+                      <Text onPress={handleRedirectCongCu}>
+                        <View style={styles.containerRedirectKho}>
+                          <Ionicons
+                            name="construct"
+                            size={60}
+                            color="#0000b3"
+                          />
+                        </View>
+                      </Text>
+                      <Text style={[{ marginTop: 10, textAlign: "center" }]}>
+                        Sản phẩm
+                      </Text>
+                    </View>
+                    <View style={{ marginRight: 30 }}>
+                      <Text onPress={handleRedirectKhoLoi}>
+                        <View style={styles.containerRedirectKho}>
+                          <Ionicons name="basket" size={60} color="#0000b3" />
+                        </View>
+                      </Text>
+                      <Text style={[{ marginTop: 10, textAlign: "center" }]}>
+                        Hư hỏng
+                      </Text>
+                    </View>
+                   
                   </View>
                 </>
               ) : (

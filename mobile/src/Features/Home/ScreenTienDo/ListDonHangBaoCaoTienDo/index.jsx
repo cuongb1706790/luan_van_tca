@@ -34,14 +34,13 @@ function ListDonHangBaoCaoTienDo(props) {
             flexDirection: "row",
             paddingTop: 20,
             paddingBottom: 20,
-            paddingLeft: 5,
             borderRadius: 10,
             backgroundColor: "white",
             alignItems: "center",
             marginBottom: 20,
           }}
         >
-          <Text style={{ marginRight: 10 }} onPress={handleClickOrder}>
+          <Text style={{ marginRight: 5 }} onPress={handleClickOrder}>
             <Ionicons name="cart" size={50} color="black" />
           </Text>
           <View style={{ marginRight: 10 }}>
@@ -50,7 +49,7 @@ function ListDonHangBaoCaoTienDo(props) {
               <>
                 <Text key={item._id}>
                   <Ionicons name="square" size={5} color="black" />{" "}
-                  {item.sanpham.ten} : {item.soluonghoanthanh}
+                  {item.sanpham.ten} : {item.soluonghoanthanh}/{item.soluong}
                 </Text>
               </>
             ))}
@@ -68,7 +67,7 @@ function ListDonHangBaoCaoTienDo(props) {
 }
 const styles = StyleSheet.create({
   btnClass: {
-    padding: 10,
+    padding: 5,
     borderRadius: 10,
     color: "white",
     marginRight: 10,
