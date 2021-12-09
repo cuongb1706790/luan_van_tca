@@ -36,11 +36,11 @@ function FormNLLoi(props) {
     setVisible(true);
   };
   const handleSumitForm = async (dataForm) => {
-    const sendRequest = await hodanApi.themVattuHuloi(idHodan, {
-      dsvtLoi: [{ ...data, ...dataForm }],
+    const sendRequest = await hodanApi.themNguyenlieuHuloi(idHodan, {
+      dsnglLoi: [{ ...data, ...dataForm }],
     });
     handleOpen();
-  // console.log(dataForm);
+  // console.log([{ ...data, ...dataForm }]);
 
   };
 
