@@ -4,17 +4,17 @@ const userApi = {
   
     login(data)
     {
-        const url = '/users/login';
+        const url = '/api/users/login';
         return axiosClient.post(url, data);
     },
     async getAll(params)
     {
-        const url = '/users/danhsach';
+        const url = '/api/users/danhsach';
         return axiosClient.get(url, {params});
     },
     get(id)
     {
-        const url = `/users/single/${id}`;
+        const url = `/api/users/single/${id}`;
         return axiosClient.get(url);
     }
    

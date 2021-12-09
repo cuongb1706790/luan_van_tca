@@ -23,7 +23,7 @@ function Home(props) {
   const [listHoDan, setListHoDan] = useState();
   const [hoDan, setHoDan] = useState();
   const [idAccount, setIdAccount] = useState();
-
+ 
   useEffect(() => {
     (async () => {
       //get info hodan
