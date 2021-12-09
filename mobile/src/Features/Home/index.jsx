@@ -67,7 +67,10 @@ function Home(props) {
   const handleRedirectKhoLoi = () => {
     navigation.navigate("ScreenKhoLoi", { idHodan: `${hoDan._id}` });
   };
+  const handleRedirectSanPham = ()=>{
+    navigation.navigate("ScreenSanPham", { idHodan: `${hoDan._id}` });
 
+  }
 
   return (
     <View style={styles.container}>
@@ -185,11 +188,11 @@ function Home(props) {
                     </View>
                   </View>
                   <View style={styles.containerRowRedirect}>
-                    <View style={{ marginRight: 30 }}>
-                      <Text onPress={handleRedirectCongCu}>
+                    <View style={{ marginRight: 20 }}>
+                      <Text onPress={handleRedirectSanPham}>
                         <View style={styles.containerRedirectKho}>
                           <Ionicons
-                            name="construct"
+                            name="leaf"
                             size={60}
                             color="#0000b3"
                           />
@@ -202,7 +205,7 @@ function Home(props) {
                     <View style={{ marginRight: 30 }}>
                       <Text onPress={handleRedirectKhoLoi}>
                         <View style={styles.containerRedirectKho}>
-                          <Ionicons name="basket" size={60} color="#0000b3" />
+                          <Ionicons name="close-circle" size={60} color="#0000b3" />
                         </View>
                       </Text>
                       <Text style={[{ marginTop: 10, textAlign: "center" }]}>

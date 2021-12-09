@@ -6,6 +6,7 @@ function ListDonHang(props) {
   const {
     dataList: { item: data },
     navigation,
+    hodanId
   } = props;
   const checkComplelteOrder = data.dssanpham.find(item=>(item.soluong !== item.soluonghoanthanh))
   // console.log(checkComplelteOrder);
@@ -13,7 +14,7 @@ function ListDonHang(props) {
     navigation.navigate("DonHang", { data });
   };
   const handleClickSendOrder = ()=>{
-    navigation.navigate('FormGiaoHang',{data});
+    navigation.navigate('FormGiaoHang',{data , hodanId});
   }
 
   // console.log(data);
