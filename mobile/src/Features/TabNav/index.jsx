@@ -4,11 +4,30 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import CaNhan from "../CaNhan";
 import Home from "../Home";
 import ThongBao from "../ThongBao";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import hodanApi from "../../api/hodanApi";
 
 const Tab = createBottomTabNavigator();
 function TabNav(props) {
+  const [soluongdonhangchuaxacnhan, setSoluongdonhangchuaxacnhan] = useState();
 
+  useEffect(() => {
+    (async () => {
+      //get info hodan
+      const dataHodan = await hodanApi.getAll();
+      //get id Account
+      const dataAccount = await AsyncStorage.getItem("user");
+      const findHoDan = dataHodan.hodan.find((item) => {
+        return dataAccount.includes(item.user._id);
+      })._id;
+      const dsdonhang = await hodanApi.dsDonhang(findHoDan);
+    setSoluongdonhangchuaxacnhan(dsdonhang.dsdonhang.filter(item=>item.xacnhan === false).length);
+
+    })();
+  }, []);
+// console.log(soluongdonhangchuaxacnhan);
   return (
+   
     <Tab.Navigator
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
@@ -37,7 +56,7 @@ function TabNav(props) {
       <Tab.Screen
         name="Đơn hàng mới"
         component={ThongBao}
-        options={{ header: () => null }}
+        options={ { header: () => null, tabBarBadge: soluongdonhangchuaxacnhan && soluongdonhangchuaxacnhan }}
         
       />
       <Tab.Screen

@@ -311,7 +311,7 @@ function FormGiaoHang(props) {
                 }}
               >
                 <Text style={{ color: "green" }}>
-                  Đã gửi báo cáo tiến độ thành công !
+                  Đã giao hàng thành công !
                 </Text>
               </MaterialDialog>
               <MaterialDialog
