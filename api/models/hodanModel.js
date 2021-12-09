@@ -41,6 +41,7 @@ const hodanSchema = new mongoose.Schema(
       },
     ],
     dssanpham: [
+      // => kho san pham
       {
         donhang: {
           type: mongoose.Schema.Types.ObjectId,
@@ -52,10 +53,15 @@ const hodanSchema = new mongoose.Schema(
         },
         soluong: Number,
         soluonghoanthanh: Number,
+        dagiao: {
+          type: Number,
+          default: 0,
+        },
         ngaytao: String,
       },
     ],
     dscongcu: [
+      // => kho cong cu
       {
         donhang: {
           type: mongoose.Schema.Types.ObjectId,
@@ -73,6 +79,7 @@ const hodanSchema = new mongoose.Schema(
       },
     ],
     dsvattu: [
+      // => kho vat tu
       {
         donhang: {
           type: mongoose.Schema.Types.ObjectId,
@@ -90,6 +97,7 @@ const hodanSchema = new mongoose.Schema(
       },
     ],
     dsnguyenlieu: [
+      // => kho nguyen lieu
       {
         donhang: {
           type: mongoose.Schema.Types.ObjectId,

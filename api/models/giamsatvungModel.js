@@ -59,6 +59,14 @@ const giamsatvungSchema = new mongoose.Schema(
         },
         soluong: Number,
         soluonghoanthanh: Number,
+        danhan: {
+          type: Number,
+          default: 0,
+        },
+        dagiao: {
+          type: Number,
+          default: 0,
+        },
         ngaytao: String,
       },
     ],
@@ -114,6 +122,12 @@ const giamsatvungSchema = new mongoose.Schema(
         },
         khoiluong: Number, // = số lượng sp đặt * định mức công cụ
         ngaytao: String,
+      },
+    ],
+    dsgiaohang: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Giaohang",
       },
     ],
   },
