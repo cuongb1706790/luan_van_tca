@@ -13,6 +13,7 @@ import FormCCLoi from "../../../Home/ScreenKho/CongCu/FormCCLoi";
 import FormNLLoi from "../../../Home/ScreenKho/NguyenLieu/FormNLLoi";
 import FormVTLoi from "../../../Home/ScreenKho/VatTu/FormVTLoi";
 import ListKhoLoi from "../../../Home/ScreenKho/ListKhoLoi";
+import ListSanPham from "../../../Home/ScreenKho/ListSanPham";
 import FormGiaoHang from "../../../Home/ScreenDonHang/FormGiaoHang";
 function Login(props) {
   const Stack = createNativeStackNavigator();
@@ -34,6 +35,7 @@ function Login(props) {
         <Stack.Screen name="ScreenNguyenLieu" component={ListNguyenLieu} />
         <Stack.Screen name="FormNguyenLieuLoi" component={FormNLLoi} />
         <Stack.Screen name="ScreenKhoLoi" component={ListKhoLoi} />
+        <Stack.Screen name="ScreenSanPham" component={ListSanPham} />
         <Stack.Screen name="DonHang" component={DonHang} />
         <Stack.Screen name="FormGiaoHang" component={FormGiaoHang} />
         <Stack.Screen name="ScreenDoiMatKhau" component={SrceenDoiMatKhau} />

@@ -19,11 +19,13 @@ import apiTiendo from "../../../../api/apiTiendo";
 import { MaterialDialog } from "react-native-material-dialog";
 import hodanApi from "../../../../api/hodanApi";
 import apiDonhang from "../../../../api/apiDonhang";
+import apiGiaohang from "../../../../api/apiGiaohang";
 function FormGiaoHang(props) {
   const { navigation } = props;
   const data = props.route.params.data;
-//   console.log(props);
-  // console.log(idHodan);
+  const hodanId = props.route.params.hodanId;
+  // console.log(props);
+  // console.log(hodanId);
   const SignupSchema = Yup.object().shape({
     soluong: Yup.string().required("Số lượng không được để trống "),
   });
@@ -116,18 +118,13 @@ function FormGiaoHang(props) {
         if (image) {
           const dataForm = {
             donhangId: data._id,
-            sanphamId: data.dssanpham.find((sp) => sp.sanpham.ma=== selectedMaSP).sanpham._id,
-              // .find((sp) => sp.sanpham.ma=== selectedMaSP).sanpham._id,
-             
-            soluong: parseInt(values.soluong),
-            hinhanh: image,
-            // masp : selectedMaSP,
-            // madh : selectedMaDH,
-            thoigian: thoigianValue,
+            hodanId : hodanId,
+            dssanpham: [{sanpham :data.dssanpham.find((sp) => sp.sanpham.ma=== selectedMaSP).sanpham._id, dagiao: parseInt(values.soluong), }]
           };
-          console.log(dataForm);
-        //   const sendRequest = await apiDonhang.baocao(dataForm);
-        //   handleOpen2();
+          // console.log(dataForm);
+          const sendRequest = await apiGiaohang.hodanToDaily2(dataForm);
+          // console.log(sendRequest);
+          handleOpen2();
         } else {
           handleOpen();
         }

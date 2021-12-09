@@ -96,18 +96,26 @@ const donhangSchema = new mongoose.Schema(
     ngaydathang: String, // Ngày bên này đặt hàng bên kia, dùng ngày này để lưu ngày nhận cc, vt, ngl
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
+=======
+
+>>>>>>> khanhduy
     hinhanhbaocao: String,
     xacnhan: {
       type: Boolean,
       default: false,
     },
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> khanhduy
 =======
 >>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
+=======
+
+>>>>>>> khanhduy
   },
   {
     timestamps: true,
