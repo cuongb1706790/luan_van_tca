@@ -44,14 +44,14 @@ function LoginForm(props) {
     // console.log(check);
 
     try {
-      // const dataForm ={
-      //   taikhoan : values.taikhoan.toLowerCase(),
-      //   matkhau : values.matkhau,
-      // }
-      const dataForm = {
-        taikhoan: "hodan",
-        matkhau: "123456",
-      };
+      const dataForm ={
+        taikhoan : values.taikhoan.toLowerCase(),
+        matkhau : values.matkhau,
+      }
+      // const dataForm = {
+      //   taikhoan: "hodan",
+      //   matkhau: "123456",
+      // };
       // console.log(dataForm);
 
       const action = loginUser(dataForm);
@@ -88,7 +88,7 @@ function LoginForm(props) {
         <Formik
           initialValues={{ matkhau: "", taikhoan: "" }}
           onSubmit={handleSumitLogin}
-          // validationSchema={SignupSchema}
+          validationSchema={SignupSchema}
         >
           {({
             handleChange,
