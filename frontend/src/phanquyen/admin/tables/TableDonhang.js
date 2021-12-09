@@ -19,7 +19,12 @@ import { alpha } from "@mui/material/styles";
 import DialogMaterial from "../../../components/DialogMaterial";
 import TableButton from "../../../components/TableButton";
 import { toast } from "react-toastify";
+<<<<<<< HEAD
 import apiLoaiSanpham from "../../../axios/apiLoaiSanpham";
+=======
+import apiDonhang from "../../../axios/apiDonhang";
+import { Link } from "react-router-dom";
+>>>>>>> khanhduy
 
 const EnhancedTableToolbar = ({
   numSelected,
@@ -98,7 +103,11 @@ const TableDonhang = ({ dsDonhang = [], setRowsRemoved }) => {
   const onClickXoa = () => handleOpen();
 
   const handleDeleteRow = async () => {
+<<<<<<< HEAD
     const { success } = await apiLoaiSanpham.xoaNhieuLoaiSanpham({
+=======
+    const { success } = await apiDonhang.xoaNhieuDonhang({
+>>>>>>> khanhduy
       arrOfIds: selected,
     });
     if (success) {
@@ -212,7 +221,15 @@ const TableDonhang = ({ dsDonhang = [], setRowsRemoved }) => {
                             }}
                           />
                         </TableCell>
+<<<<<<< HEAD
                         <TableCell align="right">{row.ma}</TableCell>
+=======
+                        <TableCell align="right">
+                          <Link to={`/admin/donhang/chitiet/${row._id}`}>
+                            {row.ma}
+                          </Link>
+                        </TableCell>
+>>>>>>> khanhduy
                         <TableCell align="right">{row.tongsanpham}</TableCell>
                         <TableCell align="right">{row.tongcongcu}</TableCell>
                         <TableCell align="right">{row.tongvattu}</TableCell>
@@ -261,8 +278,13 @@ const TableDonhang = ({ dsDonhang = [], setRowsRemoved }) => {
       <DialogMaterial
         open={open}
         onClose={handleClose}
+<<<<<<< HEAD
         title="Xóa sản phẩm làng nghề"
         content="Bạn chắc xóa sản phẩm làng nghề này chứ?"
+=======
+        title="Xóa đơn hàng"
+        content="Bạn chắc xóa đơn hàng này chứ?"
+>>>>>>> khanhduy
         text1="Hủy"
         text2="Xóa"
         onClick1={handleClose}

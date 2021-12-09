@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
+<<<<<<< HEAD
 import styled from "styled-components";
+=======
+>>>>>>> khanhduy
 import Header from "../../components/Header";
 import BackdropMaterial from "../../components/BackdropMaterial";
 import apiDonhang from "../../axios/apiDonhang";
@@ -8,6 +11,32 @@ import TableCongcuDonhang from "./tables/TableCongcuDonhang";
 import TableVattuDonhang from "./tables/TableVattuDonhang";
 import TableNguyenlieuDonhang from "./tables/TableNguyenlieuDonhang";
 import { formatMoney } from "../../utils";
+<<<<<<< HEAD
+=======
+import ma from "../../assets/icons/ma.png";
+import ten from "../../assets/icons/ten.png";
+import sdt from "../../assets/icons/sdt.png";
+import email from "../../assets/icons/email.png";
+import diachi from "../../assets/icons/diachi.png";
+import dssanpham from "../../assets/icons/dssanpham.png";
+import dscongcu from "../../assets/icons/dscongcu.png";
+import dsvattu from "../../assets/icons/dsvattu.png";
+import dsnglieu from "../../assets/icons/dsnglieu.png";
+import {
+  BoxInfo,
+  BoxInfoTitle,
+  Container,
+  Content,
+  Form,
+  FormGroup,
+  TableSection,
+  TableTitle,
+  TiendoProcess,
+  TiendoProcessText,
+  Total,
+  TotalValue,
+} from "./styledComponents";
+>>>>>>> khanhduy
 
 const DonhangChitiet = (props) => {
   const [loading, setLoading] = useState(false);
@@ -19,15 +48,25 @@ const DonhangChitiet = (props) => {
     let { donhang } = await apiDonhang.singleDonhang(donhangId);
     donhang = {
       ...donhang,
+<<<<<<< HEAD
       dssanpham: donhang.dssanpham.map((sp) => ({ ...sp, ...sp.sanpham })),
       dscongcu: donhang.dscongcu.map((cc) => ({ ...cc, ...cc.congcu })),
       dsvattu: donhang.dsvattu.map((vt) => ({ ...vt, ...vt.vattu })),
       dsnguyenlieu: donhang.dsnguyenlieu.map((ngl) => ({
+=======
+      dssanpham: donhang?.dssanpham.map((sp) => ({ ...sp, ...sp.sanpham })),
+      dscongcu: donhang?.dscongcu.map((cc) => ({ ...cc, ...cc.congcu })),
+      dsvattu: donhang?.dsvattu.map((vt) => ({ ...vt, ...vt.vattu })),
+      dsnguyenlieu: donhang?.dsnguyenlieu.map((ngl) => ({
+>>>>>>> khanhduy
         ...ngl,
         ...ngl.nguyenlieu,
       })),
     };
+<<<<<<< HEAD
     console.log({ donhang });
+=======
+>>>>>>> khanhduy
     setSingleDonhang(donhang);
     setLoading(false);
   };
@@ -50,9 +89,15 @@ const DonhangChitiet = (props) => {
           onClick={() => props.history.push("/bophankd/donhang")}
         />
         <Content>
+<<<<<<< HEAD
           <Form>
             <Title>
               <TitleContent
+=======
+          <Form className="px-5">
+            <TiendoProcess className="text-right">
+              <TiendoProcessText
+>>>>>>> khanhduy
                 onClick={() =>
                   props.history.push(
                     `/bophankd/donhang/chitiet/${donhangId}/tiendo`
@@ -61,17 +106,27 @@ const DonhangChitiet = (props) => {
               >
                 <span>Theo dõi tiến độ</span>
                 <i class="fas fa-long-arrow-alt-right"></i>
+<<<<<<< HEAD
               </TitleContent>
             </Title>
 
             <div className="text-left">
               <FormGroup>
+=======
+              </TiendoProcessText>
+            </TiendoProcess>
+
+            <div className="text-left">
+              <FormGroup className="dh">
+                <img src={ma} alt="ma" />
+>>>>>>> khanhduy
                 <span>Mã đơn hàng:</span>
                 <span>{singleDonhang?.ma}</span>
               </FormGroup>
 
               <BoxInfo>
                 <BoxInfoTitle>Bộ phận kinh doanh</BoxInfoTitle>
+<<<<<<< HEAD
                 <div className="d-flex">
                   <div style={{ width: 120 }}>
                     <Text>Tên:</Text>
@@ -87,11 +142,51 @@ const DonhangChitiet = (props) => {
                     <Text>{`${singleDonhang?.from.bophankd.xa}, ${singleDonhang?.from.bophankd.huyen}, ${singleDonhang?.from.bophankd.tinh}`}</Text>
                   </div>
                 </div>
+=======
+
+                <table>
+                  <tr>
+                    <td>
+                      <img src={ten} alt="ten" />
+                      <span>Tên:</span>
+                    </td>
+                    <td>{singleDonhang?.from.bophankd.ten}</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <img src={sdt} alt="sdt" />
+                      <span>SĐT:</span>
+                    </td>
+                    <td>{singleDonhang?.from.bophankd.sdt}</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <img src={email} alt="email" />
+                      <span>E-mail:</span>
+                    </td>
+                    <td>{singleDonhang?.from.bophankd.email}</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <img src={diachi} alt="diachi" />
+                      <span>Địa chỉ:</span>
+                    </td>
+                    <td>{`${singleDonhang?.from.bophankd.xa}, ${singleDonhang?.from.bophankd.huyen}, ${singleDonhang?.from.bophankd.tinh}`}</td>
+                  </tr>
+                </table>
+>>>>>>> khanhduy
               </BoxInfo>
             </div>
 
             <TableSection>
+<<<<<<< HEAD
               <TableTitle>Sản phẩm đơn hàng</TableTitle>
+=======
+              <TableTitle>
+                <img src={dssanpham} alt="dssanpham" />
+                <span>Sản phẩm đơn hàng</span>
+              </TableTitle>
+>>>>>>> khanhduy
               <TableSanphamDonhangChitiet
                 dsSanpham={singleDonhang?.dssanpham}
               />
@@ -104,7 +199,14 @@ const DonhangChitiet = (props) => {
             </TableSection>
 
             <TableSection>
+<<<<<<< HEAD
               <TableTitle>Công cụ đơn hàng</TableTitle>
+=======
+              <TableTitle>
+                <img src={dscongcu} alt="dscongcu" />
+                <span>Công cụ đơn hàng</span>
+              </TableTitle>
+>>>>>>> khanhduy
               <TableCongcuDonhang dsCongcu={singleDonhang?.dscongcu} />
               <div className="text-right mb-3">
                 <Total>Tổng số lượng: </Total>
@@ -113,7 +215,14 @@ const DonhangChitiet = (props) => {
             </TableSection>
 
             <TableSection>
+<<<<<<< HEAD
               <TableTitle>Vật tư đơn hàng</TableTitle>
+=======
+              <TableTitle>
+                <img src={dsvattu} alt="dsvattu" />
+                <span>Vật tư đơn hàng</span>
+              </TableTitle>
+>>>>>>> khanhduy
               <TableVattuDonhang dsVattu={singleDonhang?.dsvattu} />
               <div className="text-right mb-3">
                 <Total>Tổng số lượng: </Total>
@@ -122,7 +231,14 @@ const DonhangChitiet = (props) => {
             </TableSection>
 
             <TableSection>
+<<<<<<< HEAD
               <TableTitle>Nguyên liệu đơn hàng</TableTitle>
+=======
+              <TableTitle>
+                <img src={dsnglieu} alt="dsnglieu" />
+                <span>Nguyên liệu đơn hàng</span>
+              </TableTitle>
+>>>>>>> khanhduy
               <TableNguyenlieuDonhang
                 dsNguyenlieu={singleDonhang?.dsnguyenlieu}
               />
@@ -138,6 +254,7 @@ const DonhangChitiet = (props) => {
   );
 };
 
+<<<<<<< HEAD
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -231,4 +348,6 @@ const Text = styled.div`
   margin-bottom: 4px;
 `;
 
+=======
+>>>>>>> khanhduy
 export default DonhangChitiet;

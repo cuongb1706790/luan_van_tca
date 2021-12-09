@@ -1,14 +1,28 @@
 import React, { useState, useEffect } from "react";
-import { FlatList, StyleSheet, Text, View, SafeAreaView } from "react-native";
+import { FlatList, StyleSheet, Text, View, SafeAreaView,RefreshControl } from "react-native";
 import hodanApi from "../../api/hodanApi";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import RenderPhanPhat from "./RenderPhanPhat";
+import { useIsFocused } from '@react-navigation/native';
 function ThongBao(props) {
   // const [infoHoDan, setInfoHoDan] = useState();
-  const [dsPhat, setDsPhat] = useState();
+  const [orderList, setOrderList] = useState();
   const [hoDan, setHoDan] = useState("");
-  const [dsPhatVatTu, setDsPhatVatTu] = useState("");
-  const [dsPhatCC, setDsPhatCC] = useState("");
+  const [callBack, setCallBack] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+  const wait = (timeout) => {
+    return new Promise(resolve => setTimeout(resolve, timeout));
+  }
+  const isFocused = useIsFocused();
+  const checkCallBack = (data)=>{
+    
+    if(data)
+    {
+      setCallBack(!callBack);
+      // console.log(callBack);
+
+    }
+  }
   useEffect(() => {
     (async () => {
       //get info hodan
@@ -19,105 +33,34 @@ function ThongBao(props) {
         return dataAccount.includes(item.user._id);
       });
       setHoDan(findHoDan);
-      const getDsPhanPhat = await hodanApi.dsPhanphat(findHoDan._id);
-      setDsPhat(getDsPhanPhat.dsphanphat);
+      const getListOrder = await hodanApi.dsDonhang(findHoDan._id);
+      setOrderList(getListOrder.dsdonhang);
     })();
+  }, [callBack]);
+  // console.log(orderList);
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    wait(2000).then(() => setRefreshing(false));
   }, []);
 
-  const renderItem = ({ item }) => (
-    <View>
-      <Text>{item._id}</Text>
-    </View>
-  );
-  // const Item = ({ data }) => (
-  //   <View >
-  //     <Text>{data._id}</Text>
-  //   </View>
-  // );
-  const orderList = [
-    {
-      id: 1,
-      madh: "DH001",
-      tongtien: 20000000,
-      ngaytao: "12/2/2020",
-      daxacnhan: "false",
-      productList: [
-        {
-          id: 11,
-          masp: "SP001",
-          tensp: "Lụa Tân Châu",
-          soluong: 1000,
-          donvi: "mét",
-          dongia: 20000,
-          congcu: [
-            {
-              id: 111,
-              macc: "CC001",
-              tencc: "Máy lấy tơ",
-              mota: "mới",
-              soluong: 10,
-              donvi: "máy",
-              hinhanh: "",
-              ngaynhan: "12/2/2020",
-            },
-            {
-              id: 112,
-              macc: "CC002",
-              tencc: "Máy dệt lụa",
-              mota: "mới",
-              soluong: 10,
-              donvi: "máy",
-              hinhanh: "",
-              ngaynhan: "12/2/2020",
-            },
-          ],
-          vattu: [
-            {
-              id: 112,
-              mavt: "VT001",
-              tenvt: "Thùng giấy",
-              mota: "mới",
-              soluong: 10,
-              donvi: "máy",
-              hinhanh: "",
-              ngaynhan: "12/2/2020",
-            },
-          ],
-        },
-        {
-          id: 12,
-          masp: "SP002",
-          tensp: "Vải thường",
-          soluong: 1000,
-          donvi: "mét",
-          dongia: 10000,
-          congcu: [
-            {
-              id: 121,
-              macc: "CC002",
-              tencc: "Máy ủi",
-              mota: "mới",
-              soluong: 10,
-              donvi: "máy",
-              hinhanh: "",
-              ngaynhan: "12/2/2020",
-            },
-          ],
-        },
-      ],
-    },
-    
-  ];
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.headerContainer}>
-        <Text style={{ color: "white" }}>Thông báo gần đây</Text>
+        <Text style={{ color: "white" }}>Đơn hàng mới</Text>
       </View>
       {orderList && (
         <FlatList
           data={orderList}
-          renderItem={(item, index) => <RenderPhanPhat phanphat={item} />}
+          renderItem={(item, index) => (
+            <RenderPhanPhat phanphat={item} hodanId={hoDan._id} checkCallBack={checkCallBack} />
+          )}
           keyExtractor={(item) => item._id}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+            />
+          }
         />
       )}
     </SafeAreaView>

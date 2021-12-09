@@ -21,6 +21,10 @@ import TableButton from "../../../components/TableButton";
 import { toast } from "react-toastify";
 import apiLoaiSanpham from "../../../axios/apiLoaiSanpham";
 import styled from "styled-components";
+<<<<<<< HEAD
+=======
+import { Link } from "react-router-dom";
+>>>>>>> khanhduy
 
 const EnhancedTableToolbar = ({
   numSelected,
@@ -72,7 +76,11 @@ const EnhancedTableToolbar = ({
   ) : null;
 };
 
+<<<<<<< HEAD
 const TableDonhang = ({ dsDonhang = [], setRowsRemoved }) => {
+=======
+const TableDonhang = ({ dsDonhang = [], setRowsRemoved, readOnly }) => {
+>>>>>>> khanhduy
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
   const [selected, setSelected] = React.useState([]);
@@ -156,6 +164,7 @@ const TableDonhang = ({ dsDonhang = [], setRowsRemoved }) => {
     <>
       <Box sx={{ width: "100%" }}>
         <Paper sx={{ width: "100%", mb: 2 }}>
+<<<<<<< HEAD
           <EnhancedTableToolbar
             numSelected={selected.length}
             rowsSelected={selected}
@@ -163,6 +172,17 @@ const TableDonhang = ({ dsDonhang = [], setRowsRemoved }) => {
             onClickCapnhat={onClickCapnhat}
             onClickXoa={onClickXoa}
           />
+=======
+          {!readOnly && (
+            <EnhancedTableToolbar
+              numSelected={selected.length}
+              rowsSelected={selected}
+              onClickChitiet={onClickChitiet}
+              onClickCapnhat={onClickCapnhat}
+              onClickXoa={onClickXoa}
+            />
+          )}
+>>>>>>> khanhduy
           <TableContainer>
             <Table
               sx={{ minWidth: 750 }}
@@ -207,7 +227,21 @@ const TableDonhang = ({ dsDonhang = [], setRowsRemoved }) => {
                             }}
                           />
                         </TableCell>
+<<<<<<< HEAD
                         <TableCell align="right">{row?.ma}</TableCell>
+=======
+                        <TableCell align="right">
+                          {readOnly ? (
+                            row?.ma
+                          ) : (
+                            <Link
+                              to={`/giamsatvung/donhang/chitiet/${row._id}`}
+                            >
+                              {row?.ma}
+                            </Link>
+                          )}
+                        </TableCell>
+>>>>>>> khanhduy
                         <TableCell align="right">{row?.tongsanpham}</TableCell>
                         <TableCell align="right">{row?.tongcongcu}</TableCell>
                         <TableCell align="right">{row?.tongvattu}</TableCell>

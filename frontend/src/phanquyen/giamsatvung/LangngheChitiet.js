@@ -1,131 +1,98 @@
 import React, { useEffect, useState } from "react";
-import "toastify-js/src/toastify.css";
-import styled from "styled-components";
+import {
+  Container,
+  Content,
+  Form,
+  FormContent,
+  FormGroup,
+  FormTitle,
+  Input,
+  Label,
+} from "./styledComponents";
 import Header from "../../components/Header";
 import apiLangnghe from "../../axios/apiLangnghe";
 import BackdropMaterial from "../../components/BackdropMaterial";
+import chitiet from "../../assets/icons/chitiet.png";
+import _ten from "../../assets/icons/ten.png";
+import _tinh from "../../assets/icons/tinh.png";
+import _huyen from "../../assets/icons/huyen.png";
+import loai from "../../assets/icons/loai.png";
 
 const LangngheChitiet = (props) => {
   const [loading, setLoading] = useState(false);
-  const [langnghe, setLangnghe] = useState(null);
-  const [rowsRemoved, setRowsRemoved] = useState(false);
+  const [singleLN, setSingleLN] = useState(null);
   const { id: langngheId } = props.match.params;
 
   const fetchData = async () => {
     setLoading(true);
     const { langnghe } = await apiLangnghe.singleLangnghe(langngheId);
-    setLangnghe(langnghe);
+    setSingleLN(langnghe);
     setLoading(false);
   };
 
   useEffect(() => {
-    setRowsRemoved(false);
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [rowsRemoved]);
+  }, []);
 
   if (loading) {
     return <BackdropMaterial />;
   }
 
   return (
-    <Wrapper>
+    <Container>
       <Header
         title="Quay lại danh sách làng nghề"
         titleBack
         onClick={() => props.history.push("/giamsatvung/langnghe")}
+        headerRight={<button className="btn btn-primary px-4">Lưu</button>}
       />
       <Content>
-        <FormWrapper>
-          <Form>
-            <FormTitle>Chi tiết làng nghề</FormTitle>
+        <Form>
+          <FormContent>
+            <FormTitle>
+              <span>Chi tiết làng nghề</span>
+            </FormTitle>
+
             <FormGroup>
-              <Label>Tên làng:</Label>
-              <Input type="text" defaultValue={langnghe?.ten} />
+              <Label>
+                <img src={_ten} alt="ten" />
+                <span>Tên làng:</span>
+              </Label>
+              <Input type="text" value={singleLN?.ten} />
             </FormGroup>
 
             <FormGroup>
-              <Label>Tỉnh:</Label>
-              <Input type="text" defaultValue={langnghe?.tinh} />
+              <Label>
+                <img src={_tinh} alt="tinh" />
+                <span>Tỉnh:</span>
+              </Label>
+              <Input type="text" value={singleLN?.tinh} />
             </FormGroup>
 
             <FormGroup>
-              <Label>Huyện:</Label>
-              <Input type="text" defaultValue={langnghe?.huyen} />
+              <Label>
+                <img src={_huyen} alt="_huyen" />
+                <span>Huyện:</span>
+              </Label>
+              <Input type="text" value={singleLN?.huyen} />
             </FormGroup>
 
             <FormGroup>
-              <Label>Sản phẩm chính:</Label>
+              <Label>
+                <img src={loai} alt="loai" />
+                <span>Loại sản phẩm:</span>
+              </Label>
               <Input
                 type="text"
-                defaultValue={langnghe?.sanphamchinh
-                  .map((item) => item.ten)
-                  .join(", ")}
+                value={singleLN?.loaisanpham.map((lsp) => lsp.ten).join(", ")}
               />
             </FormGroup>
-          </Form>
-        </FormWrapper>
+          </FormContent>
+        </Form>
       </Content>
-    </Wrapper>
+    </Container>
   );
 };
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-`;
-const Content = styled.div`
-  flex: 1;
-  background: #f0eeee;
-  padding: 36px;
-  font-family: "Poppins", sans-serif;
-`;
-const FormWrapper = styled.div`
-  background: #fff;
-  padding: 36px 20px 100px 36px;
-  width: 100%;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
-    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
-  border-radius: 3px;
-`;
-const Form = styled.div`
-  width: 570px;
-  margin: auto;
-`;
-const FormTitle = styled.div`
-  font-size: 22px;
-  font-weight: 600;
-  color: #333;
-  margin-bottom: 20px;
-  margin-top: 20px;
-  text-align: center;
-`;
-const Label = styled.span`
-  font-size: 16px;
-  color: #333;
-  display: block;
-  margin-bottom: 10px;
-`;
-const Input = styled.input`
-  width: 100%;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  padding: 13px 16px;
-  outline: none;
-  color: #333;
-  border-radius: 3px;
-  &:focus {
-    border: 1px solid blue;
-  }
-`;
-const FormGroup = styled.div`
-  margin-bottom: 20px;
-  span {
-    font-size: 15px;
-    color: #555;
-    display: block;
-    margin-bottom: 10px;
-  }
-`;
 
 export default LangngheChitiet;

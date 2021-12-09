@@ -1,10 +1,26 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
 import Header from "../../components/Header";
 import apiBophankd from "../../axios/apiBophankd";
 import BackdropMaterial from "../../components/BackdropMaterial";
 import DialogMaterial from "../../components/DialogMaterial";
 import { toast } from "react-toastify";
+import ten from "../../assets/icons/ten.png";
+import sdt from "../../assets/icons/sdt.png";
+import email from "../../assets/icons/email.png";
+import diachi from "../../assets/icons/diachi.png";
+import taikhoan from "../../assets/icons/taikhoan.png";
+import chitiet from "../../assets/icons/chitiet.png";
+import {
+  Container,
+  Content,
+  Form,
+  FormContent,
+  FormGroup,
+  FormTitle,
+  Input,
+  Label,
+  TextArea,
+} from "./styledComponents";
 
 const BophankdChitiet = (props) => {
   const [bophankd, setBophankd] = useState(null);
@@ -49,16 +65,18 @@ const BophankdChitiet = (props) => {
           headerRight={
             <>
               <button className="btn btn-danger px-4" onClick={handleOpen}>
-                Xóa
+                <span>Xóa</span>
+                <i class="fas fa-trash-alt"></i>
               </button>
 
               <button
-                className="btn btn-primary px-4 ml-3"
+                className="btn btn-primary px-3 ml-3"
                 onClick={() =>
                   props.history.push(`/admin/bophankd/chinhsua/${bophankdId}`)
                 }
               >
-                Chỉnh sửa
+                <span>Chỉnh sửa</span>
+                <i class="fas fa-edit"></i>
               </button>
             </>
           }
@@ -66,14 +84,23 @@ const BophankdChitiet = (props) => {
         <Content>
           <Form>
             <FormContent>
-              <FormTitle>Chi tiết bộ phận kinh doanh</FormTitle>
+              <FormTitle>
+                <span>Chi tiết bộ phận kinh doanh</span>
+              </FormTitle>
+
               <FormGroup>
-                <Label>Tên bộ phận kinh doanh:</Label>
+                <Label>
+                  <img src={ten} alt="ten" />
+                  <span>Tên bộ phận kinh doanh:</span>
+                </Label>
                 <Input type="text" name="ten" value={bophankd?.ten} />
               </FormGroup>
 
               <FormGroup>
-                <Label>Tên tài khoản:</Label>
+                <Label>
+                  <img src={taikhoan} alt="taikhoan" />
+                  <span>Tên tài khoản:</span>
+                </Label>
                 <Input
                   type="text"
                   name="taikhoan"
@@ -82,17 +109,26 @@ const BophankdChitiet = (props) => {
               </FormGroup>
 
               <FormGroup>
-                <Label>Số điện thoại:</Label>
+                <Label>
+                  <img src={sdt} alt="sdt" />
+                  <span>Số điện thoại:</span>
+                </Label>
                 <Input type="text" name="sdt" value={bophankd?.sdt} />
               </FormGroup>
 
               <FormGroup>
-                <Label>E-mail:</Label>
+                <Label>
+                  <img src={email} alt="email" />
+                  <span>E-mail:</span>
+                </Label>
                 <Input type="text" name="email" value={bophankd?.email} />
               </FormGroup>
 
               <FormGroup>
-                <Label>Địa chỉ:</Label>
+                <Label>
+                  <img src={diachi} alt="diachi" />
+                  <span>Địa chỉ:</span>
+                </Label>
                 <TextArea
                   value={`${bophankd?.xa}, ${bophankd?.huyen}, ${bophankd?.tinh}`}
                   rows="3"
@@ -116,67 +152,5 @@ const BophankdChitiet = (props) => {
     </>
   );
 };
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-`;
-const Content = styled.div`
-  flex: 1;
-  background: #f0eeee;
-  padding: 36px;
-`;
-const Form = styled.div`
-  background: #fff;
-  padding: 36px 20px 80px 20px;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
-    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
-  border-radius: 3px;
-`;
-const FormContent = styled.div`
-  width: 750px;
-  margin: auto;
-  font-family: "Poppins", sans-serif;
-`;
-const FormTitle = styled.div`
-  font-size: 22px;
-  font-weight: 600;
-  text-align: center;
-  color: #555;
-  margin-bottom: 20px;
-  margin-top: 20px;
-`;
-const FormGroup = styled.div`
-  margin-bottom: 26px;
-`;
-const Label = styled.span`
-  font-size: 16px;
-  color: #333;
-  display: block;
-  margin-bottom: 10px;
-`;
-const Input = styled.input`
-  width: 100%;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  padding: 13px 16px;
-  outline: none;
-  color: #333;
-  border-radius: 3px;
-  &:focus {
-    border: 1px solid blue;
-  }
-`;
-const TextArea = styled.textarea`
-  width: 100%;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  padding: 13px 16px;
-  outline: none;
-  color: #333;
-  border-radius: 3px;
-  &:focus {
-    border: 1px solid blue;
-  }
-`;
 
 export default BophankdChitiet;

@@ -180,8 +180,17 @@ const DonhangThem = (props) => {
   const fetchDsDonhang = async () => {
     setLoading(true);
     const { donhang } = await apiDonhang.singleDonhang(donhangId);
+<<<<<<< HEAD
     const { daily1 } = await apiDaily1.singleDaily1BasedUser(userInfo._id);
     let { daily2 } = await apiDaily1.dsDaily2(daily1._id);
+=======
+    if (!donhang.xacnhan) {
+      props.history.push(`/daily1/donhang/chitiet/${donhangId}`);
+    }
+    const { daily1 } = await apiDaily1.singleDaily1BasedUser(userInfo._id);
+    let { daily2 } = await apiDaily1.dsDaily2(daily1._id);
+    daily2 = daily2.filter((dl2) => dl2.user);
+>>>>>>> khanhduy
     daily2 = daily2.map((item) => ({ ...item, dsthoaman: [] }));
     setSingleDonhang(donhang);
     setSingleDaily1(daily1);
@@ -327,6 +336,10 @@ const FormTitle = styled.div`
   color: #555;
   margin-bottom: 20px;
   margin-top: 20px;
+<<<<<<< HEAD
+=======
+  font-family: "Roboto", sans-serif;
+>>>>>>> khanhduy
 `;
 const FormGroup = styled.div`
   margin-bottom: 26px;

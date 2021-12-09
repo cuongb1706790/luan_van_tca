@@ -1,5 +1,22 @@
 import React, { useEffect, useState } from "react";
+<<<<<<< HEAD
 import styled from "styled-components";
+=======
+import {
+  Container,
+  Content,
+  ErrMsg,
+  Form,
+  FormContent,
+  FormGroup,
+  FormTitle,
+  Label,
+  TableSection,
+  TableTitle,
+  Total,
+  TotalValue,
+} from "./styledComponents";
+>>>>>>> khanhduy
 import Header from "../../components/Header";
 import { toast } from "react-toastify";
 import MenuItem from "@mui/material/MenuItem";
@@ -16,6 +33,13 @@ import {
   getTongNguyenVatlieu,
 } from "../../utils";
 import MultipleSelect from "../../components/MultipleSelect";
+<<<<<<< HEAD
+=======
+import them from "../../assets/icons/them.png";
+import ma from "../../assets/icons/ma.png";
+import _gsv from "../../assets/icons/giamsatvung.png";
+import dhgoc from "../../assets/icons/dhgoc.png";
+>>>>>>> khanhduy
 
 const DonhangThem = (props) => {
   const [loading, setLoading] = useState(false);
@@ -164,14 +188,24 @@ const DonhangThem = (props) => {
           dsdonhang.push(dl);
         }
       });
+<<<<<<< HEAD
       const { success } = await apiDonhang.bophankdToGsv({
+=======
+      const { success, savedDonhang } = await apiDonhang.bophankdToGsv({
+>>>>>>> khanhduy
         donhangId: selectedDonhang,
         dsdonhang,
         bophankdId: singleBophankd._id,
       });
       if (success) {
         toast.success("Thêm thành công!", { theme: "colored" });
+<<<<<<< HEAD
         props.history.push("/bophankd/donhang");
+=======
+        props.history.push(
+          `/bophankd/donhang/chitiet/${savedDonhang._id}/tiendo`
+        );
+>>>>>>> khanhduy
       }
     }
   };
@@ -204,17 +238,35 @@ const DonhangThem = (props) => {
           titleBack
           onClick={() => props.history.push("/bophankd/donhang")}
           headerRight={
+<<<<<<< HEAD
             <button className="btn btn-primary px-4" onClick={handleSubmit}>
               Lưu
+=======
+            <button className="btn btn-primary px-3" onClick={handleSubmit}>
+              Lưu
+              <i class="fas fa-save"></i>
+>>>>>>> khanhduy
             </button>
           }
         />
         <Content>
           <Form>
             <FormContent>
+<<<<<<< HEAD
               <FormTitle>Thêm đơn hàng</FormTitle>
               <FormGroup>
                 <Label>Mã đơn hàng:</Label>
+=======
+              <FormTitle>
+                <span>Thêm đơn hàng</span>
+              </FormTitle>
+
+              <FormGroup>
+                <Label>
+                  <img src={ma} alt="ma" />
+                  <span>Mã đơn hàng:</span>
+                </Label>
+>>>>>>> khanhduy
                 {dsDonhang && dsDonhang.length ? (
                   <DropdownMaterial2
                     label="Chọn mã đơn hàng"
@@ -232,7 +284,14 @@ const DonhangThem = (props) => {
               </FormGroup>
 
               <FormGroup>
+<<<<<<< HEAD
                 <Label>Giám sát vùng:</Label>
+=======
+                <Label>
+                  <img src={_gsv} alt="gsv" />
+                  <span>Giám sát vùng:</span>
+                </Label>
+>>>>>>> khanhduy
                 {dsGSV && dsGSV.length ? (
                   <MultipleSelect
                     label="Chọn gám sát vùng"
@@ -254,6 +313,7 @@ const DonhangThem = (props) => {
               </FormGroup>
             </FormContent>
 
+<<<<<<< HEAD
             {selectedDonhang ? (
               <TableSection>
                 <TableTitle>Đơn hàng gốc</TableTitle>
@@ -292,6 +352,54 @@ const DonhangThem = (props) => {
                 </TableSection>
               ) : null
             )}
+=======
+            <div className="px-5">
+              {selectedDonhang ? (
+                <TableSection>
+                  <TableTitle>
+                    <img src={dhgoc} alt="dhgoc" />
+                    <span>Đơn hàng gốc</span>
+                  </TableTitle>
+                  <TableDonhangGoc donhang={singleDonhang} />
+                  <div className="text-right">
+                    <Total>Tổng đơn hàng:</Total>
+                    <TotalValue>
+                      {formatMoney(
+                        getTongDonhang(
+                          singleDonhang.dssanpham.map((sp) => ({
+                            ...sp.sanpham,
+                            soluong: sp.soluong,
+                          }))
+                        )
+                      )}
+                    </TotalValue>
+                  </div>
+                </TableSection>
+              ) : null}
+
+              {dsGSV.map((gsv) =>
+                selectedGSV.includes(gsv._id) ? (
+                  <TableSection>
+                    <TableTitle>
+                      <img src={_gsv} alt="gsv" />
+                      <span>{gsv?.ten}</span>
+                    </TableTitle>
+                    <TableSanphamDonhang
+                      dsSanpham={gsv?.dsthoaman}
+                      handleChangeSlSanpham={handleChangeSlSanpham}
+                      gsvId={gsv._id}
+                    />
+                    <div className="text-right">
+                      <Total>Tổng đơn hàng:</Total>
+                      <TotalValue>
+                        {formatMoney(getTongDonhang(gsv?.dsthoaman))}
+                      </TotalValue>
+                    </div>
+                  </TableSection>
+                ) : null
+              )}
+            </div>
+>>>>>>> khanhduy
           </Form>
         </Content>
       </Container>
@@ -299,6 +407,7 @@ const DonhangThem = (props) => {
   );
 };
 
+<<<<<<< HEAD
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -372,4 +481,6 @@ const Total = styled.span`
 const TotalValue = styled.span`
   font-size: 15px;
 `;
+=======
+>>>>>>> khanhduy
 export default DonhangThem;

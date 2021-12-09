@@ -16,8 +16,13 @@ const TongQuan = (props) => {
 
   const fetchData = async () => {
     setLoading(true);
+<<<<<<< HEAD
     const { bophankd } = await apiBophankd.bophankdBasedUserId(userInfo._id);
     const data = await apiBophankd.tongquan(bophankd._id);
+=======
+    const { bophankd } = await apiBophankd.bophankdBasedUserId(userInfo?._id);
+    const data = await apiBophankd.tongquan(bophankd?._id);
+>>>>>>> khanhduy
     setCounts(data);
     setLoading(false);
   };

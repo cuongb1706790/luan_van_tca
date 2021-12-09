@@ -15,6 +15,10 @@ import TablePaginationActions from "@mui/material/TablePagination/TablePaginatio
 import { headCellsSanphamDonhangChitiet } from "./headCells";
 
 const TableSanphamDonhangChitiet = ({ dsSanpham = [] }) => {
+<<<<<<< HEAD
+=======
+  console.log({ dsSanpham });
+>>>>>>> khanhduy
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
   const [selected, setSelected] = React.useState([]);
@@ -139,6 +143,7 @@ const TableSanphamDonhangChitiet = ({ dsSanpham = [] }) => {
                         </TableCell>
                         <TableCell align="right">{row?.ten}</TableCell>
                         <TableCell align="right">
+<<<<<<< HEAD
                           {row?.loaisanpham.ten}
                         </TableCell>
                         <TableCell align="right">{row.soluong}</TableCell>
@@ -147,6 +152,16 @@ const TableSanphamDonhangChitiet = ({ dsSanpham = [] }) => {
                         </TableCell>
                         <TableCell align="right">
                           {formatMoney(row.soluong * row?.gia)}
+=======
+                          {row?.loaisanpham?.ten}
+                        </TableCell>
+                        <TableCell align="right">{row?.soluong}</TableCell>
+                        <TableCell align="right">
+                          {row?.soluonghoanthanh}
+                        </TableCell>
+                        <TableCell align="right">
+                          {formatMoney(row?.soluong * row?.gia)}
+>>>>>>> khanhduy
                         </TableCell>
                       </TableRow>
                     );

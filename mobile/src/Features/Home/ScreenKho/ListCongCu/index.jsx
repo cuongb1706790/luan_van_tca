@@ -12,6 +12,7 @@ import CongCu from "../CongCu";
 
 const ListCongCu = (props) => {
   const idHodan = props.route.params.idHodan;
+  const {navigation} = props;
   const [listCongCu, setListCongCu] = useState();
   useEffect(() => {
     const fetchData = async () => {
@@ -20,28 +21,18 @@ const ListCongCu = (props) => {
     };
     fetchData();
   }, []);
-  // console.log(listCongCu);
-  const DATA = [
-    {
-      id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-      title: "First Item",
-    },
-    {
-      id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-      title: "Second Item",
-    },
-    {
-      id: "58694a0f-3da1-471f-bd96-145571e29d72",
-      title: "Third Item",
-    },
-  ];
+  // console.log(props);
+
 
   return (
     <SafeAreaView style={styles.container}>
+      <View style={styles.headerContainer}>
+        <Text style={{ color: "white" }}>Danh sách công cụ</Text>
+      </View>
       {listCongCu && (
         <FlatList
           data={listCongCu}
-          renderItem={(item) => <CongCu congcu={item.item}/>}
+          renderItem={(item) => <CongCu congcu={item} navigation={navigation} idHodan={idHodan} />}
           keyExtractor={(item) => item._id}
         />
       )}
@@ -62,6 +53,12 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 32,
+  },
+  headerContainer: {
+    backgroundColor: "#e65c00",
+    paddingTop: 15,
+    paddingBottom: 15,
+    alignItems: "center",
   },
 });
 

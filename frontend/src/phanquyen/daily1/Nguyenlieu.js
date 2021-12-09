@@ -2,7 +2,20 @@ import React, { useEffect, useState } from "react";
 import TableNguyenlieu from "./tables/TableNguyenlieu";
 import { useSelector } from "react-redux";
 import BackdropMaterial from "../../components/BackdropMaterial";
+<<<<<<< HEAD
 import styled from "styled-components";
+=======
+import {
+  Container,
+  Content,
+  Filter,
+  FilterSection,
+  SearchBox,
+  TableSection,
+  Title,
+  TitleWrapper,
+} from "./styledComponents";
+>>>>>>> khanhduy
 import Header from "../../components/Header";
 import apiDaily1 from "../../axios/apiDaily1";
 
@@ -48,7 +61,11 @@ const Nguyenlieu = (props) => {
 
   return (
     <>
+<<<<<<< HEAD
       <Wrapper>
+=======
+      <Container>
+>>>>>>> khanhduy
         <Header title="Nguyên liệu" />
         <Content>
           <FilterSection>
@@ -67,16 +84,25 @@ const Nguyenlieu = (props) => {
               </SearchBox>
             </Filter>
 
+<<<<<<< HEAD
             <TableSection>
+=======
+            <TableSection className="noCheckbox">
+>>>>>>> khanhduy
               <TableNguyenlieu dsNguyenlieu={search(dsNguyenlieu)} />
             </TableSection>
           </FilterSection>
         </Content>
+<<<<<<< HEAD
       </Wrapper>
+=======
+      </Container>
+>>>>>>> khanhduy
     </>
   );
 };
 
+<<<<<<< HEAD
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -144,4 +170,6 @@ const TableSection = styled.div`
   }
 `;
 
+=======
+>>>>>>> khanhduy
 export default Nguyenlieu;

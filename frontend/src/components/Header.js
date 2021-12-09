@@ -58,7 +58,7 @@ const Wrapper = styled.div`
 const Title = styled.h5`
   font-size: 18px;
   margin: 0;
-  font-family: "Poppins", sans-serif;
+  font-family: "Roboto", sans-serif;
 `;
 const TitleBack = styled.h5`
   margin: 0;
@@ -68,7 +68,7 @@ const TitleBack = styled.h5`
   align-items: center;
   cursor: pointer;
   color: rgba(0, 0, 0, 0.7);
-  font-family: "Poppins", sans-serif;
+  font-family: "Roboto", sans-serif;
   i {
     color: rgba(0, 0, 0, 0.35);
     margin-right: 10px;
@@ -84,7 +84,7 @@ const AvatarWrapper = styled.div`
     font-size: 15px;
     margin-left: 10px;
     color: #444;
-    font-family: "Poppins", sans-serif;
+    font-family: "Roboto", sans-serif;
   }
   .dropdown {
     display: none;
@@ -106,7 +106,7 @@ const AvatarWrapper = styled.div`
         padding: 10px 0 10px 26px;
         text-decoration: none;
         color: rgba(0, 0, 0, 0.45);
-        font-family: "Poppins", sans-serif;
+        font-family: "Roboto", sans-serif;
         &:hover {
           background-color: rgba(0, 0, 0, 0.05);
           font-weight: bold;
@@ -120,6 +120,10 @@ const AvatarWrapper = styled.div`
 `;
 const HeaderRight = styled.div`
   display: flex;
+  i {
+    font-size: 22px;
+    margin-left: 8px;
+  }
 `;
 
 export default Header;

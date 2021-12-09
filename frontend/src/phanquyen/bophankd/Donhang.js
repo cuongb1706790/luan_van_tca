@@ -1,7 +1,22 @@
 import React from "react";
 import BackdropMaterial from "../../components/BackdropMaterial";
 import Header from "../../components/Header";
+<<<<<<< HEAD
 import styled from "styled-components";
+=======
+import {
+  AddButton,
+  BtnRight,
+  Container,
+  Content,
+  Filter,
+  FilterSection,
+  SearchBox,
+  TableSection,
+  Title,
+  TitleWrapper,
+} from "./styledComponents";
+>>>>>>> khanhduy
 import TableDonhang from "./tables/TableDonhang";
 import apiBophankd from "../../axios/apiBophankd";
 import { useSelector } from "react-redux";
@@ -46,6 +61,7 @@ const Donhang = (props) => {
 
   return (
     <>
+<<<<<<< HEAD
       <Wrapper>
         <Header title="Đơn hàng" />
         <Content>
@@ -56,6 +72,19 @@ const Donhang = (props) => {
             >
               Thêm
             </button>
+=======
+      <Container>
+        <Header title="Đơn hàng" />
+        <Content>
+          <BtnRight>
+            <AddButton
+              className="btn btn-primary"
+              onClick={() => props.history.push("/bophankd/donhang/them")}
+            >
+              <span>Thêm</span>
+              <i class="fas fa-plus-circle"></i>
+            </AddButton>
+>>>>>>> khanhduy
           </BtnRight>
           <FilterSection>
             <TitleWrapper>
@@ -81,11 +110,16 @@ const Donhang = (props) => {
             </TableSection>
           </FilterSection>
         </Content>
+<<<<<<< HEAD
       </Wrapper>
+=======
+      </Container>
+>>>>>>> khanhduy
     </>
   );
 };
 
+<<<<<<< HEAD
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -158,4 +192,6 @@ const TableSection = styled.div`
   }
 `;
 
+=======
+>>>>>>> khanhduy
 export default Donhang;

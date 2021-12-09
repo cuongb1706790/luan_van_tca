@@ -164,6 +164,7 @@ const FormTitle = styled.div`
   text-align: left;
   color: #555;
   margin-bottom: 26px;
+  font-family: "Roboto", sans-serif;
 `;
 const Image = styled.img`
   width: 200px;

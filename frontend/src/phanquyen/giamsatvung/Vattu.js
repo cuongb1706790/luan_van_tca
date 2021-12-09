@@ -1,7 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import BackdropMaterial from "../../components/BackdropMaterial";
+<<<<<<< HEAD
 import styled from "styled-components";
+=======
+import {
+  BtnRight,
+  Container,
+  Content,
+  Filter,
+  FilterSection,
+  SearchBox,
+  TableSection,
+  Title,
+  TitleWrapper,
+} from "./styledComponents";
+>>>>>>> khanhduy
 import Header from "../../components/Header";
 import TableVattu from "./tables/TableVattu";
 import apiGSV from "../../axios/apiGSV";
@@ -48,7 +62,11 @@ const Vattu = (props) => {
 
   return (
     <>
+<<<<<<< HEAD
       <Wrapper>
+=======
+      <Container>
+>>>>>>> khanhduy
         <Header title="Vật tư" />
         <Content>
           <FilterSection>
@@ -66,16 +84,25 @@ const Vattu = (props) => {
                 />
               </SearchBox>
             </Filter>
+<<<<<<< HEAD
             <TableSection>
+=======
+            <TableSection className="noCheckbox">
+>>>>>>> khanhduy
               <TableVattu dsVattu={search(dsVattu)} />
             </TableSection>
           </FilterSection>
         </Content>
+<<<<<<< HEAD
       </Wrapper>
+=======
+      </Container>
+>>>>>>> khanhduy
     </>
   );
 };
 
+<<<<<<< HEAD
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -141,4 +168,6 @@ const TableSection = styled.div`
   }
 `;
 
+=======
+>>>>>>> khanhduy
 export default Vattu;

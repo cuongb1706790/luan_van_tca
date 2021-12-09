@@ -48,6 +48,39 @@ const apiDonhang = {
     const url = `/donhang/daily2tohodan`;
     return axiosClient.put(url, payload);
   },
+<<<<<<< HEAD
+=======
+
+  // xac nhan don hang
+  xacnhan(donhangId) {
+    const url = `/donhang/xacnhan/${donhangId}`;
+    return axiosClient.put(url);
+  },
+
+  // lay subdonhang cua cac phan quyen cap duoi gsv
+  subdhPhanquyen(donhangId) {
+    const url = `/donhang/subdhduoigsv/${donhangId}`;
+    return axiosClient.get(url);
+  },
+
+  // lay subdonhang cua cac phan quyen cap duoi daily1
+  subdhPhanquyenDuoiDL1(donhangId) {
+    const url = `/donhang/subdhduoidaily1/${donhangId}`;
+    return axiosClient.get(url);
+  },
+
+  // lay subdonhang cua cac phan quyen cap duoi daily2
+  subdhPhanquyenDuoiDL2(donhangId) {
+    const url = `/donhang/subdhduoidaily2/${donhangId}`;
+    return axiosClient.get(url);
+  },
+
+  // Xoa nhieu don hang
+  xoaNhieuDonhang(arrOfIds) {
+    const url = "/donhang/xoanhieudonhang";
+    return axiosClient.put(url, arrOfIds);
+  },
+>>>>>>> khanhduy
 };
 
 export default apiDonhang;

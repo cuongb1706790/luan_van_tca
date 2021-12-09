@@ -216,6 +216,15 @@ const apiBophankd = {
     const url = `/bophankd/tongquan/${id}`;
     return axiosClient.get(url);
   },
+<<<<<<< HEAD
+=======
+
+  // lay ds daily1 daily2 chua duyet hien thi badge
+  dsShowBadge(bophankdId) {
+    const url = `/bophankd/dsshowbadge/${bophankdId}`;
+    return axiosClient.get(url);
+  },
+>>>>>>> khanhduy
 };
 
 export default apiBophankd;

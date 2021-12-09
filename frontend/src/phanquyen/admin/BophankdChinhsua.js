@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
 import Header from "../../components/Header";
 import InputPassword from "../../components/InputPassword";
 import { apiTinhThanh } from "../../apiTinhThanh";
@@ -8,6 +7,24 @@ import apiBophankd from "../../axios/apiBophankd";
 import BackdropMaterial from "../../components/BackdropMaterial";
 import DropdownMaterial2 from "../../components/DropdownMaterial2";
 import MenuItem from "@mui/material/MenuItem";
+import capnhat from "../../assets/icons/capnhat.png";
+import ten from "../../assets/icons/ten.png";
+import sdt from "../../assets/icons/sdt.png";
+import email from "../../assets/icons/email.png";
+import diachi from "../../assets/icons/diachi.png";
+import taikhoan from "../../assets/icons/taikhoan.png";
+import mk from "../../assets/icons/matkhau.png";
+import {
+  Container,
+  Content,
+  ErrMsg,
+  Form,
+  FormContent,
+  FormGroup,
+  FormTitle,
+  Input,
+  Label,
+} from "./styledComponents";
 
 const BophankdChinhsua = (props) => {
   const [bophankd, setBophankd] = useState(null);
@@ -76,17 +93,23 @@ const BophankdChinhsua = (props) => {
           titleBack
           onClick={() => props.history.push("/admin/bophankd")}
           headerRight={
-            <button className="btn btn-primary" onClick={handleSubmit}>
-              Cập nhật
+            <button className="btn btn-primary px-3" onClick={handleSubmit}>
+              <span>Lưu</span>
+              <i class="fas fa-save"></i>
             </button>
           }
         />
         <Content>
           <Form>
             <FormContent>
-              <FormTitle>Cập nhật bộ phận kinh doanh</FormTitle>
+              <FormTitle>
+                <span>Cập nhật bộ phận kinh doanh</span>
+              </FormTitle>
               <FormGroup>
-                <Label>Tên bộ phận kinh doanh:</Label>
+                <Label>
+                  <img src={ten} alt="ten" width="36" className="mr-2" />
+                  <span>Tên bộ phận kinh doanh:</span>
+                </Label>
                 <Input
                   placeholder="Nhập tên"
                   type="text"
@@ -102,7 +125,10 @@ const BophankdChinhsua = (props) => {
               </FormGroup>
 
               <FormGroup>
-                <Label>Số điện thoại:</Label>
+                <Label>
+                  <img src={sdt} alt="sdt" width="36" className="mr-2" />
+                  <span>Số điện thoại:</span>
+                </Label>
                 <Input
                   placeholder="Nhập số điện thoại"
                   type="text"
@@ -118,7 +144,10 @@ const BophankdChinhsua = (props) => {
               </FormGroup>
 
               <FormGroup>
-                <Label>E-mail:</Label>
+                <Label>
+                  <img src={email} alt="email" width="36" className="mr-2" />
+                  <span>E-mail:</span>
+                </Label>
                 <Input
                   placeholder="Nhập email"
                   type="text"
@@ -134,7 +163,10 @@ const BophankdChinhsua = (props) => {
               </FormGroup>
 
               <FormGroup>
-                <Label>Địa chỉ</Label>
+                <Label>
+                  <img src={diachi} alt="diachi" width="36" className="mr-2" />
+                  <span>Địa chỉ:</span>
+                </Label>
                 <div className="row">
                   <div className="col-lg-4">
                     {dsTinh && dsTinh.length ? (
@@ -196,14 +228,25 @@ const BophankdChinhsua = (props) => {
               </FormGroup>
 
               <FormGroup>
-                <Label>Tên tài khoản:</Label>
+                <Label>
+                  <img
+                    src={taikhoan}
+                    alt="taikhoan"
+                    width="36"
+                    className="mr-2"
+                  />
+                  <span>Tên tài khoản:</span>
+                </Label>
                 <Input type="text" value={bophankd?.user?.taikhoan} disabled />
               </FormGroup>
 
               <div className="row">
                 <div className="col-lg-6">
                   <FormGroup>
-                    <Label>Mật khẩu:</Label>
+                    <Label>
+                      <img src={mk} alt="mk" width="36" className="mr-2" />
+                      <span>Mật khẩu:</span>
+                    </Label>
                     <InputPassword
                       label="Mật khẩu"
                       name="matkhau"
@@ -216,7 +259,10 @@ const BophankdChinhsua = (props) => {
 
                 <div className="col-lg-6">
                   <FormGroup>
-                    <Label>Xác nhận mật khẩu:</Label>
+                    <Label>
+                      <img src={mk} alt="mk" width="36" className="mr-2" />
+                      <span>Xác nhận mật khẩu:</span>
+                    </Label>
                     <InputPassword
                       label="Xác nhận"
                       name="xnmatkhau"
@@ -240,62 +286,5 @@ const BophankdChinhsua = (props) => {
     </>
   );
 };
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-`;
-const Content = styled.div`
-  flex: 1;
-  background: #f0eeee;
-  padding: 36px;
-`;
-const Form = styled.div`
-  background: #fff;
-  padding: 36px 20px 60px 20px;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
-    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
-  border-radius: 3px;
-`;
-const FormContent = styled.div`
-  width: 750px;
-  margin: auto;
-  font-family: "Poppins", sans-serif;
-`;
-const FormTitle = styled.div`
-  font-size: 22px;
-  font-weight: 600;
-  text-align: center;
-  color: #555;
-  margin-bottom: 20px;
-  margin-top: 20px;
-`;
-const FormGroup = styled.div`
-  margin-bottom: 26px;
-`;
-const Label = styled.span`
-  font-size: 16px;
-  color: #333;
-  display: block;
-  margin-bottom: 10px;
-`;
-const Input = styled.input`
-  width: 100%;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  padding: 13px 16px;
-  outline: none;
-  color: #333;
-  border-radius: 3px;
-
-  &:focus {
-    border: 1px solid blue;
-  }
-`;
-const ErrMsg = styled.div`
-  font-size: 13px;
-  color: red;
-  margin-top: 4px;
-`;
 
 export default BophankdChinhsua;

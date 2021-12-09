@@ -3,7 +3,21 @@ import TableSanpham from "./tables/TableSanpham";
 import { useSelector } from "react-redux";
 import BackdropMaterial from "../../components/BackdropMaterial";
 import Header from "../../components/Header";
+<<<<<<< HEAD
 import styled from "styled-components";
+=======
+import {
+  Container,
+  Content,
+  Filter,
+  FilterSection,
+  SearchBox,
+  TableSection,
+  Title,
+  TitleWrapper,
+} from "./styledComponents";
+
+>>>>>>> khanhduy
 import apiDaily2 from "../../axios/apiDaily2";
 
 const Sanpham = (props) => {
@@ -48,7 +62,11 @@ const Sanpham = (props) => {
 
   return (
     <>
+<<<<<<< HEAD
       <Wrapper>
+=======
+      <Container>
+>>>>>>> khanhduy
         <Header title="Sản phẩm" />
         <Content>
           <FilterSection>
@@ -67,16 +85,25 @@ const Sanpham = (props) => {
               </SearchBox>
             </Filter>
 
+<<<<<<< HEAD
             <TableSection>
+=======
+            <TableSection className="noCheckbox">
+>>>>>>> khanhduy
               <TableSanpham dsSanpham={search(dsSanpham)} />
             </TableSection>
           </FilterSection>
         </Content>
+<<<<<<< HEAD
       </Wrapper>
+=======
+      </Container>
+>>>>>>> khanhduy
     </>
   );
 };
 
+<<<<<<< HEAD
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -144,4 +171,6 @@ const TableSection = styled.div`
   }
 `;
 
+=======
+>>>>>>> khanhduy
 export default Sanpham;

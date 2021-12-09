@@ -106,7 +106,10 @@ const DonhangThem = (props) => {
       );
     });
   };
+<<<<<<< HEAD
   console.log({ dsDaily1 });
+=======
+>>>>>>> khanhduy
 
   const emptyFields = () => {
     if (!selectedDaily1.length) {
@@ -179,8 +182,17 @@ const DonhangThem = (props) => {
   const fetchDsDonhang = async () => {
     setLoading(true);
     const { donhang } = await apiDonhang.singleDonhang(donhangId);
+<<<<<<< HEAD
     const { gsv } = await apiGSV.singleGsvBasedUserId(userInfo._id);
     let { daily1 } = await apiGSV.dsDaily1(gsv._id);
+=======
+    if (!donhang.xacnhan) {
+      props.history.push(`/giamsatvung/donhang/chitiet/${donhangId}`);
+    }
+    const { gsv } = await apiGSV.singleGsvBasedUserId(userInfo._id);
+    let { daily1 } = await apiGSV.dsDaily1(gsv._id);
+    daily1 = daily1.filter((dl1) => dl1.user);
+>>>>>>> khanhduy
     daily1 = daily1.map((item) => ({ ...item, dsthoaman: [] }));
     setSingleDonhang(donhang);
     setSingleGSV(gsv);
@@ -326,6 +338,10 @@ const FormTitle = styled.div`
   color: #555;
   margin-bottom: 20px;
   margin-top: 20px;
+<<<<<<< HEAD
+=======
+  font-family: "Roboto", sans-serif;
+>>>>>>> khanhduy
 `;
 const FormGroup = styled.div`
   margin-bottom: 26px;

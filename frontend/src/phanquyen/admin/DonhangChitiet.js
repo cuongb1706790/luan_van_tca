@@ -1,5 +1,23 @@
 import React, { useEffect, useState } from "react";
+<<<<<<< HEAD
 import styled from "styled-components";
+=======
+import {
+  Container,
+  Content,
+  ErrMsg,
+  Form,
+  FormContent,
+  FormGroup,
+  FormTitle,
+  Input,
+  Label,
+  TableSection,
+  TableTitle,
+  Total,
+  TotalValue,
+} from "./styledComponents";
+>>>>>>> khanhduy
 import Header from "../../components/Header";
 import BackdropMaterial from "../../components/BackdropMaterial";
 import TableCongcuDonhang from "./tables/TableCongcuDonhang";
@@ -8,6 +26,16 @@ import TableNguyenlieuDonhang from "./tables/TableNguyenlieuDonhang";
 import apiDonhang from "../../axios/apiDonhang";
 import TableSanphamDonhangChitiet from "./tables/TableSanphamDonhangChitiet";
 import { formatMoney } from "../../utils";
+<<<<<<< HEAD
+=======
+import chitiet from "../../assets/icons/chitiet.png";
+import _ma from "../../assets/icons/ma.png";
+import sp from "../../assets/icons/sanpham.png";
+import dssanpham from "../../assets/icons/dssanpham.png";
+import dscongcu from "../../assets/icons/dscongcu.png";
+import dsvattu from "../../assets/icons/dsvattu.png";
+import dsnglieu from "../../assets/icons/dsnglieu.png";
+>>>>>>> khanhduy
 
 const DonhangChitiet = (props) => {
   const [loading, setLoading] = useState(false);
@@ -51,13 +79,26 @@ const DonhangChitiet = (props) => {
         <Content>
           <Form>
             <FormContent>
+<<<<<<< HEAD
               <FormTitle>Chi tiết đơn hàng</FormTitle>
               <FormGroup>
                 <Label>Mã đơn hàng:</Label>
+=======
+              <FormTitle>
+                <span>Chi tiết đơn hàng</span>
+              </FormTitle>
+
+              <FormGroup>
+                <Label>
+                  <img src={_ma} alt="ma" />
+                  <span>Mã đơn hàng:</span>
+                </Label>
+>>>>>>> khanhduy
                 <Input type="text" value={singleDonhang?.ma} />
               </FormGroup>
             </FormContent>
 
+<<<<<<< HEAD
             <TableSection>
               <TableTitle>Sản phẩm đơn hàng</TableTitle>
               <TableSanphamDonhangChitiet
@@ -99,6 +140,63 @@ const DonhangChitiet = (props) => {
                 <TotalValue>{singleDonhang?.tongnguyenlieu}</TotalValue>
               </div>
             </TableSection>
+=======
+            <div className="px-5">
+              <TableSection>
+                <TableTitle>
+                  <img src={dssanpham} alt="dssanpham" />
+                  <span>Danh sách sản phẩm</span>
+                </TableTitle>
+                <TableSanphamDonhangChitiet
+                  dsSanpham={singleDonhang?.dssanpham}
+                />
+                <div className="text-right">
+                  <Total>Tổng đơn giá:</Total>
+                  <TotalValue>
+                    {formatMoney(singleDonhang?.tongdongia)}
+                  </TotalValue>
+                </div>
+              </TableSection>
+
+              <TableSection>
+                <TableTitle>
+                  <img src={dscongcu} alt="dscongcu" />
+                  <span>Danh sách công cụ</span>
+                </TableTitle>
+                <TableCongcuDonhang dsCongcu={singleDonhang?.dscongcu} />
+                <div className="text-right">
+                  <Total>Tổng số lượng:</Total>
+                  <TotalValue>{singleDonhang?.tongcongcu}</TotalValue>
+                </div>
+              </TableSection>
+
+              <TableSection>
+                <TableTitle>
+                  <img src={dsvattu} alt="dsvattu" />
+                  <span>Danh sách vật tư</span>
+                </TableTitle>
+                <TableVattuDonhang dsVattu={singleDonhang?.dsvattu} />
+                <div className="text-right">
+                  <Total>Tổng số lượng:</Total>
+                  <TotalValue>{singleDonhang?.tongvattu}</TotalValue>
+                </div>
+              </TableSection>
+
+              <TableSection>
+                <TableTitle>
+                  <img src={dsnglieu} alt="dsnglieu" />
+                  <span>Danh sách nguyên liệu</span>
+                </TableTitle>
+                <TableNguyenlieuDonhang
+                  dsNguyenlieu={singleDonhang?.dsnguyenlieu}
+                />
+                <div className="text-right">
+                  <Total>Tổng khối lượng:</Total>
+                  <TotalValue>{singleDonhang?.tongnguyenlieu}</TotalValue>
+                </div>
+              </TableSection>
+            </div>
+>>>>>>> khanhduy
           </Form>
         </Content>
       </Container>
@@ -106,6 +204,7 @@ const DonhangChitiet = (props) => {
   );
 };
 
+<<<<<<< HEAD
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -186,4 +285,6 @@ const TotalValue = styled.span`
   font-size: 15px;
 `;
 
+=======
+>>>>>>> khanhduy
 export default DonhangChitiet;

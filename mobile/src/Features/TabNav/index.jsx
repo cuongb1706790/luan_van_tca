@@ -16,7 +16,7 @@ function TabNav(props) {
 
           if (route.name === "Trang chủ") {
             iconName = focused ? "home" : "home";
-          } else if (route.name === "Thông báo") {
+          } else if (route.name === "Đơn hàng mới") {
             iconName = focused ? "notifications" : "notifications";
           } else if (route.name === "Cá nhân") {
             iconName = focused ? "person" : "person";
@@ -35,7 +35,7 @@ function TabNav(props) {
         options={{ header: () => null }}
       />
       <Tab.Screen
-        name="Thông báo"
+        name="Đơn hàng mới"
         component={ThongBao}
         options={{ header: () => null }}
         

@@ -18,7 +18,7 @@ import styled from "styled-components";
 import apiBophankd from "../../../axios/apiBophankd";
 import { toast } from "react-toastify";
 
-const TableDaily2 = ({ dsDaily2 = [], bophankdId, setSuccess }) => {
+const TableDaily2 = ({ dsDaily2 = [], bophankdId, setSuccess, setRefresh }) => {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
   const [selected, setSelected] = React.useState([]);
@@ -34,6 +34,7 @@ const TableDaily2 = ({ dsDaily2 = [], bophankdId, setSuccess }) => {
   const handleDuyetDaily2 = async () => {
     const { success } = await apiBophankd.activeDaily2(rowOfDuyet, bophankdId);
     if (success) {
+      setRefresh(true);
       toast.success("Duyệt thành công!", { theme: "colored" });
       setSuccess(true);
     }

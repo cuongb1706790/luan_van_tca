@@ -79,12 +79,21 @@ const DonhangThem = (props) => {
     setselectedHodan(typeof value === "string" ? value.split(",") : value);
   };
 
+<<<<<<< HEAD
   const handleGetDsThoaman = (dssp, daily1) => {
+=======
+  const handleGetDsThoaman = (dssp, hodan) => {
+    console.log({ dssp, hodan });
+>>>>>>> khanhduy
     dssp.forEach((sp) => {
       setDsHodan((prev) =>
         prev.length
           ? prev.map((hd) =>
+<<<<<<< HEAD
               hd.loaisanpham.includes(sp.loaisanpham._id) && //*** */
+=======
+              hd.loaisanpham._id === sp.loaisanpham._id && //*** */
+>>>>>>> khanhduy
               !hd.dsthoaman
                 .map((item) => item.loaisanpham)
                 .includes(sp.loaisanpham._id)
@@ -94,8 +103,13 @@ const DonhangThem = (props) => {
                   }
                 : hd
             )
+<<<<<<< HEAD
           : daily1.map((hd) =>
               hd.loaisanpham.includes(sp.loaisanpham._id) &&
+=======
+          : hodan.map((hd) =>
+              hd.loaisanpham._id === sp.loaisanpham._id &&
+>>>>>>> khanhduy
               !hd.dsthoaman
                 .map((item) => item.loaisanpham)
                 .includes(sp.loaisanpham._id)
@@ -180,8 +194,17 @@ const DonhangThem = (props) => {
   const fetchDsDonhang = async () => {
     setLoading(true);
     const { donhang } = await apiDonhang.singleDonhang(donhangId);
+<<<<<<< HEAD
     const { daily2 } = await apiDaily2.singleDaily2BasedUser(userInfo._id);
     let { hodan } = await apiDaily2.dsHodan(daily2._id);
+=======
+    if (!donhang.xacnhan) {
+      props.history.push(`/daily2/donhang/chitiet/${donhangId}`);
+    }
+    const { daily2 } = await apiDaily2.singleDaily2BasedUser(userInfo._id);
+    let { hodan } = await apiDaily2.dsHodan(daily2._id);
+    hodan = hodan.filter((hd) => hd.user);
+>>>>>>> khanhduy
     hodan = hodan.map((item) => ({ ...item, dsthoaman: [] }));
     setSingleDonhang(donhang);
     setSingleDaily2(daily2);
@@ -327,6 +350,10 @@ const FormTitle = styled.div`
   color: #555;
   margin-bottom: 20px;
   margin-top: 20px;
+<<<<<<< HEAD
+=======
+  font-family: "Roboto", sans-serif;
+>>>>>>> khanhduy
 `;
 const FormGroup = styled.div`
   margin-bottom: 26px;

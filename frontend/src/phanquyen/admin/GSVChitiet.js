@@ -1,8 +1,26 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
 import Header from "../../components/Header";
 import apiGSV from "../../axios/apiGSV";
 import BackdropMaterial from "../../components/BackdropMaterial";
+import ten from "../../assets/icons/ten.png";
+import sdt from "../../assets/icons/sdt.png";
+import email from "../../assets/icons/email.png";
+import diachi from "../../assets/icons/diachi.png";
+import taikhoan from "../../assets/icons/taikhoan.png";
+import them from "../../assets/icons/them.png";
+import cmnd from "../../assets/icons/cmnd.png";
+import chitiet from "../../assets/icons/chitiet.png";
+import {
+  Container,
+  Content,
+  Form,
+  FormContent,
+  FormGroup,
+  FormTitle,
+  Input,
+  Label,
+  TextArea,
+} from "./styledComponents";
 
 const GSVChitiet = (props) => {
   const [gsv, setGsv] = useState(null);
@@ -36,30 +54,47 @@ const GSVChitiet = (props) => {
         <Content>
           <Form>
             <FormContent>
-              <FormTitle>Chi tiết giám sát vùng</FormTitle>
+              <FormTitle>
+                <span>Chi tiết giám sát vùng</span>
+              </FormTitle>
 
               <FormGroup>
-                <Label>Tên giám sát vùng:</Label>
+                <Label>
+                  <img src={ten} alt="ten" />
+                  <span>Tên giám sát vùng:</span>
+                </Label>
                 <Input type="text" value={gsv?.ten} />
               </FormGroup>
 
               <FormGroup>
-                <Label>Số điện thoại:</Label>
+                <Label>
+                  <img src={sdt} alt="sdt" />
+                  <span>Số điện thoại:</span>
+                </Label>
                 <Input type="text" value={gsv?.sdt} />
               </FormGroup>
 
               <FormGroup>
-                <Label>Số chứng minh nhân dân:</Label>
+                <Label>
+                  <img src={cmnd} alt="cmnd" />
+                  <span>Số chứng minh nhân dân:</span>
+                </Label>
                 <Input type="text" value={gsv?.cmnd} />
               </FormGroup>
 
               <FormGroup>
-                <Label>E-mail:</Label>
+                <Label>
+                  <img src={email} alt="email" />
+                  <span>E-mail:</span>
+                </Label>
                 <Input type="text" value={gsv?.email} />
               </FormGroup>
 
               <FormGroup>
-                <Label>Địa chỉ:</Label>
+                <Label>
+                  <img src={diachi} alt="diachi" />
+                  <span>Địa chỉ:</span>
+                </Label>
                 <TextArea
                   rows="3"
                   value={`${gsv?.xa}, ${gsv?.huyen}. ${gsv?.tinh}`}
@@ -67,7 +102,10 @@ const GSVChitiet = (props) => {
               </FormGroup>
 
               <FormGroup>
-                <Label>Tên tài khoản:</Label>
+                <Label>
+                  <img src={taikhoan} alt="taikhoan" />
+                  <span>Tên tài khoản:</span>
+                </Label>
                 <Input type="text" value={gsv?.user.taikhoan} />
               </FormGroup>
             </FormContent>
@@ -77,67 +115,5 @@ const GSVChitiet = (props) => {
     </>
   );
 };
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-`;
-const Content = styled.div`
-  flex: 1;
-  background: #f0eeee;
-  padding: 36px;
-`;
-const Form = styled.div`
-  background: #fff;
-  padding: 36px 20px 70px 20px;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
-    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
-  border-radius: 3px;
-`;
-const FormContent = styled.div`
-  width: 750px;
-  margin: auto;
-  font-family: "Poppins", sans-serif;
-`;
-const FormTitle = styled.div`
-  font-size: 22px;
-  font-weight: 600;
-  text-align: center;
-  color: #555;
-  margin-bottom: 20px;
-  margin-top: 20px;
-`;
-const FormGroup = styled.div`
-  margin-bottom: 26px;
-`;
-const Label = styled.span`
-  font-size: 16px;
-  color: #333;
-  display: block;
-  margin-bottom: 10px;
-`;
-const Input = styled.input`
-  width: 100%;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  padding: 13px 16px;
-  outline: none;
-  color: #333;
-  border-radius: 3px;
-  &:focus {
-    border: 1px solid blue;
-  }
-`;
-const TextArea = styled.textarea`
-  width: 100%;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  padding: 13px 16px;
-  outline: none;
-  color: #333;
-  border-radius: 3px;
-  &:focus {
-    border: 1px solid blue;
-  }
-`;
 
 export default GSVChitiet;

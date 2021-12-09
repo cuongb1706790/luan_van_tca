@@ -8,7 +8,11 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Checkbox from "@mui/material/Checkbox";
+<<<<<<< HEAD
 import { useHistory } from "react-router-dom";
+=======
+import { Link, useHistory } from "react-router-dom";
+>>>>>>> khanhduy
 import EnhancedTableHead from "../../../components/table/EnhancedTableHead";
 import { formatMoney, getComparator } from "../../../utils";
 import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
@@ -20,12 +24,20 @@ import DialogMaterial from "../../../components/DialogMaterial";
 import TableButton from "../../../components/TableButton";
 import { toast } from "react-toastify";
 import apiLoaiSanpham from "../../../axios/apiLoaiSanpham";
+<<<<<<< HEAD
+=======
+import styled from "styled-components";
+>>>>>>> khanhduy
 
 const EnhancedTableToolbar = ({
   numSelected,
   rowsSelected,
   onClickChitiet,
+<<<<<<< HEAD
   onClickCapnhat,
+=======
+  onClickTiendo,
+>>>>>>> khanhduy
   onClickXoa,
 }) => {
   return numSelected > 0 ? (
@@ -52,7 +64,14 @@ const EnhancedTableToolbar = ({
           >
             <div className="d-flex align-items-center">
               {rowsSelected.length === 1 && (
+<<<<<<< HEAD
                 <TableButton onClick={onClickChitiet}>Chi tiết</TableButton>
+=======
+                <>
+                  <TableButton onClick={onClickChitiet}>Chi tiết</TableButton>
+                  <TableButton onClick={onClickTiendo}>Tiến độ</TableButton>
+                </>
+>>>>>>> khanhduy
               )}
             </div>
           </Typography>
@@ -86,8 +105,13 @@ const TableDonhang = ({ dsDonhang = [], setRowsRemoved }) => {
   const onClickChitiet = () =>
     history.push(`/bophankd/donhang/chitiet/${selected[0]}`);
 
+<<<<<<< HEAD
   const onClickCapnhat = () =>
     history.push(`/bophankd/donhang/chinhsua/${selected[0]}`);
+=======
+  const onClickTiendo = () =>
+    history.push(`/bophankd/donhang/chitiet/${selected[0]}/tiendo`);
+>>>>>>> khanhduy
 
   const onClickXoa = () => handleOpen();
 
@@ -159,7 +183,11 @@ const TableDonhang = ({ dsDonhang = [], setRowsRemoved }) => {
             numSelected={selected.length}
             rowsSelected={selected}
             onClickChitiet={onClickChitiet}
+<<<<<<< HEAD
             onClickCapnhat={onClickCapnhat}
+=======
+            onClickTiendo={onClickTiendo}
+>>>>>>> khanhduy
             onClickXoa={onClickXoa}
           />
           <TableContainer>
@@ -206,17 +234,34 @@ const TableDonhang = ({ dsDonhang = [], setRowsRemoved }) => {
                             }}
                           />
                         </TableCell>
+<<<<<<< HEAD
                         <TableCell align="right">{row?.ma}</TableCell>
+=======
+                        <TableCell align="right">
+                          <Link to={`/bophankd/donhang/chitiet/${row._id}`}>
+                            {row?.ma}
+                          </Link>
+                        </TableCell>
+>>>>>>> khanhduy
                         <TableCell align="right">{row?.tongsanpham}</TableCell>
                         <TableCell align="right">{row?.tongcongcu}</TableCell>
                         <TableCell align="right">{row?.tongvattu}</TableCell>
                         <TableCell align="right">
                           {row?.tongnguyenlieu}
                         </TableCell>
+<<<<<<< HEAD
                         <TableCell align="right">
                           {formatMoney(row?.tongdongia)}
                         </TableCell>
                         <TableCell align="right">{row?.ngaydathang}</TableCell>
+=======
+                        <TableCell align="right" style={{ fontWeight: 500 }}>
+                          {formatMoney(row?.tongdongia)}
+                        </TableCell>
+                        <TableCell align="right">
+                          <Badge className="success">{row.ngaydathang}</Badge>
+                        </TableCell>
+>>>>>>> khanhduy
                       </TableRow>
                     );
                   })}
@@ -266,4 +311,19 @@ const TableDonhang = ({ dsDonhang = [], setRowsRemoved }) => {
   );
 };
 
+<<<<<<< HEAD
+=======
+const Badge = styled.div`
+  display: inline-block;
+  text-align: center;
+  color: #fff;
+  padding: 6px 10px;
+  font-size: 15px;
+  border-radius: 3px;
+  &.success {
+    background-color: #28a745;
+  }
+`;
+
+>>>>>>> khanhduy
 export default TableDonhang;

@@ -1,5 +1,33 @@
 import React, { useEffect, useState } from "react";
+<<<<<<< HEAD
 import styled from "styled-components";
+=======
+import { toast } from "react-toastify";
+import ma from "../../assets/icons/ma.png";
+import ten from "../../assets/icons/ten.png";
+import sdt from "../../assets/icons/sdt.png";
+import email from "../../assets/icons/email.png";
+import diachi from "../../assets/icons/diachi.png";
+import dssanpham from "../../assets/icons/dssanpham.png";
+import dscongcu from "../../assets/icons/dscongcu.png";
+import dsvattu from "../../assets/icons/dsvattu.png";
+import dsnglieu from "../../assets/icons/dsnglieu.png";
+import cmnd from "../../assets/icons/cmnd.png";
+import {
+  BoxInfo,
+  BoxInfoTitle,
+  Container,
+  Content,
+  Form,
+  FormGroup,
+  TableSection,
+  TableTitle,
+  TiendoProcess,
+  TiendoProcessText,
+  Total,
+  TotalValue,
+} from "./styledComponents";
+>>>>>>> khanhduy
 import Header from "../../components/Header";
 import BackdropMaterial from "../../components/BackdropMaterial";
 import apiDonhang from "../../axios/apiDonhang";
@@ -8,11 +36,35 @@ import TableCongcuDonhang from "./tables/TableCongcuDonhang";
 import TableVattuDonhang from "./tables/TableVattuDonhang";
 import TableNguyenlieuDonhang from "./tables/TableNguyenlieuDonhang";
 import { formatMoney } from "../../utils";
+<<<<<<< HEAD
+=======
+import DialogMaterial from "../../components/DialogMaterial";
+>>>>>>> khanhduy
 
 const DonhangChitiet = (props) => {
   const [loading, setLoading] = useState(false);
   const [singleDonhang, setSingleDonhang] = useState(null);
   const { id: donhangId } = props.match.params;
+<<<<<<< HEAD
+=======
+  const [success, setSuccess] = useState(false);
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const handleXacnhan = async () => {
+    const { success } = await apiDonhang.xacnhan(donhangId);
+    if (success) {
+      handleClose();
+      setSuccess(true);
+      props.setRefresh(true);
+      toast.success("Xác nhận thành công!", {
+        theme: "colored",
+      });
+    }
+  };
+>>>>>>> khanhduy
 
   const fetchDonhang = async () => {
     setLoading(true);
@@ -32,9 +84,16 @@ const DonhangChitiet = (props) => {
   };
 
   useEffect(() => {
+<<<<<<< HEAD
     fetchDonhang();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+=======
+    setSuccess(false);
+    fetchDonhang();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [success]);
+>>>>>>> khanhduy
 
   if (loading) {
     return <BackdropMaterial />;
@@ -49,6 +108,7 @@ const DonhangChitiet = (props) => {
           onClick={() => props.history.push("/daily1/donhang")}
         />
         <Content>
+<<<<<<< HEAD
           <Form>
             <Title>
               <TitleWrapper>
@@ -104,11 +164,100 @@ const DonhangChitiet = (props) => {
                     <Text>{`${singleDonhang?.from.giamsatvung.xa}, ${singleDonhang?.from.giamsatvung.huyen}, ${singleDonhang?.from.giamsatvung.tinh}`}</Text>
                   </div>
                 </div>
+=======
+          <Form className="px-5">
+            <TiendoProcess className="text-right">
+              {singleDonhang?.ngaydathang ? (
+                <TiendoProcessText
+                  onClick={() =>
+                    props.history.push(
+                      `/daily1/donhang/chitiet/${donhangId}/tiendo`
+                    )
+                  }
+                >
+                  <span>Theo dõi tiến độ</span>
+                  <i class="fas fa-long-arrow-alt-right"></i>
+                </TiendoProcessText>
+              ) : (
+                <TiendoProcessText
+                  onClick={() => {
+                    if (singleDonhang?.xacnhan) {
+                      props.history.push(
+                        `/daily1/donhang/chitiet/${donhangId}/them`
+                      );
+                    } else {
+                      toast.warning("Vui lòng xác nhận đơn hàng!", {
+                        theme: "colored",
+                      });
+                    }
+                  }}
+                >
+                  <span>Tiến hành phân phát</span>
+                  <i class="fas fa-long-arrow-alt-right"></i>
+                </TiendoProcessText>
+              )}
+            </TiendoProcess>
+
+            <div className="text-left">
+              <FormGroup className="dh">
+                <img src={ma} alt="ma" />
+                <span>Mã đơn hàng:</span>
+                <span>{singleDonhang?.ma}</span>
+              </FormGroup>
+
+              <BoxInfo>
+                <BoxInfoTitle>Giám sát vùng</BoxInfoTitle>
+
+                <table>
+                  <tr>
+                    <td>
+                      <img src={ten} alt="ten" />
+                      <span>Tên:</span>
+                    </td>
+                    <td>{singleDonhang?.from.giamsatvung.ten}</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <img src={sdt} alt="sdt" />
+                      <span>SĐT:</span>
+                    </td>
+                    <td>{singleDonhang?.from.giamsatvung.sdt}</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <img src={email} alt="email" />
+                      <span>E-mail:</span>
+                    </td>
+                    <td>{singleDonhang?.from.giamsatvung.email}</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <img src={cmnd} alt="cmnd" />
+                      <span>CMND:</span>
+                    </td>
+                    <td>{singleDonhang?.from.giamsatvung.cmnd}</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <img src={diachi} alt="diachi" />
+                      <span>Địa chỉ:</span>
+                    </td>
+                    <td>{`${singleDonhang?.from.giamsatvung.xa}, ${singleDonhang?.from.giamsatvung.huyen}, ${singleDonhang?.from.giamsatvung.tinh}`}</td>
+                  </tr>
+                </table>
+>>>>>>> khanhduy
               </BoxInfo>
             </div>
 
             <TableSection>
+<<<<<<< HEAD
               <TableTitle>Sản phẩm đơn hàng</TableTitle>
+=======
+              <TableTitle>
+                <img src={dssanpham} alt="dssanpham" />
+                <span>Sản phẩm đơn hàng</span>
+              </TableTitle>
+>>>>>>> khanhduy
               <TableSanphamDonhangChitiet
                 dsSanpham={singleDonhang?.dssanpham}
               />
@@ -121,7 +270,14 @@ const DonhangChitiet = (props) => {
             </TableSection>
 
             <TableSection>
+<<<<<<< HEAD
               <TableTitle>Công cụ đơn hàng</TableTitle>
+=======
+              <TableTitle>
+                <img src={dscongcu} alt="dscongcu" />
+                <span>Công cụ đơn hàng</span>
+              </TableTitle>
+>>>>>>> khanhduy
               <TableCongcuDonhang dsCongcu={singleDonhang?.dscongcu} />
               <div className="text-right mb-3">
                 <Total>Tổng số lượng: </Total>
@@ -130,7 +286,14 @@ const DonhangChitiet = (props) => {
             </TableSection>
 
             <TableSection>
+<<<<<<< HEAD
               <TableTitle>Vật tư đơn hàng</TableTitle>
+=======
+              <TableTitle>
+                <img src={dsvattu} alt="dsvattu" />
+                <span>Vật tư đơn hàng</span>
+              </TableTitle>
+>>>>>>> khanhduy
               <TableVattuDonhang dsVattu={singleDonhang?.dsvattu} />
               <div className="text-right mb-3">
                 <Total>Tổng số lượng: </Total>
@@ -139,7 +302,14 @@ const DonhangChitiet = (props) => {
             </TableSection>
 
             <TableSection>
+<<<<<<< HEAD
               <TableTitle>Nguyên liệu đơn hàng</TableTitle>
+=======
+              <TableTitle>
+                <img src={dsnglieu} alt="dsnglieu" />
+                <span>Nguyên liệu đơn hàng</span>
+              </TableTitle>
+>>>>>>> khanhduy
               <TableNguyenlieuDonhang
                 dsNguyenlieu={singleDonhang?.dsnguyenlieu}
               />
@@ -148,13 +318,43 @@ const DonhangChitiet = (props) => {
                 <TotalValue>{singleDonhang?.tongnguyenlieu}</TotalValue>
               </div>
             </TableSection>
+<<<<<<< HEAD
           </Form>
         </Content>
       </Container>
+=======
+
+            <div className="text-left mt-4">
+              {singleDonhang?.xacnhan ? (
+                <button type="button" class="btn btn-outline-success">
+                  <i class="fas fa-check"></i> Đã duyệt
+                </button>
+              ) : (
+                <button className="btn btn-success px-4" onClick={handleOpen}>
+                  Xác nhận
+                </button>
+              )}
+            </div>
+          </Form>
+        </Content>
+      </Container>
+
+      <DialogMaterial
+        open={open}
+        onClose={handleClose}
+        title="Xác nhận"
+        content="Xác nhận đơn hàng ?"
+        text1="Hủy"
+        text2="Đồng ý"
+        onClick1={handleClose}
+        onClick2={handleXacnhan}
+      />
+>>>>>>> khanhduy
     </>
   );
 };
 
+<<<<<<< HEAD
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -243,4 +443,6 @@ const Text = styled.div`
   margin-bottom: 4px;
 `;
 
+=======
+>>>>>>> khanhduy
 export default DonhangChitiet;

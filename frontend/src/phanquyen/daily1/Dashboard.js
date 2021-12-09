@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import logo from "../../assets/images/logo.png";
 import { Route, NavLink } from "react-router-dom";
@@ -25,14 +25,43 @@ import Sanpham from "./Sanpham";
 import splnIcon from "../../assets/icons/spln.png";
 import dl2Icon from "../../assets/icons/daily2.png";
 import hodanIcon from "../../assets/icons/hodan.png";
+<<<<<<< HEAD
+=======
+import Badge from "@mui/material/Badge";
+import { useSelector } from "react-redux";
+import apiDaily1 from "../../axios/apiDaily1";
+import BackdropMaterial from "../../components/BackdropMaterial";
+>>>>>>> khanhduy
 
 const Dashboard = (props) => {
+  const [loading, setLoading] = useState(false);
+  const [dsBadge, setDsBadge] = useState(null);
   const dispatch = useDispatch();
+  const { userInfo } = useSelector((state) => state.user);
+  const [refresh, setRefresh] = useState(false);
 
   const handleLogout = () => {
     dispatch(logout());
     props.history.push("/");
   };
+
+  const fetchDsBadge = async () => {
+    setLoading(true);
+    const { daily1 } = await apiDaily1.singleDaily1BasedUser(userInfo._id);
+    const data = await apiDaily1.dsShowBadge(daily1._id);
+    setDsBadge(data);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    setRefresh(false);
+    fetchDsBadge();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [refresh]);
+
+  if (loading) {
+    return <BackdropMaterial />;
+  }
 
   return (
     <Container>
@@ -49,7 +78,14 @@ const Dashboard = (props) => {
               activeClassName={props.match.path === "/daily1" && "active"}
             >
               <i className="fas fa-home"></i>
-              <span>Tổng quan</span>
+              <span className="ml-3">Tổng quan</span>
+            </NavLink>
+          </MenuItem>
+
+          <MenuItem>
+            <NavLink to="/daily1/sanpham" activeClassName="active">
+              <Image src={splnIcon} alt="splangnghe" />
+              <span className="ml-3">Sản phẩm</span>
             </NavLink>
           </MenuItem>
 
@@ -63,14 +99,21 @@ const Dashboard = (props) => {
           <MenuItem>
             <NavLink to="/daily1/congcu" activeClassName="active">
               <i class="fas fa-tools"></i>
-              <span>Công cụ</span>
+              <span className="ml-3">Công cụ</span>
             </NavLink>
           </MenuItem>
 
           <MenuItem>
             <NavLink to="/daily1/vattu" activeClassName="active">
               <i class="fab fa-accusoft"></i>
-              <span>Vật tư</span>
+              <span className="ml-3">Vật tư</span>
+            </NavLink>
+          </MenuItem>
+
+          <MenuItem>
+            <NavLink to="/daily1/nguyenlieu" activeClassName="active">
+              <i class="fab fa-bandcamp"></i>
+              <span className="ml-3">Nguyên liệu</span>
             </NavLink>
           </MenuItem>
 
@@ -84,14 +127,42 @@ const Dashboard = (props) => {
           <MenuItem>
             <NavLink to="/daily1/daily2" activeClassName="active">
               <Image src={dl2Icon} alt="splangnghe" />
+<<<<<<< HEAD
               <span>Đại lý cấp 2</span>
+=======
+              <span className="ml-3">Đại lý cấp 2</span>
+>>>>>>> khanhduy
             </NavLink>
           </MenuItem>
 
           <MenuItem>
             <NavLink to="/daily1/hodan" activeClassName="active">
+<<<<<<< HEAD
               <Image src={hodanIcon} alt="hodan" />
               <span>Hộ dân</span>
+=======
+              {dsBadge?.hodanBadge > 0 ? (
+                <Badge badgeContent={dsBadge?.hodanBadge} color="secondary">
+                  <Image src={hodanIcon} alt="hodan" />
+                </Badge>
+              ) : (
+                <Image src={hodanIcon} alt="hodan" />
+              )}
+              <span className="ml-3">Hộ dân</span>
+            </NavLink>
+          </MenuItem>
+
+          <MenuItem>
+            <NavLink to="/daily1/donhang" activeClassName="active">
+              {dsBadge?.donhangBadge > 0 ? (
+                <Badge badgeContent={dsBadge?.donhangBadge} color="secondary">
+                  <i class="far fa-newspaper"></i>
+                </Badge>
+              ) : (
+                <i class="far fa-newspaper"></i>
+              )}
+              <span className="ml-3">Đơn hàng</span>
+>>>>>>> khanhduy
             </NavLink>
           </MenuItem>
 
@@ -132,14 +203,28 @@ const Dashboard = (props) => {
 
         <Route exact path="/daily1/nguyenlieu" component={Nguyenlieu} />
 
+<<<<<<< HEAD
         <Route exact path="/daily1/hodan" component={Hodan} />
+=======
+        <Route
+          exact
+          path="/daily1/hodan"
+          render={(props) => <Hodan {...props} setRefresh={setRefresh} />}
+        />
+>>>>>>> khanhduy
         <Route path="/daily1/hodan/chitiet/:id" component={HodanChitiet} />
 
         <Route exact path="/daily1/donhang" component={Donhang} />
         <Route
           exact
           path="/daily1/donhang/chitiet/:id"
+<<<<<<< HEAD
           component={DonhangChitiet}
+=======
+          render={(props) => (
+            <DonhangChitiet {...props} setRefresh={setRefresh} />
+          )}
+>>>>>>> khanhduy
         />
         <Route
           path="/daily1/donhang/chitiet/:id/them"
@@ -199,7 +284,6 @@ const MenuItem = styled.li`
     }
     span {
       color: #cad6e2;
-      margin-left: 14px;
     }
     &:hover {
       background: #304664;

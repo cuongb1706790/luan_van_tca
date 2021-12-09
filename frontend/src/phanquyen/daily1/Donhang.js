@@ -1,7 +1,21 @@
 import React, { useState, useEffect } from "react";
 import BackdropMaterial from "../../components/BackdropMaterial";
 import Header from "../../components/Header";
+<<<<<<< HEAD
 import styled from "styled-components";
+=======
+import {
+  Container,
+  Content,
+  Filter,
+  FilterSection,
+  SearchBox,
+  TableSection,
+  Title,
+  TitleWrapper,
+} from "./styledComponents";
+
+>>>>>>> khanhduy
 import TableDonhang from "./tables/TableDonhang";
 import { useSelector } from "react-redux";
 import apiDaily1 from "../../axios/apiDaily1";
@@ -46,7 +60,11 @@ const Donhang = (props) => {
 
   return (
     <>
+<<<<<<< HEAD
       <Wrapper>
+=======
+      <Container>
+>>>>>>> khanhduy
         <Header title="Đơn hàng" />
         <Content>
           <FilterSection>
@@ -73,11 +91,16 @@ const Donhang = (props) => {
             </TableSection>
           </FilterSection>
         </Content>
+<<<<<<< HEAD
       </Wrapper>
+=======
+      </Container>
+>>>>>>> khanhduy
     </>
   );
 };
 
+<<<<<<< HEAD
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -141,4 +164,6 @@ const TableSection = styled.div`
   }
 `;
 
+=======
+>>>>>>> khanhduy
 export default Donhang;

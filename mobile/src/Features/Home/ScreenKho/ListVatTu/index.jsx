@@ -12,6 +12,7 @@ import CongCu from "../CongCu";
 import VatTu from "../VatTu";
 
 const ListVatTu = (props) => {
+  const {navigation} = props;
   const idHodan = props.route.params.idHodan;
   const [listVatTu, setListVatTu] = useState();
   useEffect(() => {
@@ -21,14 +22,16 @@ const ListVatTu = (props) => {
     };
     fetchData();
   }, []);
-  console.log(listVatTu);
  
   return (
     <SafeAreaView style={styles.container}>
+       <View style={styles.headerContainer}>
+        <Text style={{ color: "white" }}>Danh sách vật tư</Text>
+      </View>
       {listVatTu && (
         <FlatList
           data={listVatTu}
-          renderItem={(item) => <VatTu vattu={item.item} />}
+          renderItem={(item) => <VatTu vattu={item}  navigation={navigation} idHodan={idHodan}  />}
           keyExtractor={(item) => item._id}
         />
       )}
@@ -49,6 +52,12 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 32,
+  },
+  headerContainer: {
+    backgroundColor: "#e65c00",
+    paddingTop: 15,
+    paddingBottom: 15,
+    alignItems: "center",
   },
 });
 

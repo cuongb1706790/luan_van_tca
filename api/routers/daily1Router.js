@@ -105,13 +105,23 @@ daily1Router.get("/dsdaily1bpkdnull", async (req, res) => {
 // lay thong tin 1 dai ly
 daily1Router.get("/single/:id", async (req, res) => {
   try {
-    const daily1 = await Daily1.findById(req.params.id).populate("user");
-    if (!daily1) {
-      return res.send({
-        message: "Không tìm thấy đại lý 1 nào",
-        success: false,
+    const daily1 = await Daily1.findById(req.params.id)
+      .populate({
+        path: "daily2 hodan user donhang subdonhang dscongcu dsvattu dsnguyenlieu dssanpham",
+      })
+      .populate({
+        path: "hodan",
+        populate: {
+          path: "langnghe loaisanpham",
+        },
+      })
+      .populate({
+        path: "dscongcu dsvattu dsnguyenlieu dssanpham",
+        populate: {
+          path: "donhang congcu vattu nguyenlieu sanpham",
+        },
       });
-    }
+
     res.send({ daily1, success: true });
   } catch (error) {
     res.send({ message: error.message, success: false });
@@ -467,7 +477,10 @@ daily1Router.get("/dsdaily2/:daily1Id", async (req, res) => {
         success: false,
       });
     }
+<<<<<<< HEAD
     daily2 = daily2.filter((dl2) => dl2.active);
+=======
+>>>>>>> khanhduy
 
     res.send({ daily2, success: true });
   } catch (error) {
@@ -607,4 +620,31 @@ daily1Router.get("/tongquan/:daily1Id", async (req, res) => {
   }
 });
 
+<<<<<<< HEAD
+=======
+// lay ds hodan, donhang chua duyet hien thi badge
+daily1Router.get("/dsshowbadge/:daily1Id", async (req, res) => {
+  try {
+    // Hodan
+    let { hodan } = await Daily1.findById(req.params.daily1Id)
+      .select("hodan")
+      .populate("hodan");
+    hodan = hodan.filter((hd) => !hd.user);
+    // Donhang
+    let { donhang } = await Daily1.findById(req.params.daily1Id)
+      .select("donhang")
+      .populate("donhang");
+    donhang = donhang.filter((dh) => !dh.xacnhan);
+
+    res.send({
+      hodanBadge: hodan.length,
+      donhangBadge: donhang.length,
+      success: true,
+    });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+>>>>>>> khanhduy
 module.exports = daily1Router;

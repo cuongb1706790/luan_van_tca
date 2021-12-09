@@ -133,6 +133,15 @@ const apiDaily2 = {
   // lay so lieu tong quan
   tongquan(daily2Id) {
     const url = `/daily2/tongquan/${daily2Id}`;
+<<<<<<< HEAD
+=======
+    return axiosClient.get(url);
+  },
+
+  // lay ds donhang chua duyet hien thi badge
+  dsShowBadge(dl2Id) {
+    const url = `/daily2/dsshowbadge/${dl2Id}`;
+>>>>>>> khanhduy
     return axiosClient.get(url);
   },
 };

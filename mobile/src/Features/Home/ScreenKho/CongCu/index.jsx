@@ -11,13 +11,14 @@ import {
 } from "react-native";
 
 function CongCu(props) {
-  const congcu = props.congcu;
-//   console.log(props.congcu);
+  const { navigation, idHodan } = props;
+  const data = props.congcu.item;
+  // console.log(props);
+  const handleClickError = () => {
+    navigation.navigate("FormCongCuLoi", { ...data, idHodan });
+  };
   return (
     <View style={styles.container}>
-      <View style={styles.headerContainer}>
-        <Text style={{ color: "white" }}>Danh sách công cụ</Text>
-      </View>
       <View style={{ padding: 20 }}>
         <View
           style={{
@@ -33,11 +34,11 @@ function CongCu(props) {
           >
             <Image
               source={{
-                uri: `http://10.3.53.160:5000/uploads/${congcu.congcu.hinhanh}`,
+                uri: `http://10.3.53.160:5000/uploads/${data.congcu.hinhanh}`,
               }}
               style={{
                 width: Dimensions.get("window").width - 220,
-                height: 150,
+                height: 130,
                 borderRadius: 20,
               }}
             />
@@ -49,20 +50,12 @@ function CongCu(props) {
               marginBottom: 10,
             }}
           >
-            <Text style={{ color: "white" }}>Tên :{congcu.congcu.ten}</Text>
+            <Text style={{ color: "white" }}>Tên :{data.congcu.ten}</Text>
             <Text style={{ color: "white" }}>
-              Công dụng :{congcu.congcu.congdung}
+              Công dụng :{data.congcu.congdung}
             </Text>
-            <Text style={{ color: "white" }}>Mô tả :{congcu.congcu.mota}</Text>
-            <Text style={{ color: "white" }}>
-              Số lượng :{congcu.soluongphanphat}
-            </Text>
-            <Text style={{ color: "white" }}>
-              Người gửi :{congcu.phanphat.to.daily2.ten}
-            </Text>
-            <Text style={{ color: "white" }}>
-              Ngày nhận :{congcu.ngaytiepnhan}
-            </Text>
+            <Text style={{ color: "white" }}>Mô tả :{data.congcu.mota}</Text>
+            <Text style={{ color: "white" }}>Số lượng :{data.soluong}</Text>
             <Text
               style={{
                 color: "white",
@@ -72,6 +65,7 @@ function CongCu(props) {
                 marginTop: 5,
                 borderRadius: 10,
               }}
+              onPress={handleClickError}
             >
               Báo lỗi
             </Text>
@@ -84,13 +78,6 @@ function CongCu(props) {
 const styles = StyleSheet.create({
   container: {
     marginTop: 0,
-  },
-  headerContainer: {
-    backgroundColor: "#e65c00",
-    paddingTop: 15,
-    paddingBottom: 15,
-    flex: 1,
-    alignItems: "center",
   },
 });
 export default CongCu;

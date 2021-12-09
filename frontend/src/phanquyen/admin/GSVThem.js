@@ -1,11 +1,28 @@
 import React, { useState } from "react";
-import styled from "styled-components";
 import Header from "../../components/Header";
 import { apiTinhThanh } from "../../apiTinhThanh";
 import { toast } from "react-toastify";
 import apiGSV from "../../axios/apiGSV";
 import DropdownMaterial2 from "../../components/DropdownMaterial2";
 import MenuItem from "@mui/material/MenuItem";
+import ten from "../../assets/icons/ten.png";
+import sdt from "../../assets/icons/sdt.png";
+import email from "../../assets/icons/email.png";
+import diachi from "../../assets/icons/diachi.png";
+import taikhoan from "../../assets/icons/taikhoan.png";
+import them from "../../assets/icons/them.png";
+import cmnd from "../../assets/icons/cmnd.png";
+import {
+  Container,
+  Content,
+  ErrMsg,
+  Form,
+  FormContent,
+  FormGroup,
+  FormTitle,
+  Input,
+  Label,
+} from "./styledComponents";
 
 const GSVThem = (props) => {
   const [gsv, setGsv] = useState({
@@ -97,18 +114,25 @@ const GSVThem = (props) => {
           titleBack
           onClick={() => props.history.push("/admin/gsv")}
           headerRight={
-            <button className="btn btn-primary px-4" onClick={handleSubmit}>
-              Lưu
+            <button className="btn btn-primary px-3" onClick={handleSubmit}>
+              <span>Lưu</span>
+              <i class="fas fa-save"></i>
             </button>
           }
         />
         <Content>
           <Form>
             <FormContent>
-              <FormTitle>Thêm giám sát vùng</FormTitle>
+              <FormTitle>
+                <span>Thêm giám sát vùng</span>
+              </FormTitle>
 
               <FormGroup>
-                <Label>Tên giám sát vùng:</Label>
+                <Label>
+                  <img src={ten} alt="ten" />
+                  <span>Tên giám sát vùng:</span>
+                </Label>
+
                 <Input
                   placeholder="Nhập tên"
                   type="text"
@@ -120,7 +144,10 @@ const GSVThem = (props) => {
               </FormGroup>
 
               <FormGroup>
-                <Label>Số điện thoại:</Label>
+                <Label>
+                  <img src={sdt} alt="sdt" />
+                  <span>Số điện thoại:</span>
+                </Label>
                 <Input
                   placeholder="Nhập số điện thoại"
                   type="text"
@@ -132,7 +159,10 @@ const GSVThem = (props) => {
               </FormGroup>
 
               <FormGroup>
-                <Label>Số chứng minh nhân dân:</Label>
+                <Label>
+                  <img src={cmnd} alt="cmnd" />
+                  <span>Số chứng minh nhân dân:</span>
+                </Label>
                 <Input
                   placeholder="Nhập cmnd"
                   type="text"
@@ -144,7 +174,10 @@ const GSVThem = (props) => {
               </FormGroup>
 
               <FormGroup>
-                <Label>E-mail:</Label>
+                <Label>
+                  <img src={email} alt="email" />
+                  <span>E-mail:</span>
+                </Label>
                 <Input
                   placeholder="Nhập email"
                   type="text"
@@ -156,7 +189,10 @@ const GSVThem = (props) => {
               </FormGroup>
 
               <FormGroup>
-                <Label>Địa chỉ:</Label>
+                <Label>
+                  <img src={diachi} alt="diachi" />
+                  <span>Địa chỉ:</span>
+                </Label>
                 <div className="row">
                   <div className="col-lg-4">
                     {dsTinh && dsTinh.length ? (
@@ -221,7 +257,15 @@ const GSVThem = (props) => {
               </FormGroup>
 
               <FormGroup>
-                <Label>Tên tài khoản:</Label>
+                <Label>
+                  <img
+                    src={taikhoan}
+                    alt="taikhoan"
+                    width="36"
+                    className="mr-2"
+                  />
+                  <span>Tên tài khoản:</span>
+                </Label>
                 <Input
                   placeholder="Nhập tên"
                   type="text"
@@ -238,61 +282,5 @@ const GSVThem = (props) => {
     </>
   );
 };
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-`;
-const Content = styled.div`
-  flex: 1;
-  background: #f0eeee;
-  padding: 36px;
-`;
-const Form = styled.div`
-  background: #fff;
-  padding: 36px 20px 70px 20px;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
-    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
-  border-radius: 3px;
-`;
-const FormContent = styled.div`
-  width: 750px;
-  margin: auto;
-  font-family: "Poppins", sans-serif;
-`;
-const FormTitle = styled.div`
-  font-size: 22px;
-  font-weight: 600;
-  text-align: center;
-  color: #555;
-  margin-bottom: 20px;
-  margin-top: 20px;
-`;
-const FormGroup = styled.div`
-  margin-bottom: 26px;
-`;
-const Label = styled.span`
-  font-size: 16px;
-  color: #333;
-  display: block;
-  margin-bottom: 10px;
-`;
-const Input = styled.input`
-  width: 100%;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  padding: 13px 16px;
-  outline: none;
-  color: #333;
-  border-radius: 3px;
-  &:focus {
-    border: 1px solid blue;
-  }
-`;
-const ErrMsg = styled.div`
-  font-size: 13px;
-  color: red;
-  margin-top: 4px;
-`;
 
 export default GSVThem;
