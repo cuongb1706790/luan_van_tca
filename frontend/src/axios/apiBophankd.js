@@ -256,6 +256,12 @@ const apiBophankd = {
     const url = `/bophankd/dssubdhofsingledh/${bophankd}/${madh}`;
     return axiosClient.get(url);
   },
+
+  // lay ds hodan
+  dsHodan(bophankd) {
+    const url = `/bophankd/dshodan/${bophankd}`;
+    return axiosClient.get(url);
+  },
 };
 
 export default apiBophankd;

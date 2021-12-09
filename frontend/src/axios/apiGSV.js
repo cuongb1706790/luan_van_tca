@@ -156,6 +156,12 @@ const apiGSV = {
     const url = `/gsv/dssubdhofsingledh/${gsvId}/${madh}`;
     return axiosClient.get(url);
   },
+
+  // lay ds hodan
+  dsHodan(gsvId) {
+    const url = `/gsv/dshodan/${gsvId}`;
+    return axiosClient.get(url);
+  },
 };
 
 export default apiGSV;

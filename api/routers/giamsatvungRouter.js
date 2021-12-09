@@ -197,7 +197,15 @@ giamsatvungRouter.get("/dsdonhang/:gsvId", async (req, res) => {
   try {
     let { donhang } = await Giamsatvung.findById(req.params.gsvId)
       .select("donhang")
-      .populate("donhang");
+      .populate({
+        path: "donhang",
+        populate: {
+          path: "dssanpham",
+          populate: {
+            path: "sanpham",
+          },
+        },
+      });
 
     res.send({ donhang, success: true });
   } catch (error) {
@@ -601,6 +609,29 @@ giamsatvungRouter.get("/dssubdhofsingledh/:gsvId/:madh", async (req, res) => {
     );
 
     res.send({ subdonhang, success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+// lay ds hodan
+giamsatvungRouter.get("/dshodan/:gsvId", async (req, res) => {
+  try {
+    // lay danh sach gsv do gsv quan ly
+    const dsdaily2 = await Daily2.find({ giamsatvung: req.params.gsvId })
+      .select("hodan")
+      .populate({
+        path: "hodan",
+        populate: {
+          path: "langnghe loaisanpham",
+        },
+      });
+    let dshodan = [];
+    dsdaily2.forEach((dl2) => {
+      dshodan = [...dshodan, ...dl2.hodan];
+    });
+
+    res.send({ dshodan, success: true });
   } catch (error) {
     res.send({ message: error.message, success: false });
   }

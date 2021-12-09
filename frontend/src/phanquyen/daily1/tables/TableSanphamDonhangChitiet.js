@@ -13,7 +13,6 @@ import EnhancedTableHead from "../../../components/table/EnhancedTableHead";
 import { formatMoney, getComparator } from "../../../utils";
 import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
 import { headCellsSanphamDonhangChitiet } from "./headCells";
-import styled from "styled-components";
 
 const TableSanphamDonhangChitiet = ({ dsSanpham = [] }) => {
   const [order, setOrder] = React.useState("asc");

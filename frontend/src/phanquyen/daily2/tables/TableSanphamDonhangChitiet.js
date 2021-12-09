@@ -12,10 +12,12 @@ import img_placeholder from "../../../assets/images/img_placeholder.png";
 import EnhancedTableHead from "../../../components/table/EnhancedTableHead";
 import { formatMoney, getComparator } from "../../../utils";
 import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
-import { headCellsSanphamDonhangChitiet } from "./headCells";
-import styled from "styled-components";
+import {
+  headCellsSanphamDonhangChitiet,
+  headCellsSanphamDonhangChitiet2,
+} from "./headCells";
 
-const TableSanphamDonhangChitiet = ({ dsSanpham = [] }) => {
+const TableSanphamDonhangChitiet = ({ dsSanpham = [], hodanRole }) => {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
   const [selected, setSelected] = React.useState([]);
@@ -90,7 +92,11 @@ const TableSanphamDonhangChitiet = ({ dsSanpham = [] }) => {
                 onSelectAllClick={handleSelectAllClick}
                 onRequestSort={handleRequestSort}
                 rowCount={dsSanpham.length}
-                headCells={headCellsSanphamDonhangChitiet}
+                headCells={
+                  hodanRole
+                    ? headCellsSanphamDonhangChitiet
+                    : headCellsSanphamDonhangChitiet2
+                }
               />
               <TableBody>
                 {dsSanpham
@@ -145,6 +151,21 @@ const TableSanphamDonhangChitiet = ({ dsSanpham = [] }) => {
                         <TableCell align="right">{row.soluong}</TableCell>
                         <TableCell align="right">
                           {row.soluonghoanthanh}
+                        </TableCell>
+                        {!hodanRole && (
+                          <TableCell align="right">
+                            {row.danhan ? row.danhan : 0}
+                          </TableCell>
+                        )}
+                        <TableCell align="right">
+                          {row.dagiao ? row.dagiao : 0}
+                        </TableCell>
+                        <TableCell align="right">
+                          {!hodanRole && row.danhan && row.dagiao
+                            ? row.danhan - row.dagiao
+                            : hodanRole
+                            ? row.soluonghoanthanh - row.dagiao
+                            : 0}
                         </TableCell>
                         <TableCell align="right">
                           {formatMoney(row.soluong * row?.gia)}

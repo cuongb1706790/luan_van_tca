@@ -14,6 +14,11 @@ const donhangSchema = new mongoose.Schema(
           type: Number,
           default: 0,
         },
+        danhan: Number,
+        dagiao: {
+          type: Number,
+          default: 0,
+        },
       },
     ],
     tongsanpham: Number,

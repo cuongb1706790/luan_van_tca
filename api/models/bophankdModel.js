@@ -78,6 +78,14 @@ const bophankdSchema = new mongoose.Schema(
         },
         soluong: Number,
         soluonghoanthanh: Number,
+        danhan: {
+          type: Number,
+          default: 0,
+        },
+        dagiao: {
+          type: Number,
+          default: 0,
+        },
         ngaytao: String,
       },
     ],
@@ -109,6 +117,12 @@ const bophankdSchema = new mongoose.Schema(
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Donhang",
+      },
+    ],
+    dsgiaohang: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Giaohang",
       },
     ],
   },

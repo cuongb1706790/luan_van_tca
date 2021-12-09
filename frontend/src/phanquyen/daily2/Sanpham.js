@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import BackdropMaterial from "../../components/BackdropMaterial";
 import Header from "../../components/Header";
 import {
+  AddButton,
   Container,
   Content,
   Filter,
@@ -18,7 +19,7 @@ import apiDaily2 from "../../axios/apiDaily2";
 
 const Sanpham = (props) => {
   const [query, setQuery] = React.useState("");
-  const [searchColumns] = React.useState(["ten", "loai", "nhanhieu"]);
+  const [searchColumns] = React.useState(["ma"]);
   const [loading, setLoading] = React.useState(false);
   const [dsSanpham, setDsSanpham] = React.useState([]);
   const { userInfo } = useSelector((state) => state.user);
@@ -30,6 +31,7 @@ const Sanpham = (props) => {
     dssanpham = dssanpham.map((sp) => ({
       ...sp.sanpham,
       ...sp,
+      ma: sp.donhang.ma,
     }));
     setDsSanpham(dssanpham);
     setLoading(false);
@@ -64,13 +66,20 @@ const Sanpham = (props) => {
           <FilterSection>
             <TitleWrapper>
               <Title>Danh sách sản phẩm</Title>
+              <AddButton
+                className="btn btn-primary"
+                onClick={() => props.history.push("/daily2/sanpham/giaohang")}
+              >
+                <span>Giao hàng</span>
+                <i class="fas fa-plus-circle"></i>
+              </AddButton>
             </TitleWrapper>
             <Filter>
               <SearchBox>
                 <i class="fas fa-search"></i>
                 <input
                   type="text"
-                  placeholder="Tìm sản phẩm theo mã, tên, loại, nhãn hiệu"
+                  placeholder="Tìm sản phẩm theo mã"
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                 />

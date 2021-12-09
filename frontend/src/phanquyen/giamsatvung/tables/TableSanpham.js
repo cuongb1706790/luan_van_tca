@@ -143,23 +143,14 @@ const TableSanpham = ({ dsSanpham = [] }) => {
                         <TableCell align="right">
                           {row?.soluonghoanthanh}
                         </TableCell>
+                        <TableCell align="right">{row?.danhan}</TableCell>
+                        <TableCell align="right">{row?.dagiao}</TableCell>
+                        <TableCell align="right">
+                          {row?.danhan - row?.dagiao}
+                        </TableCell>
                         <TableCell align="right">
                           {formatMoney(row?.soluong * row?.gia)}
                         </TableCell>
-                        <TableCell align="right">{row?.ngaytao}</TableCell>
-                        {/* <TableCell align="right">
-                          {
-                            <TableButton
-                              onClick={() =>
-                                history.push(
-                                  `/bophankd/sanpham/chitiet/${row._id}`
-                                )
-                              }
-                            >
-                              Chi tiết
-                            </TableButton>
-                          }
-                        </TableCell> */}
                       </TableRow>
                     );
                   })}

@@ -32,6 +32,14 @@ import splnIcon from "../../assets/icons/spln.png";
 import Badge from "@mui/material/Badge";
 import apiGSV from "../../axios/apiGSV";
 import BackdropMaterial from "../../components/BackdropMaterial";
+import hodanIcon from "../../assets/icons/hodan.png";
+import Hodan from "./Hodan";
+import HodanChitiet from "./HodanChitiet";
+import Giaohang from "./Giaohang";
+import Hanggiaoden from "./Hanggiaoden";
+import HanggiaodenChitiet from "./HanggiaodenChitiet";
+import Hanggiaodi from "./Hanggiaodi";
+import HanggiaodiChitiet from "./HanggiaodiChitiet";
 
 const Dashboard = (props) => {
   const [loading, setLoading] = useState(false);
@@ -110,6 +118,13 @@ const Dashboard = (props) => {
           </MenuItem>
 
           <MenuItem>
+            <NavLink to="/giamsatvung/hodan" activeClassName="active">
+              <Image src={hodanIcon} alt="hodan" />
+              <span className="ml-3">Hộ dân</span>
+            </NavLink>
+          </MenuItem>
+
+          <MenuItem>
             <NavLink to="/giamsatvung/donhang" activeClassName="active">
               {dsBadge?.donhangBadge > 0 ? (
                 <Badge badgeContent={dsBadge?.donhangBadge} color="secondary">
@@ -147,6 +162,20 @@ const Dashboard = (props) => {
             <NavLink to="/giamsatvung/nguyenlieu" activeClassName="active">
               <i class="fab fa-bandcamp"></i>
               <span className="ml-3">Nguyên liệu</span>
+            </NavLink>
+          </MenuItem>
+
+          <MenuItem>
+            <NavLink to="/giamsatvung/hanggiaoden" activeClassName="active">
+              <i class="far fa-newspaper"></i>
+              <span className="ml-3">Hàng giao đến</span>
+            </NavLink>
+          </MenuItem>
+
+          <MenuItem>
+            <NavLink to="/giamsatvung/hanggiaodi" activeClassName="active">
+              <i class="far fa-newspaper"></i>
+              <span className="ml-3">Hàng giao đi</span>
             </NavLink>
           </MenuItem>
 
@@ -211,6 +240,22 @@ const Dashboard = (props) => {
         <Route exact path="/giamsatvung/congcu" component={Congcu} />
         <Route exact path="/giamsatvung/vattu" component={Vattu} />
         <Route exact path="/giamsatvung/nguyenlieu" component={Nguyenlieu} />
+        <Route exact path="/giamsatvung/hodan" component={Hodan} />
+        <Route path="/giamsatvung/hodan/chitiet/:id" component={HodanChitiet} />
+
+        <Route path="/giamsatvung/sanpham/giaohang" component={Giaohang} />
+
+        <Route exact path="/giamsatvung/hanggiaoden" component={Hanggiaoden} />
+        <Route
+          path="/giamsatvung/hanggiaoden/chitiet/:id"
+          component={HanggiaodenChitiet}
+        />
+
+        <Route exact path="/giamsatvung/hanggiaodi" component={Hanggiaodi} />
+        <Route
+          path="/giamsatvung/hanggiaodi/chitiet/:id"
+          component={HanggiaodiChitiet}
+        />
       </RightContent>
     </Container>
   );

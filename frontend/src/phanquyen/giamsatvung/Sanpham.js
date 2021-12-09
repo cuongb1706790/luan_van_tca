@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import BackdropMaterial from "../../components/BackdropMaterial";
 import Header from "../../components/Header";
 import {
+  AddButton,
   Container,
   Content,
   Filter,
@@ -63,6 +64,15 @@ const Sanpham = (props) => {
           <FilterSection>
             <TitleWrapper>
               <Title>Danh sách sản phẩm</Title>
+              <AddButton
+                className="btn btn-primary"
+                onClick={() =>
+                  props.history.push("/giamsatvung/sanpham/giaohang")
+                }
+              >
+                <span>Giao hàng</span>
+                <i class="fas fa-plus-circle"></i>
+              </AddButton>
             </TitleWrapper>
             <Filter>
               <SearchBox>

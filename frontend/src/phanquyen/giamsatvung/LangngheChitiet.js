@@ -55,7 +55,6 @@ const LangngheChitiet = (props) => {
         title="Quay lại danh sách làng nghề"
         titleBack
         onClick={() => props.history.push("/giamsatvung/langnghe")}
-        headerRight={<button className="btn btn-primary px-4">Lưu</button>}
       />
       <Content>
         <Form>

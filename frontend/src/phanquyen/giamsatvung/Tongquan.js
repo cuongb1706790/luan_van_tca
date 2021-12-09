@@ -8,6 +8,7 @@ import daily2 from "../../assets/icons/daily2_2.png";
 import { useSelector } from "react-redux";
 import langngheIcon from "../../assets/icons/langnghe_2.png";
 import apiGSV from "../../axios/apiGSV";
+import hodan from "../../assets/icons/hodan2.png";
 
 const TongQuan = (props) => {
   const [loading, setLoading] = useState(false);
@@ -17,8 +18,9 @@ const TongQuan = (props) => {
   const fetchData = async () => {
     setLoading(true);
     const { gsv } = await apiGSV.singleGsvBasedUserId(userInfo._id);
+    const { dshodan } = await apiGSV.dsHodan(gsv._id);
     const data = await apiGSV.tongquan(gsv._id);
-    setCounts(data);
+    setCounts({ ...data, dshodan: dshodan.length });
     setLoading(false);
   };
 
@@ -93,7 +95,7 @@ const TongQuan = (props) => {
           </div>
         </div>
 
-        <div className="row">
+        <div className="row mb-4">
           <div className="col-lg-3">
             <Card onClick={() => props.history.push("/giamsatvung/sanpham")}>
               <CardContent>
@@ -145,6 +147,22 @@ const TongQuan = (props) => {
                 </TextInfo>
                 <Icon>
                   <i class="fas fa-tools"></i>
+                </Icon>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-lg-3">
+            <Card onClick={() => props.history.push("/giamsatvung/hodan")}>
+              <CardContent>
+                <TextInfo>
+                  <div>{counts?.dshodan}</div>
+                  <span>Danh sách hộ dân</span>
+                </TextInfo>
+                <Icon>
+                  <Image src={hodan} alt="hodan" />
                 </Icon>
               </CardContent>
             </Card>

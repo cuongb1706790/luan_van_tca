@@ -56,6 +56,10 @@ db.hodans.updateMany({}, { $set: { dsvattu: [] }});
 db.hodans.updateMany({}, { $set: { dsnguyenlieu: [] }});
 db.hodans.updateMany({}, { $set: { donhang: [] }});
 
+db.daily2.updateMany({}, { $set: { dsgiaohang: [] }});
+db.daily1.updateMany({}, { $set: { dsgiaohang: [] }});
+db.giamsatvungs.updateMany({}, { $set: { dsgiaohang: [] }});
+db.bophankds.updateMany({}, { $set: { dsgiaohang: [] }});
 
 
 //===================
@@ -110,140 +114,43 @@ gsv B (A, D, E)
         DL2H (D, E)
             HDQ(LSP: D)
             HDZ(LSP: E)
-
-
-- subdonhang gsv -> show dl1
-- subdonhang dl1 -> show dl2
-- subdonhang dl2 -> show hodan
-
-gsvA
-    - dl1A
-        + dl2 A
-            + hd A
-            + hd B
-        + dl2 B
-            + hd C
-            + hd D
-    - dl1B
-        + dl2 C
-        + dl2 D
-            + hd E
-            + hd F
-   
-gsvB
-
-
-show daily1: {
-    from: gsvA
-    to: dl1A
-}
-{
-    from: gsvA
-    to: dl1B
-}
-=> subdonhang cua gsvA where madh = 'DHA01'
-
-show daily2: {
-    from :dl1A
-    to: daily2A
-}
-{
-    from :dl1A
-    to: daily2B
-}
-=> subdonhang dl1A where madh = 'DHA01'
-
-show daily2: {
-    from :dl1B
-    to: daily2C
-}
-{
-    from :dl1B
-    to: daily2D
-}
-=> subdonhang dl1B where madh = 'DHA01'
-
-
-import { Link } from "react-router-dom";
-
-<Link to={`/bophankd/donhang/chitiet/${row._id}`}>
-    {row?.ma}
-</Link>
-
-font-family: 'Roboto', sans-serif;
-
-font-family: 'Poppins', sans-serif;
-
-import ten from "../../assets/icons/ten.png";
-import sdt from "../../assets/icons/sdt.png";
-import email from "../../assets/icons/email.png";
-import diachi from "../../assets/icons/diachi.png";
-import taikhoan from "../../assets/icons/taikhoan.png";
-import them from "../../assets/icons/them.png";
-import cmnd from "../../assets/icons/cmnd.png";
-import ma from "../../assets/icons/ma.png";
-import chitiet from "../../assets/icons/chitiet.png";
-import mota from "../../assets/icons/mota.png";
-import anh from "../../assets/icons/anh.png";
-import tt from "../../assets/icons/thuoctinh.png";
-import cd from "../../assets/icons/congdung.png";
-
- <FormTitle>
-    <img src={them} alt="them" />
-    <span>Thêm bộ phận kinh doanh</span>
-    <img src={them} alt="them" />
-</FormTitle>
-
-<Label>
-    <img src={ten} alt="ten" />
-    <span>Tên bộ phận kinh doanh:</span>
-</Label>
-
-<button className="btn btn-primary px-3" onClick={handleSubmit}>
-    <span>Lưu</span>
-<i class="fas fa-save"></i>
-</button>
-
-
-  <i class="fas fa-plus-circle"></i>
-            
-
-import {
-  BtnRight,
-  Container,
-  Content,
-  Filter,
-  FilterSection,
-  SearchBox,
-  TableSection,
-  Title,
-  TitleWrapper,
-} from "./styledComponents";
-
-
-many:
-import {
-  Container,
-  Content,
-  CrossButton,
-  ErrMsg,
-  Form,
-  FormContent,
-  FormGroup,
-  FormTitle,
-  Input,
-  Label,
-  PlusButton,
-  TextArea,
-} from "./styledComponents";
-
-
+     
 
 db.sanphams.find({"createdAt":{ $gte:ISODate("2021-11-10"), $lt:ISODate("2021-11-18") }
 }).pretty();
 
 
-#0fffb7
-
-
 ham xoa ho dan => update loaisp
+
+
+==================================================
+
+Giaohang:
+    - madh (_id)
+    - dssanpham [
+        {
+            sanphamId,
+            dagiao
+        }
+    ],
+    - ngaygiao: Date
+    - xac nhan
+
+
+- HO DAN:
+update: donhang, dssanpham
+    + donhang -> field: dagiao -> model Donhang
+    + dssanpham -> field dssanpham -> model Hodan(khohang)
+
+- DAI LY 2:
+    - click xac nhan:
+        + update field: danhan, model: Donhang (tim don hang tong hop of DL2)
+        + update field: dssanpham -> danhan, model: Daily2
+        + update field: xacnhan: true, model: Giaohang
+
+
+
+hd -> 40
+xn -> dl2: danhan: 40, gui: 20 - dagui: 20
+
+xn: 60, gui: 30 -> 

@@ -456,7 +456,7 @@ export const headCellsSanphamDonhangChitiet = [
     id: "soluonght",
     numeric: false,
     disablePadding: false,
-    label: "Số lượng hoàn thành",
+    label: "Hộ dân hoàn thành",
   },
   {
     id: "gia",
@@ -762,7 +762,25 @@ export const headCellsSanpham = [
     id: "soluonghoanthanh",
     numeric: false,
     disablePadding: false,
-    label: "Số lượng hoàn thành",
+    label: "Hộ dân hoàn thành",
+  },
+  {
+    id: "danhan",
+    numeric: false,
+    disablePadding: false,
+    label: "Đã nhận",
+  },
+  {
+    id: "dagiao",
+    numeric: false,
+    disablePadding: false,
+    label: "Đã giao",
+  },
+  {
+    id: "conlai",
+    numeric: false,
+    disablePadding: false,
+    label: "Còn lại",
   },
   {
     id: "tonggia",
@@ -770,10 +788,235 @@ export const headCellsSanpham = [
     disablePadding: false,
     label: "Tổng giá",
   },
+  // {
+  //   id: "ngaytao",
+  //   numeric: false,
+  //   disablePadding: false,
+  //   label: "Ngày tạo",
+  // },
+];
+
+export const headCellsGiaohang = [
   {
-    id: "ngaytao",
+    id: "masanpham",
+    numeric: false,
+    disablePadding: true,
+    label: "Mã sản phẩm",
+  },
+  {
+    id: "ten",
     numeric: false,
     disablePadding: false,
-    label: "Ngày tạo",
+    label: "Tên sản phẩm",
+  },
+  // {
+  //   id: "hinhanh",
+  //   numeric: false,
+  //   disablePadding: true,
+  //   label: "Hình ảnh",
+  // },
+  {
+    id: "tongsoluong",
+    numeric: false,
+    disablePadding: false,
+    label: "Số lượng thực hiện",
+  },
+  {
+    id: "hodanhoanthanh",
+    numeric: false,
+    disablePadding: false,
+    label: "Hộ dân hoàn thành",
+  },
+  {
+    id: "danhan",
+    numeric: false,
+    disablePadding: false,
+    label: "Đã nhận",
+  },
+  {
+    id: "dagiaodi",
+    numeric: false,
+    disablePadding: false,
+    label: "Đã giao đi",
+  },
+  {
+    id: "conlai",
+    numeric: false,
+    disablePadding: false,
+    label: "Còn lại",
+  },
+  {
+    id: "soluonggiao",
+    numeric: false,
+    disablePadding: false,
+    label: "Số lượng giao",
+  },
+];
+
+export const headCellsGiaohangDen = [
+  {
+    id: "madonhang",
+    numeric: false,
+    disablePadding: true,
+    label: "Mã đơn hàng",
+  },
+  {
+    id: "daily2",
+    numeric: false,
+    disablePadding: true,
+    label: "Đại lý 2",
+  },
+  {
+    id: "tongsanpham",
+    numeric: false,
+    disablePadding: false,
+    label: "Tổng sản phẩm",
+  },
+  {
+    id: "ngaygiao",
+    numeric: false,
+    disablePadding: true,
+    label: "Ngày giao đến",
+  },
+  {
+    id: "xacnhan",
+    numeric: false,
+    disablePadding: true,
+    label: "Ngày xác nhận",
+  },
+  {
+    id: "action",
+    numeric: false,
+    disablePadding: true,
+    label: "",
+  },
+];
+
+export const headCellsGiaohangDi = [
+  {
+    id: "madonhang",
+    numeric: false,
+    disablePadding: true,
+    label: "Mã đơn hàng",
+  },
+  {
+    id: "gsv",
+    numeric: false,
+    disablePadding: true,
+    label: "Giám sát vùng",
+  },
+  {
+    id: "tongsanpham",
+    numeric: false,
+    disablePadding: false,
+    label: "Tổng sản phẩm",
+  },
+  {
+    id: "ngaygiao",
+    numeric: false,
+    disablePadding: true,
+    label: "Ngày giao đi",
+  },
+  {
+    id: "trangthai",
+    numeric: false,
+    disablePadding: true,
+    label: "Trạng thái",
+  },
+  {
+    id: "ngayxacnhan",
+    numeric: false,
+    disablePadding: true,
+    label: "Ngày xác nhận",
+  },
+];
+
+export const headCellsHanggiaodenChitiet = [
+  {
+    id: "masp",
+    numeric: false,
+    disablePadding: true,
+    label: "Mã sản phẩm",
+  },
+  {
+    id: "tensp",
+    numeric: false,
+    disablePadding: true,
+    label: "Tên sản phẩm",
+  },
+  {
+    id: "hinhanh",
+    numeric: false,
+    disablePadding: false,
+    label: "Hình ảnh",
+  },
+  {
+    id: "slthuchien",
+    numeric: false,
+    disablePadding: false,
+    label: "Số lượng thực hiện",
+  },
+  {
+    id: "slhoanthanh",
+    numeric: false,
+    disablePadding: false,
+    label: "Hộ dân hoàn thành",
+  },
+  {
+    id: "slhoanthanh",
+    numeric: false,
+    disablePadding: false,
+    label: "Đại lý 2 đã nhận",
+  },
+  {
+    id: "soluonggiao",
+    numeric: false,
+    disablePadding: false,
+    label: "Số luợng giao",
+  },
+];
+
+export const headCellsHanggiaodiChitiet = [
+  {
+    id: "masp",
+    numeric: false,
+    disablePadding: true,
+    label: "Mã sản phẩm",
+  },
+  {
+    id: "tensp",
+    numeric: false,
+    disablePadding: true,
+    label: "Tên sản phẩm",
+  },
+  {
+    id: "hinhanh",
+    numeric: false,
+    disablePadding: false,
+    label: "Hình ảnh",
+  },
+  {
+    id: "slthuchien",
+    numeric: false,
+    disablePadding: false,
+    label: "Số lượng thực hiện",
+  },
+  {
+    id: "slhoanthanh",
+    numeric: false,
+    disablePadding: false,
+    label: "Hộ dân hoàn thành",
+  },
+  {
+    id: "danhan",
+    numeric: false,
+    disablePadding: false,
+    label: "Đã nhận",
+  },
+  {
+    id: "soluonggiao",
+    numeric: false,
+    disablePadding: false,
+    label: "Số luợng giao",
   },
 ];

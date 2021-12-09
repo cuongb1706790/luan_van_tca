@@ -12,100 +12,26 @@ import { Link } from "react-router-dom";
 import EnhancedTableHead from "../../../components/table/EnhancedTableHead";
 import { getComparator } from "../../../utils";
 import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
-import { headCellsHodan } from "./headCells";
+import { headCellsHodan2 } from "./headCells";
 import DialogMaterial from "../../../components/DialogMaterial";
 import apiHodan from "../../../axios/apiHodan";
-import { useHistory } from "react-router";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import { alpha } from "@mui/material/styles";
-import ModalChitietHodan from "../../../components/ModalChitietHodan";
-import TableButton from "../../../components/TableButton";
+import styled from "styled-components";
+import { toast } from "react-toastify";
 
-const EnhancedTableToolbar = ({
-  numSelected,
-  rowsSelected,
-  onClickCapnhat,
-  onClickXoa,
-}) => {
-  return numSelected > 0 ? (
-    <>
-      <Toolbar
-        sx={{
-          pl: { sm: 8 },
-          pr: { xs: 1, sm: 1 },
-          ...(numSelected > 0 && {
-            bgcolor: (theme) =>
-              alpha(
-                theme.palette.primary.main,
-                theme.palette.action.activatedOpacity
-              ),
-          }),
-        }}
-      >
-        {numSelected > 0 ? (
-          <Typography
-            sx={{ flex: "1 1 100%" }}
-            color="inherit"
-            variant="subtitle1"
-            component="div"
-          >
-            <div className="d-flex align-items-center">
-              {rowsSelected.length === 1 ? (
-                <>
-                  <TableButton onClick={onClickCapnhat}>Cập nhật</TableButton>
-                  <TableButton onClick={onClickXoa}>Xóa</TableButton>
-                </>
-              ) : (
-                <TableButton onClick={onClickXoa}>Xóa</TableButton>
-              )}
-            </div>
-          </Typography>
-        ) : (
-          <Typography
-            sx={{ flex: "1 1 100%" }}
-            variant="h6"
-            id="tableTitle"
-            component="div"
-          >
-            Nutrition
-          </Typography>
-        )}
-      </Toolbar>
-    </>
-  ) : null;
-};
-
-const TableHodan = ({ dsHodan = [], setRowsRemoved, setAlert }) => {
+const TableHodan = ({ dsHodan = [], setRowsRemoved, readOnly }) => {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [open, setOpen] = React.useState(false);
-  const [modalOpen, setModalOpen] = React.useState(false);
-  const [hodanInfo, setHodanInfo] = React.useState(null);
-  const history = useHistory();
 
-  const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const handleOpenModal = async (id) => {
-    const data = await apiHodan.singleHodan(id);
-    setHodanInfo(data.hodan);
-    setModalOpen(true);
-  };
-  const handleCloseModal = () => setModalOpen(false);
-
-  const onClickCapnhat = () =>
-    history.push(`/giamsatvung/hodan/chinhsua/${selected[0]}`);
-
-  const onClickXoa = () => handleOpen();
-
   const handleDeleteRow = async () => {
-    const data = await apiHodan.xoaNhieuHodan({ arrayOfId: selected });
-    if (data.success) {
-      setAlert(true);
+    const { success } = await apiHodan.xoaNhieuHodan({ arrayOfId: selected });
+    if (success) {
+      toast.success("Xóa thành công!", { theme: "colored" });
       setRowsRemoved(true);
     }
   };
@@ -164,12 +90,6 @@ const TableHodan = ({ dsHodan = [], setRowsRemoved, setAlert }) => {
     <>
       <Box sx={{ width: "100%" }}>
         <Paper sx={{ width: "100%", mb: 2 }}>
-          <EnhancedTableToolbar
-            numSelected={selected.length}
-            rowsSelected={selected}
-            onClickCapnhat={onClickCapnhat}
-            onClickXoa={onClickXoa}
-          />
           <TableContainer>
             <Table
               sx={{ minWidth: 750 }}
@@ -184,7 +104,7 @@ const TableHodan = ({ dsHodan = [], setRowsRemoved, setAlert }) => {
                 onSelectAllClick={handleSelectAllClick}
                 onRequestSort={handleRequestSort}
                 rowCount={dsHodan?.length}
-                headCells={headCellsHodan}
+                headCells={headCellsHodan2}
               />
               <TableBody>
                 {dsHodan
@@ -215,20 +135,27 @@ const TableHodan = ({ dsHodan = [], setRowsRemoved, setAlert }) => {
                           />
                         </TableCell>
                         <TableCell align="right">
-                          <Link to="#" onClick={() => handleOpenModal(row._id)}>
-                            {row.daidien}
-                          </Link>
+                          {readOnly ? (
+                            row?.daidien
+                          ) : (
+                            <Link to={`/giamsatvung/hodan/chitiet/${row?._id}`}>
+                              {row?.daidien}
+                            </Link>
+                          )}
                         </TableCell>
-                        <TableCell align="right">{row.sdt}</TableCell>
-                        <TableCell align="right">{row.cmnd}</TableCell>
+                        <TableCell align="right">{row?.sdt}</TableCell>
+                        <TableCell align="right">{row?.cmnd}</TableCell>
                         <TableCell align="right">{row?.namsinh}</TableCell>
-                        <TableCell align="right">{row?.nghe}</TableCell>
                         <TableCell align="right">
-                          <Link
-                            to={`/giamsatvung/langnghe/chitiet/${row.langngheId}`}
-                          >
-                            {row.langnghe}
-                          </Link>
+                          {row?.loaisanpham.ten}
+                        </TableCell>
+                        <TableCell align="right">{row?.langnghe}</TableCell>
+                        <TableCell align="right">
+                          {row?.active ? (
+                            <Badge className="success">Đã kích hoạt</Badge>
+                          ) : (
+                            <Badge className="danger">Chờ duyệt</Badge>
+                          )}
                         </TableCell>
                       </TableRow>
                     );
@@ -268,21 +195,30 @@ const TableHodan = ({ dsHodan = [], setRowsRemoved, setAlert }) => {
       <DialogMaterial
         open={open}
         onClose={handleClose}
-        title="Xóa đại lý"
-        content="Bạn chắc xóa những đại lý này chứ?"
+        title="Xóa hộ dân"
+        content="Bạn chắc xóa những hộ dân này chứ?"
         text1="Hủy"
         text2="Xóa"
         onClick1={handleClose}
         onClick2={handleDeleteRow}
       />
-
-      <ModalChitietHodan
-        open={modalOpen}
-        onClose={handleCloseModal}
-        hodan={hodanInfo}
-      />
     </>
   );
 };
+
+const Badge = styled.div`
+  display: inline-block;
+  text-align: center;
+  color: #fff;
+  padding: 6px 10px;
+  font-size: 13px;
+  border-radius: 4px;
+  &.success {
+    background-color: #28a745;
+  }
+  &.danger {
+    background-color: #dc3545;
+  }
+`;
 
 export default TableHodan;

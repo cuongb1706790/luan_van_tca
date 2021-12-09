@@ -925,9 +925,34 @@ bophankdRouter.get("/dssubdhofsingledh/:bophankdId/:madh", async (req, res) => {
           },
         },
       });
-      subdonhang = subdonhang.filter(dh => dh.ma === req.params.madh.toString())
+    subdonhang = subdonhang.filter(
+      (dh) => dh.ma === req.params.madh.toString()
+    );
 
     res.send({ subdonhang, success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+// lay ds hodan
+bophankdRouter.get("/dshodan/:bophankdId", async (req, res) => {
+  try {
+    // lay danh sach gsv do gsv quan ly
+    const dsdaily2 = await Daily2.find({ bophankd: req.params.bophankdId })
+      .select("hodan")
+      .populate({
+        path: "hodan",
+        populate: {
+          path: "langnghe loaisanpham",
+        },
+      });
+    let dshodan = [];
+    dsdaily2.forEach((dl2) => {
+      dshodan = [...dshodan, ...dl2.hodan];
+    });
+
+    res.send({ dshodan, success: true });
   } catch (error) {
     res.send({ message: error.message, success: false });
   }

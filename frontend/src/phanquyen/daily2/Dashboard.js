@@ -23,6 +23,11 @@ import splnIcon from "../../assets/icons/spln.png";
 import Badge from "@mui/material/Badge";
 import apiDaily2 from "../../axios/apiDaily2";
 import BackdropMaterial from "../../components/BackdropMaterial";
+import Giaohang from "./Giaohang";
+import Hanggiaoden from "./Hanggiaoden";
+import Hanggiaodi from "./Hanggiaodi";
+import HanggiaodenChitiet from "./HanggiaodenChitiet";
+import HanggiaodiChitiet from "./HanggiaodiChitiet";
 
 const Dashboard = (props) => {
   const [loading, setLoading] = useState(false);
@@ -122,6 +127,20 @@ const Dashboard = (props) => {
           </MenuItem>
 
           <MenuItem>
+            <NavLink to="/daily2/hanggiaoden" activeClassName="active">
+              <i class="far fa-newspaper"></i>
+              <span className="ml-3">Hàng giao đến</span>
+            </NavLink>
+          </MenuItem>
+
+          <MenuItem>
+            <NavLink to="/daily2/hanggiaodi" activeClassName="active">
+              <i class="far fa-newspaper"></i>
+              <span className="ml-3">Hàng giao đi</span>
+            </NavLink>
+          </MenuItem>
+
+          <MenuItem>
             <LogoutButton onClick={handleLogout}>Đăng xuất</LogoutButton>
           </MenuItem>
         </Menu>
@@ -130,6 +149,8 @@ const Dashboard = (props) => {
       <RightContent>
         <Route exact path="/daily2" component={Tongquan} />
         <Route exact path="/daily2/sanpham" component={Sanpham} />
+        <Route path="/daily2/sanpham/giaohang" component={Giaohang} />
+
         <Route exact path="/daily2/congcu" component={Congcu} />
         <Route exact path="/daily2/vattu" component={Vattu} />
         <Route exact path="/daily2/nguyenlieu" component={Nguyenlieu} />
@@ -151,6 +172,18 @@ const Dashboard = (props) => {
           component={DonhangThem}
         />
         <Route path="/daily2/donhang/chitiet/:id/tiendo" component={Tiendo} />
+
+        <Route exact path="/daily2/hanggiaoden" component={Hanggiaoden} />
+        <Route
+          path="/daily2/hanggiaoden/chitiet/:id"
+          component={HanggiaodenChitiet}
+        />
+
+        <Route exact path="/daily2/hanggiaodi" component={Hanggiaodi} />
+        <Route
+          path="/daily2/hanggiaodi/chitiet/:id"
+          component={HanggiaodiChitiet}
+        />
       </RightContent>
     </Container>
   );

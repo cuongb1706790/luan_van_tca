@@ -33,6 +33,11 @@ import { useSelector } from "react-redux";
 import apiBophankd from "../../axios/apiBophankd";
 import BackdropMaterial from "../../components/BackdropMaterial";
 import GiamsatvungChitiet from "./GiamsatvungChitiet";
+import hodanIcon from "../../assets/icons/hodan.png";
+import Hodan from "./Hodan";
+import HodanChitiet from "./HodanChitiet";
+import Hanggiaoden from "./Hanggiaoden";
+import HanggiaodenChitiet from "./HanggiaodenChitiet";
 
 const Dashboard = (props) => {
   const [loading, setLoading] = useState(false);
@@ -147,9 +152,23 @@ const Dashboard = (props) => {
           </MenuItem>
 
           <MenuItem>
+            <NavLink to="/bophankd/hodan" activeClassName="active">
+              <Image src={hodanIcon} alt="hodan" />
+              <span className="ml-3">Hộ dân</span>
+            </NavLink>
+          </MenuItem>
+
+          <MenuItem>
             <NavLink to="/bophankd/donhang" activeClassName="active">
               <i class="far fa-newspaper"></i>
               <span className="ml-3">Đơn hàng</span>
+            </NavLink>
+          </MenuItem>
+
+          <MenuItem>
+            <NavLink to="/bophankd/hanggiaoden" activeClassName="active">
+              <i class="far fa-newspaper"></i>
+              <span className="ml-3">Hàng giao đến</span>
             </NavLink>
           </MenuItem>
 
@@ -202,6 +221,14 @@ const Dashboard = (props) => {
           component={DonhangChitiet}
         />
         <Route path="/bophankd/donhang/chitiet/:id/tiendo" component={Tiendo} />
+        <Route exact path="/bophankd/hodan" component={Hodan} />
+        <Route path="/bophankd/hodan/chitiet/:id" component={HodanChitiet} />
+
+        <Route exact path="/bophankd/hanggiaoden" component={Hanggiaoden} />
+        <Route
+          path="/bophankd/hanggiaoden/chitiet/:id"
+          component={HanggiaodenChitiet}
+        />
       </RightContent>
     </Container>
   );

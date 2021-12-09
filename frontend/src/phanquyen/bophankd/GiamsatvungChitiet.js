@@ -6,6 +6,7 @@ import splnIcon from "../../assets/icons/spln.png";
 import dl2Icon from "../../assets/icons/daily2.png";
 import langngheIcon from "../../assets/icons/langnghe.png";
 import dl1Icon from "../../assets/icons/daily1.png";
+import hodan from "../../assets/icons/hodan.png";
 import apiGSV from "../../axios/apiGSV";
 import TableSanpham from "../giamsatvung/tables/TableSanpham";
 import TableCongcu from "../giamsatvung/tables/TableCongcu";
@@ -16,6 +17,7 @@ import TableDaily2 from "../giamsatvung/tables/TableDaily2";
 import TableLangnghe from "../giamsatvung/tables/TableLangnghe";
 import TableDonhang from "../giamsatvung/tables/TableDonhang";
 import apiLangnghe from "../../axios/apiLangnghe";
+import TableHodan from "../daily2/tables/TableHodan";
 
 const GiamsatvungChitiet = (props) => {
   const [active, setActive] = useState({
@@ -25,6 +27,7 @@ const GiamsatvungChitiet = (props) => {
   });
   const [loading, setLoading] = useState(false);
   const [dsLangnghe, setDsLangnghe] = useState([]);
+  const [dsHodan, setDsHodan] = useState([]);
   const [singleGSV, setSingleGSV] = useState(null);
   const { id: gsvId } = props.match.params;
 
@@ -32,6 +35,9 @@ const GiamsatvungChitiet = (props) => {
     setLoading(true);
     const { langnghe } = await apiLangnghe.dsLangnghe();
     let { gsv } = await apiGSV.singleGsv(gsvId);
+    // fetch ds ho dan
+    let { dshodan } = await apiGSV.dsHodan(gsv._id);
+    dshodan = dshodan.map((hd) => ({ ...hd, langnghe: hd.langnghe.ten }));
     gsv = {
       ...gsv,
       dssanpham: gsv.dssanpham.map((sp) => ({ ...sp, ...sp.sanpham })),
@@ -42,6 +48,7 @@ const GiamsatvungChitiet = (props) => {
         ...ngl.nguyenlieu,
       })),
     };
+    setDsHodan(dshodan);
     setDsLangnghe(langnghe);
     setSingleGSV(gsv);
     setLoading(false);
@@ -177,6 +184,20 @@ const GiamsatvungChitiet = (props) => {
               <i class="far fa-newspaper"></i>
               <BoxTitle>Đơn hàng</BoxTitle>
             </Box>
+
+            <Box
+              onClick={() =>
+                setActive({
+                  code: 9,
+                  present: "dshodan",
+                  payload: "",
+                })
+              }
+              className={active.code === 9 && "active"}
+            >
+              <img src={hodan} width="30" alt="hodan" />
+              <BoxTitle>Hộ dân</BoxTitle>
+            </Box>
           </Boxes>
 
           <SubComponents>
@@ -194,8 +215,10 @@ const GiamsatvungChitiet = (props) => {
               <TableDaily2 dsDaily2={singleGSV?.daily2} readOnly />
             ) : active.code === 7 ? (
               <TableLangnghe dsLangnghe={dsLangnghe} readOnly />
-            ) : (
+            ) : active.code === 8 ? (
               <TableDonhang dsDonhang={singleGSV?.donhang} readOnly />
+            ) : (
+              <TableHodan dsHodan={dsHodan} readOnly />
             )}
           </SubComponents>
         </Content>
@@ -220,8 +243,8 @@ const Boxes = styled.div`
   justify-content: space-between;
 `;
 const Box = styled.div`
-  width: 170px;
-  padding: 14px 28px;
+  width: 145px;
+  padding: 10px 20px;
   border-radius: 4px;
   box-shadow: 0 2px 4px rgb(0 0 20 / 8%), 0 1px 2px rgb(0 0 20 / 8%);
   cursor: pointer;
@@ -249,7 +272,7 @@ const Box = styled.div`
     font-size: 23px;
   }
   &:nth-child(1),
-  &:nth-child(8) {
+  &:nth-child(9) {
     background: #da542e;
     &::after {
       background: #da542e;
@@ -265,7 +288,7 @@ const Box = styled.div`
     }
   }
   &:nth-child(2),
-  &:nth-child(7) {
+  &:nth-child(8) {
     background: #2255a4;
     &::after {
       background: #2255a4;
@@ -281,7 +304,7 @@ const Box = styled.div`
     }
   }
   &:nth-child(3),
-  &:nth-child(6) {
+  &:nth-child(7) {
     background: #27a9e3;
     &::after {
       background: #27a9e3;
@@ -297,7 +320,7 @@ const Box = styled.div`
     }
   }
   &:nth-child(4),
-  &:nth-child(5) {
+  &:nth-child(6) {
     background: #28b779;
     &::after {
       background: #28b779;
@@ -312,7 +335,23 @@ const Box = styled.div`
       background: #1c8c5c;
     }
   }
+  &:nth-child(5) {
+    background: #e1c83a;
+    &::after {
+      background: #e1c83a;
+    }
+    &:hover {
+      background: #c0ab37;
+      &::after {
+        width: 100%;
+      }
+    }
+    &.active {
+      background: #c0ab37;
+    }
+  }
 `;
+
 const BoxTitle = styled.div`
   font-size: 15px;
   color: #fff;
@@ -325,6 +364,9 @@ const SubComponents = styled.div`
   th:first-child,
   td:first-child {
     display: none;
+  }
+  .MuiButtonBase-root {
+    outline: none;
   }
 `;
 

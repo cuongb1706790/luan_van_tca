@@ -29,6 +29,11 @@ import Badge from "@mui/material/Badge";
 import { useSelector } from "react-redux";
 import apiDaily1 from "../../axios/apiDaily1";
 import BackdropMaterial from "../../components/BackdropMaterial";
+import Hanggiaoden from "./Hanggiaoden";
+import HanggiaodenChitiet from "./HanggiaodenChitiet";
+import Hanggiaodi from "./Hanggiaodi";
+import HanggiaodiChitiet from "./HanggiaodiChitiet";
+import Giaohang from "./Giaohang";
 
 const Dashboard = (props) => {
   const [loading, setLoading] = useState(false);
@@ -141,6 +146,20 @@ const Dashboard = (props) => {
           </MenuItem>
 
           <MenuItem>
+            <NavLink to="/daily1/hanggiaoden" activeClassName="active">
+              <i class="far fa-newspaper"></i>
+              <span className="ml-3">Hàng giao đến</span>
+            </NavLink>
+          </MenuItem>
+
+          <MenuItem>
+            <NavLink to="/daily1/hanggiaodi" activeClassName="active">
+              <i class="far fa-newspaper"></i>
+              <span className="ml-3">Hàng giao đi</span>
+            </NavLink>
+          </MenuItem>
+
+          <MenuItem>
             <LogoutButton onClick={handleLogout}>Đăng xuất</LogoutButton>
           </MenuItem>
         </Menu>
@@ -190,6 +209,20 @@ const Dashboard = (props) => {
           component={DonhangThem}
         />
         <Route path="/daily1/donhang/chitiet/:id/tiendo" component={Tiendo} />
+
+        <Route path="/daily1/sanpham/giaohang" component={Giaohang} />
+
+        <Route exact path="/daily1/hanggiaoden" component={Hanggiaoden} />
+        <Route
+          path="/daily1/hanggiaoden/chitiet/:id"
+          component={HanggiaodenChitiet}
+        />
+
+        <Route exact path="/daily1/hanggiaodi" component={Hanggiaodi} />
+        <Route
+          path="/daily1/hanggiaodi/chitiet/:id"
+          component={HanggiaodiChitiet}
+        />
       </RightContent>
     </Container>
   );

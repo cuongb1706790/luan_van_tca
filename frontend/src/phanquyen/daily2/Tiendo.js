@@ -80,8 +80,6 @@ const Tiendo = (props) => {
     return <BackdropMaterial />;
   }
 
-  console.log({ dsSubDonhang });
-
   return (
     <>
       <Container>
@@ -164,7 +162,10 @@ const Tiendo = (props) => {
                         <img src={dssanpham} alt="dssanpham" />
                         <span>Danh sách sản phẩm</span>
                       </TableTitle>
-                      <TableSanphamDonhangChitiet dsSanpham={dh?.dssanpham} />
+                      <TableSanphamDonhangChitiet
+                        dsSanpham={dh?.dssanpham}
+                        hodanRole
+                      />
                       <div className="text-right mb-5">
                         <Total>Tổng đơn giá: </Total>
                         <TotalValue>{formatMoney(dh?.tongdongia)}</TotalValue>

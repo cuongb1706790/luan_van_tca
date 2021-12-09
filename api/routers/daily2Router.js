@@ -420,7 +420,15 @@ daily2Router.get("/dsdonhang/:daily2Id", async (req, res) => {
   try {
     let { donhang } = await Daily2.findById(req.params.daily2Id)
       .select("donhang")
-      .populate("donhang");
+      .populate({
+        path: "donhang",
+        populate: {
+          path: "dssanpham",
+          populate: {
+            path: "sanpham",
+          },
+        },
+      });
 
     res.send({ donhang, success: true });
   } catch (error) {

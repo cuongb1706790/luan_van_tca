@@ -285,6 +285,9 @@ const SubComponents = styled.div`
   td:first-child {
     display: none;
   }
+  .MuiButtonBase-root {
+    outline: none;
+  }
 `;
 
 export default Daily2Chitiet;

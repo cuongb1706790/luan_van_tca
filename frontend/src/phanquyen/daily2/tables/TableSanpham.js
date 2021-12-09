@@ -144,22 +144,20 @@ const TableSanpham = ({ dsSanpham = [] }) => {
                           {row?.soluonghoanthanh}
                         </TableCell>
                         <TableCell align="right">
+                          {row.danhan ? row.danhan : 0}
+                        </TableCell>
+                        <TableCell align="right">
+                          {row.dagiao ? row.dagiao : 0}
+                        </TableCell>
+                        <TableCell align="right">
+                          {row.danhan && row.dagiao
+                            ? row.danhan - row.dagiao
+                            : 0}
+                        </TableCell>
+                        <TableCell align="right">
                           {formatMoney(row?.soluong * row?.gia)}
                         </TableCell>
-                        <TableCell align="right">{row?.ngaytao}</TableCell>
-                        {/* <TableCell align="right">
-                          {
-                            <TableButton
-                              onClick={() =>
-                                history.push(
-                                  `/bophankd/sanpham/chitiet/${row._id}`
-                                )
-                              }
-                            >
-                              Chi tiết
-                            </TableButton>
-                          }
-                        </TableCell> */}
+                        {/* <TableCell align="right">{row?.ngaytao}</TableCell> */}
                       </TableRow>
                     );
                   })}
