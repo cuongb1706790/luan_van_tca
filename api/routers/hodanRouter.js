@@ -953,8 +953,6 @@ hodanRouter.get("/dsnglhuloi/:hodanId", async (req, res) => {
   }
 });
 
-<<<<<<< HEAD
-=======
 // doi mat khau hodan
 hodanRouter.patch("/changepassword/:id", async (req, res) => {
   const { matkhaucu, matkhaumoi } = req.body;
@@ -973,5 +971,4 @@ hodanRouter.patch("/changepassword/:id", async (req, res) => {
     res.send({ message: error.message, success: false });
   }
 });
->>>>>>> khanhduy
 module.exports = hodanRouter;

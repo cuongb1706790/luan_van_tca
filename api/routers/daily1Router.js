@@ -486,13 +486,8 @@ daily1Router.get("/dsdaily2/:daily1Id", async (req, res) => {
         success: false,
       });
     }
-<<<<<<< HEAD
-<<<<<<< HEAD
+
     daily2 = daily2.filter((dl2) => dl2.active);
-=======
->>>>>>> khanhduy
-=======
->>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 
     res.send({ daily2, success: true });
   } catch (error) {
@@ -632,11 +627,7 @@ daily1Router.get("/tongquan/:daily1Id", async (req, res) => {
   }
 });
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
+
 // lay ds hodan, donhang chua duyet hien thi badge
 daily1Router.get("/dsshowbadge/:daily1Id", async (req, res) => {
   try {
@@ -660,13 +651,7 @@ daily1Router.get("/dsshowbadge/:daily1Id", async (req, res) => {
     res.send({ message: error.message, success: false });
   }
 });
-<<<<<<< HEAD
-<<<<<<< HEAD
 
->>>>>>> khanhduy
-=======
-=======
->>>>>>> khanhduy
 //--------------------------------------------
 
 // them cong cu hu loi
@@ -889,5 +874,5 @@ daily1Router.get("/dssubdhofsingledh/:daily1Id/:madh", async (req, res) => {
   }
 });
 
->>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
+
 module.exports = daily1Router;
