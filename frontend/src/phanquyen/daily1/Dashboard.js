@@ -26,12 +26,23 @@ import splnIcon from "../../assets/icons/spln.png";
 import dl2Icon from "../../assets/icons/daily2.png";
 import hodanIcon from "../../assets/icons/hodan.png";
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 import Badge from "@mui/material/Badge";
 import { useSelector } from "react-redux";
 import apiDaily1 from "../../axios/apiDaily1";
 import BackdropMaterial from "../../components/BackdropMaterial";
+<<<<<<< HEAD
 >>>>>>> khanhduy
+=======
+import Hanggiaoden from "./Hanggiaoden";
+import HanggiaodenChitiet from "./HanggiaodenChitiet";
+import Hanggiaodi from "./Hanggiaodi";
+import HanggiaodiChitiet from "./HanggiaodiChitiet";
+import Giaohang from "./Giaohang";
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 
 const Dashboard = (props) => {
   const [loading, setLoading] = useState(false);
@@ -68,7 +79,7 @@ const Dashboard = (props) => {
       <LeftMenu>
         <Logo>
           <img src={logo} alt="logo" />
-          <span>Craft Village</span>
+          <span>Làng Nghề</span>
         </Logo>
 
         <Menu>
@@ -79,6 +90,7 @@ const Dashboard = (props) => {
             >
               <i className="fas fa-home"></i>
               <span className="ml-3">Tổng quan</span>
+<<<<<<< HEAD
             </NavLink>
           </MenuItem>
 
@@ -86,13 +98,15 @@ const Dashboard = (props) => {
             <NavLink to="/daily1/sanpham" activeClassName="active">
               <Image src={splnIcon} alt="splangnghe" />
               <span className="ml-3">Sản phẩm</span>
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
             </NavLink>
           </MenuItem>
 
           <MenuItem>
             <NavLink to="/daily1/sanpham" activeClassName="active">
               <Image src={splnIcon} alt="splangnghe" />
-              <span>Sản phẩm</span>
+              <span className="ml-3">Sản phẩm</span>
             </NavLink>
           </MenuItem>
 
@@ -107,6 +121,16 @@ const Dashboard = (props) => {
             <NavLink to="/daily1/vattu" activeClassName="active">
               <i class="fab fa-accusoft"></i>
               <span className="ml-3">Vật tư</span>
+<<<<<<< HEAD
+            </NavLink>
+          </MenuItem>
+
+          <MenuItem>
+            <NavLink to="/daily1/nguyenlieu" activeClassName="active">
+              <i class="fab fa-bandcamp"></i>
+              <span className="ml-3">Nguyên liệu</span>
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
             </NavLink>
           </MenuItem>
 
@@ -118,29 +142,29 @@ const Dashboard = (props) => {
           </MenuItem>
 
           <MenuItem>
-            <NavLink to="/daily1/nguyenlieu" activeClassName="active">
-              <i class="fab fa-bandcamp"></i>
-              <span>Nguyên liệu</span>
-            </NavLink>
-          </MenuItem>
-
-          <MenuItem>
             <NavLink to="/daily1/daily2" activeClassName="active">
               <Image src={dl2Icon} alt="splangnghe" />
+<<<<<<< HEAD
 <<<<<<< HEAD
               <span>Đại lý cấp 2</span>
 =======
               <span className="ml-3">Đại lý cấp 2</span>
 >>>>>>> khanhduy
+=======
+              <span className="ml-3">Đại lý cấp 2</span>
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
             </NavLink>
           </MenuItem>
 
           <MenuItem>
             <NavLink to="/daily1/hodan" activeClassName="active">
 <<<<<<< HEAD
+<<<<<<< HEAD
               <Image src={hodanIcon} alt="hodan" />
               <span>Hộ dân</span>
 =======
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
               {dsBadge?.hodanBadge > 0 ? (
                 <Badge badgeContent={dsBadge?.hodanBadge} color="secondary">
                   <Image src={hodanIcon} alt="hodan" />
@@ -149,6 +173,7 @@ const Dashboard = (props) => {
                 <Image src={hodanIcon} alt="hodan" />
               )}
               <span className="ml-3">Hộ dân</span>
+<<<<<<< HEAD
             </NavLink>
           </MenuItem>
 
@@ -163,13 +188,35 @@ const Dashboard = (props) => {
               )}
               <span className="ml-3">Đơn hàng</span>
 >>>>>>> khanhduy
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
             </NavLink>
           </MenuItem>
 
           <MenuItem>
             <NavLink to="/daily1/donhang" activeClassName="active">
+              {dsBadge?.donhangBadge > 0 ? (
+                <Badge badgeContent={dsBadge?.donhangBadge} color="secondary">
+                  <i class="far fa-newspaper"></i>
+                </Badge>
+              ) : (
+                <i class="far fa-newspaper"></i>
+              )}
+              <span className="ml-3">Đơn hàng</span>
+            </NavLink>
+          </MenuItem>
+
+          <MenuItem>
+            <NavLink to="/daily1/hanggiaoden" activeClassName="active">
               <i class="far fa-newspaper"></i>
-              <span>Đơn hàng</span>
+              <span className="ml-3">Hàng giao đến</span>
+            </NavLink>
+          </MenuItem>
+
+          <MenuItem>
+            <NavLink to="/daily1/hanggiaodi" activeClassName="active">
+              <i class="far fa-newspaper"></i>
+              <span className="ml-3">Hàng giao đi</span>
             </NavLink>
           </MenuItem>
 
@@ -204,14 +251,20 @@ const Dashboard = (props) => {
         <Route exact path="/daily1/nguyenlieu" component={Nguyenlieu} />
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         <Route exact path="/daily1/hodan" component={Hodan} />
 =======
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
         <Route
           exact
           path="/daily1/hodan"
           render={(props) => <Hodan {...props} setRefresh={setRefresh} />}
         />
+<<<<<<< HEAD
 >>>>>>> khanhduy
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
         <Route path="/daily1/hodan/chitiet/:id" component={HodanChitiet} />
 
         <Route exact path="/daily1/donhang" component={Donhang} />
@@ -219,18 +272,38 @@ const Dashboard = (props) => {
           exact
           path="/daily1/donhang/chitiet/:id"
 <<<<<<< HEAD
+<<<<<<< HEAD
           component={DonhangChitiet}
 =======
           render={(props) => (
             <DonhangChitiet {...props} setRefresh={setRefresh} />
           )}
 >>>>>>> khanhduy
+=======
+          render={(props) => (
+            <DonhangChitiet {...props} setRefresh={setRefresh} />
+          )}
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
         />
         <Route
           path="/daily1/donhang/chitiet/:id/them"
           component={DonhangThem}
         />
         <Route path="/daily1/donhang/chitiet/:id/tiendo" component={Tiendo} />
+
+        <Route path="/daily1/sanpham/giaohang" component={Giaohang} />
+
+        <Route exact path="/daily1/hanggiaoden" component={Hanggiaoden} />
+        <Route
+          path="/daily1/hanggiaoden/chitiet/:id"
+          component={HanggiaodenChitiet}
+        />
+
+        <Route exact path="/daily1/hanggiaodi" component={Hanggiaodi} />
+        <Route
+          path="/daily1/hanggiaodi/chitiet/:id"
+          component={HanggiaodiChitiet}
+        />
       </RightContent>
     </Container>
   );

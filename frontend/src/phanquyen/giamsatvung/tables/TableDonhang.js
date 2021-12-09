@@ -22,16 +22,19 @@ import { toast } from "react-toastify";
 import apiLoaiSanpham from "../../../axios/apiLoaiSanpham";
 import styled from "styled-components";
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import { Link } from "react-router-dom";
 >>>>>>> khanhduy
+=======
+import { Link } from "react-router-dom";
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 
 const EnhancedTableToolbar = ({
   numSelected,
   rowsSelected,
   onClickChitiet,
-  onClickCapnhat,
-  onClickXoa,
+  onClickTiendo,
 }) => {
   return numSelected > 0 ? (
     <>
@@ -57,7 +60,10 @@ const EnhancedTableToolbar = ({
           >
             <div className="d-flex align-items-center">
               {rowsSelected.length === 1 && (
-                <TableButton onClick={onClickChitiet}>Chi tiết</TableButton>
+                <>
+                  <TableButton onClick={onClickChitiet}>Chi tiết</TableButton>
+                  <TableButton onClick={onClickTiendo}>Tiến độ</TableButton>
+                </>
               )}
             </div>
           </Typography>
@@ -77,10 +83,14 @@ const EnhancedTableToolbar = ({
 };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 const TableDonhang = ({ dsDonhang = [], setRowsRemoved }) => {
 =======
 const TableDonhang = ({ dsDonhang = [], setRowsRemoved, readOnly }) => {
 >>>>>>> khanhduy
+=======
+const TableDonhang = ({ dsDonhang = [], setRowsRemoved, readOnly }) => {
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
   const [selected, setSelected] = React.useState([]);
@@ -95,10 +105,8 @@ const TableDonhang = ({ dsDonhang = [], setRowsRemoved, readOnly }) => {
   const onClickChitiet = () =>
     history.push(`/giamsatvung/donhang/chitiet/${selected[0]}`);
 
-  const onClickCapnhat = () =>
-    history.push(`/giamsatvung/donhang/chinhsua/${selected[0]}`);
-
-  const onClickXoa = () => handleOpen();
+  const onClickTiendo = () =>
+    history.push(`/giamsatvung/donhang/chitiet/${selected[0]}/tiendo`);
 
   const handleDeleteRow = async () => {
     const { success } = await apiLoaiSanpham.xoaNhieuLoaiSanpham({
@@ -165,6 +173,7 @@ const TableDonhang = ({ dsDonhang = [], setRowsRemoved, readOnly }) => {
       <Box sx={{ width: "100%" }}>
         <Paper sx={{ width: "100%", mb: 2 }}>
 <<<<<<< HEAD
+<<<<<<< HEAD
           <EnhancedTableToolbar
             numSelected={selected.length}
             rowsSelected={selected}
@@ -173,16 +182,24 @@ const TableDonhang = ({ dsDonhang = [], setRowsRemoved, readOnly }) => {
             onClickXoa={onClickXoa}
           />
 =======
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
           {!readOnly && (
             <EnhancedTableToolbar
               numSelected={selected.length}
               rowsSelected={selected}
               onClickChitiet={onClickChitiet}
+<<<<<<< HEAD
               onClickCapnhat={onClickCapnhat}
               onClickXoa={onClickXoa}
             />
           )}
 >>>>>>> khanhduy
+=======
+              onClickTiendo={onClickTiendo}
+            />
+          )}
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
           <TableContainer>
             <Table
               sx={{ minWidth: 750 }}
@@ -228,8 +245,11 @@ const TableDonhang = ({ dsDonhang = [], setRowsRemoved, readOnly }) => {
                           />
                         </TableCell>
 <<<<<<< HEAD
+<<<<<<< HEAD
                         <TableCell align="right">{row?.ma}</TableCell>
 =======
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
                         <TableCell align="right">
                           {readOnly ? (
                             row?.ma
@@ -241,7 +261,10 @@ const TableDonhang = ({ dsDonhang = [], setRowsRemoved, readOnly }) => {
                             </Link>
                           )}
                         </TableCell>
+<<<<<<< HEAD
 >>>>>>> khanhduy
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
                         <TableCell align="right">{row?.tongsanpham}</TableCell>
                         <TableCell align="right">{row?.tongcongcu}</TableCell>
                         <TableCell align="right">{row?.tongvattu}</TableCell>

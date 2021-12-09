@@ -103,14 +103,74 @@ const apiGSV = {
     return axiosClient.get(url);
   },
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 
   // lay ds daily2, donhang chua duyet hien thi badge
   dsShowBadge(gsvId) {
     const url = `/gsv/dsshowbadge/${gsvId}`;
     return axiosClient.get(url);
   },
+<<<<<<< HEAD
 >>>>>>> khanhduy
+=======
+
+  //-------------
+
+  // them cong cu hu loi
+  themCongcuHuloi(gsvId, payload) {
+    const url = `/gsv/themcchuloi/${gsvId}`;
+    return axiosClient.put(url, payload);
+  },
+
+  // lay ds cong cu hu loi
+  dsCongcuHuloi(gsvId) {
+    const url = `/gsv/dscchuloi/${gsvId}`;
+    return axiosClient.get(url);
+  },
+
+  //-------------
+
+  // them vat tu hu loi
+  themVattuHuloi(gsvId, payload) {
+    const url = `/gsv/themvthuloi/${gsvId}`;
+    return axiosClient.put(url, payload);
+  },
+
+  // lay ds vat tu hu loi
+  dsVattuHuloi(gsvId) {
+    const url = `/gsv/dsvthuloi/${gsvId}`;
+    return axiosClient.get(url);
+  },
+
+  //-------------
+
+  // them nguyen lieu hu loi
+  themNguyenlieuHuloi(gsvId, payload) {
+    const url = `/gsv/themnglhuloi/${gsvId}`;
+    return axiosClient.put(url, payload);
+  },
+
+  // lay ds nguyen lieu hu loi
+  dsNguyenlieuHuloi(gsvId) {
+    const url = `/gsv/dsnglhuloi/${gsvId}`;
+    return axiosClient.get(url);
+  },
+
+  // lay ds subdonhang cua 1 don hang co ma cu the va thuoc bpkd co ma bpkd
+  dssubdonhangOfSingleDH(gsvId, madh) {
+    const url = `/gsv/dssubdhofsingledh/${gsvId}/${madh}`;
+    return axiosClient.get(url);
+  },
+
+  // lay ds hodan
+  dsHodan(gsvId) {
+    const url = `/gsv/dshodan/${gsvId}`;
+    return axiosClient.get(url);
+  },
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 };
 
 export default apiGSV;

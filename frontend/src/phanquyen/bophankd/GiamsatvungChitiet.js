@@ -6,6 +6,10 @@ import splnIcon from "../../assets/icons/spln.png";
 import dl2Icon from "../../assets/icons/daily2.png";
 import langngheIcon from "../../assets/icons/langnghe.png";
 import dl1Icon from "../../assets/icons/daily1.png";
+<<<<<<< HEAD
+=======
+import hodan from "../../assets/icons/hodan.png";
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 import apiGSV from "../../axios/apiGSV";
 import TableSanpham from "../giamsatvung/tables/TableSanpham";
 import TableCongcu from "../giamsatvung/tables/TableCongcu";
@@ -16,6 +20,10 @@ import TableDaily2 from "../giamsatvung/tables/TableDaily2";
 import TableLangnghe from "../giamsatvung/tables/TableLangnghe";
 import TableDonhang from "../giamsatvung/tables/TableDonhang";
 import apiLangnghe from "../../axios/apiLangnghe";
+<<<<<<< HEAD
+=======
+import TableHodan from "../daily2/tables/TableHodan";
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 
 const GiamsatvungChitiet = (props) => {
   const [active, setActive] = useState({
@@ -25,6 +33,10 @@ const GiamsatvungChitiet = (props) => {
   });
   const [loading, setLoading] = useState(false);
   const [dsLangnghe, setDsLangnghe] = useState([]);
+<<<<<<< HEAD
+=======
+  const [dsHodan, setDsHodan] = useState([]);
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
   const [singleGSV, setSingleGSV] = useState(null);
   const { id: gsvId } = props.match.params;
 
@@ -32,6 +44,12 @@ const GiamsatvungChitiet = (props) => {
     setLoading(true);
     const { langnghe } = await apiLangnghe.dsLangnghe();
     let { gsv } = await apiGSV.singleGsv(gsvId);
+<<<<<<< HEAD
+=======
+    // fetch ds ho dan
+    let { dshodan } = await apiGSV.dsHodan(gsv._id);
+    dshodan = dshodan.map((hd) => ({ ...hd, langnghe: hd.langnghe.ten }));
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
     gsv = {
       ...gsv,
       dssanpham: gsv.dssanpham.map((sp) => ({ ...sp, ...sp.sanpham })),
@@ -42,6 +60,10 @@ const GiamsatvungChitiet = (props) => {
         ...ngl.nguyenlieu,
       })),
     };
+<<<<<<< HEAD
+=======
+    setDsHodan(dshodan);
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
     setDsLangnghe(langnghe);
     setSingleGSV(gsv);
     setLoading(false);
@@ -177,6 +199,23 @@ const GiamsatvungChitiet = (props) => {
               <i class="far fa-newspaper"></i>
               <BoxTitle>Đơn hàng</BoxTitle>
             </Box>
+<<<<<<< HEAD
+=======
+
+            <Box
+              onClick={() =>
+                setActive({
+                  code: 9,
+                  present: "dshodan",
+                  payload: "",
+                })
+              }
+              className={active.code === 9 && "active"}
+            >
+              <img src={hodan} width="30" alt="hodan" />
+              <BoxTitle>Hộ dân</BoxTitle>
+            </Box>
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
           </Boxes>
 
           <SubComponents>
@@ -194,8 +233,15 @@ const GiamsatvungChitiet = (props) => {
               <TableDaily2 dsDaily2={singleGSV?.daily2} readOnly />
             ) : active.code === 7 ? (
               <TableLangnghe dsLangnghe={dsLangnghe} readOnly />
+<<<<<<< HEAD
             ) : (
               <TableDonhang dsDonhang={singleGSV?.donhang} readOnly />
+=======
+            ) : active.code === 8 ? (
+              <TableDonhang dsDonhang={singleGSV?.donhang} readOnly />
+            ) : (
+              <TableHodan dsHodan={dsHodan} readOnly />
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
             )}
           </SubComponents>
         </Content>
@@ -220,8 +266,13 @@ const Boxes = styled.div`
   justify-content: space-between;
 `;
 const Box = styled.div`
+<<<<<<< HEAD
   width: 170px;
   padding: 14px 28px;
+=======
+  width: 145px;
+  padding: 10px 20px;
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
   border-radius: 4px;
   box-shadow: 0 2px 4px rgb(0 0 20 / 8%), 0 1px 2px rgb(0 0 20 / 8%);
   cursor: pointer;
@@ -249,7 +300,11 @@ const Box = styled.div`
     font-size: 23px;
   }
   &:nth-child(1),
+<<<<<<< HEAD
   &:nth-child(8) {
+=======
+  &:nth-child(9) {
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
     background: #da542e;
     &::after {
       background: #da542e;
@@ -265,7 +320,11 @@ const Box = styled.div`
     }
   }
   &:nth-child(2),
+<<<<<<< HEAD
   &:nth-child(7) {
+=======
+  &:nth-child(8) {
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
     background: #2255a4;
     &::after {
       background: #2255a4;
@@ -281,7 +340,11 @@ const Box = styled.div`
     }
   }
   &:nth-child(3),
+<<<<<<< HEAD
   &:nth-child(6) {
+=======
+  &:nth-child(7) {
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
     background: #27a9e3;
     &::after {
       background: #27a9e3;
@@ -297,7 +360,11 @@ const Box = styled.div`
     }
   }
   &:nth-child(4),
+<<<<<<< HEAD
   &:nth-child(5) {
+=======
+  &:nth-child(6) {
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
     background: #28b779;
     &::after {
       background: #28b779;
@@ -312,7 +379,27 @@ const Box = styled.div`
       background: #1c8c5c;
     }
   }
+<<<<<<< HEAD
 `;
+=======
+  &:nth-child(5) {
+    background: #e1c83a;
+    &::after {
+      background: #e1c83a;
+    }
+    &:hover {
+      background: #c0ab37;
+      &::after {
+        width: 100%;
+      }
+    }
+    &.active {
+      background: #c0ab37;
+    }
+  }
+`;
+
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 const BoxTitle = styled.div`
   font-size: 15px;
   color: #fff;
@@ -326,6 +413,12 @@ const SubComponents = styled.div`
   td:first-child {
     display: none;
   }
+<<<<<<< HEAD
+=======
+  .MuiButtonBase-root {
+    outline: none;
+  }
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 `;
 
 export default GiamsatvungChitiet;

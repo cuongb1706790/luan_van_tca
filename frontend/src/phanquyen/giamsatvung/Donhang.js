@@ -2,8 +2,11 @@ import React, { useState, useEffect } from "react";
 import BackdropMaterial from "../../components/BackdropMaterial";
 import Header from "../../components/Header";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import styled from "styled-components";
 =======
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 import {
   Container,
   Content,
@@ -14,7 +17,10 @@ import {
   Title,
   TitleWrapper,
 } from "./styledComponents";
+<<<<<<< HEAD
 >>>>>>> khanhduy
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 import TableDonhang from "./tables/TableDonhang";
 import { useSelector } from "react-redux";
 import apiGSV from "../../axios/apiGSV";
@@ -60,10 +66,14 @@ const Donhang = (props) => {
   return (
     <>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <Wrapper>
 =======
       <Container>
 >>>>>>> khanhduy
+=======
+      <Container>
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
         <Header title="Đơn hàng" />
         <Content>
           <FilterSection>
@@ -91,14 +101,19 @@ const Donhang = (props) => {
           </FilterSection>
         </Content>
 <<<<<<< HEAD
+<<<<<<< HEAD
       </Wrapper>
 =======
       </Container>
 >>>>>>> khanhduy
+=======
+      </Container>
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
     </>
   );
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 const Wrapper = styled.div`
   display: flex;
@@ -165,4 +180,6 @@ const TableSection = styled.div`
 
 =======
 >>>>>>> khanhduy
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 export default Donhang;

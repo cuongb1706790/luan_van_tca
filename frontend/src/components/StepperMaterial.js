@@ -72,7 +72,12 @@ const StepperMaterial = ({
 };
 
 const Wrapper = styled.div`
+<<<<<<< HEAD
   font-family: "Poppins", sans-serif;
+=======
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
   ul {
     list-style-type: none;
     padding: 0;

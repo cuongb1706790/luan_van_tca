@@ -19,12 +19,6 @@ const apiLangnghe = {
     return axiosClient.get(url);
   },
 
-  // lay ds ho dan
-  dsHodan(langngheId) {
-    const url = `/langnghe/danhsachhodan/${langngheId}`;
-    return axiosClient.get(url);
-  },
-
   // chinh sua Langnghe
   chinhsuaLangnghe(langngheId, data) {
     const url = `/langnghe/chinhsua/${langngheId}`;
@@ -35,6 +29,12 @@ const apiLangnghe = {
   xoaNhieuLangnghe(arrayOfId) {
     const url = `/langnghe/multiple`;
     return axiosClient.put(url, arrayOfId);
+  },
+
+  // lay ds ho dan
+  dsHodan(langngheId) {
+    const url = `/langnghe/danhsachhodan/${langngheId}`;
+    return axiosClient.get(url);
   },
 };
 

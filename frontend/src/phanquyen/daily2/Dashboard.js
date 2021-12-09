@@ -21,11 +21,22 @@ import Nguyenlieu from "./Nguyenlieu";
 import Tiendo from "./Tiendo";
 import splnIcon from "../../assets/icons/spln.png";
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import Badge from "@mui/material/Badge";
 import apiDaily2 from "../../axios/apiDaily2";
 import BackdropMaterial from "../../components/BackdropMaterial";
 >>>>>>> khanhduy
+=======
+import Badge from "@mui/material/Badge";
+import apiDaily2 from "../../axios/apiDaily2";
+import BackdropMaterial from "../../components/BackdropMaterial";
+import Giaohang from "./Giaohang";
+import Hanggiaoden from "./Hanggiaoden";
+import Hanggiaodi from "./Hanggiaodi";
+import HanggiaodenChitiet from "./HanggiaodenChitiet";
+import HanggiaodiChitiet from "./HanggiaodiChitiet";
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 
 const Dashboard = (props) => {
   const [loading, setLoading] = useState(false);
@@ -62,7 +73,7 @@ const Dashboard = (props) => {
       <LeftMenu>
         <Logo>
           <img src={logo} alt="logo" />
-          <span>Craft Village</span>
+          <span>Làng Nghề</span>
         </Logo>
 
         <Menu>
@@ -73,6 +84,7 @@ const Dashboard = (props) => {
             >
               <i className="fas fa-home"></i>
               <span className="ml-3">Tổng quan</span>
+<<<<<<< HEAD
             </NavLink>
           </MenuItem>
 
@@ -80,13 +92,15 @@ const Dashboard = (props) => {
             <NavLink to="/daily2/sanpham" activeClassName="active">
               <Image src={splnIcon} alt="splangnghe" />
               <span className="ml-3">Sản phẩm</span>
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
             </NavLink>
           </MenuItem>
 
           <MenuItem>
             <NavLink to="/daily2/sanpham" activeClassName="active">
               <Image src={splnIcon} alt="splangnghe" />
-              <span>Sản phẩm</span>
+              <span className="ml-3">Sản phẩm</span>
             </NavLink>
           </MenuItem>
 
@@ -101,6 +115,16 @@ const Dashboard = (props) => {
             <NavLink to="/daily2/vattu" activeClassName="active">
               <i class="fab fa-accusoft"></i>
               <span className="ml-3">Vật tư</span>
+<<<<<<< HEAD
+            </NavLink>
+          </MenuItem>
+
+          <MenuItem>
+            <NavLink to="/daily2/nguyenlieu" activeClassName="active">
+              <i class="fab fa-bandcamp"></i>
+              <span className="ml-3">Nguyên liệu</span>
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
             </NavLink>
           </MenuItem>
 
@@ -112,15 +136,9 @@ const Dashboard = (props) => {
           </MenuItem>
 
           <MenuItem>
-            <NavLink to="/daily2/nguyenlieu" activeClassName="active">
-              <i class="fab fa-bandcamp"></i>
-              <span>Nguyên liệu</span>
-            </NavLink>
-          </MenuItem>
-
-          <MenuItem>
             <NavLink to="/daily2/hodan" activeClassName="active">
               <Image src={hodanIcon} alt="hodan" />
+<<<<<<< HEAD
 <<<<<<< HEAD
               <span>Hộ dân</span>
 =======
@@ -139,13 +157,36 @@ const Dashboard = (props) => {
               )}
               <span className="ml-3">Đơn hàng</span>
 >>>>>>> khanhduy
+=======
+              <span className="ml-3">Hộ dân</span>
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
             </NavLink>
           </MenuItem>
 
           <MenuItem>
             <NavLink to="/daily2/donhang" activeClassName="active">
+              {dsBadge?.donhangBadge > 0 ? (
+                <Badge badgeContent={dsBadge?.donhangBadge} color="secondary">
+                  <i class="far fa-newspaper"></i>
+                </Badge>
+              ) : (
+                <i class="far fa-newspaper"></i>
+              )}
+              <span className="ml-3">Đơn hàng</span>
+            </NavLink>
+          </MenuItem>
+
+          <MenuItem>
+            <NavLink to="/daily2/hanggiaoden" activeClassName="active">
               <i class="far fa-newspaper"></i>
-              <span>Đơn hàng</span>
+              <span className="ml-3">Hàng giao đến</span>
+            </NavLink>
+          </MenuItem>
+
+          <MenuItem>
+            <NavLink to="/daily2/hanggiaodi" activeClassName="active">
+              <i class="far fa-newspaper"></i>
+              <span className="ml-3">Hàng giao đi</span>
             </NavLink>
           </MenuItem>
 
@@ -158,6 +199,8 @@ const Dashboard = (props) => {
       <RightContent>
         <Route exact path="/daily2" component={Tongquan} />
         <Route exact path="/daily2/sanpham" component={Sanpham} />
+        <Route path="/daily2/sanpham/giaohang" component={Giaohang} />
+
         <Route exact path="/daily2/congcu" component={Congcu} />
         <Route exact path="/daily2/vattu" component={Vattu} />
         <Route exact path="/daily2/nguyenlieu" component={Nguyenlieu} />
@@ -171,18 +214,36 @@ const Dashboard = (props) => {
           exact
           path="/daily2/donhang/chitiet/:id"
 <<<<<<< HEAD
+<<<<<<< HEAD
           component={DonhangChitiet}
 =======
           render={(props) => (
             <DonhangChitiet {...props} setRefresh={setRefresh} />
           )}
 >>>>>>> khanhduy
+=======
+          render={(props) => (
+            <DonhangChitiet {...props} setRefresh={setRefresh} />
+          )}
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
         />
         <Route
           path="/daily2/donhang/chitiet/:id/them"
           component={DonhangThem}
         />
         <Route path="/daily2/donhang/chitiet/:id/tiendo" component={Tiendo} />
+
+        <Route exact path="/daily2/hanggiaoden" component={Hanggiaoden} />
+        <Route
+          path="/daily2/hanggiaoden/chitiet/:id"
+          component={HanggiaodenChitiet}
+        />
+
+        <Route exact path="/daily2/hanggiaodi" component={Hanggiaodi} />
+        <Route
+          path="/daily2/hanggiaodi/chitiet/:id"
+          component={HanggiaodiChitiet}
+        />
       </RightContent>
     </Container>
   );

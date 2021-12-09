@@ -81,7 +81,7 @@ const Hodan = (props) => {
                 />
               </SearchBox>
             </Filter>
-            <TableSection>
+            <TableSection className="noCheckbox">
               <TableHodan
                 dsHodan={search(dsHodan)}
                 setSuccess={setSuccess}

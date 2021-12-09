@@ -7,21 +7,12 @@ const Daily1 = require("../models/daily1Model");
 const Hodan = require("../models/hodanModel");
 const Giamsatvung = require("../models/giamsatvungModel");
 const Bophankd = require("../models/bophankdModel");
+const { getCurrentDatetime } = require("../utils");
 
 // them dai ly
 daily2Router.post("/them", async (req, res) => {
-  const {
-    ten,
-    sdt,
-    email,
-    xa,
-    huyen,
-    tinh,
-    taikhoan,
-    daily1Id,
-    bophankdId,
-    gsvId,
-  } = req.body;
+  const { ten, sdt, email, xa, huyen, tinh, taikhoan, daily1Id, dl2, gsvId } =
+    req.body;
   try {
     // create daily 1
     const daily2 = new Daily2({
@@ -42,7 +33,7 @@ daily2Router.post("/them", async (req, res) => {
       daily1.daily2 = [savedDaily2._id, ...daily1.daily2];
       await daily1.save();
       // Thêm vào danh sách duyệt đại lý 2 của bộ phận kinh doanh
-      const bophankd = await Bophankd.findById(bophankdId);
+      const bophankd = await Bophankd.findById(dl2);
       bophankd.daily2 = [savedDaily2._id, ...bophankd.daily2];
       await bophankd.save();
       // Thêm vào danh sách duyệt đại lý 2 của giám sát vùng
@@ -101,6 +92,7 @@ daily2Router.get("/danhsach", async (req, res) => {
 daily2Router.get("/single/:id", async (req, res) => {
   try {
 <<<<<<< HEAD
+<<<<<<< HEAD
     const daily2 = await Daily2.findById(req.params.id).populate("user");
     if (!daily2) {
       return res.send({
@@ -127,6 +119,25 @@ daily2Router.get("/single/:id", async (req, res) => {
       });
 
 >>>>>>> khanhduy
+=======
+    const daily2 = await Daily2.findById(req.params.id)
+      .populate({
+        path: "hodan user donhang dscongcu dsvattu dsnguyenlieu",
+      })
+      .populate({
+        path: "hodan",
+        populate: {
+          path: "langnghe loaisanpham",
+        },
+      })
+      .populate({
+        path: "dscongcu dsvattu dsnguyenlieu dssanpham",
+        populate: {
+          path: "donhang congcu vattu nguyenlieu sanpham",
+        },
+      });
+
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
     res.send({ daily2, success: true });
   } catch (error) {
     res.send({ message: error.message, success: false });
@@ -439,7 +450,15 @@ daily2Router.get("/dsdonhang/:daily2Id", async (req, res) => {
   try {
     let { donhang } = await Daily2.findById(req.params.daily2Id)
       .select("donhang")
-      .populate("donhang");
+      .populate({
+        path: "donhang",
+        populate: {
+          path: "dssanpham",
+          populate: {
+            path: "sanpham",
+          },
+        },
+      });
 
     res.send({ donhang, success: true });
   } catch (error) {
@@ -465,9 +484,12 @@ daily2Router.get("/dshodan/:daily2Id", async (req, res) => {
       });
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
     hodan = hodan.filter((hd) => hd.active);
 =======
 >>>>>>> khanhduy
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 
     res.send({ hodan, success: true });
   } catch (error) {
@@ -607,7 +629,10 @@ daily2Router.get("/tongquan/:daily2Id", async (req, res) => {
 });
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 // lay ds donhang chua duyet hien thi badge
 daily2Router.get("/dsshowbadge/:daily2Id", async (req, res) => {
   try {
@@ -622,5 +647,230 @@ daily2Router.get("/dsshowbadge/:daily2Id", async (req, res) => {
   }
 });
 
+<<<<<<< HEAD
 >>>>>>> khanhduy
+=======
+//--------------------------------------------
+
+// them cong cu hu loi
+daily2Router.put("/themcchuloi/:dl2", async (req, res) => {
+  const { dsccLoi } = req.body;
+  try {
+    for (const cc of dsccLoi) {
+      const daily2 = await Daily2.findById(req.params.dl2);
+      daily2.dscongcu = daily2.dscongcu.map((item) =>
+        item.congcu.toString() === cc.congcu._id &&
+        item.donhang.toString() === cc.donhang._id &&
+        item.loi.soluongloi
+          ? {
+              donhang: item.donhang,
+              congcu: item.congcu,
+              loi: {
+                soluongloi: item.loi.soluongloi + parseInt(cc.soluongloi),
+                ngaybaoloi: getCurrentDatetime(),
+              },
+              soluong: item.soluong,
+              ngaytao: item.ngaytao,
+            }
+          : item.congcu.toString() === cc.congcu._id &&
+            item.donhang.toString() === cc.donhang._id
+          ? {
+              donhang: item.donhang,
+              congcu: item.congcu,
+              loi: {
+                soluongloi: cc.soluongloi,
+                ngaybaoloi: getCurrentDatetime(),
+              },
+              soluong: item.soluong,
+              ngaytao: item.ngaytao,
+            }
+          : item
+      );
+      await daily2.save();
+    }
+
+    res.send({ success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+// lay ds cong cu hu loi
+daily2Router.get("/dscchuloi/:dl2", async (req, res) => {
+  try {
+    let { dscongcu: dscongcuhuloi } = await Daily2.findById(req.params.dl2)
+      .select("dscongcu")
+      .populate({
+        path: "dscongcu",
+        populate: {
+          path: "donhang congcu",
+        },
+      });
+
+    dscongcuhuloi = dscongcuhuloi.filter((cc) => cc.loi.soluongloi);
+
+    res.send({ dscongcuhuloi, success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+//--------------------------------------------
+
+// them vat tu hu loi
+daily2Router.put("/themvthuloi/:dl2", async (req, res) => {
+  const { dsvtLoi } = req.body;
+  try {
+    for (const vt of dsvtLoi) {
+      const daily2 = await Daily2.findById(req.params.dl2);
+      daily2.dsvattu = daily2.dsvattu.map((item) =>
+        item.vattu.toString() === vt.vattu._id &&
+        item.donhang.toString() === vt.donhang._id &&
+        item.loi.soluongloi
+          ? {
+              donhang: item.donhang,
+              vattu: item.vattu,
+              loi: {
+                soluongloi: item.loi.soluongloi + parseInt(vt.soluongloi),
+                ngaybaoloi: getCurrentDatetime(),
+              },
+              soluong: item.soluong,
+              ngaytao: item.ngaytao,
+            }
+          : item.vattu.toString() === vt.vattu._id &&
+            item.donhang.toString() === vt.donhang._id
+          ? {
+              donhang: item.donhang,
+              vattu: item.vattu,
+              loi: {
+                soluongloi: vt.soluongloi,
+                ngaybaoloi: getCurrentDatetime(),
+              },
+              soluong: item.soluong,
+              ngaytao: item.ngaytao,
+            }
+          : item
+      );
+      await daily2.save();
+    }
+
+    res.send({ success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+// lay ds vat tu hu loi
+daily2Router.get("/dsvthuloi/:dl2", async (req, res) => {
+  try {
+    let { dsvattu: dsvattuhuloi } = await Daily2.findById(req.params.dl2)
+      .select("dsvattu")
+      .populate({
+        path: "dsvattu",
+        populate: {
+          path: "donhang vattu",
+        },
+      });
+
+    dsvattuhuloi = dsvattuhuloi.filter((vt) => vt.loi.soluongloi);
+
+    res.send({ dsvattuhuloi, success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+//--------------------------------------------
+
+// them nguyen lieu hu loi
+daily2Router.put("/themnglhuloi/:dl2", async (req, res) => {
+  const { dsnglLoi } = req.body;
+  try {
+    for (const ngl of dsnglLoi) {
+      const daily2 = await Daily2.findById(req.params.dl2);
+      daily2.dsnguyenlieu = daily2.dsnguyenlieu.map((item) =>
+        item.nguyenlieu.toString() === ngl.nguyenlieu._id &&
+        item.donhang.toString() === ngl.donhang._id &&
+        item.loi.khoiluongloi
+          ? {
+              donhang: item.donhang,
+              nguyenlieu: item.nguyenlieu,
+              loi: {
+                khoiluongloi:
+                  item.loi.khoiluongloi + parseInt(ngl.khoiluongloi),
+                ngaybaoloi: getCurrentDatetime(),
+              },
+              khoiluong: item.khoiluong,
+              ngaytao: item.ngaytao,
+            }
+          : item.nguyenlieu.toString() === ngl.nguyenlieu._id &&
+            item.donhang.toString() === ngl.donhang._id
+          ? {
+              donhang: item.donhang,
+              nguyenlieu: item.nguyenlieu,
+              loi: {
+                khoiluongloi: ngl.khoiluongloi,
+                ngaybaoloi: getCurrentDatetime(),
+              },
+              khoiluong: item.khoiluong,
+              ngaytao: item.ngaytao,
+            }
+          : item
+      );
+      await daily2.save();
+    }
+
+    res.send({ success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+// lay ds nguyen lieu hu loi
+daily2Router.get("/dsnglhuloi/:dl2", async (req, res) => {
+  try {
+    let { dsnguyenlieu: dsnguyenlieuhuloi } = await Daily2.findById(
+      req.params.dl2
+    )
+      .select("dsnguyenlieu")
+      .populate({
+        path: "dsnguyenlieu",
+        populate: {
+          path: "donhang nguyenlieu",
+        },
+      });
+
+    dsnguyenlieuhuloi = dsnguyenlieuhuloi.filter((ngl) => ngl.loi.khoiluongloi);
+
+    res.send({ dsnguyenlieuhuloi, success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+// lay ds subdonhang cua 1 don hang co ma cu the va thuoc daily2 co ma daily2
+daily2Router.get("/dssubdhofsingledh/:daily2Id/:madh", async (req, res) => {
+  try {
+    let { subdonhang } = await Daily2.findById(req.params.daily2Id)
+      .select("subdonhang")
+      .populate({
+        path: "subdonhang",
+        populate: {
+          path: "to",
+          populate: {
+            path: "hodan",
+          },
+        },
+      });
+    subdonhang = subdonhang.filter(
+      (dh) => dh.ma === req.params.madh.toString()
+    );
+
+    res.send({ subdonhang, success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 module.exports = daily2Router;

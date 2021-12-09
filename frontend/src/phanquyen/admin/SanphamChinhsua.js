@@ -13,8 +13,11 @@ import DropdownMaterial2 from "../../components/DropdownMaterial2";
 import MenuItem from "@mui/material/MenuItem";
 import MultipleSelect from "../../components/MultipleSelect";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { formatMoney } from "../../utils";
 =======
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 import overall from "../../assets/icons/overall.png";
 import congcu from "../../assets/icons/congcu.png";
 import vt from "../../assets/icons/vattu.png";
@@ -23,7 +26,10 @@ import _loai from "../../assets/icons/loai.png";
 import anh from "../../assets/icons/anh.png";
 import tt from "../../assets/icons/thuoctinh.png";
 import _gia from "../../assets/icons/gia.png";
+<<<<<<< HEAD
 >>>>>>> khanhduy
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 
 const SanphamChinhsua = (props) => {
   const [thuoctinh, setThuoctinh] = useState([{ ten: "", giatri: "" }]);
@@ -642,13 +648,24 @@ const Box = styled.div`
 `;
 const BoxTitle = styled.div`
   border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+<<<<<<< HEAD
   font-family: "Roboto", sans-serif;
+=======
+  font-family: "Montserrat", sans-serif;
+  color: #333;
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
   display: flex;
   align-items: center;
   padding: 20px;
   img {
+<<<<<<< HEAD
     width: 36px;
     margin-right: 8px;
+=======
+    width: 24px;
+    margin-right: 8px;
+    opacity: 0.7;
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
   }
   h5 {
     font-size: 16px;

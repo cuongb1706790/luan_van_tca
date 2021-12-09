@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import styled from "styled-components";
 =======
 import { toast } from "react-toastify";
 import ma from "../../assets/icons/ma.png";
+=======
+import { toast } from "react-toastify";
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 import ten from "../../assets/icons/ten.png";
 import sdt from "../../assets/icons/sdt.png";
 import email from "../../assets/icons/email.png";
@@ -19,7 +23,10 @@ import {
   Container,
   Content,
   Form,
+<<<<<<< HEAD
   FormGroup,
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
   TableSection,
   TableTitle,
   TiendoProcess,
@@ -27,7 +34,10 @@ import {
   Total,
   TotalValue,
 } from "./styledComponents";
+<<<<<<< HEAD
 >>>>>>> khanhduy
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 import Header from "../../components/Header";
 import BackdropMaterial from "../../components/BackdropMaterial";
 import apiDonhang from "../../axios/apiDonhang";
@@ -37,18 +47,35 @@ import TableVattuDonhang from "./tables/TableVattuDonhang";
 import TableNguyenlieuDonhang from "./tables/TableNguyenlieuDonhang";
 import { formatMoney } from "../../utils";
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import DialogMaterial from "../../components/DialogMaterial";
 >>>>>>> khanhduy
+=======
+import DialogMaterial from "../../components/DialogMaterial";
+import { useSelector } from "react-redux";
+import apiDaily1 from "../../axios/apiDaily1";
+import { MaDonhang } from "../bophankd/styledComponents";
+import HorizontalBarChart from "../../components/HorizontalBarChart";
+import HorizontalBarChartItem from "../../components/HorizontalBarChartItem";
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 
 const DonhangChitiet = (props) => {
   const [loading, setLoading] = useState(false);
   const [singleDonhang, setSingleDonhang] = useState(null);
   const { id: donhangId } = props.match.params;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
   const [success, setSuccess] = useState(false);
   const [open, setOpen] = useState(false);
+=======
+  const [success, setSuccess] = useState(false);
+  const [open, setOpen] = useState(false);
+  const { userInfo } = useSelector((state) => state.user);
+  const [tiLePhanphat, setTiLePhanphat] = useState(null);
+  const [tiendoHT, setTiendoHT] = useState(null);
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -59,16 +86,52 @@ const DonhangChitiet = (props) => {
       handleClose();
       setSuccess(true);
       props.setRefresh(true);
+<<<<<<< HEAD
+=======
+      props.history.push(`/daily1/donhang/chitiet/${donhangId}/them`);
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
       toast.success("Xác nhận thành công!", {
         theme: "colored",
       });
     }
   };
+<<<<<<< HEAD
 >>>>>>> khanhduy
+=======
+
+  const getChartData = (dssubdh) => {
+    let fullPercent = 0;
+    dssubdh.forEach((dh) => {
+      let sum = dh.dssanpham.reduce((acc, sp) => acc + sp.soluong, 0);
+      fullPercent = fullPercent + sum;
+    });
+    // ti le phan phat
+    const tilephanphat = dssubdh.map((dh) => ({
+      label: dh.to.daily2.ten,
+      percent:
+        (dh.dssanpham.reduce((acc, sp) => acc + sp.soluong, 0) * 100) /
+        fullPercent,
+    }));
+    // tien do hoan thanh
+    const tiendoHT = dssubdh.map((dh) => ({
+      label: dh.to.daily2.ten,
+      percent:
+        (dh.dssanpham.reduce((acc, sp) => acc + sp.soluonghoanthanh, 0) * 100) /
+        dh.dssanpham.reduce((acc, sp) => acc + sp.soluong, 0),
+    }));
+    setTiLePhanphat(tilephanphat);
+    setTiendoHT(tiendoHT);
+  };
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 
   const fetchDonhang = async () => {
     setLoading(true);
+    const { daily1 } = await apiDaily1.singleDaily1BasedUser(userInfo._id);
     let { donhang } = await apiDonhang.singleDonhang(donhangId);
+    const { subdonhang } = await apiDaily1.dssubdonhangOfSingleDH(
+      daily1._id,
+      donhang.ma
+    );
     donhang = {
       ...donhang,
       dssanpham: donhang.dssanpham.map((sp) => ({ ...sp, ...sp.sanpham })),
@@ -79,11 +142,13 @@ const DonhangChitiet = (props) => {
         ...ngl.nguyenlieu,
       })),
     };
+    getChartData(subdonhang);
     setSingleDonhang(donhang);
     setLoading(false);
   };
 
   useEffect(() => {
+<<<<<<< HEAD
 <<<<<<< HEAD
     fetchDonhang();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -94,6 +159,12 @@ const DonhangChitiet = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [success]);
 >>>>>>> khanhduy
+=======
+    setSuccess(false);
+    fetchDonhang();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [success]);
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 
   if (loading) {
     return <BackdropMaterial />;
@@ -108,6 +179,7 @@ const DonhangChitiet = (props) => {
           onClick={() => props.history.push("/daily1/donhang")}
         />
         <Content>
+<<<<<<< HEAD
 <<<<<<< HEAD
           <Form>
             <Title>
@@ -133,37 +205,71 @@ const DonhangChitiet = (props) => {
                   <TitleContent
                     style={{ cursor: "pointer" }}
                     onClick={() =>
+=======
+          <Form className="px-5">
+            <TiendoProcess className="text-right">
+              {singleDonhang?.ngaydathang ? (
+                <TiendoProcessText
+                  onClick={() =>
+                    props.history.push(
+                      `/daily1/donhang/chitiet/${donhangId}/tiendo`
+                    )
+                  }
+                >
+                  <span>Theo dõi tiến độ</span>
+                  <i class="fas fa-long-arrow-alt-right"></i>
+                </TiendoProcessText>
+              ) : (
+                <TiendoProcessText
+                  onClick={() => {
+                    if (singleDonhang?.xacnhan) {
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
                       props.history.push(
                         `/daily1/donhang/chitiet/${donhangId}/them`
-                      )
+                      );
+                    } else {
+                      toast.warning("Vui lòng xác nhận đơn hàng!", {
+                        theme: "colored",
+                      });
                     }
-                  >
-                    <span>Tiến hành phân phát</span>
-                    <i class="fas fa-long-arrow-alt-right"></i>
-                  </TitleContent>
-                )}
-              </TitleWrapper>
-            </Title>
+                  }}
+                >
+                  <span>Tiến hành phân phát</span>
+                  <i class="fas fa-long-arrow-alt-right"></i>
+                </TiendoProcessText>
+              )}
+            </TiendoProcess>
 
-            <div className="text-left">
-              <BoxInfo>
-                <BoxInfoTitle>Giám sát vùng</BoxInfoTitle>
-                <div className="d-flex">
-                  <div style={{ width: 100 }}>
-                    <Text>Tên:</Text>
-                    <Text>SĐT:</Text>
-                    <Text>Email:</Text>
-                    <Text>CMND:</Text>
-                    <Text>Địa chỉ:</Text>
-                  </div>
-                  <div>
-                    <Text>{singleDonhang?.from.giamsatvung.ten}</Text>
-                    <Text>{singleDonhang?.from.giamsatvung.sdt}</Text>
-                    <Text>{singleDonhang?.from.giamsatvung.email}</Text>
-                    <Text>{singleDonhang?.from.giamsatvung.cmnd}</Text>
-                    <Text>{`${singleDonhang?.from.giamsatvung.xa}, ${singleDonhang?.from.giamsatvung.huyen}, ${singleDonhang?.from.giamsatvung.tinh}`}</Text>
-                  </div>
+            {singleDonhang?.ngaydathang ? (
+              <>
+                <MaDonhang>
+                  <span>Mã đơn hàng:</span>
+                  <span>{singleDonhang?.ma}</span>
+                </MaDonhang>
+
+                <div className="d-flex justify-content-between">
+                  <HorizontalBarChart title="Tỉ lệ phân phát">
+                    {tiLePhanphat &&
+                      tiLePhanphat.length &&
+                      tiLePhanphat.map((tl) => (
+                        <HorizontalBarChartItem
+                          label={tl?.label}
+                          percent={Math.round(tl?.percent)}
+                        />
+                      ))}
+                  </HorizontalBarChart>
+                  <HorizontalBarChart title="Tiến độ hoàn thành">
+                    {tiendoHT &&
+                      tiendoHT.length &&
+                      tiendoHT.map((td) => (
+                        <HorizontalBarChartItem
+                          label={td?.label}
+                          percent={Math.round(td?.percent)}
+                        />
+                      ))}
+                  </HorizontalBarChart>
                 </div>
+<<<<<<< HEAD
 =======
           <Form className="px-5">
             <TiendoProcess className="text-right">
@@ -253,11 +359,69 @@ const DonhangChitiet = (props) => {
 <<<<<<< HEAD
               <TableTitle>Sản phẩm đơn hàng</TableTitle>
 =======
+=======
+              </>
+            ) : (
+              <div className="text-left">
+                <MaDonhang>
+                  <span>Mã đơn hàng:</span>
+                  <span>{singleDonhang?.ma}</span>
+                </MaDonhang>
+
+                <BoxInfo>
+                  <BoxInfoTitle>Giám sát vùng</BoxInfoTitle>
+
+                  <table>
+                    <tr>
+                      <td>
+                        <img src={ten} alt="ten" />
+                        <span>Tên:</span>
+                      </td>
+                      <td>{singleDonhang?.from.giamsatvung.ten}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <img src={sdt} alt="sdt" />
+                        <span>SĐT:</span>
+                      </td>
+                      <td>{singleDonhang?.from.giamsatvung.sdt}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <img src={email} alt="email" />
+                        <span>E-mail:</span>
+                      </td>
+                      <td>{singleDonhang?.from.giamsatvung.email}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <img src={cmnd} alt="cmnd" />
+                        <span>CMND:</span>
+                      </td>
+                      <td>{singleDonhang?.from.giamsatvung.cmnd}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <img src={diachi} alt="diachi" />
+                        <span>Địa chỉ:</span>
+                      </td>
+                      <td>{`${singleDonhang?.from.giamsatvung.xa}, ${singleDonhang?.from.giamsatvung.huyen}, ${singleDonhang?.from.giamsatvung.tinh}`}</td>
+                    </tr>
+                  </table>
+                </BoxInfo>
+              </div>
+            )}
+
+            <TableSection className="noCheckbox">
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
               <TableTitle>
                 <img src={dssanpham} alt="dssanpham" />
                 <span>Sản phẩm đơn hàng</span>
               </TableTitle>
+<<<<<<< HEAD
 >>>>>>> khanhduy
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
               <TableSanphamDonhangChitiet
                 dsSanpham={singleDonhang?.dssanpham}
               />
@@ -269,15 +433,22 @@ const DonhangChitiet = (props) => {
               </div>
             </TableSection>
 
+<<<<<<< HEAD
             <TableSection>
 <<<<<<< HEAD
               <TableTitle>Công cụ đơn hàng</TableTitle>
 =======
+=======
+            <TableSection className="noCheckbox">
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
               <TableTitle>
                 <img src={dscongcu} alt="dscongcu" />
                 <span>Công cụ đơn hàng</span>
               </TableTitle>
+<<<<<<< HEAD
 >>>>>>> khanhduy
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
               <TableCongcuDonhang dsCongcu={singleDonhang?.dscongcu} />
               <div className="text-right mb-3">
                 <Total>Tổng số lượng: </Total>
@@ -285,15 +456,22 @@ const DonhangChitiet = (props) => {
               </div>
             </TableSection>
 
+<<<<<<< HEAD
             <TableSection>
 <<<<<<< HEAD
               <TableTitle>Vật tư đơn hàng</TableTitle>
 =======
+=======
+            <TableSection className="noCheckbox">
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
               <TableTitle>
                 <img src={dsvattu} alt="dsvattu" />
                 <span>Vật tư đơn hàng</span>
               </TableTitle>
+<<<<<<< HEAD
 >>>>>>> khanhduy
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
               <TableVattuDonhang dsVattu={singleDonhang?.dsvattu} />
               <div className="text-right mb-3">
                 <Total>Tổng số lượng: </Total>
@@ -301,15 +479,22 @@ const DonhangChitiet = (props) => {
               </div>
             </TableSection>
 
+<<<<<<< HEAD
             <TableSection>
 <<<<<<< HEAD
               <TableTitle>Nguyên liệu đơn hàng</TableTitle>
 =======
+=======
+            <TableSection className="noCheckbox">
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
               <TableTitle>
                 <img src={dsnglieu} alt="dsnglieu" />
                 <span>Nguyên liệu đơn hàng</span>
               </TableTitle>
+<<<<<<< HEAD
 >>>>>>> khanhduy
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
               <TableNguyenlieuDonhang
                 dsNguyenlieu={singleDonhang?.dsnguyenlieu}
               />
@@ -319,10 +504,13 @@ const DonhangChitiet = (props) => {
               </div>
             </TableSection>
 <<<<<<< HEAD
+<<<<<<< HEAD
           </Form>
         </Content>
       </Container>
 =======
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 
             <div className="text-left mt-4">
               {singleDonhang?.xacnhan ? (
@@ -349,11 +537,15 @@ const DonhangChitiet = (props) => {
         onClick1={handleClose}
         onClick2={handleXacnhan}
       />
+<<<<<<< HEAD
 >>>>>>> khanhduy
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
     </>
   );
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 const Container = styled.div`
   display: flex;
@@ -445,4 +637,6 @@ const Text = styled.div`
 
 =======
 >>>>>>> khanhduy
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 export default DonhangChitiet;

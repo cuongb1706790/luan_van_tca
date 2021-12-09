@@ -303,6 +303,12 @@ const SubComponents = styled.div`
   td:first-child {
     display: none;
   }
+<<<<<<< HEAD
+=======
+  .MuiButtonBase-root {
+    outline: none;
+  }
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 `;
 
 export default Daily1Chitiet;

@@ -67,23 +67,6 @@ vattuRouter.get("/single/:id", async (req, res) => {
   }
 });
 
-// them vattu hu loi
-vattuRouter.put("/themvattuhuloi", async (req, res) => {
-  const { dsvattuLoi } = req.body;
-  try {
-    for (const item of dsvattuLoi) {
-      const vattu = await Vattu.findById(item.vattu);
-      vattu.soluongloi = item.soluongloi;
-      vattu.ngaybaoloi = getCurrentDatetime();
-      await vattu.save();
-    }
-
-    res.send({ success: true });
-  } catch (error) {
-    res.send({ message: error.message, success: false });
-  }
-});
-
 // Xoa 1 vattu
 vattuRouter.delete("/single/:id", async (req, res) => {
   try {
@@ -101,6 +84,33 @@ vattuRouter.put("/xoanhieuvattu", async (req, res) => {
   try {
     for (const item of arrOfIds) {
       await Vattu.findByIdAndDelete(item);
+    }
+
+    res.send({ success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+// them vattu hu loi
+vattuRouter.put("/themvattuhuloi", async (req, res) => {
+  const { dsvattuLoi } = req.body;
+  try {
+    for (const item of dsvattuLoi) {
+      const vattu = await Vattu.findById(item.vattu);
+      if (vattu.loi) {
+        vattu.loi = {
+          soluongloi: vattu.soluongloi + item.soluongloi,
+          ngaybaoloi: getCurrentDatetime(),
+        };
+        await vattu.save();
+      } else {
+        vattu.loi = {
+          soluongloi: item.soluongloi,
+          ngaybaoloi: getCurrentDatetime(),
+        };
+        await vattu.save();
+      }
     }
 
     res.send({ success: true });

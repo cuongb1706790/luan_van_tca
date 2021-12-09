@@ -4,9 +4,14 @@ import { useSelector } from "react-redux";
 import BackdropMaterial from "../../components/BackdropMaterial";
 import Header from "../../components/Header";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import styled from "styled-components";
 =======
 import {
+=======
+import {
+  AddButton,
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
   Container,
   Content,
   Filter,
@@ -16,7 +21,10 @@ import {
   Title,
   TitleWrapper,
 } from "./styledComponents";
+<<<<<<< HEAD
 >>>>>>> khanhduy
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 import apiGSV from "../../axios/apiGSV";
 
 const Sanpham = (props) => {
@@ -62,15 +70,28 @@ const Sanpham = (props) => {
   return (
     <>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <Wrapper>
 =======
       <Container>
 >>>>>>> khanhduy
+=======
+      <Container>
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
         <Header title="Sản phẩm" />
         <Content>
           <FilterSection>
             <TitleWrapper>
               <Title>Danh sách sản phẩm</Title>
+              <AddButton
+                className="btn btn-primary"
+                onClick={() =>
+                  props.history.push("/giamsatvung/sanpham/giaohang")
+                }
+              >
+                <span>Giao hàng</span>
+                <i class="fas fa-plus-circle"></i>
+              </AddButton>
             </TitleWrapper>
             <Filter>
               <SearchBox>
@@ -85,23 +106,32 @@ const Sanpham = (props) => {
             </Filter>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
             <TableSection>
 =======
             <TableSection className="noCheckbox">
 >>>>>>> khanhduy
+=======
+            <TableSection className="noCheckbox">
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
               <TableSanpham dsSanpham={search(dsSanpham)} />
             </TableSection>
           </FilterSection>
         </Content>
 <<<<<<< HEAD
+<<<<<<< HEAD
       </Wrapper>
 =======
       </Container>
 >>>>>>> khanhduy
+=======
+      </Container>
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
     </>
   );
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 const Wrapper = styled.div`
   display: flex;
@@ -172,4 +202,6 @@ const TableSection = styled.div`
 
 =======
 >>>>>>> khanhduy
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 export default Sanpham;

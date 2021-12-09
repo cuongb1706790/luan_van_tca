@@ -7,6 +7,7 @@ import gsv from "../../assets/icons/gsv_2.png";
 import spln from "../../assets/icons/spln_2.png";
 import daily1 from "../../assets/icons/daily1_2.png";
 import daily2 from "../../assets/icons/daily2_2.png";
+import hodan from "../../assets/icons/hodan2.png";
 import { useSelector } from "react-redux";
 
 const TongQuan = (props) => {
@@ -18,12 +19,17 @@ const TongQuan = (props) => {
     setLoading(true);
 <<<<<<< HEAD
     const { bophankd } = await apiBophankd.bophankdBasedUserId(userInfo._id);
+    const { dshodan } = await apiBophankd.dsHodan(bophankd._id);
     const data = await apiBophankd.tongquan(bophankd._id);
+<<<<<<< HEAD
 =======
     const { bophankd } = await apiBophankd.bophankdBasedUserId(userInfo?._id);
     const data = await apiBophankd.tongquan(bophankd?._id);
 >>>>>>> khanhduy
     setCounts(data);
+=======
+    setCounts({ ...data, dshodan: dshodan.length });
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
     setLoading(false);
   };
 
@@ -98,7 +104,7 @@ const TongQuan = (props) => {
           </div>
         </div>
 
-        <div className="row">
+        <div className="row mb-4">
           <div className="col-lg-3">
             <Card onClick={() => props.history.push("/bophankd/daily1")}>
               <CardContent>
@@ -150,6 +156,22 @@ const TongQuan = (props) => {
                 </TextInfo>
                 <Icon>
                   <i class="far fa-newspaper"></i>
+                </Icon>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-lg-3">
+            <Card onClick={() => props.history.push("/bophankd/hodan")}>
+              <CardContent>
+                <TextInfo>
+                  <div>{counts?.dshodan}</div>
+                  <span>Danh sách hộ dân</span>
+                </TextInfo>
+                <Icon>
+                  <Image src={hodan} alt="hodan" />
                 </Icon>
               </CardContent>
             </Card>

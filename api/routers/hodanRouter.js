@@ -7,6 +7,12 @@ const Langnghe = require("../models/langngheModel");
 const Daily2 = require("../models/daily2Model");
 const Daily1 = require("../models/daily1Model");
 const Donhang = require("../models/donhangModel");
+<<<<<<< HEAD
+=======
+const upload = require("../middleware/imageUpload");
+const Giamsatvung = require("../models/giamsatvungModel");
+const Bophankd = require("../models/bophankdModel");
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 
 // them ho dan
 hodanRouter.post("/them", async (req, res) => {
@@ -277,6 +283,7 @@ hodanRouter.get("/dsphanphat/:hodanId", async (req, res) => {
     res.send({ message: error.message, success: false });
   }
 });
+
 // lay ds phan phat CONG CU thuoc ho dan
 hodanRouter.get("/dscongcuphanphat/:hodanId", async (req, res) => {
   try {
@@ -424,7 +431,282 @@ hodanRouter.get("/dsdonhang/:hodanId", async (req, res) => {
 });
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // bao cao don hang
+=======
+// ds don hang thuoc ho dan
+hodanRouter.get("/dsdonhang/:hodanId", async (req, res) => {
+  try {
+    const { donhang: dsdonhang } = await Hodan.findById(req.params.hodanId)
+      .select("donhang")
+      .populate({
+        path: "donhang",
+        populate: {
+          path: "dssanpham dscongcu dsvattu dsnguyenlieu",
+          populate: {
+            path: "sanpham congcu vattu nguyenlieu",
+          },
+        },
+      })
+      .populate({
+        path: "donhang",
+        populate: {
+          path: "from",
+          populate: {
+            path: "bophankd giamsatvung daily1 daily2",
+          },
+        },
+      })
+      .populate({
+        path: "donhang",
+        populate: {
+          path: "to",
+          populate: {
+            path: "giamsatvung daily1 daily2 hodan",
+          },
+        },
+      })
+      .populate({
+        path: "donhang",
+        populate: {
+          path: "dssanpham",
+          populate: {
+            path: "sanpham",
+            populate: {
+              path: "loaisanpham dscongcu.congcu dsvattu.vattu dsnguyenlieu.nguyenlieu",
+            },
+          },
+        },
+      });
+
+    res.send({ dsdonhang, success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+// ho dan xac nhan don hang => khoi tao kho sanpham, congcu, vattu, nguyenlieu
+hodanRouter.put("/xacnhandh/:hodanId/:donhangId", async (req, res) => {
+  try {
+    const hodan = await Hodan.findById(req.params.hodanId);
+    const donhang = await Donhang.findById(req.params.donhangId);
+
+    // Hodan
+    let dsspTemp = donhang.dssanpham.map((sp) => ({
+      donhang: donhang._id.toString(),
+      sanpham: sp.sanpham,
+      soluong: sp.soluong,
+      soluonghoanthanh: sp.soluonghoanthanh,
+      ngaytao: donhang.ngaydathang,
+    }));
+    let dsccTemp = donhang.dscongcu.map((cc) => ({
+      donhang: donhang._id.toString(),
+      congcu: cc.congcu,
+      soluong: cc.soluong,
+      ngaytao: donhang.ngaydathang,
+    }));
+    let dsvtTemp = donhang.dsvattu.map((vt) => ({
+      donhang: donhang._id.toString(),
+      vattu: vt.vattu,
+      soluong: vt.soluong,
+      ngaytao: donhang.ngaydathang,
+    }));
+    let dsnglTemp = donhang.dsnguyenlieu.map((ngl) => ({
+      donhang: donhang._id.toString(),
+      nguyenlieu: ngl.nguyenlieu,
+      khoiluong: ngl.khoiluong,
+      ngaytao: donhang.ngaydathang,
+    }));
+    hodan.dssanpham = [...dsspTemp, ...hodan.dssanpham];
+    hodan.dscongcu = [...dsccTemp, ...hodan.dscongcu];
+    hodan.dsvattu = [...dsvtTemp, ...hodan.dsvattu];
+    hodan.dsnguyenlieu = [...dsnglTemp, ...hodan.dsnguyenlieu];
+    await hodan.save();
+
+    // Donhang
+    donhang.xacnhan = true;
+    await donhang.save();
+
+    res.send({ success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+// ho dan bao cao don hang
+hodanRouter.put("/baocao", upload.single("hinhanh"), async (req, res) => {
+  const { hodanId, donhangId, sanphamId, soluong } = req.body;
+  try {
+    // update Kho sanpham Hodan
+    const hodan = await Hodan.findById(hodanId);
+    hodan.dssanpham = hodan.dssanpham.map((sp) =>
+      sp.donhang.toString() === donhangId && sp.sanpham.toString() === sanphamId
+        ? {
+            donhang: sp.donhang,
+            sanpham: sp.sanpham,
+            soluong: sp.soluong,
+            soluonghoanthanh: sp.soluonghoanthanh + soluong,
+            dagiao: sp.dagiao,
+            ngaytao: sp.ngaytao,
+          }
+        : sp
+    );
+    await hodan.save();
+    // Update don hang cua ho dan
+    const donhang = await Donhang.findById(donhangId);
+    donhang.dssanpham = donhang.dssanpham.map((sp) =>
+      sp.sanpham.toString() === sanphamId.toString()
+        ? {
+            sanpham: sp.sanpham,
+            soluong: sp.soluong,
+            dagiao: sp.dagiao,
+            soluonghoanthanh: sp.soluonghoanthanh + soluong,
+          }
+        : sp
+    );
+    donhang.hinhanhbaocao = req.file ? req.file.filename : "";
+    await donhang.save();
+    // Update don hang goc cua dai ly 2
+    const daily2 = await Daily2.findById(donhang.from.daily2).populate(
+      "donhang"
+    );
+    const dhdl2 = daily2.donhang.find((dh) => dh.ma === donhang.ma);
+    const donhangdl2 = await Donhang.findById(dhdl2._id);
+    donhangdl2.dssanpham = donhangdl2.dssanpham.map((sp) =>
+      sp.sanpham.toString() === sanphamId.toString()
+        ? {
+            sanpham: sp.sanpham,
+            soluong: sp.soluong,
+            danhan: sp.danhan,
+            dagiao: sp.dagiao,
+            soluonghoanthanh: sp.soluonghoanthanh + soluong,
+          }
+        : sp
+    );
+    await donhangdl2.save();
+    // Update kho don hang cua dai ly 2
+    daily2.dssanpham = daily2.dssanpham.map((sp) =>
+      sp.donhang.toString() === donhangdl2._id.toString() &&
+      sp.sanpham.toString() === sanphamId.toString()
+        ? {
+            donhang: sp.donhang,
+            sanpham: sp.sanpham,
+            soluong: sp.soluong,
+            soluonghoanthanh: sp.soluonghoanthanh + soluong,
+            danhan: sp.danhan,
+            dagiao: sp.dagiao,
+            ngaytao: sp.ngaytao,
+          }
+        : sp
+    );
+    await daily2.save();
+    //------------
+    const daily1 = await Daily1.findById(dhdl2.from.daily1).populate("donhang");
+    const dhdl1 = daily1.donhang.find((dh) => dh.ma === donhang.ma);
+    const donhangdl1 = await Donhang.findById(dhdl1._id);
+    donhangdl1.dssanpham = donhangdl1.dssanpham.map((sp) =>
+      sp.sanpham.toString() === sanphamId.toString()
+        ? {
+            sanpham: sp.sanpham,
+            soluong: sp.soluong,
+            danhan: sp.danhan,
+            dagiao: sp.dagiao,
+            soluonghoanthanh: sp.soluonghoanthanh + soluong,
+          }
+        : sp
+    );
+    await donhangdl1.save();
+    // Update kho don hang cua dai ly 1
+    daily1.dssanpham = daily1.dssanpham.map((sp) =>
+      sp.donhang.toString() === donhangdl1._id.toString() &&
+      sp.sanpham.toString() === sanphamId.toString()
+        ? {
+            donhang: sp.donhang,
+            sanpham: sp.sanpham,
+            soluong: sp.soluong,
+            soluonghoanthanh: sp.soluonghoanthanh + soluong,
+            danhan: sp.danhan,
+            dagiao: sp.dagiao,
+            ngaytao: sp.ngaytao,
+          }
+        : sp
+    );
+    await daily1.save();
+    //------------
+    const gsv = await Giamsatvung.findById(dhdl1.from.giamsatvung).populate(
+      "donhang"
+    );
+    const dhgsv = gsv.donhang.find((dh) => dh.ma === donhang.ma);
+    const donhangGsv = await Donhang.findById(dhgsv._id);
+    donhangGsv.dssanpham = donhangGsv.dssanpham.map((sp) =>
+      sp.sanpham.toString() === sanphamId.toString()
+        ? {
+            sanpham: sp.sanpham,
+            soluong: sp.soluong,
+            danhan: sp.danhan,
+            dagiao: sp.dagiao,
+            soluonghoanthanh: sp.soluonghoanthanh + soluong,
+          }
+        : sp
+    );
+    await donhangGsv.save();
+    // Update kho don hang cua giamsatvung
+    gsv.dssanpham = gsv.dssanpham.map((sp) =>
+      sp.donhang.toString() === donhangGsv._id.toString() &&
+      sp.sanpham.toString() === sanphamId.toString()
+        ? {
+            donhang: sp.donhang,
+            sanpham: sp.sanpham,
+            soluong: sp.soluong,
+            soluonghoanthanh: sp.soluonghoanthanh + soluong,
+            danhan: sp.danhan,
+            dagiao: sp.dagiao,
+            ngaytao: sp.ngaytao,
+          }
+        : sp
+    );
+    await gsv.save();
+    //-----------
+    const bpkd = await Bophankd.findById(dhgsv.from.bophankd).populate(
+      "donhang"
+    );
+    const dhBpkd = bpkd.donhang.find((dh) => dh.ma === donhang.ma);
+    const donhangBpkd = await Donhang.findById(dhBpkd._id);
+    donhangBpkd.dssanpham = donhangBpkd.dssanpham.map((sp) =>
+      sp.sanpham.toString() === sanphamId.toString()
+        ? {
+            sanpham: sp.sanpham,
+            soluong: sp.soluong,
+            danhan: sp.danhan,
+            dagiao: sp.dagiao,
+            soluonghoanthanh: sp.soluonghoanthanh + soluong,
+          }
+        : sp
+    );
+    const savedDH = await donhangBpkd.save();
+    // Update kho don hang cua bophankd
+    bpkd.dssanpham = bpkd.dssanpham.map((sp) =>
+      sp.donhang.toString() === donhangBpkd._id.toString() &&
+      sp.sanpham.toString() === sanphamId.toString()
+        ? {
+            donhang: sp.donhang,
+            sanpham: sp.sanpham,
+            soluong: sp.soluong,
+            soluonghoanthanh: sp.soluonghoanthanh + soluong,
+            danhan: sp.danhan,
+            dagiao: sp.dagiao,
+            ngaytao: sp.ngaytao,
+          }
+        : sp
+    );
+    await bpkd.save();
+
+    res.send({ savedDH, success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 
 =======
 // ho dan xac nhan don hang

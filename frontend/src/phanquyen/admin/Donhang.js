@@ -2,8 +2,11 @@ import React from "react";
 import BackdropMaterial from "../../components/BackdropMaterial";
 import Header from "../../components/Header";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import styled from "styled-components";
 =======
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 import {
   AddButton,
   BtnRight,
@@ -17,7 +20,10 @@ import {
   TitleWrapper,
 } from "./styledComponents";
 
+<<<<<<< HEAD
 >>>>>>> khanhduy
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 import TableDonhang from "./tables/TableDonhang";
 import apiDonhang from "../../axios/apiDonhang";
 
@@ -60,6 +66,7 @@ const Donhang = (props) => {
   return (
     <>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <Wrapper>
         <Header title="Đơn hàng" />
         <Content>
@@ -84,9 +91,21 @@ const Donhang = (props) => {
             </AddButton>
 >>>>>>> khanhduy
           </BtnRight>
+=======
+      <Container>
+        <Header title="Đơn hàng" />
+        <Content>
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
           <FilterSection>
             <TitleWrapper>
               <Title>Danh sách đơn hàng</Title>
+              <AddButton
+                className="btn btn-primary"
+                onClick={() => props.history.push("/admin/donhang/them")}
+              >
+                <span>Thêm</span>
+                <i class="fas fa-plus-circle"></i>
+              </AddButton>
             </TitleWrapper>
             <Filter>
               <SearchBox>
@@ -109,14 +128,19 @@ const Donhang = (props) => {
           </FilterSection>
         </Content>
 <<<<<<< HEAD
+<<<<<<< HEAD
       </Wrapper>
 =======
       </Container>
 >>>>>>> khanhduy
+=======
+      </Container>
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
     </>
   );
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 const Wrapper = styled.div`
   display: flex;
@@ -192,4 +216,6 @@ const TableSection = styled.div`
 
 =======
 >>>>>>> khanhduy
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 export default Donhang;

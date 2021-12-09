@@ -2,51 +2,19 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Header from "../../components/Header";
 import bpkd from "../../assets/icons/bpkd2.png";
-import apiBophankd from "../../axios/apiBophankd";
 import BackdropMaterial from "../../components/BackdropMaterial";
-import apiGSV from "../../axios/apiGSV";
-import apiLoaiSanpham from "../../axios/apiLoaiSanpham";
-import apiCongcu from "../../axios/apiCongcu";
-import apiVattu from "../../axios/apiVattu";
-import apiNguyenlieu from "../../axios/apiNguyenlieu";
-import apiSanpham from "../../axios/apiSanpham";
-import apiDonhang from "../../axios/apiDonhang";
 import gsv from "../../assets/icons/gsv_2.png";
 import spln from "../../assets/icons/spln_2.png";
+import axios from "axios";
 
 const TongQuan = (props) => {
   const [loading, setLoading] = useState(false);
-  const [counts, setCounts] = useState({
-    bpkd: 0,
-    gsv: 0,
-    loaisanpham: 0,
-    congcu: 0,
-    vattu: 0,
-    nguyenlieu: 0,
-    sanpham: 0,
-    donhang: 0,
-  });
+  const [counts, setCounts] = useState(null);
 
   const fetchData = async () => {
     setLoading(true);
-    const { bophankd } = await apiBophankd.dsBophankd();
-    const { gsv } = await apiGSV.dsGsv();
-    const { loaiSanpham } = await apiLoaiSanpham.dsLoaiSanpham();
-    const { congcu } = await apiCongcu.dsCongcu();
-    const { vattu } = await apiVattu.dsVattu();
-    const { nguyenlieu } = await apiNguyenlieu.dsNguyenlieu();
-    const { sanpham } = await apiSanpham.dsSanpham();
-    const { donhang } = await apiDonhang.dsDonhang();
-    setCounts({
-      bpkd: bophankd && bophankd.length ? bophankd.length : 0,
-      gsv: gsv && gsv.length ? gsv.length : 0,
-      loaisanpham: loaiSanpham && loaiSanpham.length ? loaiSanpham.length : 0,
-      congcu: congcu && congcu.length ? congcu.length : 0,
-      vattu: vattu && vattu.length ? vattu.length : 0,
-      nguyenlieu: nguyenlieu && nguyenlieu.length ? nguyenlieu.length : 0,
-      sanpham: sanpham && sanpham.length ? sanpham.length : 0,
-      donhang: donhang && donhang.length ? donhang.length : 0,
-    });
+    const { data } = await axios.get("/api/admin/tongquan");
+    setCounts(data);
     setLoading(false);
   };
 
@@ -67,7 +35,7 @@ const TongQuan = (props) => {
             <Card onClick={() => props.history.push("/admin/bophankd")}>
               <CardContent>
                 <TextInfo>
-                  <div>{counts.bpkd}</div>
+                  <div>{counts?.bpkd}</div>
                   <span>Bộ phận kinh doanh</span>
                 </TextInfo>
                 <Icon>
@@ -81,7 +49,7 @@ const TongQuan = (props) => {
             <Card onClick={() => props.history.push("/admin/gsv")}>
               <CardContent>
                 <TextInfo>
-                  <div>{counts.gsv}</div>
+                  <div>{counts?.gsv}</div>
                   <span>Giám sát vùng</span>
                 </TextInfo>
                 <Icon>
@@ -95,7 +63,7 @@ const TongQuan = (props) => {
             <Card onClick={() => props.history.push("/admin/loaisanpham")}>
               <CardContent>
                 <TextInfo>
-                  <div>{counts.loaisanpham}</div>
+                  <div>{counts?.loaisp}</div>
                   <span>Loại sản phẩm</span>
                 </TextInfo>
                 <Icon>
@@ -106,10 +74,10 @@ const TongQuan = (props) => {
           </div>
 
           <div className="col-lg-3">
-            <Card onClick={() => props.history.push("/admin/hodan")}>
+            <Card onClick={() => props.history.push("/admin/congcu")}>
               <CardContent>
                 <TextInfo>
-                  <div>{counts.congcu}</div>
+                  <div>{counts?.congcu}</div>
                   <span>Công cụ</span>
                 </TextInfo>
                 <Icon>
@@ -125,7 +93,7 @@ const TongQuan = (props) => {
             <Card onClick={() => props.history.push("/admin/vattu")}>
               <CardContent>
                 <TextInfo>
-                  <div>{counts.vattu}</div>
+                  <div>{counts?.vattu}</div>
                   <span>Vật tư</span>
                 </TextInfo>
                 <Icon>
@@ -139,7 +107,7 @@ const TongQuan = (props) => {
             <Card onClick={() => props.history.push("/admin/nguyenlieu")}>
               <CardContent>
                 <TextInfo>
-                  <div>{counts.nguyenlieu}</div>
+                  <div>{counts?.nglieu}</div>
                   <span>Nguyên liệu</span>
                 </TextInfo>
                 <Icon>
@@ -153,7 +121,7 @@ const TongQuan = (props) => {
             <Card onClick={() => props.history.push("/admin/sanpham")}>
               <CardContent>
                 <TextInfo>
-                  <div>{counts.sanpham}</div>
+                  <div>{counts?.sanpham}</div>
                   <span>Sản phẩm</span>
                 </TextInfo>
                 <Icon>
@@ -167,7 +135,7 @@ const TongQuan = (props) => {
             <Card onClick={() => props.history.push("/admin/donhang")}>
               <CardContent>
                 <TextInfo>
-                  <div>{counts.donhang}</div>
+                  <div>{counts?.donhang}</div>
                   <span>Đơn hàng</span>
                 </TextInfo>
                 <Icon>

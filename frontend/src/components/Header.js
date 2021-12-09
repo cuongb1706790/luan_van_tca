@@ -59,16 +59,26 @@ const Title = styled.h5`
   font-size: 18px;
   margin: 0;
   font-family: "Roboto", sans-serif;
+<<<<<<< HEAD
+=======
+  font-weight: 500;
+  color: #666;
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 `;
 const TitleBack = styled.h5`
   margin: 0;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 400;
   display: flex;
   align-items: center;
   cursor: pointer;
+<<<<<<< HEAD
   color: rgba(0, 0, 0, 0.7);
   font-family: "Roboto", sans-serif;
+=======
+  color: #666;
+  font-family: "Montserrat", sans-serif;
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
   i {
     color: rgba(0, 0, 0, 0.35);
     margin-right: 10px;
@@ -83,7 +93,11 @@ const AvatarWrapper = styled.div`
   span {
     font-size: 15px;
     margin-left: 10px;
+<<<<<<< HEAD
     color: #444;
+=======
+    color: #666;
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
     font-family: "Roboto", sans-serif;
   }
   .dropdown {

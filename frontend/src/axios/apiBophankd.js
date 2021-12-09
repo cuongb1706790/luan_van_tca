@@ -49,12 +49,6 @@ const apiBophankd = {
     return axiosClient.get(url);
   },
 
-  // lay danh sach cong cu hu loi
-  dsCongcuHuloi(bophankdId) {
-    const url = `/bophankd/dscongcuhuloi/${bophankdId}`;
-    return axiosClient.get(url);
-  },
-
   // lay danh sach cong cu thuoc bophankd
   bophankdDSCongcu(bophankdId) {
     const url = `/bophankd/dscongcu/${bophankdId}`;
@@ -64,12 +58,6 @@ const apiBophankd = {
   // lay danh sach vattu thuoc bophankd
   bophankdDSVattu(bophankdId) {
     const url = `/bophankd/dsvattu/${bophankdId}`;
-    return axiosClient.get(url);
-  },
-
-  // lay danh sach cong cu hu loi
-  dsVattuHuloi(bophankdId) {
-    const url = `/bophankd/dsvattuhuloi/${bophankdId}`;
     return axiosClient.get(url);
   },
 
@@ -217,14 +205,72 @@ const apiBophankd = {
     return axiosClient.get(url);
   },
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 
   // lay ds daily1 daily2 chua duyet hien thi badge
   dsShowBadge(bophankdId) {
     const url = `/bophankd/dsshowbadge/${bophankdId}`;
     return axiosClient.get(url);
   },
+<<<<<<< HEAD
 >>>>>>> khanhduy
+=======
+
+  // them cong cu hu loi
+  themCongcuHuloi(bpkdId, payload) {
+    const url = `/bophankd/themcchuloi/${bpkdId}`;
+    return axiosClient.put(url, payload);
+  },
+
+  // lay ds cong cu hu loi
+  dsCongcuHuloi(bpkdId) {
+    const url = `/bophankd/dscchuloi/${bpkdId}`;
+    return axiosClient.get(url);
+  },
+
+  //-------------
+
+  // them vat tu hu loi
+  themVattuHuloi(bpkdId, payload) {
+    const url = `/bophankd/themvthuloi/${bpkdId}`;
+    return axiosClient.put(url, payload);
+  },
+
+  // lay ds vat tu hu loi
+  dsVattuHuloi(bpkdId) {
+    const url = `/bophankd/dsvthuloi/${bpkdId}`;
+    return axiosClient.get(url);
+  },
+
+  //-------------
+
+  // them nguyen lieu hu loi
+  themNguyenlieuHuloi(bpkdId, payload) {
+    const url = `/bophankd/themnglhuloi/${bpkdId}`;
+    return axiosClient.put(url, payload);
+  },
+
+  // lay ds nguyen lieu hu loi
+  dsNguyenlieuHuloi(bpkdId) {
+    const url = `/bophankd/dsnglhuloi/${bpkdId}`;
+    return axiosClient.get(url);
+  },
+
+  // lay ds subdonhang cua 1 don hang co ma cu the va thuoc bpkd co ma bpkd
+  dssubdonhangOfSingleDH(bophankd, madh) {
+    const url = `/bophankd/dssubdhofsingledh/${bophankd}/${madh}`;
+    return axiosClient.get(url);
+  },
+
+  // lay ds hodan
+  dsHodan(bophankd) {
+    const url = `/bophankd/dshodan/${bophankd}`;
+    return axiosClient.get(url);
+  },
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 };
 
 export default apiBophankd;

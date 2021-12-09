@@ -5,6 +5,7 @@ const User = require("../models/userModel");
 const Giamsatvung = require("../models/giamsatvungModel");
 const Daily2 = require("../models/daily2Model");
 const Langnghe = require("../models/langngheModel");
+const { getCurrentDatetime } = require("../utils");
 
 // them gsv
 giamsatvungRouter.post("/them", async (req, res) => {
@@ -196,7 +197,15 @@ giamsatvungRouter.get("/dsdonhang/:gsvId", async (req, res) => {
   try {
     let { donhang } = await Giamsatvung.findById(req.params.gsvId)
       .select("donhang")
-      .populate("donhang");
+      .populate({
+        path: "donhang",
+        populate: {
+          path: "dssanpham",
+          populate: {
+            path: "sanpham",
+          },
+        },
+      });
 
     res.send({ donhang, success: true });
   } catch (error) {
@@ -217,9 +226,12 @@ giamsatvungRouter.get("/dsdaily1/:gsvId", async (req, res) => {
       });
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
     daily1 = daily1.filter((dl1) => dl1.active);
 =======
 >>>>>>> khanhduy
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 
     res.send({ daily1, success: true });
   } catch (error) {
@@ -362,7 +374,10 @@ giamsatvungRouter.get("/tongquan/:gsvId", async (req, res) => {
 });
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 // lay ds daily2, donhang chua duyet hien thi badge
 giamsatvungRouter.get("/dsshowbadge/:gsvId", async (req, res) => {
   try {
@@ -387,5 +402,255 @@ giamsatvungRouter.get("/dsshowbadge/:gsvId", async (req, res) => {
   }
 });
 
+<<<<<<< HEAD
 >>>>>>> khanhduy
+=======
+//--------------------------------------------
+
+// them cong cu hu loi
+giamsatvungRouter.put("/themcchuloi/:gsvId", async (req, res) => {
+  const { dsccLoi } = req.body;
+  try {
+    for (const cc of dsccLoi) {
+      const gsv = await Giamsatvung.findById(req.params.gsvId);
+      gsv.dscongcu = gsv.dscongcu.map((item) =>
+        item.congcu.toString() === cc.congcu._id &&
+        item.donhang.toString() === cc.donhang._id &&
+        item.loi.soluongloi
+          ? {
+              donhang: item.donhang,
+              congcu: item.congcu,
+              loi: {
+                soluongloi: item.loi.soluongloi + parseInt(cc.soluongloi),
+                ngaybaoloi: getCurrentDatetime(),
+              },
+              soluong: item.soluong,
+              ngaytao: item.ngaytao,
+            }
+          : item.congcu.toString() === cc.congcu._id &&
+            item.donhang.toString() === cc.donhang._id
+          ? {
+              donhang: item.donhang,
+              congcu: item.congcu,
+              loi: {
+                soluongloi: cc.soluongloi,
+                ngaybaoloi: getCurrentDatetime(),
+              },
+              soluong: item.soluong,
+              ngaytao: item.ngaytao,
+            }
+          : item
+      );
+      await gsv.save();
+    }
+
+    res.send({ success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+// lay ds cong cu hu loi
+giamsatvungRouter.get("/dscchuloi/:gsvId", async (req, res) => {
+  try {
+    let { dscongcu: dscongcuhuloi } = await Giamsatvung.findById(
+      req.params.gsvId
+    )
+      .select("dscongcu")
+      .populate({
+        path: "dscongcu",
+        populate: {
+          path: "donhang congcu",
+        },
+      });
+
+    dscongcuhuloi = dscongcuhuloi.filter((cc) => cc.loi.soluongloi);
+
+    res.send({ dscongcuhuloi, success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+//--------------------------------------------
+
+// them vat tu hu loi
+giamsatvungRouter.put("/themvthuloi/:gsvId", async (req, res) => {
+  const { dsvtLoi } = req.body;
+  try {
+    for (const vt of dsvtLoi) {
+      const gsv = await Giamsatvung.findById(req.params.gsvId);
+      gsv.dsvattu = gsv.dsvattu.map((item) =>
+        item.vattu.toString() === vt.vattu._id &&
+        item.donhang.toString() === vt.donhang._id &&
+        item.loi.soluongloi
+          ? {
+              donhang: item.donhang,
+              vattu: item.vattu,
+              loi: {
+                soluongloi: item.loi.soluongloi + parseInt(vt.soluongloi),
+                ngaybaoloi: getCurrentDatetime(),
+              },
+              soluong: item.soluong,
+              ngaytao: item.ngaytao,
+            }
+          : item.vattu.toString() === vt.vattu._id &&
+            item.donhang.toString() === vt.donhang._id
+          ? {
+              donhang: item.donhang,
+              vattu: item.vattu,
+              loi: {
+                soluongloi: vt.soluongloi,
+                ngaybaoloi: getCurrentDatetime(),
+              },
+              soluong: item.soluong,
+              ngaytao: item.ngaytao,
+            }
+          : item
+      );
+      await gsv.save();
+    }
+
+    res.send({ success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+// lay ds vat tu hu loi
+giamsatvungRouter.get("/dsvthuloi/:gsvId", async (req, res) => {
+  try {
+    let { dsvattu: dsvattuhuloi } = await Giamsatvung.findById(req.params.gsvId)
+      .select("dsvattu")
+      .populate({
+        path: "dsvattu",
+        populate: {
+          path: "donhang vattu",
+        },
+      });
+
+    dsvattuhuloi = dsvattuhuloi.filter((vt) => vt.loi.soluongloi);
+
+    res.send({ dsvattuhuloi, success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+//--------------------------------------------
+
+// them nguyen lieu hu loi
+giamsatvungRouter.put("/themnglhuloi/:gsvId", async (req, res) => {
+  const { dsnglLoi } = req.body;
+  try {
+    for (const ngl of dsnglLoi) {
+      const gsv = await Giamsatvung.findById(req.params.gsvId);
+      gsv.dsnguyenlieu = gsv.dsnguyenlieu.map((item) =>
+        item.nguyenlieu.toString() === ngl.nguyenlieu._id &&
+        item.donhang.toString() === ngl.donhang._id &&
+        item.loi.khoiluongloi
+          ? {
+              donhang: item.donhang,
+              nguyenlieu: item.nguyenlieu,
+              loi: {
+                khoiluongloi:
+                  item.loi.khoiluongloi + parseInt(ngl.khoiluongloi),
+                ngaybaoloi: getCurrentDatetime(),
+              },
+              khoiluong: item.khoiluong,
+              ngaytao: item.ngaytao,
+            }
+          : item.nguyenlieu.toString() === ngl.nguyenlieu._id &&
+            item.donhang.toString() === ngl.donhang._id
+          ? {
+              donhang: item.donhang,
+              nguyenlieu: item.nguyenlieu,
+              loi: {
+                khoiluongloi: ngl.khoiluongloi,
+                ngaybaoloi: getCurrentDatetime(),
+              },
+              khoiluong: item.khoiluong,
+              ngaytao: item.ngaytao,
+            }
+          : item
+      );
+      await gsv.save();
+    }
+
+    res.send({ success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+// lay ds nguyen lieu hu loi
+giamsatvungRouter.get("/dsnglhuloi/:gsvId", async (req, res) => {
+  try {
+    let { dsnguyenlieu: dsnguyenlieuhuloi } = await Giamsatvung.findById(
+      req.params.gsvId
+    )
+      .select("dsnguyenlieu")
+      .populate({
+        path: "dsnguyenlieu",
+        populate: {
+          path: "donhang nguyenlieu",
+        },
+      });
+
+    dsnguyenlieuhuloi = dsnguyenlieuhuloi.filter((ngl) => ngl.loi.khoiluongloi);
+
+    res.send({ dsnguyenlieuhuloi, success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+// lay ds subdonhang cua 1 don hang co ma cu the va thuoc gsv co ma gsv
+giamsatvungRouter.get("/dssubdhofsingledh/:gsvId/:madh", async (req, res) => {
+  try {
+    let { subdonhang } = await Giamsatvung.findById(req.params.gsvId)
+      .select("subdonhang")
+      .populate({
+        path: "subdonhang",
+        populate: {
+          path: "to",
+          populate: {
+            path: "daily1",
+          },
+        },
+      });
+    subdonhang = subdonhang.filter(
+      (dh) => dh.ma === req.params.madh.toString()
+    );
+
+    res.send({ subdonhang, success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+// lay ds hodan
+giamsatvungRouter.get("/dshodan/:gsvId", async (req, res) => {
+  try {
+    // lay danh sach gsv do gsv quan ly
+    const dsdaily2 = await Daily2.find({ giamsatvung: req.params.gsvId })
+      .select("hodan")
+      .populate({
+        path: "hodan",
+        populate: {
+          path: "langnghe loaisanpham",
+        },
+      });
+    let dshodan = [];
+    dsdaily2.forEach((dl2) => {
+      dshodan = [...dshodan, ...dl2.hodan];
+    });
+
+    res.send({ dshodan, success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 module.exports = giamsatvungRouter;

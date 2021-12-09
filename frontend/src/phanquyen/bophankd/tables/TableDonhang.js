@@ -9,10 +9,14 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Checkbox from "@mui/material/Checkbox";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { useHistory } from "react-router-dom";
 =======
 import { Link, useHistory } from "react-router-dom";
 >>>>>>> khanhduy
+=======
+import { Link, useHistory } from "react-router-dom";
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 import EnhancedTableHead from "../../../components/table/EnhancedTableHead";
 import { formatMoney, getComparator } from "../../../utils";
 import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
@@ -25,19 +29,27 @@ import TableButton from "../../../components/TableButton";
 import { toast } from "react-toastify";
 import apiLoaiSanpham from "../../../axios/apiLoaiSanpham";
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import styled from "styled-components";
 >>>>>>> khanhduy
+=======
+import styled from "styled-components";
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 
 const EnhancedTableToolbar = ({
   numSelected,
   rowsSelected,
   onClickChitiet,
 <<<<<<< HEAD
+<<<<<<< HEAD
   onClickCapnhat,
 =======
   onClickTiendo,
 >>>>>>> khanhduy
+=======
+  onClickTiendo,
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
   onClickXoa,
 }) => {
   return numSelected > 0 ? (
@@ -65,13 +77,19 @@ const EnhancedTableToolbar = ({
             <div className="d-flex align-items-center">
               {rowsSelected.length === 1 && (
 <<<<<<< HEAD
+<<<<<<< HEAD
                 <TableButton onClick={onClickChitiet}>Chi tiết</TableButton>
 =======
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
                 <>
                   <TableButton onClick={onClickChitiet}>Chi tiết</TableButton>
                   <TableButton onClick={onClickTiendo}>Tiến độ</TableButton>
                 </>
+<<<<<<< HEAD
 >>>>>>> khanhduy
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
               )}
             </div>
           </Typography>
@@ -106,12 +124,17 @@ const TableDonhang = ({ dsDonhang = [], setRowsRemoved }) => {
     history.push(`/bophankd/donhang/chitiet/${selected[0]}`);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   const onClickCapnhat = () =>
     history.push(`/bophankd/donhang/chinhsua/${selected[0]}`);
 =======
   const onClickTiendo = () =>
     history.push(`/bophankd/donhang/chitiet/${selected[0]}/tiendo`);
 >>>>>>> khanhduy
+=======
+  const onClickTiendo = () =>
+    history.push(`/bophankd/donhang/chitiet/${selected[0]}/tiendo`);
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 
   const onClickXoa = () => handleOpen();
 
@@ -184,10 +207,14 @@ const TableDonhang = ({ dsDonhang = [], setRowsRemoved }) => {
             rowsSelected={selected}
             onClickChitiet={onClickChitiet}
 <<<<<<< HEAD
+<<<<<<< HEAD
             onClickCapnhat={onClickCapnhat}
 =======
             onClickTiendo={onClickTiendo}
 >>>>>>> khanhduy
+=======
+            onClickTiendo={onClickTiendo}
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
             onClickXoa={onClickXoa}
           />
           <TableContainer>
@@ -235,20 +262,27 @@ const TableDonhang = ({ dsDonhang = [], setRowsRemoved }) => {
                           />
                         </TableCell>
 <<<<<<< HEAD
+<<<<<<< HEAD
                         <TableCell align="right">{row?.ma}</TableCell>
 =======
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
                         <TableCell align="right">
                           <Link to={`/bophankd/donhang/chitiet/${row._id}`}>
                             {row?.ma}
                           </Link>
                         </TableCell>
+<<<<<<< HEAD
 >>>>>>> khanhduy
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
                         <TableCell align="right">{row?.tongsanpham}</TableCell>
                         <TableCell align="right">{row?.tongcongcu}</TableCell>
                         <TableCell align="right">{row?.tongvattu}</TableCell>
                         <TableCell align="right">
                           {row?.tongnguyenlieu}
                         </TableCell>
+<<<<<<< HEAD
 <<<<<<< HEAD
                         <TableCell align="right">
                           {formatMoney(row?.tongdongia)}
@@ -262,6 +296,14 @@ const TableDonhang = ({ dsDonhang = [], setRowsRemoved }) => {
                           <Badge className="success">{row.ngaydathang}</Badge>
                         </TableCell>
 >>>>>>> khanhduy
+=======
+                        <TableCell align="right" style={{ fontWeight: 500 }}>
+                          {formatMoney(row?.tongdongia)}
+                        </TableCell>
+                        <TableCell align="right">
+                          <Badge className="success">{row.ngaydathang}</Badge>
+                        </TableCell>
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
                       </TableRow>
                     );
                   })}
@@ -312,7 +354,10 @@ const TableDonhang = ({ dsDonhang = [], setRowsRemoved }) => {
 };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 const Badge = styled.div`
   display: inline-block;
   text-align: center;
@@ -325,5 +370,8 @@ const Badge = styled.div`
   }
 `;
 
+<<<<<<< HEAD
 >>>>>>> khanhduy
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 export default TableDonhang;

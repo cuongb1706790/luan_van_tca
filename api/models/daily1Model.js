@@ -67,6 +67,14 @@ const daily1Schema = new mongoose.Schema(
         },
         soluong: Number,
         soluonghoanthanh: Number,
+        danhan: {
+          type: Number,
+          default: 0,
+        },
+        dagiao: {
+          type: Number,
+          default: 0,
+        },
         ngaytao: String,
       },
     ],
@@ -79,6 +87,10 @@ const daily1Schema = new mongoose.Schema(
         congcu: {
           type: mongoose.Schema.Types.ObjectId,
           ref: "Congcu",
+        },
+        loi: {
+          soluongloi: Number,
+          ngaybaoloi: String,
         },
         soluong: Number, // = số lượng sp đặt * định mức công cụ
         ngaytao: String,
@@ -94,6 +106,10 @@ const daily1Schema = new mongoose.Schema(
           type: mongoose.Schema.Types.ObjectId,
           ref: "Vattu",
         },
+        loi: {
+          soluongloi: Number,
+          ngaybaoloi: String,
+        },
         soluong: Number, // = số lượng sp đặt * định mức công cụ
         ngaytao: String,
       },
@@ -108,8 +124,18 @@ const daily1Schema = new mongoose.Schema(
           type: mongoose.Schema.Types.ObjectId,
           ref: "Nguyenlieu",
         },
+        loi: {
+          khoiluongloi: Number,
+          ngaybaoloi: String,
+        },
         khoiluong: Number, // = số lượng sp đặt * định mức công cụ
         ngaytao: String,
+      },
+    ],
+    dsgiaohang: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Giaohang",
       },
     ],
   },

@@ -14,6 +14,11 @@ const donhangSchema = new mongoose.Schema(
           type: Number,
           default: 0,
         },
+        danhan: Number,
+        dagiao: {
+          type: Number,
+          default: 0,
+        },
       },
     ],
     tongsanpham: Number,
@@ -90,13 +95,19 @@ const donhangSchema = new mongoose.Schema(
     ngaytao: String, // dùng cho đon hàng được tạo đầu tiên, dù là đơn hàng subdonhang
     ngaydathang: String, // Ngày bên này đặt hàng bên kia, dùng ngày này để lưu ngày nhận cc, vt, ngl
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
     hinhanhbaocao: String,
     xacnhan: {
       type: Boolean,
       default: false,
     },
+<<<<<<< HEAD
 >>>>>>> khanhduy
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
   },
   {
     timestamps: true,

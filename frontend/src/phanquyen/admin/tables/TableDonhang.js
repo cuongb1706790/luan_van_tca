@@ -20,11 +20,16 @@ import DialogMaterial from "../../../components/DialogMaterial";
 import TableButton from "../../../components/TableButton";
 import { toast } from "react-toastify";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import apiLoaiSanpham from "../../../axios/apiLoaiSanpham";
 =======
 import apiDonhang from "../../../axios/apiDonhang";
 import { Link } from "react-router-dom";
 >>>>>>> khanhduy
+=======
+import apiDonhang from "../../../axios/apiDonhang";
+import { Link } from "react-router-dom";
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 
 const EnhancedTableToolbar = ({
   numSelected,
@@ -104,10 +109,14 @@ const TableDonhang = ({ dsDonhang = [], setRowsRemoved }) => {
 
   const handleDeleteRow = async () => {
 <<<<<<< HEAD
+<<<<<<< HEAD
     const { success } = await apiLoaiSanpham.xoaNhieuLoaiSanpham({
 =======
     const { success } = await apiDonhang.xoaNhieuDonhang({
 >>>>>>> khanhduy
+=======
+    const { success } = await apiDonhang.xoaNhieuDonhang({
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
       arrOfIds: selected,
     });
     if (success) {
@@ -222,14 +231,20 @@ const TableDonhang = ({ dsDonhang = [], setRowsRemoved }) => {
                           />
                         </TableCell>
 <<<<<<< HEAD
+<<<<<<< HEAD
                         <TableCell align="right">{row.ma}</TableCell>
 =======
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
                         <TableCell align="right">
                           <Link to={`/admin/donhang/chitiet/${row._id}`}>
                             {row.ma}
                           </Link>
                         </TableCell>
+<<<<<<< HEAD
 >>>>>>> khanhduy
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
                         <TableCell align="right">{row.tongsanpham}</TableCell>
                         <TableCell align="right">{row.tongcongcu}</TableCell>
                         <TableCell align="right">{row.tongvattu}</TableCell>
@@ -279,12 +294,17 @@ const TableDonhang = ({ dsDonhang = [], setRowsRemoved }) => {
         open={open}
         onClose={handleClose}
 <<<<<<< HEAD
+<<<<<<< HEAD
         title="Xóa sản phẩm làng nghề"
         content="Bạn chắc xóa sản phẩm làng nghề này chứ?"
 =======
         title="Xóa đơn hàng"
         content="Bạn chắc xóa đơn hàng này chứ?"
 >>>>>>> khanhduy
+=======
+        title="Xóa đơn hàng"
+        content="Bạn chắc xóa đơn hàng này chứ?"
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
         text1="Hủy"
         text2="Xóa"
         onClick1={handleClose}

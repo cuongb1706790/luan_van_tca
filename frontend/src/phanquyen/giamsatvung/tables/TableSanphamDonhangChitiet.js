@@ -16,9 +16,13 @@ import { headCellsSanphamDonhangChitiet } from "./headCells";
 
 const TableSanphamDonhangChitiet = ({ dsSanpham = [] }) => {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
   console.log({ dsSanpham });
 >>>>>>> khanhduy
+=======
+  console.log({ dsSanpham });
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
   const [selected, setSelected] = React.useState([]);
@@ -144,13 +148,18 @@ const TableSanphamDonhangChitiet = ({ dsSanpham = [] }) => {
                         <TableCell align="right">{row?.ten}</TableCell>
                         <TableCell align="right">
 <<<<<<< HEAD
+<<<<<<< HEAD
                           {row?.loaisanpham.ten}
+=======
+                          {row?.loaisanpham?.ten}
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
                         </TableCell>
-                        <TableCell align="right">{row.soluong}</TableCell>
+                        <TableCell align="right">{row?.soluong}</TableCell>
                         <TableCell align="right">
-                          {row.soluonghoanthanh}
+                          {row?.soluonghoanthanh}
                         </TableCell>
                         <TableCell align="right">
+<<<<<<< HEAD
                           {formatMoney(row.soluong * row?.gia)}
 =======
                           {row?.loaisanpham?.ten}
@@ -162,6 +171,9 @@ const TableSanphamDonhangChitiet = ({ dsSanpham = [] }) => {
                         <TableCell align="right">
                           {formatMoney(row?.soluong * row?.gia)}
 >>>>>>> khanhduy
+=======
+                          {formatMoney(row?.soluong * row?.gia)}
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
                         </TableCell>
                       </TableRow>
                     );

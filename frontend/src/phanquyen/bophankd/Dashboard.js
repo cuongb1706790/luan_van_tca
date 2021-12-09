@@ -29,13 +29,24 @@ import dl1Icon from "../../assets/icons/daily1.png";
 import dl2Icon from "../../assets/icons/daily2.png";
 import gsvIcon from "../../assets/icons/gsv.png";
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 import Badge from "@mui/material/Badge";
 import { useSelector } from "react-redux";
 import apiBophankd from "../../axios/apiBophankd";
 import BackdropMaterial from "../../components/BackdropMaterial";
 import GiamsatvungChitiet from "./GiamsatvungChitiet";
+<<<<<<< HEAD
 >>>>>>> khanhduy
+=======
+import hodanIcon from "../../assets/icons/hodan.png";
+import Hodan from "./Hodan";
+import HodanChitiet from "./HodanChitiet";
+import Hanggiaoden from "./Hanggiaoden";
+import HanggiaodenChitiet from "./HanggiaodenChitiet";
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 
 const Dashboard = (props) => {
   const [loading, setLoading] = useState(false);
@@ -43,9 +54,13 @@ const Dashboard = (props) => {
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.user);
   const [refresh, setRefresh] = useState(false);
+<<<<<<< HEAD
   const wait = (timeout) => {
     return new Promise(resolve => setTimeout(resolve, timeout));
   }
+=======
+
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
   const handleLogout = () => {
     dispatch(logout());
     props.history.push("/");
@@ -53,12 +68,19 @@ const Dashboard = (props) => {
 
   const fetchDsBadge = async () => {
     setLoading(true);
+<<<<<<< HEAD
     wait(3000).then(() => setLoading(false));
     const { bophankd } = await apiBophankd.bophankdBasedUserId(userInfo._id);
     const data = await apiBophankd.dsShowBadge(bophankd._id);
    
     setDsBadge(data);
     // setLoading(false);
+=======
+    const { bophankd } = await apiBophankd.bophankdBasedUserId(userInfo._id);
+    const data = await apiBophankd.dsShowBadge(bophankd._id);
+    setDsBadge(data);
+    setLoading(false);
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
   };
 
   useEffect(() => {
@@ -76,7 +98,7 @@ const Dashboard = (props) => {
       <LeftMenu>
         <Logo>
           <img src={logo} alt="logo" />
-          <span>Craft Village</span>
+          <span>Làng Nghề</span>
         </Logo>
 
         <Menu>
@@ -121,9 +143,12 @@ const Dashboard = (props) => {
           <MenuItem>
             <NavLink to="/bophankd/daily1" activeClassName="active">
 <<<<<<< HEAD
+<<<<<<< HEAD
               <Image src={dl1Icon} alt="splangnghe" />
               <span>Đại lý cấp 1</span>
 =======
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
               {dsBadge?.daily1Badge > 0 ? (
                 <Badge badgeContent={dsBadge?.daily1Badge} color="secondary">
                   <Image src={dl1Icon} alt="splangnghe" />
@@ -133,16 +158,22 @@ const Dashboard = (props) => {
               )}
 
               <span className="ml-3">Đại lý cấp 1</span>
+<<<<<<< HEAD
 >>>>>>> khanhduy
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
             </NavLink>
           </MenuItem>
 
           <MenuItem>
             <NavLink to="/bophankd/daily2" activeClassName="active">
 <<<<<<< HEAD
+<<<<<<< HEAD
               <Image src={dl2Icon} alt="splangnghe" />
               <span>Đại lý cấp 2</span>
 =======
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
               {dsBadge?.daily2Badge > 0 ? (
                 <Badge badgeContent={dsBadge?.daily2Badge} color="secondary">
                   <Image src={dl2Icon} alt="splangnghe" />
@@ -152,17 +183,38 @@ const Dashboard = (props) => {
               )}
 
               <span className="ml-3">Đại lý cấp 2</span>
+<<<<<<< HEAD
 >>>>>>> khanhduy
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
             </NavLink>
           </MenuItem>
 
           <MenuItem>
             <NavLink to="/bophankd/giamsatvung" activeClassName="active">
+<<<<<<< HEAD
               <Image src={gsvIcon} alt="splangnghe" />
 <<<<<<< HEAD
               <span>Giám sát vùng</span>
 =======
+=======
+              <Image src={gsvIcon} alt="gsvIcon" />
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
               <span className="ml-3">Giám sát vùng</span>
+            </NavLink>
+          </MenuItem>
+
+          <MenuItem>
+<<<<<<< HEAD
+            <NavLink to="/bophankd/donhang" activeClassName="active">
+              <i class="far fa-newspaper"></i>
+              <span className="ml-3">Đơn hàng</span>
+>>>>>>> khanhduy
+=======
+            <NavLink to="/bophankd/hodan" activeClassName="active">
+              <Image src={hodanIcon} alt="hodan" />
+              <span className="ml-3">Hộ dân</span>
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
             </NavLink>
           </MenuItem>
 
@@ -170,14 +222,13 @@ const Dashboard = (props) => {
             <NavLink to="/bophankd/donhang" activeClassName="active">
               <i class="far fa-newspaper"></i>
               <span className="ml-3">Đơn hàng</span>
->>>>>>> khanhduy
             </NavLink>
           </MenuItem>
 
           <MenuItem>
-            <NavLink to="/bophankd/donhang" activeClassName="active">
+            <NavLink to="/bophankd/hanggiaoden" activeClassName="active">
               <i class="far fa-newspaper"></i>
-              <span>Đơn hàng</span>
+              <span className="ml-3">Hàng giao đến</span>
             </NavLink>
           </MenuItem>
 
@@ -230,6 +281,14 @@ const Dashboard = (props) => {
           component={DonhangChitiet}
         />
         <Route path="/bophankd/donhang/chitiet/:id/tiendo" component={Tiendo} />
+        <Route exact path="/bophankd/hodan" component={Hodan} />
+        <Route path="/bophankd/hodan/chitiet/:id" component={HodanChitiet} />
+
+        <Route exact path="/bophankd/hanggiaoden" component={Hanggiaoden} />
+        <Route
+          path="/bophankd/hanggiaoden/chitiet/:id"
+          component={HanggiaodenChitiet}
+        />
       </RightContent>
     </Container>
   );

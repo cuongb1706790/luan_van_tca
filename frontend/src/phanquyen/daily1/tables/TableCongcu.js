@@ -9,29 +9,118 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Checkbox from "@mui/material/Checkbox";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { useHistory } from "react-router-dom";
 =======
 >>>>>>> khanhduy
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 import img_placeholder from "../../../assets/images/img_placeholder.png";
 import EnhancedTableHead from "../../../components/table/EnhancedTableHead";
 import { getComparator } from "../../../utils";
 import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
+<<<<<<< HEAD
 import { headCellsCongcu } from "./headCells";
 <<<<<<< HEAD
 import TableButton from "../../../components/TableButton";
 =======
 >>>>>>> khanhduy
+=======
+import { headCellsCongcu, headCellsCongcuHuloi } from "./headCells";
+import TableButton from "../../../components/TableButton";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import { alpha } from "@mui/material/styles";
+import { InputSoluong } from "../styledComponents";
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 
-const TableCongcu = ({ dsCongcu = [] }) => {
+const EnhancedTableToolbar = ({ numSelected, rowsSelected, onClickBaoloi }) => {
+  return numSelected > 0 ? (
+    <>
+      <Toolbar
+        sx={{
+          pl: { sm: 7 },
+          pr: { xs: 1, sm: 1 },
+          ...(numSelected > 0 && {
+            bgcolor: (theme) =>
+              alpha(
+                theme.palette.primary.main,
+                theme.palette.action.activatedOpacity
+              ),
+          }),
+        }}
+      >
+        {numSelected > 0 ? (
+          <Typography
+            sx={{ flex: "1 1 100%" }}
+            color="inherit"
+            variant="subtitle1"
+            component="div"
+          >
+            <div className="d-flex align-items-center">
+              {rowsSelected.length && (
+                <TableButton onClick={onClickBaoloi}>Báo lỗi</TableButton>
+              )}
+            </div>
+          </Typography>
+        ) : (
+          <Typography
+            sx={{ flex: "1 1 100%" }}
+            variant="h6"
+            id="tableTitle"
+            component="div"
+          >
+            Nutrition
+          </Typography>
+        )}
+      </Toolbar>
+    </>
+  ) : null;
+};
+
+const TableCongcu = ({
+  dsCongcu = [],
+  setOpen,
+  setDsCongcuHuloi,
+  congcuhuloithem,
+  dscongcuhuloi,
+}) => {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 <<<<<<< HEAD
+<<<<<<< HEAD
   const history = useHistory();
 =======
 >>>>>>> khanhduy
+=======
+
+  const handleChangeSLHuloi = (e, id) => {
+    setDsCongcuHuloi((prev) =>
+      prev.map((item) =>
+        item._id === id
+          ? {
+              ...item,
+              soluongloi: e.target.value,
+            }
+          : item
+      )
+    );
+  };
+
+  const getObjectsCC = () => {
+    return dsCongcu
+      .filter((cc) => selected.includes(cc._id))
+      .map((cc) => ({ ...cc, soluongloi: 1 }));
+  };
+
+  const onClickBaoloi = () => {
+    setDsCongcuHuloi(getObjectsCC);
+    setOpen(true);
+  };
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -86,6 +175,13 @@ const TableCongcu = ({ dsCongcu = [] }) => {
     <>
       <Box sx={{ width: "100%" }}>
         <Paper sx={{ width: "100%", mb: 2 }}>
+          {dscongcuhuloi || congcuhuloithem ? null : (
+            <EnhancedTableToolbar
+              numSelected={selected.length}
+              rowsSelected={selected}
+              onClickBaoloi={onClickBaoloi}
+            />
+          )}
           <TableContainer>
             <Table
               sx={{ minWidth: 750 }}
@@ -100,7 +196,11 @@ const TableCongcu = ({ dsCongcu = [] }) => {
                 onSelectAllClick={handleSelectAllClick}
                 onRequestSort={handleRequestSort}
                 rowCount={dsCongcu?.length}
-                headCells={headCellsCongcu}
+                headCells={
+                  congcuhuloithem || dscongcuhuloi
+                    ? headCellsCongcuHuloi
+                    : headCellsCongcu
+                }
               />
               <TableBody>
                 {dsCongcu
@@ -144,9 +244,23 @@ const TableCongcu = ({ dsCongcu = [] }) => {
                             className={!row?.hinhanh && "noImage"}
                           />
                         </TableCell>
-                        <TableCell align="right">{row?.soluong}</TableCell>
+                        <TableCell align="right">
+                          {congcuhuloithem ? (
+                            <InputSoluong
+                              type="number"
+                              value={row?.soluongloi}
+                              onChange={(e) => handleChangeSLHuloi(e, row?._id)}
+                            />
+                          ) : dscongcuhuloi ? (
+                            row?.loi.soluongloi
+                          ) : (
+                            row?.soluong
+                          )}
+                        </TableCell>
                         <TableCell align="right">{row?.congdung}</TableCell>
-                        <TableCell align="right">{row?.ngaytao}</TableCell>
+                        <TableCell align="right">
+                          {dscongcuhuloi ? row?.loi.ngaybaoloi : row?.ngaytao}
+                        </TableCell>
                         {/* <TableCell align="right">
                           {
                             <TableButton

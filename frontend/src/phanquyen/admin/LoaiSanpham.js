@@ -5,7 +5,10 @@ import TableLoaiSanpham from "./tables/TableLoaiSanpham";
 import apiLoaiSanpham from "../../axios/apiLoaiSanpham";
 import {
   AddButton,
+<<<<<<< HEAD
   BtnRight,
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
   Container,
   Content,
   Filter,
@@ -57,6 +60,7 @@ const LoaiSanpham = (props) => {
       <Container>
         <Header title="Loại sản phẩm" />
         <Content>
+<<<<<<< HEAD
           <BtnRight>
             <AddButton
               className="btn btn-primary"
@@ -66,9 +70,18 @@ const LoaiSanpham = (props) => {
               <i class="fas fa-plus-circle"></i>
             </AddButton>
           </BtnRight>
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
           <FilterSection>
             <TitleWrapper>
               <Title>Danh sách loại sản phẩm</Title>
+              <AddButton
+                className="btn btn-primary"
+                onClick={() => props.history.push("/admin/loaisanpham/them")}
+              >
+                <span>Thêm</span>
+                <i class="fas fa-plus-circle"></i>
+              </AddButton>
             </TitleWrapper>
             <Filter>
               <SearchBox>

@@ -17,7 +17,10 @@ import {
   TextArea,
 } from "./styledComponents";
 import _ten from "../../assets/icons/ten.png";
+<<<<<<< HEAD
 import them from "../../assets/icons/them.png";
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 import cd from "../../assets/icons/congdung.png";
 import _mota from "../../assets/icons/mota.png";
 import anh from "../../assets/icons/anh.png";

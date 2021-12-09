@@ -20,6 +20,7 @@ import Typography from "@mui/material/Typography";
 import { alpha } from "@mui/material/styles";
 import TableButton from "../../../components/TableButton";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const EnhancedTableToolbar = ({
   numSelected,
@@ -214,7 +215,11 @@ const TableLangnghe = ({ dsLangnghe = [], setRowsRemoved, readOnly }) => {
                             }}
                           />
                         </TableCell>
-                        <TableCell align="right">{row.ten}</TableCell>
+                        <TableCell align="right">
+                          <Link to={`/giamsatvung/langnghe/chitiet/${row._id}`}>
+                            {row.ten}
+                          </Link>
+                        </TableCell>
                         <TableCell align="right">{row.tinh}</TableCell>
                         <TableCell align="right">{row.huyen}</TableCell>
                         <TableCell align="right">

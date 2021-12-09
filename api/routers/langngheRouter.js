@@ -1,4 +1,5 @@
 const express = require("express");
+const Hodan = require("../models/hodanModel");
 const Langnghe = require("../models/langngheModel");
 const langngheRouter = express.Router();
 
@@ -33,23 +34,6 @@ langngheRouter.get("/danhsach", async (req, res) => {
       });
     }
     res.send({ langnghe, success: true });
-  } catch (error) {
-    res.send({ message: error.message, success: false });
-  }
-});
-
-// lay ds hodan
-langngheRouter.get("/danhsachhodan/:langngheId", async (req, res) => {
-  try {
-    const { hodan } = await Langnghe.findById(req.params.langngheId)
-      .select("hodan")
-      .populate({
-        path: "hodan",
-        populate: {
-          path: "langnghe",
-        },
-      });
-    res.send({ hodan, success: true });
   } catch (error) {
     res.send({ message: error.message, success: false });
   }
@@ -98,6 +82,19 @@ langngheRouter.put("/multiple", async (req, res) => {
       await Langnghe.findByIdAndDelete(item);
     }
     res.send({ success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+// lay ds hodan
+langngheRouter.get("/danhsachhodan/:langngheId", async (req, res) => {
+  try {
+    const hodan = await Hodan.find({
+      langnghe: req.params.langngheId,
+    }).populate("langnghe loaisanpham");
+
+    res.send({ hodan, success: true });
   } catch (error) {
     res.send({ message: error.message, success: false });
   }

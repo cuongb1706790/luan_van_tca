@@ -18,7 +18,6 @@ const Daily1Chitiet = (props) => {
   const [active, setActive] = useState({
     code: 1,
     present: "congcu",
-    payload: "",
   });
   const [loading, setLoading] = useState(false);
   const [singleDaily1, setSingleDaily1] = useState(null);
@@ -65,7 +64,10 @@ const Daily1Chitiet = (props) => {
                 setActive({
                   code: 1,
                   present: "sanpham",
+<<<<<<< HEAD
                   payload: "",
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
                 })
               }
               className={active.code === 1 && "active"}
@@ -79,7 +81,10 @@ const Daily1Chitiet = (props) => {
                 setActive({
                   code: 2,
                   present: "congcu",
+<<<<<<< HEAD
                   payload: "",
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
                 })
               }
               className={active.code === 2 && "active"}
@@ -93,7 +98,6 @@ const Daily1Chitiet = (props) => {
                 setActive({
                   code: 3,
                   present: "vattu",
-                  payload: "",
                 })
               }
               className={active.code === 3 && "active"}
@@ -107,7 +111,10 @@ const Daily1Chitiet = (props) => {
                 setActive({
                   code: 4,
                   present: "nguyenlieu",
+<<<<<<< HEAD
                   payload: "",
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
                 })
               }
               className={active.code === 4 && "active"}
@@ -121,7 +128,6 @@ const Daily1Chitiet = (props) => {
                 setActive({
                   code: 5,
                   present: "daily2",
-                  payload: "",
                 })
               }
               className={active.code === 5 && "active"}
@@ -135,7 +141,10 @@ const Daily1Chitiet = (props) => {
                 setActive({
                   code: 6,
                   present: "hodan",
+<<<<<<< HEAD
                   payload: "",
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
                 })
               }
               className={active.code === 6 && "active"}
@@ -149,7 +158,10 @@ const Daily1Chitiet = (props) => {
                 setActive({
                   code: 7,
                   present: "donhang",
+<<<<<<< HEAD
                   payload: "",
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
                 })
               }
               className={active.code === 7 && "active"}
@@ -303,6 +315,12 @@ const SubComponents = styled.div`
   td:first-child {
     display: none;
   }
+<<<<<<< HEAD
+=======
+  .MuiButtonBase-root {
+    outline: none;
+  }
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 `;
 
 export default Daily1Chitiet;

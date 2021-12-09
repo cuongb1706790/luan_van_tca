@@ -49,7 +49,10 @@ const apiDonhang = {
     return axiosClient.put(url, payload);
   },
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 
   // xac nhan don hang
   xacnhan(donhangId) {
@@ -80,7 +83,10 @@ const apiDonhang = {
     const url = "/donhang/xoanhieudonhang";
     return axiosClient.put(url, arrOfIds);
   },
+<<<<<<< HEAD
 >>>>>>> khanhduy
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 };
 
 export default apiDonhang;

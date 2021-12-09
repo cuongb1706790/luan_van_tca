@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import styled from "styled-components";
 =======
 >>>>>>> khanhduy
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 import Header from "../../components/Header";
 import { toast } from "react-toastify";
 import MultipleSelect from "../../components/MultipleSelect";
@@ -16,6 +19,7 @@ import {
   getDsNguyenVatlieu,
   getTongNguyenVatlieu,
 } from "../../utils";
+<<<<<<< HEAD
 <<<<<<< HEAD
 import TableVattuDonhang from "./tables/TableVattuDonhang";
 import TableNguyenlieuDonhang from "./tables/TableNguyenlieuDonhang";
@@ -40,13 +44,36 @@ import TableVattuDonhang from "./tables/TableVattuDonhang";
 import TableNguyenlieuDonhang from "./tables/TableNguyenlieuDonhang";
 import apiDonhang from "../../axios/apiDonhang";
 import them from "../../assets/icons/them.png";
+=======
+import {
+  Container,
+  Content,
+  ErrMsg,
+  Form,
+  FormContent,
+  FormGroup,
+  FormTitle,
+  Input,
+  Label,
+  TableSection,
+  TableTitle,
+  Total,
+  TotalValue,
+} from "./styledComponents";
+import TableVattuDonhang from "./tables/TableVattuDonhang";
+import TableNguyenlieuDonhang from "./tables/TableNguyenlieuDonhang";
+import apiDonhang from "../../axios/apiDonhang";
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 import _ma from "../../assets/icons/ma.png";
 import sp from "../../assets/icons/sanpham.png";
 import dssanpham from "../../assets/icons/dssanpham.png";
 import dscongcu from "../../assets/icons/dscongcu.png";
 import dsvattu from "../../assets/icons/dsvattu.png";
 import dsnglieu from "../../assets/icons/dsnglieu.png";
+<<<<<<< HEAD
 >>>>>>> khanhduy
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 
 const DonhangThem = (props) => {
   const [loading, setLoading] = useState(false);
@@ -145,6 +172,7 @@ const DonhangThem = (props) => {
           onClick={() => props.history.push("/admin/donhang")}
           headerRight={
 <<<<<<< HEAD
+<<<<<<< HEAD
             <button className="btn btn-primary px-4" onClick={handleSubmit}>
               Lưu
 =======
@@ -152,12 +180,18 @@ const DonhangThem = (props) => {
               Lưu
               <i class="fas fa-save"></i>
 >>>>>>> khanhduy
+=======
+            <button className="btn btn-primary px-3" onClick={handleSubmit}>
+              Lưu
+              <i class="fas fa-save"></i>
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
             </button>
           }
         />
         <Content>
           <Form>
             <FormContent>
+<<<<<<< HEAD
 <<<<<<< HEAD
               <FormTitle>Thêm đơn hàng</FormTitle>
               <FormGroup>
@@ -168,11 +202,21 @@ const DonhangThem = (props) => {
               </FormTitle>
 
               <FormGroup>
+=======
+              <FormTitle>
+                <span>Thêm đơn hàng</span>
+              </FormTitle>
+
+              <FormGroup>
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
                 <Label>
                   <img src={_ma} alt="ma" />
                   <span>Mã đơn hàng:</span>
                 </Label>
+<<<<<<< HEAD
 >>>>>>> khanhduy
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
                 <Input
                   placeholder="Nhập mã"
                   type="text"
@@ -185,13 +229,19 @@ const DonhangThem = (props) => {
 
               <FormGroup>
 <<<<<<< HEAD
+<<<<<<< HEAD
                 <Label>Chọn sản phẩm:</Label>
 =======
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
                 <Label>
                   <img src={sp} alt="sp" />
                   <span>Chọn sản phẩm:</span>
                 </Label>
+<<<<<<< HEAD
 >>>>>>> khanhduy
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
                 {dsSanpham && dsSanpham.length ? (
                   <MultipleSelect
                     label="Chọn sản phẩm"
@@ -213,17 +263,25 @@ const DonhangThem = (props) => {
 
             {selectedSP.length ? (
 <<<<<<< HEAD
+<<<<<<< HEAD
               <>
                 <TableSection>
                   <TableTitle>Danh sách sản phẩm</TableTitle>
 =======
               <div className="px-5">
                 <TableSection>
+=======
+              <div className="px-5">
+                <TableSection className="noCheckbox">
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
                   <TableTitle>
                     <img src={dssanpham} alt="dssanpham" />
                     <span>Danh sách sản phẩm</span>
                   </TableTitle>
+<<<<<<< HEAD
 >>>>>>> khanhduy
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
                   <TableSanphamDonhang dsSanpham={dsSP} setDsSP={setDsSP} />
                   <div className="text-right">
                     <Total>Tổng đơn giá: </Total>
@@ -231,15 +289,22 @@ const DonhangThem = (props) => {
                   </div>
                 </TableSection>
 
+<<<<<<< HEAD
                 <TableSection>
 <<<<<<< HEAD
                   <TableTitle>Danh sách công cụ</TableTitle>
 =======
+=======
+                <TableSection className="noCheckbox">
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
                   <TableTitle>
                     <img src={dscongcu} alt="dscongcu" />
                     <span>Danh sách công cụ</span>
                   </TableTitle>
+<<<<<<< HEAD
 >>>>>>> khanhduy
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
                   <TableCongcuDonhang dsCongcu={danhsachcongcu} />
                   <div className="text-right">
                     <Total>Tổng số lượng: </Total>
@@ -249,15 +314,22 @@ const DonhangThem = (props) => {
                   </div>
                 </TableSection>
 
+<<<<<<< HEAD
                 <TableSection>
 <<<<<<< HEAD
                   <TableTitle>Danh sách vật tư</TableTitle>
 =======
+=======
+                <TableSection className="noCheckbox">
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
                   <TableTitle>
                     <img src={dsvattu} alt="dsvattu" />
                     <span>Danh sách vật tư</span>
                   </TableTitle>
+<<<<<<< HEAD
 >>>>>>> khanhduy
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
                   <TableVattuDonhang dsVattu={danhsachvattu} />
                   <div className="text-right">
                     <Total>Tổng số lượng: </Total>
@@ -267,15 +339,22 @@ const DonhangThem = (props) => {
                   </div>
                 </TableSection>
 
+<<<<<<< HEAD
                 <TableSection>
 <<<<<<< HEAD
                   <TableTitle>Danh sách nguyên liệu</TableTitle>
 =======
+=======
+                <TableSection className="noCheckbox">
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
                   <TableTitle>
                     <img src={dsnglieu} alt="dsnglieu" />
                     <span>Danh sách nguyên liệu</span>
                   </TableTitle>
+<<<<<<< HEAD
 >>>>>>> khanhduy
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
                   <TableNguyenlieuDonhang dsNguyenlieu={danhsachnguyenlieu} />
                   <div className="text-right">
                     <Total>Tổng khối lượng: </Total>
@@ -285,10 +364,14 @@ const DonhangThem = (props) => {
                   </div>
                 </TableSection>
 <<<<<<< HEAD
+<<<<<<< HEAD
               </>
 =======
               </div>
 >>>>>>> khanhduy
+=======
+              </div>
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
             ) : null}
           </Form>
         </Content>
@@ -297,6 +380,7 @@ const DonhangThem = (props) => {
   );
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 const Container = styled.div`
   display: flex;
@@ -385,4 +469,6 @@ const TotalValue = styled.span`
 
 =======
 >>>>>>> khanhduy
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 export default DonhangThem;

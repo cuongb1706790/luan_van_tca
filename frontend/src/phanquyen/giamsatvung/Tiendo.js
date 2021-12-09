@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import styled from "styled-components";
 import Header from "../../components/Header";
 import { useSelector } from "react-redux";
@@ -8,6 +9,10 @@ import { useSelector } from "react-redux";
 import Header from "../../components/Header";
 import { useSelector } from "react-redux";
 >>>>>>> khanhduy
+=======
+import Header from "../../components/Header";
+import { useSelector } from "react-redux";
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
@@ -22,7 +27,10 @@ import TableNguyenlieuDonhang from "./tables/TableNguyenlieuDonhang";
 import apiGSV from "../../axios/apiGSV";
 import { formatMoney } from "../../utils";
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 import StepperMaterial from "../../components/StepperMaterial";
 import CustomModal from "../../components/CustomModal";
 import {
@@ -31,7 +39,10 @@ import {
   Container,
   Content,
   Form,
+<<<<<<< HEAD
   FormGroup,
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
   TableSection,
   TableTitle,
   TiendoProcess,
@@ -39,17 +50,27 @@ import {
   Total,
   TotalValue,
 } from "./styledComponents";
+<<<<<<< HEAD
 import ma from "../../assets/icons/ma.png";
 import ten from "../../assets/icons/ten.png";
 import sdt from "../../assets/icons/sdt.png";
 import email from "../../assets/icons/email.png";
 import cmnd from "../../assets/icons/cmnd.png";
+=======
+import ten from "../../assets/icons/ten.png";
+import sdt from "../../assets/icons/sdt.png";
+import email from "../../assets/icons/email.png";
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 import diachi from "../../assets/icons/diachi.png";
 import dssanpham from "../../assets/icons/dssanpham.png";
 import dscongcu from "../../assets/icons/dscongcu.png";
 import dsvattu from "../../assets/icons/dsvattu.png";
 import dsnglieu from "../../assets/icons/dsnglieu.png";
+<<<<<<< HEAD
 >>>>>>> khanhduy
+=======
+import { MaDonhang } from "../bophankd/styledComponents";
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 
 const Tiendo = (props) => {
   const [dsSubDonhang, setDsSubDonhang] = useState([]);
@@ -58,9 +79,35 @@ const Tiendo = (props) => {
   const { userInfo } = useSelector((state) => state.user);
   const { id: donhangId } = props.match.params;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+  const [subDHPQuyen, setSubDHPQuyen] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [selectedPQ, setSelectedPQ] = useState({ subdh: [], type: "" });
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 
-  const handleChange = (event, newValue) => {
+  const handleClickDaily2 = () => {
+    setSelectedPQ({
+      subdh: subDHPQuyen.subdhDL1,
+      type: "daily2",
+    });
+    handleOpen();
+  };
+
+  const handleClickHodan = () => {
+    setSelectedPQ({
+      subdh: subDHPQuyen.subdhAllDL2,
+      type: "hodan",
+    });
+    handleOpen();
+  };
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const handleChangeTab = (event, newValue) => {
     setValue(newValue);
+<<<<<<< HEAD
 =======
   const [subDHPQuyen, setSubDHPQuyen] = useState([]);
   const [open, setOpen] = useState(false);
@@ -87,13 +134,18 @@ const Tiendo = (props) => {
 
   const handleChangeTab = (event, newValue) => {
     setValue(newValue);
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
     fetchPhanquenSubDH(newValue);
   };
 
   const fetchPhanquenSubDH = async (donhangId) => {
     const data = await apiDonhang.subdhPhanquyenDuoiDL1(donhangId);
     setSubDHPQuyen(data);
+<<<<<<< HEAD
 >>>>>>> khanhduy
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
   };
 
   const fetchSubDonhang = async () => {
@@ -101,11 +153,17 @@ const Tiendo = (props) => {
     const { gsv } = await apiGSV.singleGsvBasedUserId(userInfo._id);
     const { donhang } = await apiDonhang.singleDonhang(donhangId);
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     if (!donhang.ngaydathang) {
       props.history.push(`/giamsatvung/donhang/chitiet/${donhangId}`);
     }
 >>>>>>> khanhduy
+=======
+    if (!donhang.ngaydathang) {
+      props.history.push(`/giamsatvung/donhang/chitiet/${donhangId}`);
+    }
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
     let { subdonhang } = await apiGSV.dsSubDonhang(gsv._id, donhang.ma);
     subdonhang = subdonhang.map((dh) => ({
       ...dh,
@@ -119,11 +177,16 @@ const Tiendo = (props) => {
     }));
     setDsSubDonhang(subdonhang);
 <<<<<<< HEAD
+<<<<<<< HEAD
     setValue(subdonhang[0]._id);
 =======
     setValue(subdonhang[0]?._id);
     fetchPhanquenSubDH(subdonhang[0]?._id);
 >>>>>>> khanhduy
+=======
+    setValue(subdonhang[0]?._id);
+    fetchPhanquenSubDH(subdonhang[0]?._id);
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
     setLoading(false);
   };
 
@@ -147,12 +210,17 @@ const Tiendo = (props) => {
         <Content>
           <Form>
 <<<<<<< HEAD
+<<<<<<< HEAD
             <Title>
               <TitleContent
 =======
             <TiendoProcess>
               <TiendoProcessText
 >>>>>>> khanhduy
+=======
+            <TiendoProcess>
+              <TiendoProcessText
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
                 onClick={() =>
                   props.history.push(
                     `/giamsatvung/donhang/chitiet/${donhangId}`
@@ -162,22 +230,31 @@ const Tiendo = (props) => {
                 <i class="fas fa-long-arrow-alt-left"></i>
                 <span>Quay lại chi tiết đơn hàng</span>
 <<<<<<< HEAD
+<<<<<<< HEAD
               </TitleContent>
             </Title>
 =======
               </TiendoProcessText>
             </TiendoProcess>
 >>>>>>> khanhduy
+=======
+              </TiendoProcessText>
+            </TiendoProcess>
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 
             <Box sx={{ width: "100%", typography: "body1" }}>
               <TabContext value={value}>
                 <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
                   <TabList
 <<<<<<< HEAD
+<<<<<<< HEAD
                     onChange={handleChange}
 =======
                     onChange={handleChangeTab}
 >>>>>>> khanhduy
+=======
+                    onChange={handleChangeTab}
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
                     aria-label="lab API tabs example"
                   >
                     {dsSubDonhang.map((dh) => (
@@ -188,31 +265,73 @@ const Tiendo = (props) => {
                 {dsSubDonhang.map((dh) => (
                   <TabPanel value={dh._id}>
 <<<<<<< HEAD
+<<<<<<< HEAD
                     <div className="text-right">
                       <FormGroup>
                         <span>Mã đơn hàng:</span>
                         <span>{dh?.ma}</span>
                       </FormGroup>
+=======
+                    <div className="d-flex align-items-center justify-content-between">
+                      <div className="text-center" style={{ flex: 1 }}>
+                        <StepperMaterial
+                          dl2success={
+                            subDHPQuyen?.subdhDL1?.length ? true : false
+                          }
+                          hdsuccess={
+                            subDHPQuyen?.subdhAllDL2?.length ? true : false
+                          }
+                          onClickDl2={handleClickDaily2}
+                          onClickHd={handleClickHodan}
+                          numOfPhanquyen={2}
+                        />
+                      </div>
 
-                      <BoxInfo>
-                        <BoxInfoTitle>Đại lý cấp 1</BoxInfoTitle>
-                        <div className="d-flex">
-                          <div style={{ width: 100 }}>
-                            <Text>Tên:</Text>
-                            <Text>SĐT:</Text>
-                            <Text>Email:</Text>
-                            <Text>Địa chỉ:</Text>
-                          </div>
-                          <div>
-                            <Text>{dh?.to.daily1.ten}</Text>
-                            <Text>{dh?.to.daily1.sdt}</Text>
-                            <Text>{dh?.to.daily1.email}</Text>
-                            <Text>{`${dh?.to.daily1.xa}, ${dh?.to.daily1.huyen}, ${dh?.to.daily1.tinh}`}</Text>
-                          </div>
-                        </div>
-                      </BoxInfo>
+                      <div>
+                        <MaDonhang>
+                          <span>Mã đơn hàng:</span>
+                          <span>{dh?.ma}</span>
+                        </MaDonhang>
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
+
+                        <BoxInfo>
+                          <BoxInfoTitle>Đại lý cấp 1</BoxInfoTitle>
+
+                          <table>
+                            <tr>
+                              <td>
+                                <img src={ten} alt="ten" />
+                                <span>Tên:</span>
+                              </td>
+                              <td>{dh?.to.daily1.ten}</td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <img src={sdt} alt="sdt" />
+                                <span>SĐT:</span>
+                              </td>
+                              <td>{dh?.to.daily1.sdt}</td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <img src={email} alt="email" />
+                                <span>E-mail:</span>
+                              </td>
+                              <td>{dh?.to.daily1.email}</td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <img src={diachi} alt="diachi" />
+                                <span>Địa chỉ:</span>
+                              </td>
+                              <td>{`${dh?.to.daily1.xa}, ${dh?.to.daily1.huyen}, ${dh?.to.daily1.tinh}`}</td>
+                            </tr>
+                          </table>
+                        </BoxInfo>
+                      </div>
                     </div>
 
+<<<<<<< HEAD
                     <TableSection>
                       <TableTitle>Danh sách sản phẩm</TableTitle>
 =======
@@ -276,11 +395,17 @@ const Tiendo = (props) => {
                     </div>
 
                     <TableSection>
+=======
+                    <TableSection className="noCheckbox">
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
                       <TableTitle>
                         <img src={dssanpham} alt="dssanpham" />
                         <span>Danh sách sản phẩm</span>
                       </TableTitle>
+<<<<<<< HEAD
 >>>>>>> khanhduy
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
                       <TableSanphamDonhangChitiet dsSanpham={dh?.dssanpham} />
                       <div className="text-right mb-5">
                         <Total>Tổng đơn giá: </Total>
@@ -288,15 +413,22 @@ const Tiendo = (props) => {
                       </div>
                     </TableSection>
 
+<<<<<<< HEAD
                     <TableSection>
 <<<<<<< HEAD
                       <TableTitle>Danh sách công cụ</TableTitle>
 =======
+=======
+                    <TableSection className="noCheckbox">
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
                       <TableTitle>
                         <img src={dscongcu} alt="dscongcu" />
                         <span>Danh sách công cụ</span>
                       </TableTitle>
+<<<<<<< HEAD
 >>>>>>> khanhduy
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
                       <TableCongcuDonhang dsCongcu={dh?.dscongcu} />
                       <div className="text-right mb-3">
                         <Total>Tổng số lượng: </Total>
@@ -304,15 +436,22 @@ const Tiendo = (props) => {
                       </div>
                     </TableSection>
 
+<<<<<<< HEAD
                     <TableSection>
 <<<<<<< HEAD
                       <TableTitle>Danh sách vật tư</TableTitle>
 =======
+=======
+                    <TableSection className="noCheckbox">
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
                       <TableTitle>
                         <img src={dsvattu} alt="dsvattu" />
                         <span>Danh sách vật tư</span>
                       </TableTitle>
+<<<<<<< HEAD
 >>>>>>> khanhduy
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
                       <TableVattuDonhang dsVattu={dh?.dsvattu} />
                       <div className="text-right mb-3">
                         <Total>Tổng số lượng: </Total>
@@ -320,15 +459,22 @@ const Tiendo = (props) => {
                       </div>
                     </TableSection>
 
+<<<<<<< HEAD
                     <TableSection>
 <<<<<<< HEAD
                       <TableTitle>Danh sách nguyên liệu</TableTitle>
 =======
+=======
+                    <TableSection className="noCheckbox">
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
                       <TableTitle>
                         <img src={dsnglieu} alt="dsnglieu" />
                         <span>Danh sách nguyên liệu</span>
                       </TableTitle>
+<<<<<<< HEAD
 >>>>>>> khanhduy
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
                       <TableNguyenlieuDonhang dsNguyenlieu={dh?.dsnguyenlieu} />
                       <div className="text-right mb-3">
                         <Total>Tổng khối lượng: </Total>
@@ -343,14 +489,20 @@ const Tiendo = (props) => {
         </Content>
       </Container>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
       <CustomModal open={open} onClick={handleClose} phanquyen={selectedPQ} />
 >>>>>>> khanhduy
+=======
+
+      <CustomModal open={open} setOpen={setOpen} phanquyen={selectedPQ} />
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
     </>
   );
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 const Container = styled.div`
   display: flex;
@@ -453,4 +605,6 @@ const TotalValue = styled.span`
 
 =======
 >>>>>>> khanhduy
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 export default Tiendo;

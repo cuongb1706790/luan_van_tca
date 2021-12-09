@@ -7,6 +7,7 @@ const bcrypt = require("bcryptjs");
 const Daily1 = require("../models/daily1Model");
 const Daily2 = require("../models/daily2Model");
 const Giamsatvung = require("../models/giamsatvungModel");
+const { getCurrentDatetime } = require("../utils");
 
 // them bo phan kd
 bophankdRouter.post("/them", upload.single("hinhanh"), async (req, res) => {
@@ -685,7 +686,10 @@ bophankdRouter.get("/dscongcu/:bophankdId", async (req, res) => {
 });
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 // lay ds daily1 daily2 chua duyet hien thi badge
 bophankdRouter.get("/dsshowbadge/:bophankdId", async (req, res) => {
   try {
@@ -710,5 +714,257 @@ bophankdRouter.get("/dsshowbadge/:bophankdId", async (req, res) => {
   }
 });
 
+<<<<<<< HEAD
 >>>>>>> khanhduy
+=======
+//--------------------------------------------
+
+// them cong cu hu loi
+bophankdRouter.put("/themcchuloi/:bophankdId", async (req, res) => {
+  const { dsccLoi } = req.body;
+  try {
+    for (const cc of dsccLoi) {
+      const bophankd = await Bophankd.findById(req.params.bophankdId);
+      bophankd.dscongcu = bophankd.dscongcu.map((item) =>
+        item.congcu.toString() === cc.congcu._id &&
+        item.donhang.toString() === cc.donhang._id &&
+        item.loi.soluongloi
+          ? {
+              donhang: item.donhang,
+              congcu: item.congcu,
+              loi: {
+                soluongloi: item.loi.soluongloi + parseInt(cc.soluongloi),
+                ngaybaoloi: getCurrentDatetime(),
+              },
+              soluong: item.soluong,
+              ngaytao: item.ngaytao,
+            }
+          : item.congcu.toString() === cc.congcu._id &&
+            item.donhang.toString() === cc.donhang._id
+          ? {
+              donhang: item.donhang,
+              congcu: item.congcu,
+              loi: {
+                soluongloi: cc.soluongloi,
+                ngaybaoloi: getCurrentDatetime(),
+              },
+              soluong: item.soluong,
+              ngaytao: item.ngaytao,
+            }
+          : item
+      );
+      await bophankd.save();
+    }
+
+    res.send({ success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+// lay ds cong cu hu loi
+bophankdRouter.get("/dscchuloi/:bophankdId", async (req, res) => {
+  try {
+    let { dscongcu: dscongcuhuloi } = await Bophankd.findById(
+      req.params.bophankdId
+    )
+      .select("dscongcu")
+      .populate({
+        path: "dscongcu",
+        populate: {
+          path: "donhang congcu",
+        },
+      });
+
+    dscongcuhuloi = dscongcuhuloi.filter((cc) => cc.loi.soluongloi);
+
+    res.send({ dscongcuhuloi, success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+//--------------------------------------------
+
+// them vat tu hu loi
+bophankdRouter.put("/themvthuloi/:bophankdId", async (req, res) => {
+  const { dsvtLoi } = req.body;
+  try {
+    for (const vt of dsvtLoi) {
+      const bophankd = await Bophankd.findById(req.params.bophankdId);
+      bophankd.dsvattu = bophankd.dsvattu.map((item) =>
+        item.vattu.toString() === vt.vattu._id &&
+        item.donhang.toString() === vt.donhang._id &&
+        item.loi.soluongloi
+          ? {
+              donhang: item.donhang,
+              vattu: item.vattu,
+              loi: {
+                soluongloi: item.loi.soluongloi + parseInt(vt.soluongloi),
+                ngaybaoloi: getCurrentDatetime(),
+              },
+              soluong: item.soluong,
+              ngaytao: item.ngaytao,
+            }
+          : item.vattu.toString() === vt.vattu._id &&
+            item.donhang.toString() === vt.donhang._id
+          ? {
+              donhang: item.donhang,
+              vattu: item.vattu,
+              loi: {
+                soluongloi: vt.soluongloi,
+                ngaybaoloi: getCurrentDatetime(),
+              },
+              soluong: item.soluong,
+              ngaytao: item.ngaytao,
+            }
+          : item
+      );
+      await bophankd.save();
+    }
+
+    res.send({ success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+// lay ds vat tu hu loi
+bophankdRouter.get("/dsvthuloi/:bophankdId", async (req, res) => {
+  try {
+    let { dsvattu: dsvattuhuloi } = await Bophankd.findById(
+      req.params.bophankdId
+    )
+      .select("dsvattu")
+      .populate({
+        path: "dsvattu",
+        populate: {
+          path: "donhang vattu",
+        },
+      });
+
+    dsvattuhuloi = dsvattuhuloi.filter((vt) => vt.loi.soluongloi);
+
+    res.send({ dsvattuhuloi, success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+//--------------------------------------------
+
+// them nguyen lieu hu loi
+bophankdRouter.put("/themnglhuloi/:bophankdId", async (req, res) => {
+  const { dsnglLoi } = req.body;
+  try {
+    for (const ngl of dsnglLoi) {
+      const bophankd = await Bophankd.findById(req.params.bophankdId);
+      bophankd.dsnguyenlieu = bophankd.dsnguyenlieu.map((item) =>
+        item.nguyenlieu.toString() === ngl.nguyenlieu._id &&
+        item.donhang.toString() === ngl.donhang._id &&
+        item.loi.khoiluongloi
+          ? {
+              donhang: item.donhang,
+              nguyenlieu: item.nguyenlieu,
+              loi: {
+                khoiluongloi:
+                  item.loi.khoiluongloi + parseInt(ngl.khoiluongloi),
+                ngaybaoloi: getCurrentDatetime(),
+              },
+              khoiluong: item.khoiluong,
+              ngaytao: item.ngaytao,
+            }
+          : item.nguyenlieu.toString() === ngl.nguyenlieu._id &&
+            item.donhang.toString() === ngl.donhang._id
+          ? {
+              donhang: item.donhang,
+              nguyenlieu: item.nguyenlieu,
+              loi: {
+                khoiluongloi: ngl.khoiluongloi,
+                ngaybaoloi: getCurrentDatetime(),
+              },
+              khoiluong: item.khoiluong,
+              ngaytao: item.ngaytao,
+            }
+          : item
+      );
+      await bophankd.save();
+    }
+
+    res.send({ success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+// lay ds nguyen lieu hu loi
+bophankdRouter.get("/dsnglhuloi/:bophankdId", async (req, res) => {
+  try {
+    let { dsnguyenlieu: dsnguyenlieuhuloi } = await Bophankd.findById(
+      req.params.bophankdId
+    )
+      .select("dsnguyenlieu")
+      .populate({
+        path: "dsnguyenlieu",
+        populate: {
+          path: "donhang nguyenlieu",
+        },
+      });
+
+    dsnguyenlieuhuloi = dsnguyenlieuhuloi.filter((ngl) => ngl.loi.khoiluongloi);
+
+    res.send({ dsnguyenlieuhuloi, success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+// lay ds subdonhang cua 1 don hang co ma cu the va thuoc bpkd co ma bpkd
+bophankdRouter.get("/dssubdhofsingledh/:bophankdId/:madh", async (req, res) => {
+  try {
+    let { subdonhang } = await Bophankd.findById(req.params.bophankdId)
+      .select("subdonhang")
+      .populate({
+        path: "subdonhang",
+        populate: {
+          path: "to",
+          populate: {
+            path: "giamsatvung",
+          },
+        },
+      });
+    subdonhang = subdonhang.filter(
+      (dh) => dh.ma === req.params.madh.toString()
+    );
+
+    res.send({ subdonhang, success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+// lay ds hodan
+bophankdRouter.get("/dshodan/:bophankdId", async (req, res) => {
+  try {
+    // lay danh sach gsv do gsv quan ly
+    const dsdaily2 = await Daily2.find({ bophankd: req.params.bophankdId })
+      .select("hodan")
+      .populate({
+        path: "hodan",
+        populate: {
+          path: "langnghe loaisanpham",
+        },
+      });
+    let dshodan = [];
+    dsdaily2.forEach((dl2) => {
+      dshodan = [...dshodan, ...dl2.hodan];
+    });
+
+    res.send({ dshodan, success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 module.exports = bophankdRouter;

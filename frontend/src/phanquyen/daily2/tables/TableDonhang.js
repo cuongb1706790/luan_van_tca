@@ -9,10 +9,14 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Checkbox from "@mui/material/Checkbox";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { useHistory } from "react-router-dom";
 =======
 import { Link, useHistory } from "react-router-dom";
 >>>>>>> khanhduy
+=======
+import { Link, useHistory } from "react-router-dom";
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 import EnhancedTableHead from "../../../components/table/EnhancedTableHead";
 import { formatMoney, getComparator } from "../../../utils";
 import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
@@ -31,10 +35,14 @@ const EnhancedTableToolbar = ({
   rowsSelected,
   onClickChitiet,
 <<<<<<< HEAD
+<<<<<<< HEAD
   onClickCapnhat,
 =======
   onClickTiendo,
 >>>>>>> khanhduy
+=======
+  onClickTiendo,
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
   onClickXoa,
 }) => {
   return numSelected > 0 ? (
@@ -62,13 +70,19 @@ const EnhancedTableToolbar = ({
             <div className="d-flex align-items-center">
               {rowsSelected.length === 1 && (
 <<<<<<< HEAD
+<<<<<<< HEAD
                 <TableButton onClick={onClickChitiet}>Chi tiết</TableButton>
 =======
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
                 <>
                   <TableButton onClick={onClickChitiet}>Chi tiết</TableButton>
                   <TableButton onClick={onClickTiendo}>Tiến độ</TableButton>
                 </>
+<<<<<<< HEAD
 >>>>>>> khanhduy
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
               )}
             </div>
           </Typography>
@@ -88,10 +102,14 @@ const EnhancedTableToolbar = ({
 };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 const TableDonhang = ({ dsDonhang = [], setRowsRemoved }) => {
 =======
 const TableDonhang = ({ dsDonhang = [], setRowsRemoved, readOnly }) => {
 >>>>>>> khanhduy
+=======
+const TableDonhang = ({ dsDonhang = [], setRowsRemoved, readOnly }) => {
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
   const [selected, setSelected] = React.useState([]);
@@ -107,12 +125,17 @@ const TableDonhang = ({ dsDonhang = [], setRowsRemoved, readOnly }) => {
     history.push(`/daily2/donhang/chitiet/${selected[0]}`);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   const onClickCapnhat = () =>
     history.push(`/daily2/donhang/chinhsua/${selected[0]}`);
 =======
   const onClickTiendo = () =>
     history.push(`/daily2/donhang/chitiet/${selected[0]}/tiendo`);
 >>>>>>> khanhduy
+=======
+  const onClickTiendo = () =>
+    history.push(`/daily2/donhang/chitiet/${selected[0]}/tiendo`);
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 
   const onClickXoa = () => handleOpen();
 
@@ -181,6 +204,7 @@ const TableDonhang = ({ dsDonhang = [], setRowsRemoved, readOnly }) => {
       <Box sx={{ width: "100%" }}>
         <Paper sx={{ width: "100%", mb: 2 }}>
 <<<<<<< HEAD
+<<<<<<< HEAD
           <EnhancedTableToolbar
             numSelected={selected.length}
             rowsSelected={selected}
@@ -189,6 +213,8 @@ const TableDonhang = ({ dsDonhang = [], setRowsRemoved, readOnly }) => {
             onClickXoa={onClickXoa}
           />
 =======
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
           {!readOnly && (
             <EnhancedTableToolbar
               numSelected={selected.length}
@@ -198,7 +224,10 @@ const TableDonhang = ({ dsDonhang = [], setRowsRemoved, readOnly }) => {
               onClickXoa={onClickXoa}
             />
           )}
+<<<<<<< HEAD
 >>>>>>> khanhduy
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
           <TableContainer>
             <Table
               sx={{ minWidth: 750 }}
@@ -244,8 +273,11 @@ const TableDonhang = ({ dsDonhang = [], setRowsRemoved, readOnly }) => {
                           />
                         </TableCell>
 <<<<<<< HEAD
+<<<<<<< HEAD
                         <TableCell align="right">{row?.ma}</TableCell>
 =======
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
                         <TableCell align="right">
                           {readOnly ? (
                             row?.ma
@@ -255,7 +287,10 @@ const TableDonhang = ({ dsDonhang = [], setRowsRemoved, readOnly }) => {
                             </Link>
                           )}
                         </TableCell>
+<<<<<<< HEAD
 >>>>>>> khanhduy
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
                         <TableCell align="right">{row?.tongsanpham}</TableCell>
                         <TableCell align="right">{row?.tongcongcu}</TableCell>
                         <TableCell align="right">{row?.tongvattu}</TableCell>

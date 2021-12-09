@@ -94,4 +94,31 @@ nguyenlieuRouter.put("/xoanhieunglieu", async (req, res) => {
   }
 });
 
+// them nglieu hu loi
+nguyenlieuRouter.put("/themnglhuloi", async (req, res) => {
+  const { dsnglhuloi } = req.body;
+  try {
+    for (const item of dsnglhuloi) {
+      const ngl = await Nguyenlieu.findById(item.nguyenlieu);
+      if (ngl.loi) {
+        ngl.loi = {
+          soluongloi: ngl.soluongloi + item.soluongloi,
+          ngaybaoloi: getCurrentDatetime(),
+        };
+        await ngl.save();
+      } else {
+        ngl.loi = {
+          soluongloi: item.soluongloi,
+          ngaybaoloi: getCurrentDatetime(),
+        };
+        await ngl.save();
+      }
+    }
+
+    res.send({ success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
 module.exports = nguyenlieuRouter;

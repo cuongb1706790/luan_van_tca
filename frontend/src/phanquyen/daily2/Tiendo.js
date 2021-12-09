@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import styled from "styled-components";
 import Header from "../../components/Header";
 import { useSelector } from "react-redux";
@@ -31,6 +32,31 @@ import dsnglieu from "../../assets/icons/dsnglieu.png";
 import Header from "../../components/Header";
 import { useSelector } from "react-redux";
 >>>>>>> khanhduy
+=======
+import {
+  BoxInfo,
+  BoxInfoTitle,
+  Container,
+  Content,
+  Form,
+  TableSection,
+  TableTitle,
+  TiendoProcess,
+  TiendoProcessText,
+  Total,
+  TotalValue,
+} from "./styledComponents";
+import ten from "../../assets/icons/ten.png";
+import sdt from "../../assets/icons/sdt.png";
+import cmnd from "../../assets/icons/cmnd.png";
+import diachi from "../../assets/icons/diachi.png";
+import dssanpham from "../../assets/icons/dssanpham.png";
+import dscongcu from "../../assets/icons/dscongcu.png";
+import dsvattu from "../../assets/icons/dsvattu.png";
+import dsnglieu from "../../assets/icons/dsnglieu.png";
+import Header from "../../components/Header";
+import { useSelector } from "react-redux";
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
@@ -44,6 +70,7 @@ import TableVattuDonhang from "./tables/TableVattuDonhang";
 import TableNguyenlieuDonhang from "./tables/TableNguyenlieuDonhang";
 import apiDaily2 from "../../axios/apiDaily2";
 import { formatMoney } from "../../utils";
+import { MaDonhang } from "../bophankd/styledComponents";
 
 const Tiendo = (props) => {
   const [dsSubDonhang, setDsSubDonhang] = useState([]);
@@ -61,11 +88,17 @@ const Tiendo = (props) => {
     const { daily2 } = await apiDaily2.singleDaily2BasedUser(userInfo._id);
     const { donhang } = await apiDonhang.singleDonhang(donhangId);
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     if (!donhang.ngaydathang) {
       props.history.push(`/daily2/donhang/chitiet/${donhangId}`);
     }
 >>>>>>> khanhduy
+=======
+    if (!donhang.ngaydathang) {
+      props.history.push(`/daily2/donhang/chitiet/${donhangId}`);
+    }
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
     let { subdonhang } = await apiDaily2.dsSubDonhang(daily2._id, donhang.ma);
     subdonhang = subdonhang.map((dh) => ({
       ...dh,
@@ -79,10 +112,14 @@ const Tiendo = (props) => {
     }));
     setDsSubDonhang(subdonhang);
 <<<<<<< HEAD
+<<<<<<< HEAD
     setValue(subdonhang[0]._id);
 =======
     setValue(subdonhang[0]?._id);
 >>>>>>> khanhduy
+=======
+    setValue(subdonhang[0]?._id);
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
     setLoading(false);
   };
 
@@ -95,14 +132,13 @@ const Tiendo = (props) => {
     return <BackdropMaterial />;
   }
 
-  console.log({ dsSubDonhang });
-
   return (
     <>
       <Container>
         <Header
           title="Quay lại danh sách đơn hàng"
           titleBack
+<<<<<<< HEAD
 <<<<<<< HEAD
           onClick={() => props.history.push("/daily1/donhang")}
         />
@@ -118,6 +154,14 @@ const Tiendo = (props) => {
             <TiendoProcess>
               <TiendoProcessText
 >>>>>>> khanhduy
+=======
+          onClick={() => props.history.push("/daily2/donhang")}
+        />
+        <Content>
+          <Form>
+            <TiendoProcess>
+              <TiendoProcessText
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
                 onClick={() =>
                   props.history.push(`/daily2/donhang/chitiet/${donhangId}`)
                 }
@@ -125,12 +169,17 @@ const Tiendo = (props) => {
                 <i class="fas fa-long-arrow-alt-left"></i>
                 <span>Quay lại chi tiết đơn hàng</span>
 <<<<<<< HEAD
+<<<<<<< HEAD
               </TitleContent>
             </Title>
 =======
               </TiendoProcessText>
             </TiendoProcess>
 >>>>>>> khanhduy
+=======
+              </TiendoProcessText>
+            </TiendoProcess>
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 
             <Box sx={{ width: "100%", typography: "body1" }}>
               <TabContext value={value}>
@@ -148,13 +197,18 @@ const Tiendo = (props) => {
                   <TabPanel value={dh._id}>
                     <div className="text-right">
 <<<<<<< HEAD
+<<<<<<< HEAD
                       <FormGroup>
+=======
+                      <MaDonhang className="text-left">
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
                         <span>Mã đơn hàng:</span>
                         <span>{dh?.ma}</span>
-                      </FormGroup>
+                      </MaDonhang>
 
                       <BoxInfo>
                         <BoxInfoTitle>Hộ dân</BoxInfoTitle>
+<<<<<<< HEAD
                         <div className="d-flex">
                           <div style={{ width: 140 }}>
                             <Text>Tên:</Text>
@@ -179,6 +233,8 @@ const Tiendo = (props) => {
                       </FormGroup>
                       <BoxInfo>
                         <BoxInfoTitle>Hộ dân</BoxInfoTitle>
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 
                         <table>
                           <tr>
@@ -210,6 +266,7 @@ const Tiendo = (props) => {
                             <td>{`${dh?.to.hodan.xa}, ${dh?.to.hodan.huyen}, ${dh?.to.hodan.tinh}`}</td>
                           </tr>
                         </table>
+<<<<<<< HEAD
 >>>>>>> khanhduy
                       </BoxInfo>
                     </div>
@@ -218,27 +275,47 @@ const Tiendo = (props) => {
 <<<<<<< HEAD
                       <TableTitle>Danh sách sản phẩm</TableTitle>
 =======
+=======
+                      </BoxInfo>
+                    </div>
+
+                    <TableSection className="noCheckbox">
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
                       <TableTitle>
                         <img src={dssanpham} alt="dssanpham" />
                         <span>Danh sách sản phẩm</span>
                       </TableTitle>
+<<<<<<< HEAD
 >>>>>>> khanhduy
                       <TableSanphamDonhangChitiet dsSanpham={dh?.dssanpham} />
+=======
+                      <TableSanphamDonhangChitiet
+                        dsSanpham={dh?.dssanpham}
+                        hodanRole
+                      />
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
                       <div className="text-right mb-5">
                         <Total>Tổng đơn giá: </Total>
                         <TotalValue>{formatMoney(dh?.tongdongia)}</TotalValue>
                       </div>
                     </TableSection>
 
+<<<<<<< HEAD
                     <TableSection>
 <<<<<<< HEAD
                       <TableTitle>Danh sách công cụ</TableTitle>
 =======
+=======
+                    <TableSection className="noCheckbox">
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
                       <TableTitle>
                         <img src={dscongcu} alt="dscongcu" />
                         <span>Danh sách công cụ</span>
                       </TableTitle>
+<<<<<<< HEAD
 >>>>>>> khanhduy
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
                       <TableCongcuDonhang dsCongcu={dh?.dscongcu} />
                       <div className="text-right mb-3">
                         <Total>Tổng số lượng: </Total>
@@ -246,15 +323,22 @@ const Tiendo = (props) => {
                       </div>
                     </TableSection>
 
+<<<<<<< HEAD
                     <TableSection>
 <<<<<<< HEAD
                       <TableTitle>Danh sách vật tư</TableTitle>
 =======
+=======
+                    <TableSection className="noCheckbox">
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
                       <TableTitle>
                         <img src={dsvattu} alt="dsvattu" />
                         <span>Danh sách vật tư</span>
                       </TableTitle>
+<<<<<<< HEAD
 >>>>>>> khanhduy
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
                       <TableVattuDonhang dsVattu={dh?.dsvattu} />
                       <div className="text-right mb-3">
                         <Total>Tổng số lượng: </Total>
@@ -262,15 +346,22 @@ const Tiendo = (props) => {
                       </div>
                     </TableSection>
 
+<<<<<<< HEAD
                     <TableSection>
 <<<<<<< HEAD
                       <TableTitle>Danh sách nguyên liệu</TableTitle>
 =======
+=======
+                    <TableSection className="noCheckbox">
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
                       <TableTitle>
                         <img src={dsnglieu} alt="dsnglieu" />
                         <span>Danh sách nguyên liệu</span>
                       </TableTitle>
+<<<<<<< HEAD
 >>>>>>> khanhduy
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
                       <TableNguyenlieuDonhang dsNguyenlieu={dh?.dsnguyenlieu} />
                       <div className="text-right mb-3">
                         <Total>Tổng khối lượng: </Total>
@@ -288,6 +379,7 @@ const Tiendo = (props) => {
   );
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 const Container = styled.div`
   display: flex;
@@ -390,4 +482,6 @@ const TotalValue = styled.span`
 
 =======
 >>>>>>> khanhduy
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 export default Tiendo;

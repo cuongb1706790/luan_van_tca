@@ -28,6 +28,14 @@ export const BtnRight = styled.div`
 export const AddButton = styled.button`
   display: flex;
   align-items: center;
+<<<<<<< HEAD
+=======
+  justify-content: center;
+  i {
+    margin-left: 6px;
+    font-size: 20px;
+  }
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 `;
 
 export const FilterSection = styled.div`
@@ -46,6 +54,15 @@ export const Title = styled.div`
 
 export const TitleWrapper = styled.div`
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+<<<<<<< HEAD
+=======
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  button {
+    margin-right: 10px;
+  }
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 `;
 
 export const Filter = styled.div`
@@ -86,6 +103,15 @@ export const TableSection = styled.div`
   td {
     font-family: "Poppins", sans-serif;
   }
+<<<<<<< HEAD
+=======
+  &.noCheckbox {
+    th:first-child,
+    td:first-child {
+      display: none;
+    }
+  }
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 `;
 
 export const ErrMsg = styled.div`
@@ -113,8 +139,14 @@ export const Label = styled.span`
   align-items: flex-end;
   margin-bottom: 10px;
   img {
+<<<<<<< HEAD
     width: 33px;
     margin-right: 14px;
+=======
+    width: 24px;
+    margin-right: 14px;
+    opacity: 0.7;
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
   }
 `;
 
@@ -130,9 +162,16 @@ export const FormTitle = styled.div`
   color: #27a9e3;
   margin-bottom: 36px;
   margin-top: 20px;
+<<<<<<< HEAD
   font-family: "Roboto", sans-serif;
   img {
     width: 30px;
+=======
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  img {
+    width: 24px;
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
   }
   img:first-child {
     margin-right: 36px;
@@ -208,16 +247,33 @@ export const TableTitle = styled.div`
   margin-bottom: 16px;
   display: flex;
   align-items: center;
+<<<<<<< HEAD
   img {
     width: 36px;
     margin-right: 8px;
+=======
+  font-family: "Montserrat", sans-serif;
+  img {
+    width: 24px;
+    margin-right: 8px;
+    opacity: 0.6;
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
   }
 `;
 export const Total = styled.span`
   font-size: 15px;
   margin-right: 10px;
   font-weight: 400;
+<<<<<<< HEAD
 `;
 export const TotalValue = styled.span`
   font-size: 15px;
+=======
+  font-family: "Montserrat", sans-serif;
+`;
+export const TotalValue = styled.span`
+  font-size: 15px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 `;

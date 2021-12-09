@@ -128,5 +128,5 @@ export const getTongNguyenVatlieu = (arr, type) => {
 
 export const formatMoney = (money) => {
   const formatter = new Intl.NumberFormat("es");
-  return formatter.format(money)
-}
+  return formatter.format(money);
+};

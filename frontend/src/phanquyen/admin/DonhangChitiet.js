@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import styled from "styled-components";
 =======
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 import {
   Container,
   Content,
@@ -17,7 +20,10 @@ import {
   Total,
   TotalValue,
 } from "./styledComponents";
+<<<<<<< HEAD
 >>>>>>> khanhduy
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 import Header from "../../components/Header";
 import BackdropMaterial from "../../components/BackdropMaterial";
 import TableCongcuDonhang from "./tables/TableCongcuDonhang";
@@ -27,7 +33,10 @@ import apiDonhang from "../../axios/apiDonhang";
 import TableSanphamDonhangChitiet from "./tables/TableSanphamDonhangChitiet";
 import { formatMoney } from "../../utils";
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 import chitiet from "../../assets/icons/chitiet.png";
 import _ma from "../../assets/icons/ma.png";
 import sp from "../../assets/icons/sanpham.png";
@@ -35,7 +44,10 @@ import dssanpham from "../../assets/icons/dssanpham.png";
 import dscongcu from "../../assets/icons/dscongcu.png";
 import dsvattu from "../../assets/icons/dsvattu.png";
 import dsnglieu from "../../assets/icons/dsnglieu.png";
+<<<<<<< HEAD
 >>>>>>> khanhduy
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 
 const DonhangChitiet = (props) => {
   const [loading, setLoading] = useState(false);
@@ -80,6 +92,7 @@ const DonhangChitiet = (props) => {
           <Form>
             <FormContent>
 <<<<<<< HEAD
+<<<<<<< HEAD
               <FormTitle>Chi tiết đơn hàng</FormTitle>
               <FormGroup>
                 <Label>Mã đơn hàng:</Label>
@@ -89,10 +102,18 @@ const DonhangChitiet = (props) => {
               </FormTitle>
 
               <FormGroup>
+=======
+              <FormTitle>
+                <span>Chi tiết đơn hàng</span>
+              </FormTitle>
+
+              <FormGroup>
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
                 <Label>
                   <img src={_ma} alt="ma" />
                   <span>Mã đơn hàng:</span>
                 </Label>
+<<<<<<< HEAD
 >>>>>>> khanhduy
                 <Input type="text" value={singleDonhang?.ma} />
               </FormGroup>
@@ -111,25 +132,54 @@ const DonhangChitiet = (props) => {
                 </TotalValue>
               </div>
             </TableSection>
+=======
+                <Input type="text" value={singleDonhang?.ma} disabled />
+              </FormGroup>
+            </FormContent>
 
-            <TableSection>
-              <TableTitle>Công cụ đơn hàng</TableTitle>
-              <TableCongcuDonhang dsCongcu={singleDonhang?.dscongcu} />
-              <div className="text-right">
-                <Total>Tổng số lượng:</Total>
-                <TotalValue>{singleDonhang?.tongcongcu}</TotalValue>
-              </div>
-            </TableSection>
+            <div className="px-5">
+              <TableSection className="noCheckbox">
+                <TableTitle>
+                  <img src={dssanpham} alt="dssanpham" />
+                  <span>Danh sách sản phẩm</span>
+                </TableTitle>
+                <TableSanphamDonhangChitiet
+                  dsSanpham={singleDonhang?.dssanpham}
+                />
+                <div className="text-right">
+                  <Total>Tổng đơn giá:</Total>
+                  <TotalValue>
+                    {formatMoney(singleDonhang?.tongdongia)}
+                  </TotalValue>
+                </div>
+              </TableSection>
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 
-            <TableSection>
-              <TableTitle>Vật tư đơn hàng</TableTitle>
-              <TableVattuDonhang dsVattu={singleDonhang?.dsvattu} />
-              <div className="text-right">
-                <Total>Tổng số lượng:</Total>
-                <TotalValue>{singleDonhang?.tongvattu}</TotalValue>
-              </div>
-            </TableSection>
+              <TableSection className="noCheckbox">
+                <TableTitle>
+                  <img src={dscongcu} alt="dscongcu" />
+                  <span>Danh sách công cụ</span>
+                </TableTitle>
+                <TableCongcuDonhang dsCongcu={singleDonhang?.dscongcu} />
+                <div className="text-right">
+                  <Total>Tổng số lượng:</Total>
+                  <TotalValue>{singleDonhang?.tongcongcu}</TotalValue>
+                </div>
+              </TableSection>
 
+              <TableSection className="noCheckbox">
+                <TableTitle>
+                  <img src={dsvattu} alt="dsvattu" />
+                  <span>Danh sách vật tư</span>
+                </TableTitle>
+                <TableVattuDonhang dsVattu={singleDonhang?.dsvattu} />
+                <div className="text-right">
+                  <Total>Tổng số lượng:</Total>
+                  <TotalValue>{singleDonhang?.tongvattu}</TotalValue>
+                </div>
+              </TableSection>
+
+<<<<<<< HEAD
             <TableSection>
               <TableTitle>Nguyên liệu đơn hàng</TableTitle>
               <TableNguyenlieuDonhang
@@ -183,6 +233,9 @@ const DonhangChitiet = (props) => {
               </TableSection>
 
               <TableSection>
+=======
+              <TableSection className="noCheckbox">
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
                 <TableTitle>
                   <img src={dsnglieu} alt="dsnglieu" />
                   <span>Danh sách nguyên liệu</span>
@@ -196,7 +249,10 @@ const DonhangChitiet = (props) => {
                 </div>
               </TableSection>
             </div>
+<<<<<<< HEAD
 >>>>>>> khanhduy
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
           </Form>
         </Content>
       </Container>
@@ -204,6 +260,7 @@ const DonhangChitiet = (props) => {
   );
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 const Container = styled.div`
   display: flex;
@@ -287,4 +344,6 @@ const TotalValue = styled.span`
 
 =======
 >>>>>>> khanhduy
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 export default DonhangChitiet;

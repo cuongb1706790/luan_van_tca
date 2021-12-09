@@ -9,18 +9,24 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Checkbox from "@mui/material/Checkbox";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { useHistory } from "react-router-dom";
 =======
 >>>>>>> khanhduy
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 import img_placeholder from "../../../assets/images/img_placeholder.png";
 import EnhancedTableHead from "../../../components/table/EnhancedTableHead";
 import { formatMoney, getComparator } from "../../../utils";
 import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
 import { headCellsSanpham } from "./headCells";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import TableButton from "../../../components/TableButton";
 =======
 >>>>>>> khanhduy
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 
 const TableSanpham = ({ dsSanpham = [] }) => {
   const [order, setOrder] = React.useState("asc");
@@ -29,9 +35,12 @@ const TableSanpham = ({ dsSanpham = [] }) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 <<<<<<< HEAD
+<<<<<<< HEAD
   const history = useHistory();
 =======
 >>>>>>> khanhduy
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -156,22 +165,20 @@ const TableSanpham = ({ dsSanpham = [] }) => {
                           {row?.soluonghoanthanh}
                         </TableCell>
                         <TableCell align="right">
+                          {row.danhan ? row.danhan : 0}
+                        </TableCell>
+                        <TableCell align="right">
+                          {row.dagiao ? row.dagiao : 0}
+                        </TableCell>
+                        <TableCell align="right">
+                          {row.danhan && row.dagiao
+                            ? row.danhan - row.dagiao
+                            : 0}
+                        </TableCell>
+                        <TableCell align="right">
                           {formatMoney(row?.soluong * row?.gia)}
                         </TableCell>
-                        <TableCell align="right">{row?.ngaytao}</TableCell>
-                        {/* <TableCell align="right">
-                          {
-                            <TableButton
-                              onClick={() =>
-                                history.push(
-                                  `/bophankd/sanpham/chitiet/${row._id}`
-                                )
-                              }
-                            >
-                              Chi tiết
-                            </TableButton>
-                          }
-                        </TableCell> */}
+                        {/* <TableCell align="right">{row?.ngaytao}</TableCell> */}
                       </TableRow>
                     );
                   })}

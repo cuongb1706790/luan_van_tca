@@ -5,7 +5,10 @@ import apiBophankd from "../../axios/apiBophankd";
 import BackdropMaterial from "../../components/BackdropMaterial";
 import {
   AddButton,
+<<<<<<< HEAD
   BtnRight,
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
   Container,
   Content,
   Filter,
@@ -63,6 +66,7 @@ const Bophankd = (props) => {
       <Container>
         <Header title="Bộ phận kinh doanh" />
         <Content>
+<<<<<<< HEAD
           <BtnRight>
             <AddButton
               className="btn btn-primary"
@@ -72,10 +76,20 @@ const Bophankd = (props) => {
               <i class="fas fa-plus-circle"></i>
             </AddButton>
           </BtnRight>
+=======
+>>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
           <FilterSection>
             <TitleWrapper>
               <Title>Danh sách bộ phận kinh doanh</Title>
+              <AddButton
+                className="btn btn-primary"
+                onClick={() => props.history.push("/admin/bophankd/them")}
+              >
+                <span>Thêm</span>
+                <i class="fas fa-plus-circle"></i>
+              </AddButton>
             </TitleWrapper>
+
             <Filter>
               <SearchBox>
                 <i class="fas fa-search"></i>
