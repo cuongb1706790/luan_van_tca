@@ -661,9 +661,12 @@ daily1Router.get("/dsshowbadge/:daily1Id", async (req, res) => {
   }
 });
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 >>>>>>> khanhduy
 =======
+=======
+>>>>>>> khanhduy
 //--------------------------------------------
 
 // them cong cu hu loi

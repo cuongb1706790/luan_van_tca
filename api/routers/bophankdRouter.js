@@ -715,8 +715,11 @@ bophankdRouter.get("/dsshowbadge/:bophankdId", async (req, res) => {
 });
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> khanhduy
 =======
+=======
+>>>>>>> khanhduy
 //--------------------------------------------
 
 // them cong cu hu loi
@@ -933,9 +936,13 @@ bophankdRouter.get("/dssubdhofsingledh/:bophankdId/:madh", async (req, res) => {
           },
         },
       });
+<<<<<<< HEAD
     subdonhang = subdonhang.filter(
       (dh) => dh.ma === req.params.madh.toString()
     );
+=======
+      subdonhang = subdonhang.filter(dh => dh.ma === req.params.madh.toString())
+>>>>>>> khanhduy
 
     res.send({ subdonhang, success: true });
   } catch (error) {
@@ -943,6 +950,7 @@ bophankdRouter.get("/dssubdhofsingledh/:bophankdId/:madh", async (req, res) => {
   }
 });
 
+<<<<<<< HEAD
 // lay ds hodan
 bophankdRouter.get("/dshodan/:bophankdId", async (req, res) => {
   try {
@@ -967,4 +975,6 @@ bophankdRouter.get("/dshodan/:bophankdId", async (req, res) => {
 });
 
 >>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
+=======
+>>>>>>> khanhduy
 module.exports = bophankdRouter;

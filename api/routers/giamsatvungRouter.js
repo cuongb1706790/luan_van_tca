@@ -403,8 +403,11 @@ giamsatvungRouter.get("/dsshowbadge/:gsvId", async (req, res) => {
 });
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> khanhduy
 =======
+=======
+>>>>>>> khanhduy
 //--------------------------------------------
 
 // them cong cu hu loi
@@ -629,6 +632,7 @@ giamsatvungRouter.get("/dssubdhofsingledh/:gsvId/:madh", async (req, res) => {
   }
 });
 
+<<<<<<< HEAD
 // lay ds hodan
 giamsatvungRouter.get("/dshodan/:gsvId", async (req, res) => {
   try {
@@ -653,4 +657,6 @@ giamsatvungRouter.get("/dshodan/:gsvId", async (req, res) => {
 });
 
 >>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
+=======
+>>>>>>> khanhduy
 module.exports = giamsatvungRouter;

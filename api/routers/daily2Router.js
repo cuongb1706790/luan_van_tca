@@ -648,8 +648,11 @@ daily2Router.get("/dsshowbadge/:daily2Id", async (req, res) => {
 });
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> khanhduy
 =======
+=======
+>>>>>>> khanhduy
 //--------------------------------------------
 
 // them cong cu hu loi
@@ -872,5 +875,8 @@ daily2Router.get("/dssubdhofsingledh/:daily2Id/:madh", async (req, res) => {
   }
 });
 
+<<<<<<< HEAD
 >>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
+=======
+>>>>>>> khanhduy
 module.exports = daily2Router;
