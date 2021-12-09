@@ -11,7 +11,7 @@ import Checkbox from "@mui/material/Checkbox";
 import { useHistory } from "react-router-dom";
 import img_placeholder from "../../../assets/images/img_placeholder.png";
 import EnhancedTableHead from "../../../components/table/EnhancedTableHead";
-import { getComparator } from "../../../utils";
+import { formatMoney, getComparator } from "../../../utils";
 import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
 import { headCellsSanpham } from "./headCells";
 import Toolbar from "@mui/material/Toolbar";
@@ -21,6 +21,7 @@ import DialogMaterial from "../../../components/DialogMaterial";
 import TableButton from "../../../components/TableButton";
 import apiSanpham from "../../../axios/apiSanpham";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const EnhancedTableToolbar = ({
   numSelected,
@@ -213,7 +214,11 @@ const TableSanpham = ({ dsSanpham = [], setRowsRemoved }) => {
                             }}
                           />
                         </TableCell>
-                        <TableCell align="right">{row.ma}</TableCell>
+                        <TableCell align="right">
+                          <Link to={`/admin/sanpham/chitiet/${row._id}`}>
+                            {row.ma}
+                          </Link>
+                        </TableCell>
                         <TableCell
                           component="th"
                           id={labelId}
@@ -235,7 +240,9 @@ const TableSanpham = ({ dsSanpham = [], setRowsRemoved }) => {
                         <TableCell align="right">
                           {row.loaisanpham.ten}
                         </TableCell>
-                        <TableCell align="right">{row.gia}</TableCell>
+                        <TableCell align="right">
+                          {formatMoney(row.gia)}
+                        </TableCell>
                         <TableCell align="right">{row.ngaytao}</TableCell>
                       </TableRow>
                     );

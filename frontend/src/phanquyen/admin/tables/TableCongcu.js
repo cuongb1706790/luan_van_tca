@@ -21,6 +21,7 @@ import DialogMaterial from "../../../components/DialogMaterial";
 import TableButton from "../../../components/TableButton";
 import { toast } from "react-toastify";
 import apiCongcu from "../../../axios/apiCongcu";
+import { Link } from "react-router-dom";
 
 const EnhancedTableToolbar = ({
   numSelected,
@@ -224,7 +225,11 @@ const TableCongcu = ({ dsCongcu = [], setRowsRemoved, bophankdId }) => {
                             className={!row.hinhanh && "noImage"}
                           />
                         </TableCell>
-                        <TableCell align="right">{row.ten}</TableCell>
+                        <TableCell align="right">
+                          <Link to={`/admin/congcu/chitiet/${row._id}`}>
+                            {row.ten}
+                          </Link>
+                        </TableCell>
                         <TableCell align="right">{row.congdung}</TableCell>
                         <TableCell align="right">{row.ngaytao}</TableCell>
                       </TableRow>

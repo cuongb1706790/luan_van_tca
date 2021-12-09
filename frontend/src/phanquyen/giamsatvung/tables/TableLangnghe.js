@@ -77,7 +77,7 @@ const EnhancedTableToolbar = ({
   ) : null;
 };
 
-const TableLangnghe = ({ dsLangnghe = [], setRowsRemoved }) => {
+const TableLangnghe = ({ dsLangnghe = [], setRowsRemoved, readOnly }) => {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
   const [selected, setSelected] = React.useState([]);
@@ -161,13 +161,15 @@ const TableLangnghe = ({ dsLangnghe = [], setRowsRemoved }) => {
     <>
       <Box sx={{ width: "100%" }}>
         <Paper sx={{ width: "100%", mb: 2 }}>
-          <EnhancedTableToolbar
-            numSelected={selected.length}
-            rowsSelected={selected}
-            onClickChitiet={onClickChitiet}
-            onClickCapnhat={onClickCapnhat}
-            onClickXoa={onClickXoa}
-          />
+          {!readOnly && (
+            <EnhancedTableToolbar
+              numSelected={selected.length}
+              rowsSelected={selected}
+              onClickChitiet={onClickChitiet}
+              onClickCapnhat={onClickCapnhat}
+              onClickXoa={onClickXoa}
+            />
+          )}
           <TableContainer>
             <Table
               sx={{ minWidth: 750 }}

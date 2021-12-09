@@ -1,14 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Header from "../../components/Header";
-import DL1Congcu from "./subcomponents/DL1Congcu";
-import DL1Vattu from "./subcomponents/DL1Vattu";
-import DL1Daily2 from "./subcomponents/DL1Daily2";
-import DL1CongcuPhanphat from "./subcomponents/DL1CongcuPhanphat";
-import DL1VattuPhanphat from "./subcomponents/DL1VattuPhanphat";
-import daily2Icon from "../../assets/icons/daily2.png";
-import DL1CongcuPPChitiet from "./subcomponents/DL1CongcuPPChitiet";
-import DL1VattuPPChitiet from "./subcomponents/DL1VattuPPChitiet";
+import BackdropMaterial from "../../components/BackdropMaterial";
+import apiDaily1 from "../../axios/apiDaily1";
+import TableSanpham from "../daily1/tables/TableSanpham";
+import TableCongcu from "../daily1/tables/TableCongcu";
+import TableVattu from "../daily1/tables/TableVattu";
+import TableNguyenlieu from "../daily1/tables/TableNguyenlieu";
+import TableDaily2 from "../daily1/tables/TableDaily2";
+import TableHodan from "../daily1/tables/TableHodan";
+import TableDonhang from "../daily1/tables/TableDonhang";
+import splnIcon from "../../assets/icons/spln.png";
+import dl2Icon from "../../assets/icons/daily2.png";
+import hodanIcon from "../../assets/icons/hodan.png";
 
 const Daily1Chitiet = (props) => {
   const [active, setActive] = useState({
@@ -16,7 +20,35 @@ const Daily1Chitiet = (props) => {
     present: "congcu",
     payload: "",
   });
+  const [loading, setLoading] = useState(false);
+  const [singleDaily1, setSingleDaily1] = useState(null);
   const { id: daily1Id } = props.match.params;
+
+  const fetchSingleDL1 = async () => {
+    setLoading(true);
+    let { daily1 } = await apiDaily1.singleDaily1(daily1Id);
+    daily1 = {
+      ...daily1,
+      dssanpham: daily1.dssanpham.map((sp) => ({ ...sp, ...sp.sanpham })),
+      dscongcu: daily1.dscongcu.map((cc) => ({ ...cc, ...cc.congcu })),
+      dsvattu: daily1.dsvattu.map((vt) => ({ ...vt, ...vt.vattu })),
+      dsnguyenlieu: daily1.dsnguyenlieu.map((ngl) => ({
+        ...ngl,
+        ...ngl.nguyenlieu,
+      })),
+    };
+    setSingleDaily1(daily1);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchSingleDL1();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  if (loading) {
+    return <BackdropMaterial />;
+  }
 
   return (
     <>
@@ -32,11 +64,25 @@ const Daily1Chitiet = (props) => {
               onClick={() =>
                 setActive({
                   code: 1,
-                  present: "congcu",
+                  present: "sanpham",
                   payload: "",
                 })
               }
               className={active.code === 1 && "active"}
+            >
+              <img src={splnIcon} width="36" alt="splangnghe" />
+              <BoxTitle>Sản phẩm</BoxTitle>
+            </Box>
+
+            <Box
+              onClick={() =>
+                setActive({
+                  code: 2,
+                  present: "congcu",
+                  payload: "",
+                })
+              }
+              className={active.code === 2 && "active"}
             >
               <i class="fas fa-tools"></i>
               <BoxTitle>Công cụ</BoxTitle>
@@ -45,12 +91,12 @@ const Daily1Chitiet = (props) => {
             <Box
               onClick={() =>
                 setActive({
-                  code: 2,
+                  code: 3,
                   present: "vattu",
                   payload: "",
                 })
               }
-              className={active.code === 2 && "active"}
+              className={active.code === 3 && "active"}
             >
               <i class="fab fa-accusoft"></i>
               <BoxTitle>Vật tư</BoxTitle>
@@ -59,70 +105,76 @@ const Daily1Chitiet = (props) => {
             <Box
               onClick={() =>
                 setActive({
-                  code: 3,
-                  present: "daily2",
-                  payload: "",
-                })
-              }
-              className={active.code === 3 && "active"}
-            >
-              <img src={daily2Icon} width="36" alt="daily2" />
-              <BoxTitle>Đại lý cấp 2</BoxTitle>
-            </Box>
-
-            <Box
-              onClick={() =>
-                setActive({
                   code: 4,
-                  present: "congcupp",
+                  present: "nguyenlieu",
                   payload: "",
                 })
               }
-              className={(active.code === 4 || active.code === 6) && "active"}
+              className={active.code === 4 && "active"}
             >
-              <i class="fas fa-tools"></i>
-              <BoxTitle>Công cụ phân phát</BoxTitle>
+              <i class="fab fa-bandcamp"></i>
+              <BoxTitle>Nguyên liệu</BoxTitle>
             </Box>
 
             <Box
               onClick={() =>
                 setActive({
                   code: 5,
-                  present: "vattupp",
+                  present: "daily2",
                   payload: "",
                 })
               }
-              className={(active.code === 5 || active.code === 7) && "active"}
+              className={active.code === 5 && "active"}
             >
-              <i class="fab fa-accusoft"></i>
-              <BoxTitle>Vật tư phân phát</BoxTitle>
+              <img src={dl2Icon} width="36" alt="splangnghe" />
+              <BoxTitle>Đại lý cấp 2</BoxTitle>
+            </Box>
+
+            <Box
+              onClick={() =>
+                setActive({
+                  code: 6,
+                  present: "hodan",
+                  payload: "",
+                })
+              }
+              className={active.code === 6 && "active"}
+            >
+              <img src={hodanIcon} width="36" alt="hodan" />
+              <BoxTitle>Hộ dân</BoxTitle>
+            </Box>
+
+            <Box
+              onClick={() =>
+                setActive({
+                  code: 7,
+                  present: "donhang",
+                  payload: "",
+                })
+              }
+              className={active.code === 7 && "active"}
+            >
+              <i class="far fa-newspaper"></i>
+              <BoxTitle>Đơn hàng</BoxTitle>
             </Box>
           </Boxes>
 
           <SubComponents>
             {active.code === 1 ? (
-              <DL1Congcu daily1Id={daily1Id} />
+              <TableSanpham dsSanpham={singleDaily1?.dssanpham} />
             ) : active.code === 2 ? (
-              <DL1Vattu daily1Id={daily1Id} />
+              <TableCongcu dsCongcu={singleDaily1?.dscongcu} />
             ) : active.code === 3 ? (
-              <DL1Daily2 daily1Id={daily1Id} />
+              <TableVattu dsVattu={singleDaily1?.dsvattu} />
             ) : active.code === 4 ? (
-              <DL1CongcuPhanphat daily1Id={daily1Id} setActive={setActive} />
+              <TableNguyenlieu dsNguyenlieu={singleDaily1?.dsnguyenlieu} />
             ) : active.code === 5 ? (
-              <DL1VattuPhanphat daily1Id={daily1Id} setActive={setActive} />
+              <TableDaily2 dsDaily2={singleDaily1?.daily2} readOnly />
             ) : active.code === 6 ? (
-              <DL1CongcuPPChitiet
-                payload={active.payload}
-                daily1Id={daily1Id}
-                setActive={setActive}
-              />
-            ) : active.code === 7 ? (
-              <DL1VattuPPChitiet
-                payload={active.payload}
-                daily1Id={daily1Id}
-                setActive={setActive}
-              />
-            ) : null}
+              <TableHodan dsHodan={singleDaily1?.hodan} readOnly />
+            ) : (
+              <TableDonhang dsDonhang={singleDaily1?.donhang} readOnly />
+            )}
           </SubComponents>
         </Content>
       </Wrapper>
@@ -146,14 +198,15 @@ const Boxes = styled.div`
   justify-content: space-between;
 `;
 const Box = styled.div`
-  width: 280px;
-  padding: 26px 36px;
+  width: 200px;
+  padding: 14px 28px;
   border-radius: 4px;
   box-shadow: 0 2px 4px rgb(0 0 20 / 8%), 0 1px 2px rgb(0 0 20 / 8%);
   cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   position: relative;
   &::after {
     content: "";
@@ -171,9 +224,10 @@ const Box = styled.div`
   }
   i {
     color: #fff;
-    font-size: 28px;
+    font-size: 23px;
   }
-  &:nth-child(1) {
+  &:nth-child(1),
+  &:nth-child(7) {
     background: #da542e;
     &::after {
       background: #da542e;
@@ -188,7 +242,8 @@ const Box = styled.div`
       background: #b03e1e;
     }
   }
-  &:nth-child(2) {
+  &:nth-child(2),
+  &:nth-child(6) {
     background: #2255a4;
     &::after {
       background: #2255a4;
@@ -203,7 +258,8 @@ const Box = styled.div`
       background: #163d7a;
     }
   }
-  &:nth-child(3) {
+  &:nth-child(3),
+  &:nth-child(5) {
     background: #27a9e3;
     &::after {
       background: #27a9e3;
@@ -233,31 +289,20 @@ const Box = styled.div`
       background: #1c8c5c;
     }
   }
-  &:nth-child(5) {
-    background: #ffb848;
-    &::after {
-      background: #ffb848;
-    }
-    &:hover {
-      background: #d99c3d;
-      &::after {
-        width: 100%;
-      }
-    }
-    &.active {
-      background: #d99c3d;
-    }
-  }
 `;
 const BoxTitle = styled.div`
   font-size: 16px;
   color: #fff;
-  margin-top: 16px;
+  margin-top: 10px;
   font-family: "Poppins", sans-serif;
 `;
 const SubComponents = styled.div`
   display: block;
-  margin-top: 36px;
+  margin-top: 72px;
+  th:first-child,
+  td:first-child {
+    display: none;
+  }
 `;
 
 export default Daily1Chitiet;

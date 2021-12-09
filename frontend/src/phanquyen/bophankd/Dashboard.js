@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import logo from "../../assets/images/logo.png";
 import { Route, NavLink } from "react-router-dom";
@@ -17,19 +17,56 @@ import LogoutButton from "../../components/LogoutButton";
 import styled from "styled-components";
 import Daily1Chitiet from "./Daily1Chitiet";
 import splnIcon from "../../assets/icons/spln.png";
-import daily1Icon from "../../assets/icons/daily1.png";
 import Giamsatvung from "./Giamsatvung";
 import GiamsatvungThem from "./GiamsatvungThem";
 import Daily2 from "./Daily2";
 import Daily2Chitiet from "./Daily2Chitiet";
+import Donhang from "./Donhang";
+import DonhangThem from "./DonhangThem";
+import DonhangChitiet from "./DonhangChitiet";
+import Tiendo from "./Tiendo";
+import dl1Icon from "../../assets/icons/daily1.png";
+import dl2Icon from "../../assets/icons/daily2.png";
+import gsvIcon from "../../assets/icons/gsv.png";
+import Badge from "@mui/material/Badge";
+import { useSelector } from "react-redux";
+import apiBophankd from "../../axios/apiBophankd";
+import BackdropMaterial from "../../components/BackdropMaterial";
+import GiamsatvungChitiet from "./GiamsatvungChitiet";
 
 const Dashboard = (props) => {
+  const [loading, setLoading] = useState(false);
+  const [dsBadge, setDsBadge] = useState(null);
   const dispatch = useDispatch();
-
+  const { userInfo } = useSelector((state) => state.user);
+  const [refresh, setRefresh] = useState(false);
+  const wait = (timeout) => {
+    return new Promise(resolve => setTimeout(resolve, timeout));
+  }
   const handleLogout = () => {
     dispatch(logout());
     props.history.push("/");
   };
+
+  const fetchDsBadge = async () => {
+    setLoading(true);
+    wait(3000).then(() => setLoading(false));
+    const { bophankd } = await apiBophankd.bophankdBasedUserId(userInfo._id);
+    const data = await apiBophankd.dsShowBadge(bophankd._id);
+   
+    setDsBadge(data);
+    // setLoading(false);
+  };
+
+  useEffect(() => {
+    setRefresh(false);
+    fetchDsBadge();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [refresh]);
+
+  if (loading) {
+    return <BackdropMaterial />;
+  }
 
   return (
     <Container>
@@ -46,56 +83,77 @@ const Dashboard = (props) => {
               activeClassName={props.match.path === "/bophankd" && "active"}
             >
               <i className="fas fa-home"></i>
-              <span>Tổng quan</span>
+              <span className="ml-3">Tổng quan</span>
             </NavLink>
           </MenuItem>
 
           <MenuItem>
             <NavLink to="/bophankd/sanpham" activeClassName="active">
               <Image src={splnIcon} alt="splangnghe" />
-              <span>Sản phẩm</span>
+              <span className="ml-3">Sản phẩm</span>
             </NavLink>
           </MenuItem>
 
           <MenuItem>
             <NavLink to="/bophankd/vattu" activeClassName="active">
               <i class="fab fa-accusoft"></i>
-              <span>Vật tư</span>
+              <span className="ml-3">Vật tư</span>
             </NavLink>
           </MenuItem>
 
           <MenuItem>
             <NavLink to="/bophankd/nguyenlieu" activeClassName="active">
               <i class="fab fa-bandcamp"></i>
-              <span>Nguyên liệu</span>
+              <span className="ml-3">Nguyên liệu</span>
             </NavLink>
           </MenuItem>
 
           <MenuItem>
             <NavLink to="/bophankd/congcu" activeClassName="active">
               <i class="fas fa-tools"></i>
-              <span>Công cụ</span>
+              <span className="ml-3">Công cụ</span>
             </NavLink>
           </MenuItem>
 
           <MenuItem>
             <NavLink to="/bophankd/daily1" activeClassName="active">
-              <Image src={daily1Icon} alt="splangnghe" />
-              <span>Đại lý cấp 1</span>
+              {dsBadge?.daily1Badge > 0 ? (
+                <Badge badgeContent={dsBadge?.daily1Badge} color="secondary">
+                  <Image src={dl1Icon} alt="splangnghe" />
+                </Badge>
+              ) : (
+                <Image src={dl1Icon} alt="splangnghe" />
+              )}
+
+              <span className="ml-3">Đại lý cấp 1</span>
             </NavLink>
           </MenuItem>
 
           <MenuItem>
             <NavLink to="/bophankd/daily2" activeClassName="active">
-              <Image src={daily1Icon} alt="splangnghe" />
-              <span>Đại lý cấp 2</span>
+              {dsBadge?.daily2Badge > 0 ? (
+                <Badge badgeContent={dsBadge?.daily2Badge} color="secondary">
+                  <Image src={dl2Icon} alt="splangnghe" />
+                </Badge>
+              ) : (
+                <Image src={dl2Icon} alt="splangnghe" />
+              )}
+
+              <span className="ml-3">Đại lý cấp 2</span>
             </NavLink>
           </MenuItem>
 
           <MenuItem>
             <NavLink to="/bophankd/giamsatvung" activeClassName="active">
-              <Image src={daily1Icon} alt="splangnghe" />
-              <span>Giám sát vùng</span>
+              <Image src={gsvIcon} alt="splangnghe" />
+              <span className="ml-3">Giám sát vùng</span>
+            </NavLink>
+          </MenuItem>
+
+          <MenuItem>
+            <NavLink to="/bophankd/donhang" activeClassName="active">
+              <i class="far fa-newspaper"></i>
+              <span className="ml-3">Đơn hàng</span>
             </NavLink>
           </MenuItem>
 
@@ -114,7 +172,11 @@ const Dashboard = (props) => {
         />
         <Route exact path="/bophankd/congcu" component={Congcu} />
         <Route path="/bophankd/congcu/chitiet/:id" component={CongcuChitiet} />
-        <Route exact path="/bophankd/daily1" component={Daily1} />
+        <Route
+          exact
+          path="/bophankd/daily1"
+          render={(props) => <Daily1 {...props} setRefresh={setRefresh} />}
+        />
         <Route exact path="/bophankd/vattu" component={Vattu} />
         <Route path="/bophankd/vattu/chitiet/:id" component={VattuChitiet} />
         <Route exact path="/bophankd/nguyenlieu" component={Nguyenlieu} />
@@ -125,9 +187,25 @@ const Dashboard = (props) => {
         <Route path="/bophankd/daily1/chitiet/:id" component={Daily1Chitiet} />
         <Route exact path="/bophankd/giamsatvung" component={Giamsatvung} />
         <Route path="/bophankd/giamsatvung/them" component={GiamsatvungThem} />
-
-        <Route exact path="/bophankd/daily2" component={Daily2} />
+        <Route
+          path="/bophankd/giamsatvung/chitiet/:id"
+          component={GiamsatvungChitiet}
+        />
+        <Route
+          exact
+          path="/bophankd/daily2"
+          render={(props) => <Daily2 {...props} setRefresh={setRefresh} />}
+        />
         <Route path="/bophankd/daily2/chitiet/:id" component={Daily2Chitiet} />
+
+        <Route exact path="/bophankd/donhang" component={Donhang} />
+        <Route path="/bophankd/donhang/them" component={DonhangThem} />
+        <Route
+          exact
+          path="/bophankd/donhang/chitiet/:id"
+          component={DonhangChitiet}
+        />
+        <Route path="/bophankd/donhang/chitiet/:id/tiendo" component={Tiendo} />
       </RightContent>
     </Container>
   );
@@ -184,7 +262,7 @@ const MenuItem = styled.li`
     }
     span {
       color: #cad6e2;
-      margin-left: 14px;
+      /* margin-left: 14px; */
     }
     &:hover {
       background: #304664;

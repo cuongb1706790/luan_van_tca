@@ -5,6 +5,15 @@ import styled from "styled-components";
 import Header from "../../components/Header";
 import MaterialCard from "./MaterialCard";
 import img_placeholder from "../../assets/images/img_placeholder.png";
+import { formatMoney } from "../../utils";
+import overall from "../../assets/icons/overall.png";
+import congcu from "../../assets/icons/congcu.png";
+import vt from "../../assets/icons/vattu.png";
+import nglieu from "../../assets/icons/nglieu.png";
+import _loai from "../../assets/icons/loai.png";
+import anh from "../../assets/icons/anh.png";
+import tt from "../../assets/icons/thuoctinh.png";
+import _gia from "../../assets/icons/gia.png";
 
 const SanphamChitiet = (props) => {
   const [loading, setLoading] = useState(false);
@@ -41,6 +50,7 @@ const SanphamChitiet = (props) => {
             <div className="col-lg-8">
               <Box>
                 <BoxTitle>
+                  <img src={overall} alt="overall" />
                   <h5>Thông tin chung</h5>
                 </BoxTitle>
                 <BoxContent>
@@ -67,6 +77,7 @@ const SanphamChitiet = (props) => {
 
               <Box>
                 <BoxTitle>
+                  <img src={congcu} alt="congcu" />
                   <h5>Công cụ</h5>
                 </BoxTitle>
                 <BoxContent>
@@ -86,6 +97,7 @@ const SanphamChitiet = (props) => {
 
               <Box>
                 <BoxTitle>
+                  <img src={vt} alt="vt" />
                   <h5>Vật tư</h5>
                 </BoxTitle>
                 <BoxContent>
@@ -105,6 +117,7 @@ const SanphamChitiet = (props) => {
 
               <Box>
                 <BoxTitle>
+                  <img src={nglieu} alt="nglieu" />
                   <h5>Nguyên liệu</h5>
                 </BoxTitle>
                 <BoxContent>
@@ -134,6 +147,7 @@ const SanphamChitiet = (props) => {
             <div className="col-lg-4">
               <Box>
                 <BoxTitle>
+                  <img src={_loai} alt="loai" />
                   <h5>Loại sản phẩm</h5>
                 </BoxTitle>
                 <BoxContent>
@@ -145,6 +159,7 @@ const SanphamChitiet = (props) => {
 
               <Box>
                 <BoxTitle>
+                  <img src={anh} alt="anh" />
                   <h5>Ảnh sản phẩm</h5>
                 </BoxTitle>
                 <BoxContent>
@@ -164,6 +179,7 @@ const SanphamChitiet = (props) => {
 
               <Box>
                 <BoxTitle>
+                  <img src={tt} alt="tt" />
                   <h5>Thuộc tính</h5>
                 </BoxTitle>
                 <BoxContent>
@@ -193,11 +209,12 @@ const SanphamChitiet = (props) => {
 
               <Box>
                 <BoxTitle>
+                  <img src={_gia} alt="_gia" />
                   <h5>Giá sản phẩm</h5>
                 </BoxTitle>
                 <BoxContent>
                   <FormGroup>
-                    <Input type="text" value={sanpham?.gia} />
+                    <Input type="text" value={formatMoney(sanpham?.gia)} />
                   </FormGroup>
                 </BoxContent>
               </Box>
@@ -229,10 +246,17 @@ const Box = styled.div`
 `;
 const BoxTitle = styled.div`
   border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  font-family: "Roboto", sans-serif;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  img {
+    width: 36px;
+    margin-right: 8px;
+  }
   h5 {
     font-size: 16px;
     display: inline-block;
-    padding: 20px;
     margin-bottom: 0;
   }
 `;

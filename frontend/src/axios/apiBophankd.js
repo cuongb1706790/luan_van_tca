@@ -198,6 +198,30 @@ const apiBophankd = {
     const url = `/bophankd/duyetdaily2/${daily2Id}/${bophankdId}`;
     return axiosClient.put(url);
   },
+
+  // lay ds don hang thuoc bophankd
+  dsDonhang(bpkdId) {
+    const url = `/bophankd/dsdonhang/${bpkdId}`;
+    return axiosClient.get(url);
+  },
+
+  // lay ds SUB don hang thuoc bophankd
+  dsSubDonhang(bpkdId, madh) {
+    const url = `/bophankd/dssubdonhang/${bpkdId}/${madh}`;
+    return axiosClient.get(url);
+  },
+
+  // lay so lieu tong quan
+  tongquan(id) {
+    const url = `/bophankd/tongquan/${id}`;
+    return axiosClient.get(url);
+  },
+
+  // lay ds daily1 daily2 chua duyet hien thi badge
+  dsShowBadge(bophankdId) {
+    const url = `/bophankd/dsshowbadge/${bophankdId}`;
+    return axiosClient.get(url);
+  },
 };
 
 export default apiBophankd;

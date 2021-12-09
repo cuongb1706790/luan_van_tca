@@ -8,10 +8,10 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Checkbox from "@mui/material/Checkbox";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import img_placeholder from "../../../assets/images/img_placeholder.png";
 import EnhancedTableHead from "../../../components/table/EnhancedTableHead";
-import { getComparator } from "../../../utils";
+import { formatMoney, getComparator } from "../../../utils";
 import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
 import { headCellsSanpham } from "./headCells";
 import TableButton from "../../../components/TableButton";
@@ -122,7 +122,9 @@ const TableSanpham = ({ dsSanpham = [] }) => {
                             }}
                           />
                         </TableCell>
-                        <TableCell align="right">{row.ma}</TableCell>
+                        <TableCell align="right">{row?.donhang.ma}</TableCell>
+                        <TableCell align="right">{row?.ma}</TableCell>
+                        <TableCell align="right">{row?.ten}</TableCell>
                         <TableCell
                           component="th"
                           id={labelId}
@@ -131,24 +133,24 @@ const TableSanpham = ({ dsSanpham = [] }) => {
                         >
                           <img
                             src={
-                              row.hinhanh
-                                ? `/uploads/${row.hinhanh}`
+                              row?.hinhanh
+                                ? `/uploads/${row?.hinhanh}`
                                 : img_placeholder
                             }
                             alt="anhcongcu"
                             style={{ width: "30px" }}
-                            className={!row.hinhanh && "noImage"}
+                            className={!row?.hinhanh && "noImage"}
                           />
                         </TableCell>
+                        <TableCell align="right">{row?.soluong}</TableCell>
                         <TableCell align="right">
-                          <Link to={`/bophankd/sanpham/chitiet/${row._id}`}>
-                            {row.ten}
-                          </Link>
+                          {row?.soluonghoanthanh}
                         </TableCell>
-                        <TableCell align="right">{row.cotheban}</TableCell>
-                        <TableCell align="right">{row.loai}</TableCell>
-                        <TableCell align="right">{row.nhanhieu}</TableCell>
                         <TableCell align="right">
+                          {formatMoney(row?.soluong * row?.gia)}
+                        </TableCell>
+                        <TableCell align="right">{row?.ngaytao}</TableCell>
+                        {/* <TableCell align="right">
                           {
                             <TableButton
                               onClick={() =>
@@ -160,7 +162,7 @@ const TableSanpham = ({ dsSanpham = [] }) => {
                               Chi tiết
                             </TableButton>
                           }
-                        </TableCell>
+                        </TableCell> */}
                       </TableRow>
                     );
                   })}

@@ -201,7 +201,11 @@ const TableGiamsatvung = ({
                             }}
                           />
                         </TableCell>
-                        <TableCell align="right">{row.ten}</TableCell>
+                        <TableCell align="right">
+                          <Link to={`/bophankd/giamsatvung/chitiet/${row._id}`}>
+                            {row.ten}
+                          </Link>
+                        </TableCell>
                         <TableCell align="right">{row.sdt}</TableCell>
                         <TableCell align="right">{row.email}</TableCell>
                         <TableCell align="right">

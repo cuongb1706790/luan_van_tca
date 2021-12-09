@@ -4,6 +4,7 @@ const bcrypt = require("bcryptjs");
 const User = require("../models/userModel");
 const Giamsatvung = require("../models/giamsatvungModel");
 const Daily2 = require("../models/daily2Model");
+const Langnghe = require("../models/langngheModel");
 
 // them gsv
 giamsatvungRouter.post("/them", async (req, res) => {
@@ -81,13 +82,17 @@ giamsatvungRouter.get("/danhsach", async (req, res) => {
 // lay thong tin 1 gsv
 giamsatvungRouter.get("/single/:id", async (req, res) => {
   try {
-    const gsv = await Giamsatvung.findById(req.params.id).populate("user");
-    if (!gsv) {
-      return res.send({
-        message: "Không tìm thấy giám sát vùng nào",
-        success: false,
+    const gsv = await Giamsatvung.findById(req.params.id)
+      .populate({
+        path: "user daily1 daily2 donhang dscongcu dsnguyenlieu dsvattu dssanpham",
+      })
+      .populate({
+        path: "dscongcu dsvattu dsnguyenlieu dssanpham",
+        populate: {
+          path: "donhang congcu vattu nguyenlieu sanpham",
+        },
       });
-    }
+
     res.send({ gsv, success: true });
   } catch (error) {
     res.send({ message: error.message, success: false });
@@ -138,25 +143,6 @@ giamsatvungRouter.get("/dsgsvbpkdnull", async (req, res) => {
   }
 });
 
-// lay ds dai ly 1 thuoc giam sat vung
-giamsatvungRouter.get("/dsdaily1/:gsvId", async (req, res) => {
-  try {
-    const { daily1 } = await Giamsatvung.findById(req.params.gsvId)
-      .select("daily1")
-      .populate("daily1");
-    if (!daily1.length) {
-      return res.send({
-        message: "Không tìm thấy đại lý 1 nào",
-        success: false,
-      });
-    }
-
-    res.send({ daily1, success: true });
-  } catch (error) {
-    res.send({ message: error.message, success: false });
-  }
-});
-
 // lay ds dai ly 2 thuoc giam sat vung
 giamsatvungRouter.get("/dsdaily2/:gsvId", async (req, res) => {
   try {
@@ -200,6 +186,196 @@ giamsatvungRouter.put("/duyet/:daily2Id/:gsvId", async (req, res) => {
     }
 
     res.send({ success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+// lay ds don hang thuoc gsv
+giamsatvungRouter.get("/dsdonhang/:gsvId", async (req, res) => {
+  try {
+    let { donhang } = await Giamsatvung.findById(req.params.gsvId)
+      .select("donhang")
+      .populate("donhang");
+
+    res.send({ donhang, success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+// lay ds dai ly 1 thuoc giam sat vung
+giamsatvungRouter.get("/dsdaily1/:gsvId", async (req, res) => {
+  try {
+    let { daily1 } = await Giamsatvung.findById(req.params.gsvId)
+      .select("daily1")
+      .populate("daily1");
+    if (!daily1.length) {
+      return res.send({
+        message: "Không tìm thấy đại lý 1 nào",
+        success: false,
+      });
+    }
+
+    res.send({ daily1, success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+// lay danh sach SUB don hang thuoc giamsatvung
+giamsatvungRouter.get("/dssubdonhang/:gsvId/:ma", async (req, res) => {
+  try {
+    let { subdonhang } = await Giamsatvung.findById(req.params.gsvId)
+      .select("subdonhang")
+      .populate({
+        path: "subdonhang",
+        populate: {
+          path: "from to dssanpham dscongcu dsvattu dsnguyenlieu",
+          populate: {
+            path: "giamsatvung daily1 sanpham congcu vattu nguyenlieu",
+          },
+        },
+      })
+      .populate({
+        path: "subdonhang",
+        populate: {
+          path: "dssanpham",
+          populate: {
+            path: "sanpham",
+            populate: {
+              path: "loaisanpham",
+            },
+          },
+        },
+      });
+    subdonhang = subdonhang.filter((item) => item.ma === req.params.ma);
+
+    res.send({ subdonhang, success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+// lay danh sach sanpham thuoc Giamsatvung
+giamsatvungRouter.get("/dssanpham/:gsvId", async (req, res) => {
+  try {
+    const { dssanpham } = await Giamsatvung.findById(req.params.gsvId)
+      .select("dssanpham")
+      .populate({
+        path: "dssanpham",
+        populate: {
+          path: "donhang sanpham",
+        },
+      })
+      .populate({
+        path: "dssanpham",
+        populate: {
+          path: "sanpham",
+          populate: {
+            path: "loaisanpham",
+          },
+        },
+      });
+
+    res.send({ dssanpham, success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+// lay danh sach vattu thuoc Giamsatvung
+giamsatvungRouter.get("/dsvattu/:gsvId", async (req, res) => {
+  try {
+    let { dsvattu } = await Giamsatvung.findById(req.params.gsvId)
+      .select("dsvattu")
+      .populate({
+        path: "dsvattu",
+        populate: "donhang vattu",
+      });
+
+    res.send({ dsvattu, success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+// lay danh sach nguyenlieu thuoc Giamsatvung
+giamsatvungRouter.get("/dsnguyenlieu/:gsvId", async (req, res) => {
+  try {
+    const { dsnguyenlieu } = await Giamsatvung.findById(req.params.gsvId)
+      .select("dsnguyenlieu")
+      .populate({
+        path: "dsnguyenlieu",
+        populate: {
+          path: "donhang nguyenlieu",
+        },
+      });
+    res.send({ dsnguyenlieu, success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+// lay danh sach congcu thuoc Giamsatvung
+giamsatvungRouter.get("/dscongcu/:gsvId", async (req, res) => {
+  try {
+    let { dscongcu } = await Giamsatvung.findById(req.params.gsvId)
+      .select("dscongcu")
+      .populate({
+        path: "dscongcu",
+        populate: {
+          path: "donhang congcu",
+        },
+      });
+
+    res.send({ dscongcu, success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+// lay so lieu tong quan
+giamsatvungRouter.get("/tongquan/:gsvId", async (req, res) => {
+  try {
+    const gsv = await Giamsatvung.findById(req.params.gsvId);
+    const langnghe = await Langnghe.find({});
+
+    res.send({
+      dslangnghe: langnghe.length,
+      dsdaily1: gsv.daily1.length,
+      dsdaily2: gsv.daily2.length,
+      dsdonhang: gsv.donhang.length,
+      dssanpham: gsv.dssanpham.length,
+      dscongcu: gsv.dscongcu.length,
+      dsvattu: gsv.dsvattu.length,
+      dsnguyenlieu: gsv.dsnguyenlieu.length,
+      success: true,
+    });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+// lay ds daily2, donhang chua duyet hien thi badge
+giamsatvungRouter.get("/dsshowbadge/:gsvId", async (req, res) => {
+  try {
+    // Daily2
+    let { daily2 } = await Giamsatvung.findById(req.params.gsvId)
+      .select("daily2")
+      .populate("daily2");
+    daily2 = daily2.filter((dl2) => !dl2.user && !dl2.giamsatvung);
+    // Donhang
+    let { donhang } = await Giamsatvung.findById(req.params.gsvId)
+      .select("donhang")
+      .populate("donhang");
+    donhang = donhang.filter((dh) => !dh.xacnhan);
+
+    res.send({
+      daily2Badge: daily2.length,
+      donhangBadge: donhang.length,
+      success: true,
+    });
   } catch (error) {
     res.send({ message: error.message, success: false });
   }

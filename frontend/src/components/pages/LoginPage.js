@@ -171,7 +171,7 @@ const Button = styled.button`
 `;
 const ErrorMsg = styled.div`
   text-align: center;
-  color: #dc3545;
+  color: yellow;
   position: relative;
   bottom: -40px;
 `;

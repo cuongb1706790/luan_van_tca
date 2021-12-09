@@ -1,5 +1,15 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import {
+  Container,
+  Content,
+  ErrMsg,
+  Form,
+  FormContent,
+  FormGroup,
+  FormTitle,
+  Input,
+  Label,
+} from "./styledComponents";
 import Header from "../../components/Header";
 import { apiTinhThanh } from "../../apiTinhThanh";
 import apiHodan from "../../axios/apiHodan";
@@ -10,6 +20,14 @@ import apiDaily2 from "../../axios/apiDaily2";
 import { toast } from "react-toastify";
 import DropdownMaterial2 from "../../components/DropdownMaterial2";
 import MenuItem from "@mui/material/MenuItem";
+import ten from "../../assets/icons/ten.png";
+import sdt from "../../assets/icons/sdt.png";
+import diachi from "../../assets/icons/diachi.png";
+import taikhoan from "../../assets/icons/taikhoan.png";
+import cmnd from "../../assets/icons/cmnd.png";
+import loai from "../../assets/icons/loai.png";
+import namsinh from "../../assets/icons/namsinh.png";
+import langnghe from "../../assets/icons/langnghe_2.png";
 
 const HodanThem = (props) => {
   const [hodan, setHodan] = useState({
@@ -128,18 +146,24 @@ const HodanThem = (props) => {
         titleBack
         onClick={() => props.history.push("/daily2/hodan")}
         headerRight={
-          <button className="btn btn-primary px-4" onClick={handleSubmit}>
+          <button className="btn btn-primary px-3" onClick={handleSubmit}>
             Lưu
+            <i class="fas fa-save"></i>
           </button>
         }
       />
       <Content>
         <Form>
           <FormContent>
-            <FormTitle>Thêm hộ dân</FormTitle>
+            <FormTitle>
+              <span>Thêm hộ dân</span>
+            </FormTitle>
 
             <FormGroup>
-              <Label>Tên hộ dân:</Label>
+              <Label>
+                <img src={ten} alt="ten" />
+                <span>Tên hộ dân:</span>
+              </Label>
               <Input
                 placeholder="Nhập tên"
                 type="text"
@@ -153,7 +177,10 @@ const HodanThem = (props) => {
             </FormGroup>
 
             <FormGroup>
-              <Label>Số điện thoại:</Label>
+              <Label>
+                <img src={sdt} alt="sdt" />
+                <span>Số điện thoại:</span>
+              </Label>
               <Input
                 placeholder="Nhập sđt"
                 type="text"
@@ -167,7 +194,10 @@ const HodanThem = (props) => {
             </FormGroup>
 
             <FormGroup>
-              <Label>Chứng minh nhân dân:</Label>
+              <Label>
+                <img src={cmnd} alt="cmnd" />
+                <span>Chứng minh nhân dân:</span>
+              </Label>
               <Input
                 placeholder="Nhập cmnd"
                 type="text"
@@ -181,7 +211,10 @@ const HodanThem = (props) => {
             </FormGroup>
 
             <FormGroup>
-              <Label>Năm sinh:</Label>
+              <Label>
+                <img src={namsinh} alt="namsinh" />
+                <span>Năm sinh:</span>
+              </Label>
               <Input
                 placeholder="Nhập năm sinh"
                 type="text"
@@ -197,7 +230,10 @@ const HodanThem = (props) => {
             <div className="row">
               <div className="col-lg-6">
                 <FormGroup>
-                  <Label>Làng nghề</Label>
+                  <Label>
+                    <img src={langnghe} alt="langnghe" />
+                    <span>Làng nghề:</span>
+                  </Label>
                   {dsLangnghe && dsLangnghe.length ? (
                     <DropdownMaterial2
                       label="Chọn Làng nghề"
@@ -229,7 +265,10 @@ const HodanThem = (props) => {
 
               <div className="col-lg-6">
                 <FormGroup>
-                  <Label>Nơi cư trú</Label>
+                  <Label>
+                    <img src={diachi} alt="diachi" />
+                    <span>Nơi cư trú:</span>
+                  </Label>
                   {dsXa && dsXa.length ? (
                     <DropdownMaterial2
                       label="Chọn xã"
@@ -249,7 +288,10 @@ const HodanThem = (props) => {
             </div>
 
             <FormGroup>
-              <Label>Loại sản phẩm:</Label>
+              <Label>
+                <img src={loai} alt="loai" />
+                <span>Loại sản phẩm:</span>
+              </Label>
               {dsLoaiSP && dsLoaiSP.length ? (
                 <DropdownMaterial2
                   label="Chọn loại sản phẩm"
@@ -267,7 +309,10 @@ const HodanThem = (props) => {
             </FormGroup>
 
             <FormGroup>
-              <Label>Tên tài khoản:</Label>
+              <Label>
+                <img src={taikhoan} alt="taikhoan" />
+                <span>Tên tài khoản:</span>
+              </Label>
               <Input
                 placeholder="Nhập tài khoản"
                 type="text"
@@ -285,63 +330,5 @@ const HodanThem = (props) => {
     </Container>
   );
 };
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-`;
-const Content = styled.div`
-  flex: 1;
-  background: #f0eeee;
-  padding: 36px;
-`;
-const Form = styled.div`
-  background: #fff;
-  padding: 36px 26px 100px 20px;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
-    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
-  border-radius: 3px;
-`;
-const FormContent = styled.div`
-  width: 750px;
-  margin: auto;
-  font-family: "Poppins", sans-serif;
-`;
-const FormTitle = styled.div`
-  font-size: 22px;
-  font-weight: 600;
-  color: #555;
-  margin-bottom: 20px;
-  margin-top: 20px;
-  text-align: center;
-`;
-const FormGroup = styled.div`
-  margin-bottom: 26px;
-`;
-const Label = styled.span`
-  font-size: 16px;
-  color: #333;
-  display: block;
-  margin-bottom: 10px;
-`;
-const Input = styled.input`
-  width: 100%;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  padding: 13px 16px;
-  outline: none;
-  color: #333;
-  border-radius: 3px;
-  &:focus {
-    border: 1px solid blue;
-  }
-`;
-const ErrMsg = styled.span`
-  display: block;
-  font-size: 15px;
-  color: red !important;
-  margin-top: 3px;
-  width: 100%;
-`;
 
 export default HodanThem;

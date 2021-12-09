@@ -60,6 +60,54 @@ const apiGSV = {
     const url = `/gsv/duyet/${daily2Id}/${gsvId}`;
     return axiosClient.put(url);
   },
+
+  // lay ds don hang thuoc gsv
+  dsDonhang(gsvId) {
+    const url = `/gsv/dsdonhang/${gsvId}`;
+    return axiosClient.get(url);
+  },
+
+  // lay ds SUB don hang thuoc giamsatvung
+  dsSubDonhang(gsvId, madh) {
+    const url = `/gsv/dssubdonhang/${gsvId}/${madh}`;
+    return axiosClient.get(url);
+  },
+
+  // lay ds san pham thuoc gsv
+  dsSanpham(gsvId) {
+    const url = `/gsv/dssanpham/${gsvId}`;
+    return axiosClient.get(url);
+  },
+
+  // lay ds cong cu thuoc gsv
+  dsCongcu(gsvId) {
+    const url = `/gsv/dscongcu/${gsvId}`;
+    return axiosClient.get(url);
+  },
+
+  // lay ds vat tu thuoc gsv
+  dsVattu(gsvId) {
+    const url = `/gsv/dsvattu/${gsvId}`;
+    return axiosClient.get(url);
+  },
+
+  // lay ds cong cu thuoc gsv
+  dsNguyenlieu(gsvId) {
+    const url = `/gsv/dsnguyenlieu/${gsvId}`;
+    return axiosClient.get(url);
+  },
+
+  // lay so lieu tong quan
+  tongquan(gsvId) {
+    const url = `/gsv/tongquan/${gsvId}`;
+    return axiosClient.get(url);
+  },
+
+  // lay ds daily2, donhang chua duyet hien thi badge
+  dsShowBadge(gsvId) {
+    const url = `/gsv/dsshowbadge/${gsvId}`;
+    return axiosClient.get(url);
+  },
 };
 
 export default apiGSV;

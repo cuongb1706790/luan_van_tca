@@ -1,6 +1,6 @@
 {
   "name": "frontend",
-  "proxy": "http://127.0.0.1:5000",
+  "proxy" : "http://localhost:5000/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -12,6 +12,7 @@
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.60",
     "@mui/icons-material": "^5.0.0",
+    "@mui/lab": "^5.0.0-alpha.54",
     "@mui/material": "^5.0.0",
     "@mui/x-data-grid": "^4.0.0",
     "@testing-library/jest-dom": "^5.14.1",

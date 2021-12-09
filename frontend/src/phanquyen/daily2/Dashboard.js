@@ -1,5 +1,5 @@
-import React from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import logo from "../../assets/images/logo.png";
 import { Route, NavLink } from "react-router-dom";
 import Tongquan from "./Tongquan";
@@ -13,14 +13,46 @@ import styled from "styled-components";
 import hodanIcon from "../../assets/icons/hodan.png";
 import HodanChitiet from "./HodanChitiet";
 import HodanChinhsua from "./HodanChinhsua";
+import Donhang from "./Donhang";
+import DonhangChitiet from "./DonhangChitiet";
+import DonhangThem from "./DonhangThem";
+import Sanpham from "./Sanpham";
+import Nguyenlieu from "./Nguyenlieu";
+import Tiendo from "./Tiendo";
+import splnIcon from "../../assets/icons/spln.png";
+import Badge from "@mui/material/Badge";
+import apiDaily2 from "../../axios/apiDaily2";
+import BackdropMaterial from "../../components/BackdropMaterial";
 
 const Dashboard = (props) => {
+  const [loading, setLoading] = useState(false);
+  const [dsBadge, setDsBadge] = useState(null);
   const dispatch = useDispatch();
+  const { userInfo } = useSelector((state) => state.user);
+  const [refresh, setRefresh] = useState(false);
 
   const handleLogout = () => {
     dispatch(logout());
     props.history.push("/");
   };
+
+  const fetchDsBadge = async () => {
+    setLoading(true);
+    const { daily2 } = await apiDaily2.singleDaily2BasedUser(userInfo._id);
+    const data = await apiDaily2.dsShowBadge(daily2._id);
+    setDsBadge(data);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    setRefresh(false);
+    fetchDsBadge();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [refresh]);
+
+  if (loading) {
+    return <BackdropMaterial />;
+  }
 
   return (
     <Container>
@@ -37,28 +69,55 @@ const Dashboard = (props) => {
               activeClassName={props.match.path === "/daily2" && "active"}
             >
               <i className="fas fa-home"></i>
-              <span>Tổng quan</span>
+              <span className="ml-3">Tổng quan</span>
+            </NavLink>
+          </MenuItem>
+
+          <MenuItem>
+            <NavLink to="/daily2/sanpham" activeClassName="active">
+              <Image src={splnIcon} alt="splangnghe" />
+              <span className="ml-3">Sản phẩm</span>
             </NavLink>
           </MenuItem>
 
           <MenuItem>
             <NavLink to="/daily2/congcu" activeClassName="active">
               <i class="fas fa-tools"></i>
-              <span>Công cụ</span>
+              <span className="ml-3">Công cụ</span>
             </NavLink>
           </MenuItem>
 
           <MenuItem>
             <NavLink to="/daily2/vattu" activeClassName="active">
               <i class="fab fa-accusoft"></i>
-              <span>Vật tư</span>
+              <span className="ml-3">Vật tư</span>
+            </NavLink>
+          </MenuItem>
+
+          <MenuItem>
+            <NavLink to="/daily2/nguyenlieu" activeClassName="active">
+              <i class="fab fa-bandcamp"></i>
+              <span className="ml-3">Nguyên liệu</span>
             </NavLink>
           </MenuItem>
 
           <MenuItem>
             <NavLink to="/daily2/hodan" activeClassName="active">
-              <Image src={hodanIcon} alt="home" />
-              <span>Hộ dân</span>
+              <Image src={hodanIcon} alt="hodan" />
+              <span className="ml-3">Hộ dân</span>
+            </NavLink>
+          </MenuItem>
+
+          <MenuItem>
+            <NavLink to="/daily2/donhang" activeClassName="active">
+              {dsBadge?.donhangBadge > 0 ? (
+                <Badge badgeContent={dsBadge?.donhangBadge} color="secondary">
+                  <i class="far fa-newspaper"></i>
+                </Badge>
+              ) : (
+                <i class="far fa-newspaper"></i>
+              )}
+              <span className="ml-3">Đơn hàng</span>
             </NavLink>
           </MenuItem>
 
@@ -70,12 +129,28 @@ const Dashboard = (props) => {
 
       <RightContent>
         <Route exact path="/daily2" component={Tongquan} />
+        <Route exact path="/daily2/sanpham" component={Sanpham} />
         <Route exact path="/daily2/congcu" component={Congcu} />
         <Route exact path="/daily2/vattu" component={Vattu} />
+        <Route exact path="/daily2/nguyenlieu" component={Nguyenlieu} />
         <Route exact path="/daily2/hodan" component={Hodan} />
         <Route path="/daily2/hodan/them" component={HodanThem} />
         <Route path="/daily2/hodan/chitiet/:id" component={HodanChitiet} />
         <Route path="/daily2/hodan/chinhsua/:id" component={HodanChinhsua} />
+
+        <Route exact path="/daily2/donhang" component={Donhang} />
+        <Route
+          exact
+          path="/daily2/donhang/chitiet/:id"
+          render={(props) => (
+            <DonhangChitiet {...props} setRefresh={setRefresh} />
+          )}
+        />
+        <Route
+          path="/daily2/donhang/chitiet/:id/them"
+          component={DonhangThem}
+        />
+        <Route path="/daily2/donhang/chitiet/:id/tiendo" component={Tiendo} />
       </RightContent>
     </Container>
   );
@@ -132,7 +207,6 @@ const MenuItem = styled.li`
     }
     span {
       color: #cad6e2;
-      margin-left: 14px;
     }
     &:hover {
       background: #304664;

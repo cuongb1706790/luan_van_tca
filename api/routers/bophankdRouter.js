@@ -131,19 +131,6 @@ bophankdRouter.get("/baseduserid/:userId", async (req, res) => {
   }
 });
 
-// lay danh sach sanpham thuoc bophankdId
-bophankdRouter.get("/dssanpham/:bophankdId", async (req, res) => {
-  try {
-    const { sanpham } = await Bophankd.findById(req.params.bophankdId)
-      .select("sanpham")
-      .populate("sanpham");
-
-    res.send({ sanpham, success: true });
-  } catch (error) {
-    res.send({ message: error.message, success: false });
-  }
-});
-
 // lay danh sach cong cu hu loi
 bophankdRouter.get("/dscongcuhuloi/:bophankdId", async (req, res) => {
   try {
@@ -158,34 +145,6 @@ bophankdRouter.get("/dscongcuhuloi/:bophankdId", async (req, res) => {
   }
 });
 
-// lay danh sach congcu thuoc bophankdId
-bophankdRouter.get("/dscongcu/:bophankdId", async (req, res) => {
-  try {
-    let { congcu } = await Bophankd.findById(req.params.bophankdId)
-      .select("congcu")
-      .populate("congcu");
-    congcu = congcu.filter((item) => item.soluong);
-
-    res.send({ congcu, success: true });
-  } catch (error) {
-    res.send({ message: error.message, success: false });
-  }
-});
-
-// lay danh sach vattu thuoc bophankdId
-bophankdRouter.get("/dsvattu/:bophankdId", async (req, res) => {
-  try {
-    let { vattu } = await Bophankd.findById(req.params.bophankdId)
-      .select("vattu")
-      .populate("vattu");
-    vattu = vattu.filter((item) => item.soluong);
-
-    res.send({ vattu, success: true });
-  } catch (error) {
-    res.send({ message: error.message, success: false });
-  }
-});
-
 // lay danh sach vat tu hu loi
 bophankdRouter.get("/dsvattuhuloi/:bophankdId", async (req, res) => {
   try {
@@ -195,18 +154,6 @@ bophankdRouter.get("/dsvattuhuloi/:bophankdId", async (req, res) => {
     vattu = vattu.filter((item) => item.soluongloi);
 
     res.send({ vattu, success: true });
-  } catch (error) {
-    res.send({ message: error.message, success: false });
-  }
-});
-
-// lay danh sach nguyenlieu thuoc bophankdId
-bophankdRouter.get("/dsnguyenlieu/:bophankdId", async (req, res) => {
-  try {
-    const { nguyenlieu } = await Bophankd.findById(req.params.bophankdId)
-      .select("nguyenlieu")
-      .populate("nguyenlieu");
-    res.send({ nguyenlieu, success: true });
   } catch (error) {
     res.send({ message: error.message, success: false });
   }
@@ -582,6 +529,180 @@ bophankdRouter.put("/duyetdaily2/:daily2Id/:bophankdId", async (req, res) => {
     }
 
     res.send({ success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+// lay danh sach don hang thuoc bophankd
+bophankdRouter.get("/dsdonhang/:bophankdId", async (req, res) => {
+  try {
+    const { donhang } = await Bophankd.findById(req.params.bophankdId)
+      .select("donhang")
+      .populate("donhang");
+
+    res.send({ donhang, success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+// lay danh sach SUB don hang thuoc bophankd
+bophankdRouter.get("/dssubdonhang/:bophankdId/:ma", async (req, res) => {
+  try {
+    let { subdonhang } = await Bophankd.findById(req.params.bophankdId)
+      .select("subdonhang")
+      .populate({
+        path: "subdonhang",
+        populate: {
+          path: "from to dssanpham dscongcu dsvattu dsnguyenlieu",
+          populate: {
+            path: "bophankd giamsatvung sanpham congcu vattu nguyenlieu",
+          },
+        },
+      })
+      .populate({
+        path: "subdonhang",
+        populate: {
+          path: "dssanpham",
+          populate: {
+            path: "sanpham",
+            populate: {
+              path: "loaisanpham",
+            },
+          },
+        },
+      });
+    subdonhang = subdonhang.filter((item) => item.ma === req.params.ma);
+
+    res.send({ subdonhang, success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+// lay danh sach sanpham thuoc bophankdId
+bophankdRouter.get("/dssanpham/:bophankdId", async (req, res) => {
+  try {
+    const { dssanpham } = await Bophankd.findById(req.params.bophankdId)
+      .select("dssanpham")
+      .populate({
+        path: "dssanpham",
+        populate: {
+          path: "donhang sanpham",
+        },
+      })
+      .populate({
+        path: "dssanpham",
+        populate: {
+          path: "sanpham",
+          populate: {
+            path: "loaisanpham",
+          },
+        },
+      });
+
+    res.send({ dssanpham, success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+// lay danh sach vattu thuoc bophankdId
+bophankdRouter.get("/dsvattu/:bophankdId", async (req, res) => {
+  try {
+    let { dsvattu } = await Bophankd.findById(req.params.bophankdId)
+      .select("dsvattu")
+      .populate({
+        path: "dsvattu",
+        populate: "donhang vattu",
+      });
+
+    res.send({ dsvattu, success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+// lay danh sach nguyenlieu thuoc bophankdId
+bophankdRouter.get("/dsnguyenlieu/:bophankdId", async (req, res) => {
+  try {
+    const { dsnguyenlieu } = await Bophankd.findById(req.params.bophankdId)
+      .select("dsnguyenlieu")
+      .populate({
+        path: "dsnguyenlieu",
+        populate: {
+          path: "donhang nguyenlieu",
+        },
+      });
+    res.send({ dsnguyenlieu, success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+// lay so lieu tong quan
+bophankdRouter.get("/tongquan/:bophankdId", async (req, res) => {
+  try {
+    const bophankd = await Bophankd.findById(req.params.bophankdId);
+
+    res.send({
+      dssanpham: bophankd.dssanpham.length,
+      dsvattu: bophankd.dsvattu.length,
+      dsnguyenlieu: bophankd.dsnguyenlieu.length,
+      dscongcu: bophankd.dscongcu.length,
+      daily1: bophankd.daily1.length,
+      daily2: bophankd.daily2.length,
+      donhang: bophankd.donhang.length,
+      giamsatvung: bophankd.giamsatvung.length,
+      success: true,
+    });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+// lay ds cong cu thuoc bophankd
+bophankdRouter.get("/dscongcu/:bophankdId", async (req, res) => {
+  try {
+    try {
+      let { dscongcu } = await Bophankd.findById(req.params.bophankdId)
+        .select("dscongcu")
+        .populate({
+          path: "dscongcu",
+          populate: {
+            path: "donhang congcu",
+          },
+        });
+
+      res.send({ dscongcu, success: true });
+    } catch (error) {
+      res.send({ message: error.message, success: false });
+    }
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+// lay ds daily1 daily2 chua duyet hien thi badge
+bophankdRouter.get("/dsshowbadge/:bophankdId", async (req, res) => {
+  try {
+    // Daily1
+    let { daily1 } = await Bophankd.findById(req.params.bophankdId)
+      .select("daily1")
+      .populate("daily1");
+    daily1 = daily1.filter((dl1) => !dl1.user);
+    // Daily2
+    let { daily2 } = await Bophankd.findById(req.params.bophankdId)
+      .select("daily2")
+      .populate("daily2");
+    daily2 = daily2.filter((dl2) => !dl2.user && !dl2.bophankd);
+
+    res.send({
+      daily1Badge: daily1.length,
+      daily2Badge: daily2.length,
+      success: true,
+    });
   } catch (error) {
     res.send({ message: error.message, success: false });
   }

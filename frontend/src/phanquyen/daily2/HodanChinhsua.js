@@ -1,5 +1,15 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import {
+  Container,
+  Content,
+  ErrMsg,
+  Form,
+  FormContent,
+  FormGroup,
+  FormTitle,
+  Input,
+  Label,
+} from "./styledComponents";
 import Header from "../../components/Header";
 import { apiTinhThanh } from "../../apiTinhThanh";
 import apiHodan from "../../axios/apiHodan";
@@ -9,6 +19,15 @@ import { toast } from "react-toastify";
 import DropdownMaterial2 from "../../components/DropdownMaterial2";
 import MenuItem from "@mui/material/MenuItem";
 import InputPassword from "../../components/InputPassword";
+import ten from "../../assets/icons/ten.png";
+import sdt from "../../assets/icons/sdt.png";
+import diachi from "../../assets/icons/diachi.png";
+import taikhoan from "../../assets/icons/taikhoan.png";
+import cmnd from "../../assets/icons/cmnd.png";
+import loai from "../../assets/icons/loai.png";
+import namsinh from "../../assets/icons/namsinh.png";
+import langnghe from "../../assets/icons/langnghe_2.png";
+import _matkhau from "../../assets/icons/matkhau.png";
 
 const HodanChinhsua = (props) => {
   const [hodan, setHodan] = useState(null);
@@ -86,12 +105,12 @@ const HodanChinhsua = (props) => {
     const { hodan } = await apiHodan.singleHodan(hodanId);
     const { langnghe } = await apiLangnghe.dsLangnghe();
     const { loaisanpham } = langnghe.find(
-      (item) => item._id === hodan.langnghe._id
+      (item) => item._id === hodan.langnghe
     );
     setHodan(hodan);
     setDsLangnghe(langnghe);
-    setSelectedLangnghe(hodan.langnghe._id);
-    setselectedLoaiSP(hodan.loaisanpham._id);
+    setSelectedLangnghe(hodan.langnghe);
+    setselectedLoaiSP(hodan.loaisanpham);
     setTinh(hodan.tinh);
     sethuyen(hodan.huyen);
     setXa(hodan.xa);
@@ -117,6 +136,7 @@ const HodanChinhsua = (props) => {
         headerRight={
           <button className="btn btn-primary px-4" onClick={handleSubmit}>
             Lưu
+            <i class="fas fa-save"></i>
           </button>
         }
       />
@@ -126,7 +146,10 @@ const HodanChinhsua = (props) => {
             <FormTitle>Cập nhật hộ dân</FormTitle>
 
             <FormGroup>
-              <Label>Tên hộ dân:</Label>
+              <Label>
+                <img src={ten} alt="ten" />
+                <span>Tên hộ dân:</span>
+              </Label>
               <Input
                 placeholder="Nhập tên"
                 type="text"
@@ -140,7 +163,10 @@ const HodanChinhsua = (props) => {
             </FormGroup>
 
             <FormGroup>
-              <Label>Số điện thoại:</Label>
+              <Label>
+                <img src={sdt} alt="sdt" />
+                <span>Số điện thoại:</span>
+              </Label>
               <Input
                 placeholder="Nhập sđt"
                 type="text"
@@ -154,7 +180,10 @@ const HodanChinhsua = (props) => {
             </FormGroup>
 
             <FormGroup>
-              <Label>Chứng minh nhân dân:</Label>
+              <Label>
+                <img src={cmnd} alt="cmnd" />
+                <span>Chứng minh nhân dân:</span>
+              </Label>
               <Input
                 placeholder="Nhập cmnd"
                 type="text"
@@ -168,7 +197,10 @@ const HodanChinhsua = (props) => {
             </FormGroup>
 
             <FormGroup>
-              <Label>Năm sinh:</Label>
+              <Label>
+                <img src={namsinh} alt="namsinh" />
+                <span>Năm sinh:</span>
+              </Label>
               <Input
                 placeholder="Nhập năm sinh"
                 type="text"
@@ -184,7 +216,10 @@ const HodanChinhsua = (props) => {
             <div className="row">
               <div className="col-lg-6">
                 <FormGroup>
-                  <Label>Làng nghề</Label>
+                  <Label>
+                    <img src={langnghe} alt="langnghe" />
+                    <span>Làng nghề:</span>
+                  </Label>
                   {dsLangnghe && dsLangnghe.length ? (
                     <DropdownMaterial2
                       label="Chọn Làng nghề"
@@ -216,7 +251,10 @@ const HodanChinhsua = (props) => {
 
               <div className="col-lg-6">
                 <FormGroup>
-                  <Label>Nơi cư trú</Label>
+                  <Label>
+                    <img src={diachi} alt="diachi" />
+                    <span>Nơi cư trú:</span>
+                  </Label>
                   {dsXa && dsXa.length ? (
                     <DropdownMaterial2
                       label="Chọn xã"
@@ -236,7 +274,10 @@ const HodanChinhsua = (props) => {
             </div>
 
             <FormGroup>
-              <Label>Loại sản phẩm:</Label>
+              <Label>
+                <img src={loai} alt="loai" />
+                <span>Loại sản phẩm:</span>
+              </Label>
               {dsLoaiSP && dsLoaiSP.length ? (
                 <DropdownMaterial2
                   label="Chọn loại sản phẩm"
@@ -254,7 +295,10 @@ const HodanChinhsua = (props) => {
             </FormGroup>
 
             <FormGroup>
-              <Label>Tên tài khoản:</Label>
+              <Label>
+                <img src={taikhoan} alt="taikhoan" />
+                <span>Tên tài khoản:</span>
+              </Label>
               <Input type="text" value={hodan?.taikhoan} />
             </FormGroup>
 
@@ -262,7 +306,10 @@ const HodanChinhsua = (props) => {
               <div className="row">
                 <div className="col-lg-6">
                   <FormGroup>
-                    <Label>Mật khẩu:</Label>
+                    <Label>
+                      <img src={_matkhau} alt="matkhau" />
+                      <span>Mật khẩu:</span>
+                    </Label>
                     <InputPassword
                       label="Mật khẩu"
                       name="matkhau"
@@ -275,7 +322,10 @@ const HodanChinhsua = (props) => {
 
                 <div className="col-lg-6">
                   <FormGroup>
-                    <Label>Xác nhận mật khẩu:</Label>
+                    <Label>
+                      <img src={_matkhau} alt="matkhau" />
+                      <span>Xác nhận mật khẩu:</span>
+                    </Label>
                     <InputPassword
                       label="Xác nhận"
                       name="xnmatkhau"
@@ -299,63 +349,5 @@ const HodanChinhsua = (props) => {
     </Container>
   );
 };
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-`;
-const Content = styled.div`
-  flex: 1;
-  background: #f0eeee;
-  padding: 36px;
-`;
-const Form = styled.div`
-  background: #fff;
-  padding: 36px 26px 100px 20px;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
-    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
-  border-radius: 3px;
-`;
-const FormContent = styled.div`
-  width: 750px;
-  margin: auto;
-  font-family: "Poppins", sans-serif;
-`;
-const FormTitle = styled.div`
-  font-size: 22px;
-  font-weight: 600;
-  color: #555;
-  margin-bottom: 20px;
-  margin-top: 20px;
-  text-align: center;
-`;
-const FormGroup = styled.div`
-  margin-bottom: 26px;
-`;
-const Label = styled.span`
-  font-size: 16px;
-  color: #333;
-  display: block;
-  margin-bottom: 10px;
-`;
-const Input = styled.input`
-  width: 100%;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  padding: 13px 16px;
-  outline: none;
-  color: #333;
-  border-radius: 3px;
-  &:focus {
-    border: 1px solid blue;
-  }
-`;
-const ErrMsg = styled.span`
-  display: block;
-  font-size: 15px;
-  color: red !important;
-  margin-top: 3px;
-  width: 100%;
-`;
 
 export default HodanChinhsua;
