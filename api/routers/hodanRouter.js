@@ -7,7 +7,7 @@ const Langnghe = require("../models/langngheModel");
 const Daily2 = require("../models/daily2Model");
 const Daily1 = require("../models/daily1Model");
 const Donhang = require("../models/donhangModel");
-
+const { getCurrentDatetime } = require("../utils");
 // them ho dan
 hodanRouter.post("/them", async (req, res) => {
   const {
@@ -304,66 +304,99 @@ hodanRouter.get("/dscongcuphanphat/:hodanId", async (req, res) => {
 });
 
 // lay ds phan phat VAT TU thuoc ho dan
-hodanRouter.get("/dsvattu/:hodanId", async (req, res) => {
+hodanRouter.get("/dsvattuphanphat/:hodanId", async (req, res) => {
   try {
-    let { dsvattu } = await Hodan.findById(req.params.hodanId)
-      .select("dsvattu")
+    let { dsphanphat } = await Hodan.findById(req.params.hodanId)
+      .select("dsphanphat")
       .populate({
-        path: "dsvattu",
-        populate: "donhang vattu",
+        path: "dsphanphat",
+        populate: {
+          path: "phanphat",
+          populate: {
+            path: "from to items",
+            populate: {
+              path: "bophankd daily1 daily2 hodan vattu",
+            },
+          },
+        },
       });
-
-    res.send({ dsvattu, success: true });
+    dsphanphat = dsphanphat.filter(
+      (item) => item.phanphat.phanphattype === "vattu"
+    );
+    res.send({ dsphanphat, success: true });
   } catch (error) {
     res.send({ message: error.message, success: false });
   }
 });
 
 // lay danh sach CONG CU thuoc ho dan
-hodanRouter.get("/dscongcu/:hodanId", async (req, res) => {
+hodanRouter.get("/danhsachcongcu/:hodanId", async (req, res) => {
   try {
-    let { dscongcu } = await Hodan.findById(req.params.hodanId)
-      .select("dscongcu")
+    let dscongcu = await Hodan.findById(req.params.hodanId)
+      .select("items")
       .populate({
-        path: "dscongcu",
+        path: "items",
         populate: {
-          path: "donhang congcu",
+          path: "phanphat",
+          populate: {
+            path: "from to",
+            populate: {
+              path: "bophankd daily1 daily2 hodan",
+            },
+          },
+        },
+      })
+      .populate({
+        path: "items",
+        populate: {
+          path: "congcu",
         },
       });
 
-    res.send({ dscongcu, success: true });
-  } catch (error) {
-    res.send({ message: error.message, success: false });
-  }
-});
-// lay danh sach nguyenlieu thuoc hodan
-hodanRouter.get("/dsnguyenlieu/:hodanId", async (req, res) => {
-  try {
-    const { dsnguyenlieu } = await Hodan.findById(req.params.hodanId)
-      .select("dsnguyenlieu")
-      .populate({
-        path: "dsnguyenlieu",
-        populate: {
-          path: "donhang nguyenlieu",
-        },
+    if (!dscongcu) {
+      return res.send({
+        message: "Không có công cụ nào trong kho",
+        success: false,
       });
-    res.send({ dsnguyenlieu, success: true });
+    }
+    dscongcu = dscongcu.items.filter((item) => item.congcu);
+    res.send({ dscongcu, success: true });
   } catch (error) {
     res.send({ message: error.message, success: false });
   }
 });
 
 // lay danh sach VAT TU thuoc ho dan
-hodanRouter.get("/dsvattu/:hodanId", async (req, res) => {
+hodanRouter.get("/danhsachvattu/:hodanId", async (req, res) => {
   try {
-    const { dsnguyenlieu } = await Hodan.findById(req.params.hodanId)
-      .select("dsvattu")
+    let dsvattu = await Hodan.findById(req.params.hodanId)
+      .select("items")
       .populate({
-        path: "dsvattu",
+        path: "items",
         populate: {
-          path: "donhang vattu",
+          path: "phanphat",
+          populate: {
+            path: "from to",
+            populate: {
+              path: "bophankd daily1 daily2 hodan",
+            },
+          },
+        },
+      })
+      .populate({
+        path: "items",
+        populate: {
+          path: "vattu",
         },
       });
+
+    if (!dsvattu) {
+      return res.send({
+        message: "Không có công cụ nào trong kho",
+        success: false,
+      });
+    }
+    dsvattu = dsvattu.items.filter((item) => item.vattu);
     res.send({ dsvattu, success: true });
   } catch (error) {
     res.send({ message: error.message, success: false });
@@ -470,21 +503,201 @@ hodanRouter.put("/xacnhandh/:hodanId/:donhangId", async (req, res) => {
     res.send({ message: error.message, success: false });
   }
 });
-
-// doi mat khau hodan
-hodanRouter.patch("/changepassword/:id", async (req, res) => {
-  const { matkhaucu, matkhaumoi } = req.body;
+// them cong cu hu loi
+hodanRouter.put("/themcchuloi/:hodanId", async (req, res) => {
+  const { dsccLoi } = req.body;
   try {
-    // const hodan = await Hodan.findById(req.params.id);
-    // const user = await User.findById(hodan.user);
-    // if (bcrypt.compareSync(matkhaucu, user.matkhau)) {
-    //   user.matkhau = bcrypt.hashSync(matkhaumoi, 8);
-    //   await user.save();
-    //   res.send({ updatedHodan, success: true });
-    // } else {
-    //   res.send({ Error: "Mat khau cu chua chinh xac" });
-    // }
-    res.send({ contar :  req.body.matkhaumoi, asdsa : req.params});
+    for (const cc of dsccLoi) {
+      const hodan = await Hodan.findById(req.params.hodanId);
+      hodan.dscongcu = hodan.dscongcu.map((item) =>
+        item.congcu.toString() === cc.congcu._id &&
+        item.donhang.toString() === cc.donhang._id &&
+        item.loi.soluongloi
+          ? {
+              donhang: item.donhang,
+              congcu: item.congcu,
+              loi: {
+                soluongloi: item.loi.soluongloi + parseInt(cc.soluongloi),
+                ngaybaoloi: getCurrentDatetime(),
+              },
+              soluong: item.soluong,
+              ngaytao: item.ngaytao,
+            }
+          : item.congcu.toString() === cc.congcu._id &&
+            item.donhang.toString() === cc.donhang._id
+          ? {
+              donhang: item.donhang,
+              congcu: item.congcu,
+              loi: {
+                soluongloi: cc.soluongloi,
+                ngaybaoloi: getCurrentDatetime(),
+              },
+              soluong: item.soluong,
+              ngaytao: item.ngaytao,
+            }
+          : item
+      );
+      await hodan.save();
+    }
+
+    res.send({ success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+// lay ds cong cu hu loi
+hodanRouter.get("/dscchuloi/:hodanId", async (req, res) => {
+  try {
+    let { dscongcu: dscongcuhuloi } = await Hodan.findById(
+      req.params.hodanId
+    )
+      .select("dscongcu")
+      .populate({
+        path: "dscongcu",
+        populate: {
+          path: "donhang congcu",
+        },
+      });
+
+    dscongcuhuloi = dscongcuhuloi.filter((cc) => cc.loi.soluongloi);
+
+    res.send({ dscongcuhuloi, success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+//--------------------------------------------
+
+// them vat tu hu loi
+hodanRouter.put("/themvthuloi/:hodanId", async (req, res) => {
+  const { dsvtLoi } = req.body;
+  try {
+    for (const vt of dsvtLoi) {
+      const hodan = await Hodan.findById(req.params.hodanId);
+      hodan.dsvattu = hodan.dsvattu.map((item) =>
+        item.vattu.toString() === vt.vattu._id &&
+        item.donhang.toString() === vt.donhang._id &&
+        item.loi.soluongloi
+          ? {
+              donhang: item.donhang,
+              vattu: item.vattu,
+              loi: {
+                soluongloi: item.loi.soluongloi + parseInt(vt.soluongloi),
+                ngaybaoloi: getCurrentDatetime(),
+              },
+              soluong: item.soluong,
+              ngaytao: item.ngaytao,
+            }
+          : item.vattu.toString() === vt.vattu._id &&
+            item.donhang.toString() === vt.donhang._id
+          ? {
+              donhang: item.donhang,
+              vattu: item.vattu,
+              loi: {
+                soluongloi: vt.soluongloi,
+                ngaybaoloi: getCurrentDatetime(),
+              },
+              soluong: item.soluong,
+              ngaytao: item.ngaytao,
+            }
+          : item
+      );
+      await hodan.save();
+    }
+
+    res.send({ success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+// lay ds vat tu hu loi
+hodanRouter.get("/dsvthuloi/:hodanId", async (req, res) => {
+  try {
+    let { dsvattu: dsvattuhuloi } = await Hodan.findById(
+      req.params.hodanId
+    )
+      .select("dsvattu")
+      .populate({
+        path: "dsvattu",
+        populate: {
+          path: "donhang vattu",
+        },
+      });
+
+    dsvattuhuloi = dsvattuhuloi.filter((vt) => vt.loi.soluongloi);
+
+    res.send({ dsvattuhuloi, success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+//--------------------------------------------
+
+// them nguyen lieu hu loi
+hodanRouter.put("/themnglhuloi/:hodanId", async (req, res) => {
+  const { dsnglLoi } = req.body;
+  try {
+    for (const ngl of dsnglLoi) {
+      const hodan = await Hodan.findById(req.params.hodanId);
+      hodan.dsnguyenlieu = hodan.dsnguyenlieu.map((item) =>
+        item.nguyenlieu.toString() === ngl.nguyenlieu._id &&
+        item.donhang.toString() === ngl.donhang._id &&
+        item.loi.khoiluongloi
+          ? {
+              donhang: item.donhang,
+              nguyenlieu: item.nguyenlieu,
+              loi: {
+                khoiluongloi:
+                  item.loi.khoiluongloi + parseInt(ngl.khoiluongloi),
+                ngaybaoloi: getCurrentDatetime(),
+              },
+              khoiluong: item.khoiluong,
+              ngaytao: item.ngaytao,
+            }
+          : item.nguyenlieu.toString() === ngl.nguyenlieu._id &&
+            item.donhang.toString() === ngl.donhang._id
+          ? {
+              donhang: item.donhang,
+              nguyenlieu: item.nguyenlieu,
+              loi: {
+                khoiluongloi: ngl.khoiluongloi,
+                ngaybaoloi: getCurrentDatetime(),
+              },
+              khoiluong: item.khoiluong,
+              ngaytao: item.ngaytao,
+            }
+          : item
+      );
+      await hodan.save();
+    }
+
+    res.send({ success: true });
+  } catch (error) {
+    res.send({ message: error.message, success: false });
+  }
+});
+
+// lay ds nguyen lieu hu loi
+hodanRouter.get("/dsnglhuloi/:hodanId", async (req, res) => {
+  try {
+    let { dsnguyenlieu: dsnguyenlieuhuloi } = await Hodan.findById(
+      req.params.hodanId
+    )
+      .select("dsnguyenlieu")
+      .populate({
+        path: "dsnguyenlieu",
+        populate: {
+          path: "donhang nguyenlieu",
+        },
+      });
+
+    dsnguyenlieuhuloi = dsnguyenlieuhuloi.filter((ngl) => ngl.loi.khoiluongloi);
+
+    res.send({ dsnguyenlieuhuloi, success: true });
   } catch (error) {
     res.send({ message: error.message, success: false });
   }

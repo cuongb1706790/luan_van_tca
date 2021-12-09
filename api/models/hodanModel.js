@@ -64,6 +64,9 @@ const hodanSchema = new mongoose.Schema(
         congcu: {
           type: mongoose.Schema.Types.ObjectId,
           ref: "Congcu",
+        }, loi: {
+          soluongloi: Number,
+          ngaybaoloi: String,
         },
         soluong: Number, // = số lượng sp đặt * định mức công cụ
         ngaytao: String,
@@ -78,6 +81,9 @@ const hodanSchema = new mongoose.Schema(
         vattu: {
           type: mongoose.Schema.Types.ObjectId,
           ref: "Vattu",
+        }, loi: {
+          soluongloi: Number,
+          ngaybaoloi: String,
         },
         soluong: Number, // = số lượng sp đặt * định mức công cụ
         ngaytao: String,
@@ -92,6 +98,9 @@ const hodanSchema = new mongoose.Schema(
         nguyenlieu: {
           type: mongoose.Schema.Types.ObjectId,
           ref: "Nguyenlieu",
+        },loi: {
+          khoiluongloi: Number,
+          ngaybaoloi: String,
         },
         khoiluong: Number, // = số lượng sp đặt * định mức công cụ
         ngaytao: String,

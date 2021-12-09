@@ -66,23 +66,6 @@ congcuRouter.get("/single/:id", async (req, res) => {
   }
 });
 
-// them cong cu hu loi
-congcuRouter.put("/themcchuloi", async (req, res) => {
-  const { dsccLoi } = req.body;
-  try {
-    for (const item of dsccLoi) {
-      const congcu = await Congcu.findById(item.congcu);
-      congcu.soluongloi = item.soluongloi;
-      congcu.ngaybaoloi = getCurrentDatetime();
-      await congcu.save();
-    }
-
-    res.send({ success: true });
-  } catch (error) {
-    res.send({ message: error.message, success: false });
-  }
-});
-
 // Xoa nhieu cong cu
 congcuRouter.put("/xoanhieucongcu", async (req, res) => {
   const { arrOfIds } = req.body;
