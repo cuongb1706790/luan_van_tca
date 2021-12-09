@@ -7,17 +7,13 @@ const Langnghe = require("../models/langngheModel");
 const Daily2 = require("../models/daily2Model");
 const Daily1 = require("../models/daily1Model");
 const Donhang = require("../models/donhangModel");
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
+
 const upload = require("../middleware/imageUpload");
 const Giamsatvung = require("../models/giamsatvungModel");
 const Bophankd = require("../models/bophankdModel");
->>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 
-=======
 const { getCurrentDatetime } = require("../utils");
->>>>>>> khanhduy
+
 // them ho dan
 hodanRouter.post("/them", async (req, res) => {
   const {
@@ -467,10 +463,9 @@ hodanRouter.get("/dsdonhang/:hodanId", async (req, res) => {
   }
 });
 
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 // bao cao don hang
-=======
+
 // ds don hang thuoc ho dan
 hodanRouter.get("/dsdonhang/:hodanId", async (req, res) => {
   try {
@@ -743,9 +738,7 @@ hodanRouter.put("/baocao", upload.single("hinhanh"), async (req, res) => {
     res.send({ message: error.message, success: false });
   }
 });
->>>>>>> bbf5b29963d128c09b482ee7239901ce78c4a2b8
 
-=======
 // ho dan xac nhan don hang
 hodanRouter.put("/xacnhandh/:hodanId/:donhangId", async (req, res) => {
   try {
@@ -992,5 +985,5 @@ hodanRouter.get("/dsnglhuloi/:hodanId", async (req, res) => {
     res.send({ message: error.message, success: false });
   }
 });
->>>>>>> khanhduy
+
 module.exports = hodanRouter;
