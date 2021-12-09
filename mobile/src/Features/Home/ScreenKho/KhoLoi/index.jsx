@@ -23,7 +23,7 @@ function KhoLoi(props) {
       ? setData(dataLoi.vattu)
       : setData(dataLoi.nguyenlieu);
   }, []);
-  console.log(dataLoi, data);
+  // console.log(dataLoi, data);
   return (
     <View style={styles.container}>
       {data && (
